@@ -1,0 +1,14 @@
+C:\Users\Belsai\source\repos\AutomataCelular\AutomataCelular\bin\Debug\netcoreapp3.1\AutomataCelular.exe
+C:\Users\Belsai\source\repos\AutomataCelular\AutomataCelular\bin\Debug\netcoreapp3.1\AutomataCelular.deps.json
+C:\Users\Belsai\source\repos\AutomataCelular\AutomataCelular\bin\Debug\netcoreapp3.1\AutomataCelular.runtimeconfig.json
+C:\Users\Belsai\source\repos\AutomataCelular\AutomataCelular\bin\Debug\netcoreapp3.1\AutomataCelular.runtimeconfig.dev.json
+C:\Users\Belsai\source\repos\AutomataCelular\AutomataCelular\bin\Debug\netcoreapp3.1\AutomataCelular.dll
+C:\Users\Belsai\source\repos\AutomataCelular\AutomataCelular\bin\Debug\netcoreapp3.1\AutomataCelular.pdb
+C:\Users\Belsai\source\repos\AutomataCelular\AutomataCelular\obj\Debug\netcoreapp3.1\AutomataCelular.csproj.AssemblyReference.cache
+C:\Users\Belsai\source\repos\AutomataCelular\AutomataCelular\obj\Debug\netcoreapp3.1\AutomataCelular.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Belsai\source\repos\AutomataCelular\AutomataCelular\obj\Debug\netcoreapp3.1\AutomataCelular.AssemblyInfoInputs.cache
+C:\Users\Belsai\source\repos\AutomataCelular\AutomataCelular\obj\Debug\netcoreapp3.1\AutomataCelular.AssemblyInfo.cs
+C:\Users\Belsai\source\repos\AutomataCelular\AutomataCelular\obj\Debug\netcoreapp3.1\AutomataCelular.csproj.CoreCompileInputs.cache
+C:\Users\Belsai\source\repos\AutomataCelular\AutomataCelular\obj\Debug\netcoreapp3.1\AutomataCelular.dll
+C:\Users\Belsai\source\repos\AutomataCelular\AutomataCelular\obj\Debug\netcoreapp3.1\AutomataCelular.pdb
+C:\Users\Belsai\source\repos\AutomataCelular\AutomataCelular\obj\Debug\netcoreapp3.1\AutomataCelular.genruntimeconfig.cache

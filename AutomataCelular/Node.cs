@@ -10,7 +10,7 @@ namespace AutomataCelular
         public int distance;
         public Node pi;
         public string color;
-        public Cell cell;
+        //public Cell cell;
         public Pos pos;
         public string type;
         public Node(int name, Pos pos, string type)
@@ -47,17 +47,32 @@ namespace AutomataCelular
         {
             //verfificar que no exista ya este nodo
             nodes.Add(node);
+            ady_list.Add(new List<Node>());
         }
         public void AddEdge(Edge edge)
         {
-            //verificar que no exista ya esta arista
-            edges.Add(edge);
+            //verificar que ya el nodo no este en la  lista dde adyacencia del otro nodo
+            if (FindEdge(edge.left_node, edge.right_node) == null)
+            {
+                edges.Add(edge);
+                ady_list[edge.left_node.name].Add(edge.right_node);
+                ady_list[edge.right_node.name].Add(edge.left_node);
+            }
         }
         public Node FindNode(int x, int y)
         {
             for (int i = 0; i < nodes.Count; i++)
             {
                 if (nodes[i].pos.X == x && nodes[i].pos.Y == y) return nodes[i];
+            }
+            return null;
+        }
+        public Edge FindEdge(Node node1, Node node2)
+        {
+            foreach (Edge edge in edges)
+            {
+                if ((edge.left_node.name == node1.name && edge.right_node.name == node2.name) || (edge.left_node.name == node2.name && edge.right_node.name == node2.name))
+                    return edge;
             }
             return null;
         }
