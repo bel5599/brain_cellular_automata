@@ -5,12 +5,14 @@ using System.Timers;
 
 namespace AutomataCelular
 {
+    //VAMOS DEJAR POR AHORA LO DE LAS POSICIONES, DESPUES LA ARREGLAMOS
+    //VAMOS A HACER LA PARTE DE HACER CRECER EL TUMOR
     class Program
     {
         private static System.Timers.Timer aTimer;
 
         public static int time = 0;
-        public static int distance = 20;
+        public static int distance = 40;
         public static int limit_of_x = 40;
         public static int limit_of_y = 40;
 
@@ -19,6 +21,7 @@ namespace AutomataCelular
         public static List<StemCell> stem_cell_list = new List<StemCell>();
         public static Dictionary<Cell, Stack<Node>> node_path_dic = new Dictionary<Cell, Stack<Node>>();
 
+        //VARIABLES PARA VER EL ERROR
         public static Dictionary<Cell, List<Node>> node_path_draw_dic = new Dictionary<Cell, List<Node>>();
         public static Cell actual_cell = null;
 
@@ -67,6 +70,8 @@ namespace AutomataCelular
             
         }
 
+        
+
         private static void SetTimer()
         {
             aTimer = new System.Timers.Timer(2000);
@@ -79,31 +84,77 @@ namespace AutomataCelular
         public static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
             if (EmptyPath()) return;
-            
+
             //Console.Clear();
+
+            Console.WriteLine("Empieza de nuevo");
+            Drawwww();
+
+            List<Cell> cell_without_path = new List<Cell>();
+
             
             foreach (Cell cell in node_path_dic.Keys)
             {
-                //DrawList(node_path_dic);
+                
                 if (node_path_dic[cell].Count != 0)
                 {
                     Console.WriteLine("Posiciones");
                     Console.WriteLine("{0}", matrix[cell.pos.X, cell.pos.Y]);
 
-                    Node node = node_path_dic[cell].Pop();
-                    matrix[cell.pos.X, cell.pos.Y] = null;
+                    Node n = node_path_dic[cell].Peek();
+                    if (matrix[n.pos.X, n.pos.Y] == null)
+                    {
+                        Node node = node_path_dic[cell].Pop();
+                        matrix[cell.pos.X, cell.pos.Y] = null;
 
-                    Console.WriteLine("Se supone que aqui no debe de haber nada");
-                    Console.WriteLine("{0}", matrix[node.pos.X, node.pos.Y]);
+                        Console.WriteLine("Se supone que aqui no debe de haber nada");
+                        Console.WriteLine("{0}", matrix[node.pos.X, node.pos.Y]);
 
-                    cell.pos = node.pos;
-                    matrix[node.pos.X, node.pos.Y] = cell;
+                        cell.pos = node.pos;
+                        matrix[node.pos.X, node.pos.Y] = cell;
+                    }
+                    else
+                        cell_without_path.Add(cell);
                 }
             }
             Draw();
+            Clear_Stack(cell_without_path);
 
             Console.WriteLine(e.SignalTime);
             Console.WriteLine(tumor_cell_list.Count);
+        }
+
+        public static void Clear_Stack(List<Cell> cell_list)
+        {
+            foreach (Cell item in cell_list)
+            {
+                WhithOutPath(item, node_path_dic[item].Peek());
+            }
+        }
+
+        public static void WhithOutPath(Cell cell, Node node)
+        {
+            foreach (Cell item in node_path_dic.Keys)
+            {
+                if(node_path_dic[item].Count == 0 && item.pos.X == node.pos.X && item.pos.Y == node.pos.Y)
+                {
+                    Console.WriteLine("Posicion ocupada {0} {1}", node.pos.X, node.pos.Y);
+                    node_path_dic[cell] = new Stack<Node>();
+                    return;
+                }
+            }
+        }
+
+        public static void Drawwww()
+        {
+            foreach (Cell item in node_path_draw_dic.Keys)
+            {
+                foreach (Node node in node_path_draw_dic[item])
+                {
+                    Console.WriteLine("Node {0}, {1}", node.pos.X, node.pos.Y);
+                }
+                Console.WriteLine();
+            }
         }
 
         public static bool EmptyPath()
@@ -145,13 +196,6 @@ namespace AutomataCelular
 
         }
 
-        //public static void DrawPath()
-        //{
-        //    for (int i = 0; i < length; i++)
-        //    {
-
-        //    }
-        //}
 
         public static void StartCellularLifeInTheBrain()
         {
@@ -295,6 +339,7 @@ namespace AutomataCelular
             {
                 path.Push(node);
 
+                //LINEA PARA VER EL ERROR
                 node_path_draw_dic[actual_cell].Add(node);
 
                 //path_list.Add(node);
