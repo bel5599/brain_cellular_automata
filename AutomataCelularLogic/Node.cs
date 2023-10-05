@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace AutomataCelular
+namespace AutomataCelularLogic
 {
-    class Node
+    public class Node
     {
         public int name;
         public int distance;
@@ -20,7 +22,7 @@ namespace AutomataCelular
             this.type = type;
         }
     }
-    class Edge
+    public class Edge
     {
         public Node left_node;
         public Node right_node;
@@ -31,7 +33,7 @@ namespace AutomataCelular
         }
     }
 
-    class Graph
+    public class Graph
     {
         public List<Node> nodes;
         public List<Edge> edges;

@@ -1,0 +1,6 @@
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\AutomataCelularLogic.pdb
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\obj\Debug\AutomataCelularLogic.csproj.AssemblyReference.cache
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\obj\Debug\AutomataCelularLogic.csproj.CoreCompileInputs.cache
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\obj\Debug\AutomataCelularLogic.pdb
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\AutomataCelularLogic.exe
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\obj\Debug\AutomataCelularLogic.exe
