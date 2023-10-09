@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Artery.cs" />
     <Compile Include="Behavior.cs" />
     <Compile Include="Cell.cs" />
     <Compile Include="EnvironmentLogic.cs" />
@@ -52,6 +53,8 @@
     <Compile Include="Probability.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sphere.cs" />
+    <Compile Include="Tumor.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

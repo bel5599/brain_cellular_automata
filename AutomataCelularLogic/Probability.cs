@@ -8,7 +8,7 @@ namespace AutomataCelularLogic
 {
     public abstract class Probability
     {
-        public abstract float DivideProbability(Pos pos, List<int[]> mov3d, Dictionary<Pos, Cell> pos_cell_dict, int radio, int distance);
+        public abstract float DivisionProbability(Pos pos, List<int[]> mov3d, Dictionary<Pos, Cell> pos_cell_dict, int radio, int distance);
     }
 
     public class ClassicProbability: Probability
@@ -18,7 +18,7 @@ namespace AutomataCelularLogic
 
         }
 
-        public override float DivideProbability(Pos pos, List<int[]> mov3d, Dictionary<Pos, Cell> pos_cell_dict, int radio, int distance)
+        public override float DivisionProbability(Pos pos, List<int[]> mov3d, Dictionary<Pos, Cell> pos_cell_dict, int radio, int distance)
         {
             int free_pos_count = 14;
             for (int i = 0; i < mov3d.Count; i++)
@@ -33,17 +33,22 @@ namespace AutomataCelularLogic
 
             return free_pos_count/14 * distance/radio;
         }
+
+        public float ProbabilityOfContaminatingAstrocyte()
+        {
+            return 0f;
+        }
     }
     public class MediumProbability : Probability
     {
-        public override float DivideProbability(Pos pos, List<int[]> mov3d, Dictionary<Pos, Cell> pos_cell_dict, int radio, int distance)
+        public override float DivisionProbability(Pos pos, List<int[]> mov3d, Dictionary<Pos, Cell> pos_cell_dict, int radio, int distance)
         {
             throw new NotImplementedException();
         }
     }
     public class HardProbability : Probability
     {
-        public override float DivideProbability(Pos pos, List<int[]> mov3d, Dictionary<Pos, Cell> pos_cell_dict, int radio, int distance)
+        public override float DivisionProbability(Pos pos, List<int[]> mov3d, Dictionary<Pos, Cell> pos_cell_dict, int radio, int distance)
         {
             throw new NotImplementedException();
         }
