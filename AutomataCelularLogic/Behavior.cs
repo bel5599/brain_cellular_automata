@@ -33,4 +33,9 @@ namespace AutomataCelularLogic
 
         }
     }
+
+    public class Astrocyte: Behavior
+    {
+
+    }
 }

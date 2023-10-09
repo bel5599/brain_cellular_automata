@@ -26,6 +26,15 @@ namespace AutomataCelularLogic
 
         //public static List<Cell> cell_list = new List<Cell>();
 
+        public static List<Sphere> sphere_list = new List<Sphere>();
+
+        public static Dictionary<Cell, Sphere> sphere_cell_dict = new Dictionary<Cell, Sphere>();
+
+        //esta lista debe tener las celulas que no estan en ninguna esfera
+        public static List<Cell> cells_without_sphere = new List<Cell>();
+
+        public static List<Cell> cells_center_of_the_sphere_list = new List<Cell>();
+
         public static List<Cell> stem_cell_list = new List<Cell>();
         //public static Dictionary<Cell, Stack<Node>> node_path_dic = new Dictionary<Cell, Stack<Node>>();
 
@@ -35,11 +44,11 @@ namespace AutomataCelularLogic
 
         //public static Cell[,] matrix = new Cell[limit_of_x, limit_of_y];
 
-        public static Graph graph;
+        //public static Graph graph;
 
         //public static Timer aTimer;
 
-        List<Node> path_list = new List<Node>();
+        //List<Node> path_list = new List<Node>();
 
 
         static Random rdm = new Random();
@@ -54,22 +63,30 @@ namespace AutomataCelularLogic
         {
             //console.writeline("hello world");
 
-            Console.WriteLine("Hello World");
+            //Console.WriteLine("Hello World");
 
             Simulation();
 
-            for (int i = 0; i < tumor_cell_list.Count; i++)
-            {
-                Console.WriteLine("{0} {1} {2}", tumor_cell_list[i].pos.X, tumor_cell_list[i].pos.Y, tumor_cell_list[i].pos.Z);
-            }
-            Console.WriteLine("Finito");
 
-            //for (int i = 0; i < cell_list.Count; i++)
+
+            //for (int i = 0; i < tumor_cell_list.Count; i++)
             //{
-            //    Console.WriteLine("{0} {1} {2}", cell_list[i].pos.X, cell_list[i].pos.Y, cell_list[i].pos.Z);
+            //    Console.WriteLine("{0} {1} {2}", tumor_cell_list[i].pos.X, tumor_cell_list[i].pos.Y, tumor_cell_list[i].pos.Z);
+            //}
+            //Console.WriteLine("Finito");
+            Console.WriteLine("Esferas");
+            foreach (var item in sphere_cell_dict)
+            {
+                Console.WriteLine(item.Value.radio);
+            }
+            Console.ReadLine();
+
+            //for (int i = 0; i < cells_without_sphere.Count; i++)
+            //{
+            //    Console.WriteLine("{0} {1} {2}", cells_without_sphere[i].pos.X, cells_without_sphere[i].pos.Y, cells_without_sphere[i].pos.Z);
             //}
 
-            Console.ReadLine();
+
 
             //settimer();
             //console.readline();
@@ -115,7 +132,13 @@ namespace AutomataCelularLogic
             {
                 time++;
                 CellMove();
+                //Console.WriteLine("Lista");
+                Console.WriteLine(cells_without_sphere.Count);
+
             }
+            Console.WriteLine("Termine");
+            
+            //Console.ReadLine();
 
             //GenerateGraph();
 
@@ -301,12 +324,16 @@ namespace AutomataCelularLogic
                 int y = tumor_stem_cell.pos.Y;
                 int z = tumor_stem_cell.pos.Z;
 
-                Pos pos = GetRandomPosition(x - tumoral_cell_radio, x + tumoral_cell_radio, y - tumoral_cell_radio, y + tumoral_cell_radio, z - tumoral_cell_radio, z + tumoral_cell_radio);
-                if(!ExistentPosition(tumor_cell_list, pos, true)) 
+                Pos pos = null;
+
+                do
                 {
-                    tumor_cell_list[i].des_pos = pos;
-                    pos_cell_dict.Add(pos, tumor_cell_list[i]);
+                    pos = GetRandomPosition(x - tumoral_cell_radio, x + tumoral_cell_radio, y - tumoral_cell_radio, y + tumoral_cell_radio, z - tumoral_cell_radio, z + tumoral_cell_radio);
                 }
+                while (ExistentPosition(tumor_cell_list, pos, true));
+
+                tumor_cell_list[i].des_pos = pos;
+                pos_cell_dict.Add(pos, tumor_cell_list[i]);
 
                 //while (index < pos_dict.Count && pos_dict[index].Count == 0)
                 //{
@@ -328,6 +355,8 @@ namespace AutomataCelularLogic
                 pos_cell_dict.Remove(cell.pos);
                 cell.pos = cell.des_pos;
                 cell.cell_behavior = new TumorCellBehavior();
+                cells_center_of_the_sphere_list.Add(cell);
+                cells_without_sphere.Add(cell);
                 //cell_list.Add(new Cell(cell.des_pos, new TumorCellBehavior()));
             }
         }
@@ -602,8 +631,11 @@ namespace AutomataCelularLogic
                 if(tumor_cell_list[i].actual_action == CellActions.division)
                 {
                     Cell cell = CellDivision(tumor_cell_list[i]);
-                    if(cell != null)
+                    if (cell != null)
+                    {
                         cell_div_list.Add(cell);
+                        pos_cell_dict.Add(cell.pos, cell);
+                    }
                 }
 
             }
@@ -613,6 +645,98 @@ namespace AutomataCelularLogic
                 Console.WriteLine("{0} {1} {2}", cell_div_list[i].pos.X, cell_div_list[i].pos.Y, cell_div_list[i].pos.Z);
             }
             tumor_cell_list.AddRange(cell_div_list);
+            cells_without_sphere.AddRange(cell_div_list);
+            FormationOfSpheres();
+            
+            
+        }
+
+        public static void FormationOfSpheres()
+        {
+            //int radio_1_count = 0;
+            //int radio_2_count = 0;
+
+            List<Cell> radio_1_cells = new List<Cell>();
+            List<Cell> radio_2_cells = new List<Cell>();
+
+            foreach (Cell cell in cells_center_of_the_sphere_list)
+            {
+                int radio_1_count = 0;
+                int radio_2_count = 0;
+                if (sphere_cell_dict.ContainsKey(cell))
+                {
+                    int count = 0;
+                    int count2 = 0;
+                    List<Cell> cell_list = new List<Cell>();
+                    List<Cell> cell_list2 = new List<Cell>();
+                    int radio = sphere_cell_dict[cell].radio;
+
+                    //Sphere sphere = sphere_cell_dict[cell];
+
+                    foreach (var key_value in pos_cell_dict)
+                    {
+                        if (EuclideanDistance(key_value.Key, cell.pos) == (radio + 1))
+                        {
+                            count++;
+                            cell_list.Add(key_value.Value);
+                        }
+                        else if (EuclideanDistance(key_value.Key, cell.pos) == (radio + 2))
+                        {
+                            count2++;
+                            cell_list2.Add(key_value.Value);
+                        }
+                    }
+                    if (count2 >= 10)
+                    {
+                        cell_list.AddRange(cell_list2);
+                        sphere_cell_dict[cell].radio = radio + 1;
+                        sphere_cell_dict[cell].cell_list.AddRange(cell_list);
+                        //sphere_cell_dict[cell].cell_list.AddRange(cell_list2);
+                        foreach (Cell item in cell_list)
+                            cells_without_sphere.Remove(item);
+                    }
+                    else if (count >= 10)
+                    {
+                        sphere_cell_dict[cell].radio = radio + 1;
+                        sphere_cell_dict[cell].cell_list.AddRange(cell_list);
+                        foreach (Cell item in cell_list)
+                            cells_without_sphere.Remove(item);
+
+                        //Sphere sphere2 = sphere_cell_dict[cell];
+                        //Console.WriteLine("Vamos a ver si dos esferas son iguales aunque cambie el radio");
+                        //Console.WriteLine(sphere==sphere2);
+                    }
+                }
+                else
+                {
+                    foreach (var key_value in pos_cell_dict)
+                    {
+                        if (EuclideanDistance(key_value.Key, cell.pos) == 1)
+                        {
+                            radio_1_count++;
+                            radio_1_cells.Add(key_value.Value);
+                        }
+                        else if (EuclideanDistance(key_value.Key, cell.pos) == 2)
+                        {
+                            radio_2_count++;
+                            radio_2_cells.Add(key_value.Value);
+                        }
+                    }
+                    if (radio_2_count >= 10)
+                    {
+                        radio_1_cells.AddRange(radio_2_cells);
+                        sphere_cell_dict.Add(cell, new Sphere(2, radio_1_cells));
+                        foreach (Cell item in radio_1_cells)
+                            cells_without_sphere.Remove(item);
+                    }
+                    else if (radio_1_count >= 10)
+                    {
+                        sphere_cell_dict.Add(cell, new Sphere(2, radio_1_cells));
+                        foreach (Cell item in radio_1_cells)
+                            cells_without_sphere.Remove(item);
+                    }
+                }
+            }
         }
 
         //Esto deberia ser un metodo interno de la clase
@@ -637,7 +761,8 @@ namespace AutomataCelularLogic
                 var array = mov_3d[p];
                 Pos pos = new Pos(cell.pos.X + array[0], cell.pos.Y + array[1], cell.pos.Z + array[2]);
 
-                if (!ExistentPosition(tumor_cell_list, pos, false))
+                //!ExistentPosition(tumor_cell_list, pos, false)
+                if (!pos_cell_dict.ContainsKey(pos))
                 {
                     new_pos = true;
                     float prob = cell.move_prob.DivideProbability(cell.pos, mov_3d, pos_cell_dict, tumoral_cell_radio, EuclideanDistance(tumor_stem_cell.pos, cell.pos));

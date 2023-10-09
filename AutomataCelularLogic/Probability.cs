@@ -31,7 +31,7 @@ namespace AutomataCelularLogic
                     free_pos_count--;
             }
 
-            return free_pos_count/14 + distance/radio;
+            return free_pos_count/14 * distance/radio;
         }
     }
     public class MediumProbability : Probability
