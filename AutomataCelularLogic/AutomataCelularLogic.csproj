@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action.cs" />
     <Compile Include="Artery.cs" />
     <Compile Include="Behavior.cs" />
     <Compile Include="Cell.cs" />

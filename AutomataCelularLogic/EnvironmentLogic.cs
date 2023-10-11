@@ -28,9 +28,18 @@ namespace AutomataCelularLogic
         //VARIABLES QUE TIENE QUE VER CON LAS CELULAS
         public static List<Cell> tumor_cell_list = new List<Cell>(); //CAMBIARLE EL NOMBRE A LA LISTA
         public static List<Cell> stem_cell_list = new List<Cell>();
+        public static List<Cell> astrocyte_cell_list = new List<Cell>();
+        public static List<Cell> endothelial_cell_list = new List<Cell>();
         //public static List<Cell> cell_list = new List<Cell>();
 
+        //VARIABLES RELACIONADAS CON LOS VASOS SANGUINEOS
+        public static List<Artery> artery_list = new List<Artery>();
+ 
         public static Dictionary<Pos, Cell> pos_cell_dict = new Dictionary<Pos, Cell>();
+
+        //LISTA RELACIONADAS CON LAS ACCIONES DE LAS CELULAS EN CADA INSTANTE DE TIEMPO
+        public static Dictionary<Pos, Pos> contaminate_dict = new Dictionary<Pos, Pos>();
+        public static Dictionary<Pos, Pos> division_dict = new Dictionary<Pos, Pos>();
 
         //VARIBALES QUE TIENEN QUE VER CON EL TUMOR
         public static int tumoral_cell_radio = 5;
@@ -45,18 +54,13 @@ namespace AutomataCelularLogic
         public static List<Cell> cells_without_sphere = new List<Cell>();
         public static List<Cell> cells_center_of_the_sphere_list = new List<Cell>();
 
-
         //public static Timer aTimer;
-
 
         //public static int stem_cells_count = rdm.Next(0, 15);
 
         public static int stem_cells_count = 15;
         public static int astrocytes_count = 20;
-
-        
-        
-
+        public static int blood_vessels_count = 10;
 
         static void Main(string[] args)
         {
@@ -66,8 +70,6 @@ namespace AutomataCelularLogic
 
             Simulation();
 
-
-
             Console.WriteLine("Esferas");
             foreach (var item in sphere_cell_dict)
             {
@@ -75,16 +77,7 @@ namespace AutomataCelularLogic
             }
             Console.ReadLine();
 
-            //settimer();
-            //console.readline();
-
-            //atimer.stop();
-            //atimer.dispose();
-
-            //console.writeline("terminating the application...");
         }
-
-        
 
         public static void Simulation()
         {
@@ -102,145 +95,15 @@ namespace AutomataCelularLogic
             while (time != 10)
             {
                 time++;
-                CellMove();
+                UpdateActions();
                 //Console.WriteLine("Lista");
                 Console.WriteLine(cells_without_sphere.Count);
 
             }
             Console.WriteLine("Termine");
             
-            //Console.ReadLine();
-
-            //GenerateGraph();
-
-            //StemCellPath();
-
-
         }
 
-        //private static void SetTimer()
-        //{
-        //    aTimer = new System.Timers.Timer(2000);
-
-        //    aTimer.Elapsed += OnTimedEvent;
-        //    aTimer.AutoReset = true;
-        //    aTimer.Enabled = true;
-        //}
-
-        //public static void OnTimedEvent(Object source, ElapsedEventArgs e)
-        //{
-        //    if (EmptyPath()) return;
-
-        //    //Console.Clear();
-
-        //    //Console.WriteLine("Empieza de nuevo");
-        //    //Drawwww();
-
-        //    List<Cell> cell_without_path = new List<Cell>();
-
-
-        //    foreach (Cell cell in node_path_dic.Keys)
-        //    {
-
-        //        if (node_path_dic[cell].Count != 0)
-        //        {
-        //            //Console.WriteLine("Posiciones");
-        //            //Console.WriteLine("{0}", matrix[cell.pos.X, cell.pos.Y]);
-
-        //            Node n = node_path_dic[cell].Peek();
-        //            if (matrix[n.pos.X, n.pos.Y] == null)
-        //            {
-        //                Node node = node_path_dic[cell].Pop();
-        //                //matrix[cell.pos.X, cell.pos.Y] = null;
-
-        //                //Console.WriteLine("Se supone que aqui no debe de haber nada");
-        //                //Console.WriteLine("{0}", matrix[node.pos.X, node.pos.Y]);
-
-        //                cell.pos = node.pos;
-        //                //matrix[node.pos.X, node.pos.Y] = cell;
-        //            }
-        //            else
-        //                cell_without_path.Add(cell);
-        //        }
-        //    }
-        //    //Draw();
-        //    Clear_Stack(cell_without_path);
-
-        //    Console.WriteLine(e.SignalTime);
-        //    Console.WriteLine(tumor_cell_list.Count);
-        //}
-
-        //public static void Clear_Stack(List<Cell> cell_list)
-        //{
-        //    foreach (Cell item in cell_list)
-        //    {
-        //        WhithOutPath(item, node_path_dic[item].Peek());
-        //    }
-        //}
-
-        //public static void WhithOutPath(Cell cell, Node node)
-        //{
-        //    foreach (Cell item in node_path_dic.Keys)
-        //    {
-        //        if (node_path_dic[item].Count == 0 && item.pos.X == node.pos.X && item.pos.Y == node.pos.Y)
-        //        {
-        //            Console.WriteLine("Posicion ocupada {0} {1}", node.pos.X, node.pos.Y);
-        //            node_path_dic[cell] = new Stack<Node>();
-        //            return;
-        //        }
-        //    }
-        //}
-
-        //public static void Drawwww()
-        //{
-        //    foreach (Cell item in node_path_draw_dic.Keys)
-        //    {
-        //        foreach (Node node in node_path_draw_dic[item])
-        //        {
-        //            Console.WriteLine("Node {0}, {1}", node.pos.X, node.pos.Y);
-        //        }
-        //        Console.WriteLine();
-        //    }
-        //}
-
-        //public static bool EmptyPath()
-        //{
-        //    foreach (var item in node_path_dic.Values)
-        //    {
-        //        if (item.Count != 0) return false;
-        //    }
-        //    return true;
-        //}
-
-        //public static void Draw()
-        //{
-        //    for (int i = 0; i < matrix.GetLength(0); i++)
-        //    {
-        //        for (int j = 0; j < matrix.GetLength(1); j++)
-        //        {
-        //            if (matrix[i, j] == null)
-        //                Console.Write("  |");
-        //            else if (matrix[i, j] is StemCell)
-        //                Console.Write("CC |");
-        //            else
-        //                Console.Write("CT |");
-        //        }
-        //        Console.WriteLine();
-        //        Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------");
-        //    }
-        //}
-        //public static void StemCellPath()
-        //{
-        //    for (int i = 0; i < tumor_cell_list.Count; i++)
-        //    {
-        //        node_path_draw_dic.Add(tumor_cell_list[i], new List<Node>());
-        //        actual_cell = tumor_cell_list[i];
-
-        //        node_path_dic.Add(tumor_cell_list[i], Path(tumor_cell_list[i].pos, tumor_cell_list[i].des_pos));
-        //    }
-
-
-        //}
 
         public static void StartCellularLifeInTheBrain()
         {
@@ -251,6 +114,12 @@ namespace AutomataCelularLogic
 
             //Crear las celulas madres pluripotencial
             CreateStemCells();
+
+            CreateBloodVessels();
+
+            UpdateActions();
+
+            ExecuteActions();
 
             //HACER!!!!!!!!!!!!!!!!!!!!!!!!!!
             //Crear las celulas astrocitos, pericitos, etc
@@ -281,20 +150,68 @@ namespace AutomataCelularLogic
                 pos_cell_dict.Add(new_pos, stem_cell_list[stem_cell_list.Count - 1]);
             }
         }
-        public static void CreateAstrocyteCell()
+        public static Cell CreateAstrocyteCell()
         {
-            for (int i = 0; i < astrocytes_count; i++)
-            {
-                Pos new_pos;
-                do
-                {
-                    new_pos = Utils.GetRandomPosition(0, limit_of_x, 0, limit_of_y, 0, limit_of_z);
-                }
-                while (pos_cell_dict.ContainsKey(new_pos)); //ARREGLAR ESTO
+            //for (int i = 0; i < astrocytes_count; i++)
+            //{
 
-                //cell_list.Add(new Cell(new_pos, new AstrocyteCellBehavior(null), new ClassicProbability()));
-                pos_cell_dict.Add(new_pos, stem_cell_list[stem_cell_list.Count - 1]);
+            Pos new_pos;
+            do
+            {
+                new_pos = Utils.GetRandomPosition(0, limit_of_x, 0, limit_of_y, 0, limit_of_z);
             }
+            while (pos_cell_dict.ContainsKey(new_pos)); //ARREGLAR ESTO
+
+            Cell cell = new Cell(new_pos, new AstrocyteCellBehavior(), new ClassicProbability());
+            astrocyte_cell_list.Add(cell);
+            pos_cell_dict.Add(new_pos, cell);
+            return cell;
+        }
+
+        public static Cell CreateEndothelialCell()
+        {
+            Pos new_pos;
+            do
+            {
+                new_pos = Utils.GetRandomPosition(0, limit_of_x, 0, limit_of_y, 0, limit_of_z);
+            }
+            while (pos_cell_dict.ContainsKey(new_pos));
+
+            Cell cell = new Cell(new_pos, new EndothelialCellBehavior(), new ClassicProbability());
+            endothelial_cell_list.Add(cell);
+            pos_cell_dict.Add(new_pos, cell);
+            return cell;
+        }
+
+        
+        public static void CreateBloodVessels()
+        {
+            for (int i = 0; i < blood_vessels_count; i++)
+            {
+                int r = Utils.rdm.Next(0, 2);
+                Cell astrocyte;
+                if (r == 1)
+                {
+                    astrocyte = CreateAstrocyteCell();
+
+                    Pos pos = Utils.GetAdjacentPosition(astrocyte.pos, pos_cell_dict);
+                    if (pos != null)
+                    {
+                        Cell endothelial_cell = new Cell(pos, new EndothelialCellBehavior(), new ClassicProbability());
+                        endothelial_cell_list.Add(endothelial_cell);
+                        pos_cell_dict.Add(pos, astrocyte);
+
+                        artery_list.Add(new Artery(endothelial_cell.pos, astrocyte, endothelial_cell));
+                    }
+                    //VAMOS ASUMIR POR AHORA QUE QUE LA VARIBALE ASTROCITO ES DISTINTO DE NULL Y QUE EXISTE UNA POSICION ADYACENTE
+                }
+                else
+                {
+                    Cell endothelial_cell = CreateEndothelialCell();
+                    artery_list.Add(new Artery(endothelial_cell.pos, null, endothelial_cell));
+                }
+            }
+            
         }
 
         #region Surgimiento
@@ -315,10 +232,6 @@ namespace AutomataCelularLogic
         //HAY QUE ARREGLAR PARA QUE EXISTAN LAS MISMAS CANTIDAD DE POSICIONES QUE DE CELULAS QUE SE VAN ACERCAR
         public static void PathFromCellsToTumorCell()
         {
-            //tumor_cell_list
-            //Dictionary<int, List<Pos>> pos_dict = GetCloserPositionToTheTumorCell(tumor_stem_cell.pos, tumor_cell_list.Count);
-            //int index = 0;
-
             for (int i = 0; i < tumor_cell_list.Count; i++)
             {
                 int x = tumor_stem_cell.pos.X;
@@ -336,15 +249,6 @@ namespace AutomataCelularLogic
                 tumor_cell_list[i].des_pos = pos;
                 pos_cell_dict.Add(pos, tumor_cell_list[i]);
 
-                //while (index < pos_dict.Count && pos_dict[index].Count == 0)
-                //{
-                //    index++;
-                //}
-
-                //Pos actual_pos = MinDistance(pos_dict[index], tumor_cell_list[i].pos);
-                //tumor_cell_list[i].des_pos = actual_pos;
-                //pos_dict[index].Remove(actual_pos);
-                //matrix[tumor_cell_list[i].pos.X, tumor_cell_list[i].pos.Y] = tumor_cell_list[i];
             }
 
         }
@@ -364,166 +268,6 @@ namespace AutomataCelularLogic
             }
         }
 
-        //HAY QUE GUARDAR EN ALGUN LADO SI ESA POSICION ESTA SIENDO UTILIZADA
-        
-
-        //HAY QUE BUSCAR OTRA FORMA DE CREAR LAS ARISTAS
-        //public static void GenerateGraph()
-        //{
-        //    graph = new Graph();
-        //    int count = 0;
-        //    for (int i = 0; i < matrix.GetLength(0); i++)
-        //    {
-        //        for (int j = 0; j < matrix.GetLength(1); j++)
-        //        {
-        //            if (matrix[i, j] != null)
-        //                graph.AddNode(new Node(count, new Pos(i, j), "celula"));
-        //            else
-        //                graph.AddNode(new Node(count, new Pos(i, j), "vacio"));
-        //            count++;
-        //        }
-        //    }
-
-        //    GenerateEdges();
-        //}
-
-        //ARREGLAR ESTO, DEBE SER MAS EFICIENTE
-        //public static void GenerateEdges()
-        //{
-        //    for (int i = 0; i < matrix.GetLength(0); i++)
-        //    {
-        //        for (int j = 0; j < matrix.GetLength(1); j++)
-        //        {
-        //            object c = matrix[i, j];
-        //            for (int k = 0; k < mov.GetLength(1); k++)
-        //            {
-        //                if(ValidPosition(i + mov[0,k], j + mov[1, k]))
-        //                {
-        //                    graph.AddEdge(new Edge(graph.FindNode(i, j), graph.FindNode(i + mov[0, k], j + mov[1, k])));
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-        //HAY QUE BUSCAR LA POSICION MAS CERCANA A LA POSICION DE LA CELULA QUE SE VA ACERCAR
-
-        //public static Stack<Node> Path(Pos init_pos, Pos des_pos)
-        //{
-        //    BFS(graph, graph.FindNode(init_pos.X, init_pos.Y));
-        //    Node node = graph.FindNode(des_pos.X, des_pos.Y);
-
-        //    Stack<Node> path = new Stack<Node>();
-
-
-        //    while(node.pos.X != init_pos.X && node.pos.Y != init_pos.Y)
-        //    {
-        //        path.Push(node);
-
-        //        //LINEA PARA VER EL ERROR
-        //        node_path_draw_dic[actual_cell].Add(node);
-
-        //        //path_list.Add(node);
-
-        //        node = node.pi;
-        //    }
-        //    return path;
-        //}
-
-
-        //public static void BFS(Graph g, Node s)
-        //{
-        //    foreach (var node in g.nodes)
-        //    {
-        //        node.color = "white";
-        //        node.distance = int.MaxValue;
-        //        node.pi = null;
-        //    }
-        //    s.color = "gray";
-        //    s.distance = 0;
-        //    s.pi = null;
-
-        //    Queue<Node> queue = new Queue<Node>();
-        //    queue.Enqueue(s);
-
-        //    while(queue.Count != 0)
-        //    {
-        //        Node u = queue.Dequeue();
-        //        if (matrix[u.pos.X, u.pos.Y] == null || u == s)
-        //        {
-        //            foreach (Node v in g.ady_list[u.name])
-        //            {
-        //                if (v.color == "white")
-        //                {
-        //                    v.color = "gray";
-        //                    v.distance = u.distance + 1;
-        //                    v.pi = u;
-        //                    queue.Enqueue(v);
-        //                }
-        //            }
-        //            u.color = "black";
-        //        }
-
-        //    }
-        //}
-
-
-        //ARREGLAR PARA OBTENER POSICIONES CON NUMEROS FLOTANTES
-        //public static Dictionary<int, List<Pos>> GetCloserPositionToTheTumorCell(Pos cell_tumor_position, int cells_count)
-        //{
-        //    Pos actual_pos = cell_tumor_position;
-        //    //List<Pos> pos_list = new List<Pos>();
-        //    Dictionary<int, List<Pos>> pos_dict = new Dictionary<int, List<Pos>>();
-        //    pos_dict.Add(0, new List<Pos>());
-
-        //    int index = 0;
-        //    int count = 0;
-
-        //    while (count < cells_count)
-        //    {
-        //        for (int i = 0; i < mov_3d.Count; i++)
-        //        {
-        //            var array = mov_3d[i];
-        //            //actual_pos = new Pos(actual_pos.X + array[0], actual_pos.Y + array[1], actual_pos.Z + array[2]);
-        //            if (!ExistentPos(pos_dict, actual_pos.X + array[0], actual_pos.Y + array[1], actual_pos.Z + array[2]))
-        //            {
-        //                pos_dict[index].Add(new Pos(actual_pos.X + array[0], actual_pos.Y + array[1], actual_pos.Z + array[2]));
-        //                count++;
-        //                //VERFICAR SI LA POSICION NO ESTA OCUPADA
-
-
-        //            }
-        //        }
-        //        actual_pos = GetPos(pos_dict, index);
-        //        index++;
-        //        pos_dict.Add(index, new List<Pos>());
-        //    }
-        //    return pos_dict;
-        //}
-
-        //public static void DrawList(Dictionary<int, List<Pos>> dict)
-        //{
-        //    foreach (int key in dict.Keys)
-        //    {
-        //        for (int j = 0; j < dict[key].Count; j++)
-        //        {
-        //            Console.Write("{0}, {1}; ", dict[key][j].X, dict[key][j].Y, dict[key][j].Z);
-        //        }
-        //        Console.WriteLine();
-        //    }
-        //}
-
-        //CAMBIARLE EL NOMBRE AL METODO
-
-        //Cambiar el nombre al metodo
-        //public static bool ExistentPosition(Pos pos)
-        //{
-        //    foreach (var cell in stem_cell_list)
-        //    {
-        //        if (cell.pos.X == pos.X && cell.pos.Y == pos.Y && cell.pos.Z == pos.Z)
-        //            return true;
-        //    }
-        //    return false;
-        //}
 
         public static bool ExistentPosition(List<Cell> cell_list, Pos pos, bool des_pos)
         {
@@ -544,88 +288,101 @@ namespace AutomataCelularLogic
             return false;
         }
 
-        //public static bool ExistentPosition(List<Cell> cell_list, Pos pos)
-        //{
-        //    foreach (Cell cell in cell_list)
-        //    {
-        //        if (cell.pos != null && cell.pos.X == pos.X && cell.pos.Y == pos.Y && cell.pos.Z == pos.Z) return true;
-        //    }
-        //    return false;
-        //}
-        
-        
-        //public static Pos GetPos(Dictionary<int, List<Pos>> pos_dict, int index)
-        //{
-        //    int count = 0;
-
-        //    //Console.WriteLine("Index");
-        //    //Console.WriteLine(index);
-
-        //    while (index >= pos_dict[count].Count)
-        //    {
-        //        index -= pos_dict[count].Count;
-        //        count++;
-        //    }
-        //    //Console.WriteLine(index);
-        //    return pos_dict[count][index];
-        //}
-        //public static bool ExistentPos(Dictionary<int, List<Pos>> pos_dict, int x, int y, int z)
-        //{
-        //    foreach (List<Pos> item in pos_dict.Values)
-        //    {
-        //        foreach (Pos pos in item)
-        //            if (pos.X == x && pos.Y == y && pos.Z == z) return true;
-        //    }
-
-        //    return tumor_stem_cell.pos.X == x && tumor_stem_cell.pos.Y == y && tumor_stem_cell.pos.Z == z;
-        //}
-
-        //public static bool ValidPosition(int x, int y)
-        //{
-        //    return x >= 0 && y >= 0 && x < matrix.GetLength(0) && y < matrix.GetLength(1);
-        //}
-        //public static bool ValidPosition(Pos pos)
-        //{
-        //    return false;
-        //}
-        
-
         #endregion
 
         #region Grow up
-
-        public static void CellMove()
+        public static void ExecuteActions()
         {
-            List<Cell> list = tumor.AddNewTumorCells(pos_cell_dict);
-            AddPositionsToTheDictionary();
-            cells_without_sphere.AddRange(list);
+            foreach (Cell cell in tumor.cell_list)
+            {
+                cell.actual_action.Execute();
+            }
+        }
+
+        public static void UpdateActions()
+        {
+            foreach (Cell cell in tumor.cell_list)
+            {
+                Tuple<List<Pos>, List<Cell>> pos_cell_tuple = AvailablePositions(cell);
+                List<Pos> available_positions = pos_cell_tuple.Item1;
+                List<Cell> available_cell_list = pos_cell_tuple.Item2;
+
+                if (available_positions.Count == 0 && available_cell_list.Count == 0)
+                    cell.actual_action = new NothingAction();
+                else if (available_positions.Count > 0)
+                {
+                    //ARREGLAR ESTO
+                    float prob = cell.move_prob.MigrateProbability(cell.pos, tumor);
+
+                    if (prob >= 0.5)
+                        cell.actual_action = new Migrate();
+                    else
+                    {
+                        if (cell.move_prob.DivisionProbability(cell.pos, pos_cell_dict, tumoral_cell_radio, distance) > cell.move_prob.ContamineProbability(cell.pos))
+                        {
+                            int r = Utils.rdm.Next(0, available_positions.Count);
+
+                            cell.actual_action = new Division(tumor, cell, available_positions[r]);
+                        }
+                        else
+                        {
+                            int r = Utils.rdm.Next(0, available_cell_list.Count);
+                            cell.actual_action = new Contaminate(tumor, cell, available_cell_list[r]);
+                        }
+                    }
+
+                }
+                else
+                {
+                    int r = Utils.rdm.Next(0, available_positions.Count);
+
+                    //PODEMOS HALLAR LA PROBABILIDAD PARA CONTAMINAR CIERTA CELULA O SIMPLEMENTE LA CONTAMINA Y YA ESTA
+                    //ESTO
+
+                    //float prob = cell.move_prob.ContaminateProbability(cell.pos, pos_cell_dict[available_positions[r]]);
+                    //if (prob >= 0.5)
+                    //    cell.actual_action = CellActions.Contaminate;
+
+                    //AGREGAR PARA CUANDO LA PROBABILIDAD DA MENOS DE 0.5. QUE HACER?
+
+                    //O ESTO
+                    cell.actual_action = new Contaminate(tumor, cell, available_cell_list[r]);
+                }
+            }
+                
+            //List<Cell> list = tumor.AddNewTumorCells(pos_cell_dict);
+            //AddPositionsToTheDictionary();
+            //cells_without_sphere.AddRange(list);
             FormationOfSpheres();
 
-            //List<Cell> cell_div_list = new List<Cell>();
+        }
+        public static bool EmptyPositions(List<Pos> pos_list)
+        {
+            for (int i = 0; i < pos_list.Count; i++)
+            {
+                if (!pos_cell_dict.ContainsKey(pos_list[i])) return true;
+            }
+            return false;
+        }
 
-            //for (int i = 0; i < tumor_cell_list.Count; i++)
-            //{
-            //    tumor_cell_list[i].actual_action = CellAction(tumor_cell_list[i]);
-            //    if(tumor_cell_list[i].actual_action == CellActions.division)
-            //    {
-            //        Cell cell = CellDivision(tumor_cell_list[i]);
-            //        if (cell != null)
-            //        {
-            //            cell_div_list.Add(cell);
-            //            pos_cell_dict.Add(cell.pos, cell);
-            //        }
-            //    }
+        public static Tuple<List<Pos>, List<Cell>> AvailablePositions(Cell cell)
+        {
 
-            //}
-            //Console.WriteLine("Nueva lista");
-            //for (int i = 0; i < cell_div_list.Count; i++)
-            //{
-            //    Console.WriteLine("{0} {1} {2}", cell_div_list[i].pos.X, cell_div_list[i].pos.Y, cell_div_list[i].pos.Z);
-            //}
-            //tumor_cell_list.AddRange(cell_div_list);
-
-
-
+            List<Pos> available_positions = new List<Pos>();
+            List<Cell> cell_list = new List<Cell>();
+            for (int i = 0; i < Utils.mov_3d.Count; i++)
+            {
+                int[] array = Utils.mov_3d[i];
+                Pos pos = new Pos(cell.pos.X + array[0], cell.pos.Y + array[1], cell.pos.Z + array[2]);
+                if (Utils.ValidPosition(pos))
+                {
+                    if (!pos_cell_dict.ContainsKey(pos))
+                        available_positions.Add(pos);
+                    else if(pos_cell_dict.ContainsKey(pos) && !(pos_cell_dict[pos].cell_behavior is TumorCellBehavior))
+                        cell_list.Add(pos_cell_dict[pos]);
+                }
+            }
+            return new Tuple<List<Pos>, List<Cell>>(available_positions, cell_list);
         }
 
         public static void AddPositionsToTheDictionary()
@@ -730,42 +487,10 @@ namespace AutomataCelularLogic
         {
             CellActions action = new CellActions();
             //action = (CellActions)rdm.Next(0, 3);
-            action = CellActions.division;
+            action = CellActions.Division;
             return action;
         }
 
-        //public static Cell CellDivision(Cell cell)
-        //{
-        //    bool new_pos = false;
-
-        //    //VERIFICAR QUE AUNQUE SEA EXISTE ALGUNA POSICION ADYACENTE VACIA
-
-        //    while (!new_pos)
-        //    {
-        //        int p = Utils.rdm.Next(0, Utils.mov_3d.Count);
-
-        //        var array = Utils.mov_3d[p];
-        //        Pos pos = new Pos(cell.pos.X + array[0], cell.pos.Y + array[1], cell.pos.Z + array[2]);
-
-        //        //!ExistentPosition(tumor_cell_list, pos, false)
-        //        if (!pos_cell_dict.ContainsKey(pos))
-        //        {
-        //            new_pos = true;
-        //            float prob = cell.move_prob.DivisionProbability(cell.pos, Utils.mov_3d, pos_cell_dict, tumoral_cell_radio, Utils.EuclideanDistance(tumor_stem_cell.pos, cell.pos));
-        //            if(prob >= 0.5)
-        //            {
-        //                return new Cell(pos, new TumorCellBehavior(), new ClassicProbability());
-        //            }
-        //            return null;
-                    
-        //            //Aplicar una probabilidad para dividirse a una posicion x
-        //        }
-        //    }
-        //    return null;
-        //}
-
-
-        
         public static void CellMigrate(Cell cell)
         {
             

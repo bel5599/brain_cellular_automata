@@ -66,5 +66,24 @@ namespace AutomataCelularLogic
 
             return d;
         }
+
+        public static Pos GetAdjacentPosition(Pos pos, Dictionary<Pos, Cell> pos_cell_dict)
+        {
+            Pos new_pos;
+            for (int i = 0; i < mov_3d.Count; i++)
+            {
+                int[] array = mov_3d[i];
+                new_pos = new Pos(pos.X + array[0], pos.Y + array[1], pos.Z + array[2]);
+
+                if (!pos_cell_dict.ContainsKey(new_pos))
+                    return new_pos;
+            }
+            return null;
+        }
+
+        public static bool ValidPosition(Pos pos)
+        {
+            return pos.X >= 0 && pos.X < EnvironmentLogic.limit_of_x && pos.Y >= 0 && pos.Y < EnvironmentLogic.limit_of_y && pos.Z >= 0 && pos.Z < EnvironmentLogic.limit_of_z;
+        }
     }
 }

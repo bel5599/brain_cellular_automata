@@ -8,22 +8,23 @@ namespace AutomataCelularLogic
 {
     public enum CellActions
     {
-        division,
-        contaminate,
-        nothing
+        Division,
+        Contaminate,
+        Migrate,
+        Nothing
     }
     public class Cell
     {
         public Pos pos;
         public Pos des_pos;
-        public CellActions actual_action;
+        public Action actual_action;
         public Behavior cell_behavior;
         public Probability move_prob;
         public Cell(Pos pos, Behavior cell_behavior, Probability move_prob)
         {
             this.pos = pos;
             des_pos = null;
-            actual_action = new CellActions();
+            actual_action = new NothingAction();
             this.cell_behavior = cell_behavior;
             this.move_prob = move_prob;
         }
@@ -45,7 +46,7 @@ namespace AutomataCelularLogic
                     if (!pos_cell_dict.ContainsKey(new_position))
                     {
                         new_pos = true;
-                        float prob = move_prob.DivisionProbability(pos, Utils.mov_3d, pos_cell_dict, tumoral_cell_radio, Utils.EuclideanDistance(tumor_stem_cell.pos, pos));
+                        float prob = move_prob.DivisionProbability(pos, pos_cell_dict, tumoral_cell_radio, Utils.EuclideanDistance(tumor_stem_cell.pos, pos));
                         if (prob >= 0.5)
                         {
                             return pos;
@@ -58,5 +59,6 @@ namespace AutomataCelularLogic
             }
             return null;
         }
+
     }
 }

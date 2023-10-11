@@ -8,14 +8,31 @@ namespace AutomataCelularLogic
 {
     public class Artery
     {
-        Artery next;
-        Artery before;
-        List<Cell> astrocyte_list;
-        List<Layer> layer_list;
-        List<Cell> endothelial_list;
-        public Artery()
-        {
+        public Pos pos;
 
+        public Artery next;
+        public Artery before;
+
+        public Cell astrocyte;
+        public List<Layer> layer_list;
+        public Cell endothelial_cell;
+        public Artery(Pos pos, Cell astrocyte, Cell endothelial)
+        {
+            if (astrocyte != null)
+                this.astrocyte = astrocyte;
+            else
+                this.astrocyte = null;
+
+            endothelial_cell = endothelial;
+
+            //this.before = before;
+            this.pos = pos;
+            //this.astrocyte = astrocyte;
+
+            layer_list.Add(new GlialBasalLamina());
+            layer_list.Add(new VascularBasalLamina());
+            layer_list.Add(new SmoothVesselCells(5));
+            layer_list.Add(new EndothelialBasalLamina());
         }
     }
     public abstract class Layer

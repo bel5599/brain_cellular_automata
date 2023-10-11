@@ -37,20 +37,20 @@ namespace AutomataCelularLogic
     public class AstrocyteCellBehavior: Behavior
     {
         public Artery artery;
-        public AstrocyteCellBehavior(Artery artery)
+        public AstrocyteCellBehavior(/*Artery artery*/)
         {
-            this.artery = artery;
+            //this.artery = artery;
         }
     }
 
     public class TumorAstrocyteCellBehavior : AstrocyteCellBehavior
     {
-        public TumorAstrocyteCellBehavior(Artery artery) : base(artery)
+        public TumorAstrocyteCellBehavior(/*Artery artery*/) : base()
         {
         }
 
     }
-    public class EndothelialCellBehavios: Behavior
+    public class EndothelialCellBehavior: Behavior
     {
 
     }

@@ -24,6 +24,7 @@ namespace AutomataCelularLogic
     {
         public Cell ini_cell;
         public List<Cell> cell_list;
+        public List<Cell> migra_list;
         public VascularizationMechanism vasc_mecha;
         public TumosStage tumor_stage;
 
@@ -42,6 +43,7 @@ namespace AutomataCelularLogic
         {
             ini_cell = cell;
             cell_list = new List<Cell>();
+            migra_list = new List<Cell>();
             tumor_stage = TumosStage.Avascular;
             vasc_mecha = VascularizationMechanism.InitialGrowth;
 
@@ -64,7 +66,7 @@ namespace AutomataCelularLogic
                 //OBTENER UNA POSICION ALEATORIA EN LA LISTA DE CELULAS
                 int i = Utils.rdm.Next(0, cell_list.Count);
 
-                cell_list[i].actual_action = CellActions.division;
+                cell_list[i].actual_action = CellActions.Division;
                 Pos pos = cell_list[i].Division(pos_cell_dict, radio, ini_cell);
 
                 if (pos != null)
