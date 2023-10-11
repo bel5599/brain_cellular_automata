@@ -6,12 +6,22 @@ using System.Threading.Tasks;
 
 namespace AutomataCelularLogic
 {
-    public enum CellActions
+    //public enum CellActions
+    //{
+    //    Division,
+    //    Contaminate,
+    //    Migrate,
+    //    Nothing
+    //}
+    public enum LocationStatus
     {
-        Division,
-        Contaminate,
-        Migrate,
-        Nothing
+        SmoothVesselCells_time1,
+        SmoothVesselCells_time2,
+        SmoothVesselCells_time3,
+        GlialBasalLamina,
+        VascularBasalLamina,
+        EndothelialBasalLamina,
+        MatrixExtracelular
     }
     public class Cell
     {
@@ -20,13 +30,15 @@ namespace AutomataCelularLogic
         public Action actual_action;
         public Behavior cell_behavior;
         public Probability move_prob;
-        public Cell(Pos pos, Behavior cell_behavior, Probability move_prob)
+        public LocationStatus loca_status;
+        public Cell(Pos pos, Behavior cell_behavior, Probability move_prob, LocationStatus loca_status)
         {
             this.pos = pos;
             des_pos = null;
             actual_action = new NothingAction();
             this.cell_behavior = cell_behavior;
             this.move_prob = move_prob;
+            this.loca_status = loca_status;
         }
 
         public Pos Division(Dictionary<Pos, Cell> pos_cell_dict, int tumoral_cell_radio, Cell tumor_stem_cell)

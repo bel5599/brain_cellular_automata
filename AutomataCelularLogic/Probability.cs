@@ -12,6 +12,10 @@ namespace AutomataCelularLogic
         public abstract float MigrateProbability(Pos pos, Tumor tumor);
         public abstract float ContaminateProbability(Pos pos, Cell cell);
         public abstract float ContamineProbability(Pos pos);
+        public abstract float ProbabilityOfBreakingDownTheGlialBasalLamina();
+        public abstract float ProbabilityOfBreakingDownTheVascularBasalLamina();
+        public abstract float ProbabilityOfBreakingDownTheEndothelialBasalLamina();
+        public abstract float ProbabilityOfBreakingDownTheSmoothVesselCells();
     }
 
     public class ClassicProbability: Probability
@@ -56,6 +60,25 @@ namespace AutomataCelularLogic
             return 0f;
         }
 
+        public override float ProbabilityOfBreakingDownTheGlialBasalLamina()
+        {
+            return 0f;
+        }
+
+        public override float ProbabilityOfBreakingDownTheVascularBasalLamina()
+        {
+            return 0f;
+        }
+
+        public override float ProbabilityOfBreakingDownTheEndothelialBasalLamina()
+        {
+            return 0f;
+        }
+
+        public override float ProbabilityOfBreakingDownTheSmoothVesselCells()
+        {
+            return 0f;
+        }
 
         public float ProbabilityOfContaminatingAstrocyte()
         {
@@ -83,6 +106,26 @@ namespace AutomataCelularLogic
         {
             throw new NotImplementedException();
         }
+
+        public override float ProbabilityOfBreakingDownTheEndothelialBasalLamina()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override float ProbabilityOfBreakingDownTheGlialBasalLamina()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override float ProbabilityOfBreakingDownTheSmoothVesselCells()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override float ProbabilityOfBreakingDownTheVascularBasalLamina()
+        {
+            throw new NotImplementedException();
+        }
     }
     public class HardProbability : Probability
     {
@@ -101,6 +144,26 @@ namespace AutomataCelularLogic
         }
 
         public override float ContamineProbability(Pos pos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override float ProbabilityOfBreakingDownTheGlialBasalLamina()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override float ProbabilityOfBreakingDownTheVascularBasalLamina()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override float ProbabilityOfBreakingDownTheEndothelialBasalLamina()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override float ProbabilityOfBreakingDownTheSmoothVesselCells()
         {
             throw new NotImplementedException();
         }

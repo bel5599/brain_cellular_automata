@@ -64,18 +64,18 @@ namespace AutomataCelularLogic
             while(new_cells > 0)
             {
                 //OBTENER UNA POSICION ALEATORIA EN LA LISTA DE CELULAS
-                int i = Utils.rdm.Next(0, cell_list.Count);
+                //int i = Utils.rdm.Next(0, cell_list.Count);
 
-                cell_list[i].actual_action = CellActions.Division;
-                Pos pos = cell_list[i].Division(pos_cell_dict, radio, ini_cell);
+                //cell_list[i].actual_action = CellActions.Division;
+                //Pos pos = cell_list[i].Division(pos_cell_dict, radio, ini_cell);
 
-                if (pos != null)
-                {
-                    Cell cell = new Cell(pos, new TumorCellBehavior(), new ClassicProbability());
-                    cell_list.Add(cell);
-                    cell_div_list.Add(cell);
-                    new_cells--;
-                }
+                //if (pos != null)
+                //{
+                //    Cell cell = new Cell(pos, new TumorCellBehavior(), new ClassicProbability());
+                //    cell_list.Add(cell);
+                //    cell_div_list.Add(cell);
+                //    new_cells--;
+                //}
             }
             return cell_div_list;
         }

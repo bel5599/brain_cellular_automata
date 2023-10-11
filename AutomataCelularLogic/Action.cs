@@ -25,7 +25,7 @@ namespace AutomataCelularLogic
 
         public override void Execute()
         {
-            Cell cell = new Cell(pos, new TumorCellBehavior(), new ClassicProbability());
+            Cell cell = new Cell(pos, new TumorCellBehavior(), new ClassicProbability(), LocationStatus.MatrixExtracelular);
             tumor.cell_list.Add(cell);
             EnvironmentLogic.pos_cell_dict.Add(pos, cell);
             EnvironmentLogic.cells_without_sphere.Add(cell);
@@ -50,6 +50,61 @@ namespace AutomataCelularLogic
                 cont_cell.cell_behavior = new TumorAstrocyteCellBehavior();
                 tumor.cell_list.Add(cont_cell);
                 EnvironmentLogic.cells_without_sphere.Add(cont_cell);
+            }
+            else if(cont_cell.cell_behavior is EndothelialCellBehavior)
+            {
+                if(cont_cell.loca_status == LocationStatus.MatrixExtracelular)
+                {
+                    float prob = cont_cell.move_prob.ProbabilityOfBreakingDownTheGlialBasalLamina();
+                    if(prob >= 0.5)
+                    {
+                        cont_cell.loca_status = LocationStatus.GlialBasalLamina;
+                    }
+                }
+                else if(cont_cell.loca_status == LocationStatus.GlialBasalLamina)
+                {
+                    float prob = cont_cell.move_prob.ProbabilityOfBreakingDownTheVascularBasalLamina();
+                    if(prob >= 0.5)
+                    {
+                        cont_cell.loca_status = LocationStatus.VascularBasalLamina;
+                    }
+                }
+                else if(cont_cell.loca_status == LocationStatus.VascularBasalLamina)
+                {
+                    float prob = cont_cell.move_prob.ProbabilityOfBreakingDownTheSmoothVesselCells();
+                    if (prob >= 0.5)
+                    {
+                        cont_cell.loca_status = LocationStatus.SmoothVesselCells_time1;
+                    }
+                }
+                else if(cont_cell.loca_status == LocationStatus.SmoothVesselCells_time1)
+                {
+                    float prob = cont_cell.move_prob.ProbabilityOfBreakingDownTheSmoothVesselCells();
+                    if (prob >= 0.5)
+                    {
+                        cont_cell.loca_status = LocationStatus.SmoothVesselCells_time2;
+                    }
+                }
+                else if (cont_cell.loca_status == LocationStatus.SmoothVesselCells_time2)
+                {
+                    float prob = cont_cell.move_prob.ProbabilityOfBreakingDownTheSmoothVesselCells();
+                    if (prob >= 0.5)
+                    {
+                        cont_cell.loca_status = LocationStatus.SmoothVesselCells_time3;
+                    }
+                }
+                else if(cont_cell.loca_status == LocationStatus.SmoothVesselCells_time3)
+                {
+                    float prob = cont_cell.move_prob.ProbabilityOfBreakingDownTheEndothelialBasalLamina();
+                    if(prob >= 0.5)
+                    {
+                        cont_cell.loca_status = LocationStatus.EndothelialBasalLamina;
+                    }
+                }
+                else if(cont_cell.loca_status == LocationStatus.EndothelialBasalLamina)
+                {
+                    //AQUI YA ESTA DENTRO DEL VASO SANGUINEO
+                }
             }
         }
     }

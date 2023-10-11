@@ -127,7 +127,7 @@ namespace AutomataCelularLogic
 
         public static void StartTumoraCell()
         {
-            tumor_stem_cell = new Cell(new Pos(15, 15, 15), new TumorCellBehavior(), new ClassicProbability());
+            tumor_stem_cell = new Cell(new Pos(15, 15, 15), new TumorCellBehavior(), new ClassicProbability(), LocationStatus.MatrixExtracelular);
         }
 
         public static void CreateTumor()
@@ -146,7 +146,7 @@ namespace AutomataCelularLogic
                 }
                 while (pos_cell_dict.ContainsKey(new_pos)); //ARREGLAR ESTO
 
-                stem_cell_list.Add(new Cell(new_pos, new StemCellBehavior(), new ClassicProbability()));
+                stem_cell_list.Add(new Cell(new_pos, new StemCellBehavior(), new ClassicProbability(), LocationStatus.MatrixExtracelular));
                 pos_cell_dict.Add(new_pos, stem_cell_list[stem_cell_list.Count - 1]);
             }
         }
@@ -162,7 +162,7 @@ namespace AutomataCelularLogic
             }
             while (pos_cell_dict.ContainsKey(new_pos)); //ARREGLAR ESTO
 
-            Cell cell = new Cell(new_pos, new AstrocyteCellBehavior(), new ClassicProbability());
+            Cell cell = new Cell(new_pos, new AstrocyteCellBehavior(), new ClassicProbability(), LocationStatus.GlialBasalLamina);
             astrocyte_cell_list.Add(cell);
             pos_cell_dict.Add(new_pos, cell);
             return cell;
@@ -177,7 +177,7 @@ namespace AutomataCelularLogic
             }
             while (pos_cell_dict.ContainsKey(new_pos));
 
-            Cell cell = new Cell(new_pos, new EndothelialCellBehavior(), new ClassicProbability());
+            Cell cell = new Cell(new_pos, new EndothelialCellBehavior(), new ClassicProbability(), LocationStatus.EndothelialBasalLamina);
             endothelial_cell_list.Add(cell);
             pos_cell_dict.Add(new_pos, cell);
             return cell;
@@ -197,7 +197,7 @@ namespace AutomataCelularLogic
                     Pos pos = Utils.GetAdjacentPosition(astrocyte.pos, pos_cell_dict);
                     if (pos != null)
                     {
-                        Cell endothelial_cell = new Cell(pos, new EndothelialCellBehavior(), new ClassicProbability());
+                        Cell endothelial_cell = new Cell(pos, new EndothelialCellBehavior(), new ClassicProbability(), LocationStatus.EndothelialBasalLamina);
                         endothelial_cell_list.Add(endothelial_cell);
                         pos_cell_dict.Add(pos, astrocyte);
 
@@ -483,13 +483,13 @@ namespace AutomataCelularLogic
         }
 
         //Esto deberia ser un metodo interno de la clase
-        public static CellActions CellAction(Cell cell)
-        {
-            CellActions action = new CellActions();
-            //action = (CellActions)rdm.Next(0, 3);
-            action = CellActions.Division;
-            return action;
-        }
+        //public static CellActions CellAction(Cell cell)
+        //{
+        //    CellActions action = new CellActions();
+        //    //action = (CellActions)rdm.Next(0, 3);
+        //    action = CellActions.Division;
+        //    return action;
+        //}
 
         public static void CellMigrate(Cell cell)
         {
