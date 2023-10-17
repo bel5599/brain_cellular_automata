@@ -51,11 +51,17 @@ namespace AutomataCelularLogic
                 tumor.cell_list.Add(cont_cell);
                 EnvironmentLogic.cells_without_sphere.Add(cont_cell);
             }
+            else if(cont_cell.cell_behavior is NeuronCellBehavior)
+            {
+                cont_cell.cell_behavior = new TumorNeuronCellBehavior();
+                tumor.cell_list.Add(cont_cell);
+                EnvironmentLogic.cells_without_sphere.Add(cont_cell);
+            }
             else if(cont_cell.cell_behavior is EndothelialCellBehavior)
             {
                 if(cont_cell.loca_status == LocationStatus.MatrixExtracelular)
                 {
-                    float prob = cont_cell.move_prob.ProbabilityOfBreakingDownTheGlialBasalLamina();
+                    float prob = cont_cell.move_prob.ProbabilityOfBreakingDownTheGlialBasalLamina(cont_cell.pos);
                     if(prob >= 0.5)
                     {
                         cont_cell.loca_status = LocationStatus.GlialBasalLamina;
@@ -63,7 +69,7 @@ namespace AutomataCelularLogic
                 }
                 else if(cont_cell.loca_status == LocationStatus.GlialBasalLamina)
                 {
-                    float prob = cont_cell.move_prob.ProbabilityOfBreakingDownTheVascularBasalLamina();
+                    float prob = cont_cell.move_prob.ProbabilityOfBreakingDownTheVascularBasalLamina(cont_cell.pos);
                     if(prob >= 0.5)
                     {
                         cont_cell.loca_status = LocationStatus.VascularBasalLamina;
@@ -71,7 +77,7 @@ namespace AutomataCelularLogic
                 }
                 else if(cont_cell.loca_status == LocationStatus.VascularBasalLamina)
                 {
-                    float prob = cont_cell.move_prob.ProbabilityOfBreakingDownTheSmoothVesselCells();
+                    float prob = cont_cell.move_prob.ProbabilityOfBreakingDownTheSmoothVesselCells(cont_cell.pos);
                     if (prob >= 0.5)
                     {
                         cont_cell.loca_status = LocationStatus.SmoothVesselCells_time1;
@@ -79,7 +85,7 @@ namespace AutomataCelularLogic
                 }
                 else if(cont_cell.loca_status == LocationStatus.SmoothVesselCells_time1)
                 {
-                    float prob = cont_cell.move_prob.ProbabilityOfBreakingDownTheSmoothVesselCells();
+                    float prob = cont_cell.move_prob.ProbabilityOfBreakingDownTheSmoothVesselCells(cont_cell.pos);
                     if (prob >= 0.5)
                     {
                         cont_cell.loca_status = LocationStatus.SmoothVesselCells_time2;
@@ -87,7 +93,7 @@ namespace AutomataCelularLogic
                 }
                 else if (cont_cell.loca_status == LocationStatus.SmoothVesselCells_time2)
                 {
-                    float prob = cont_cell.move_prob.ProbabilityOfBreakingDownTheSmoothVesselCells();
+                    float prob = cont_cell.move_prob.ProbabilityOfBreakingDownTheSmoothVesselCells(cont_cell.pos);
                     if (prob >= 0.5)
                     {
                         cont_cell.loca_status = LocationStatus.SmoothVesselCells_time3;
@@ -95,7 +101,7 @@ namespace AutomataCelularLogic
                 }
                 else if(cont_cell.loca_status == LocationStatus.SmoothVesselCells_time3)
                 {
-                    float prob = cont_cell.move_prob.ProbabilityOfBreakingDownTheEndothelialBasalLamina();
+                    float prob = cont_cell.move_prob.ProbabilityOfBreakingDownTheEndothelialBasalLamina(cont_cell.pos);
                     if(prob >= 0.5)
                     {
                         cont_cell.loca_status = LocationStatus.EndothelialBasalLamina;

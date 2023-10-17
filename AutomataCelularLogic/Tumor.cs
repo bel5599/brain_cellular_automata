@@ -35,6 +35,8 @@ namespace AutomataCelularLogic
         public int initial_population;
         public int actual_population;
 
+        public int new_cells_count;
+
         public int radio;
 
         public int time;
@@ -54,33 +56,34 @@ namespace AutomataCelularLogic
             this.initial_population = initial_population;
             actual_population = this.initial_population;
             this.time = 0;
+            new_cells_count = 0;
         }
 
-        public List<Cell> AddNewTumorCells(Dictionary<Pos, Cell> pos_cell_dict)
-        {
-            int new_cells = VerhulstEquation();
-            List<Cell> cell_div_list = new List<Cell>();
+        //public List<Cell> AddNewTumorCells(Dictionary<Pos, Cell> pos_cell_dict)
+        //{
+        //    VerhulstEquation();
+        //    List<Cell> cell_div_list = new List<Cell>();
 
-            while(new_cells > 0)
-            {
-                //OBTENER UNA POSICION ALEATORIA EN LA LISTA DE CELULAS
-                //int i = Utils.rdm.Next(0, cell_list.Count);
+        //    while(new_cells > 0)
+        //    {
+        //        //OBTENER UNA POSICION ALEATORIA EN LA LISTA DE CELULAS
+        //        //int i = Utils.rdm.Next(0, cell_list.Count);
 
-                //cell_list[i].actual_action = CellActions.Division;
-                //Pos pos = cell_list[i].Division(pos_cell_dict, radio, ini_cell);
+        //        //cell_list[i].actual_action = CellActions.Division;
+        //        //Pos pos = cell_list[i].Division(pos_cell_dict, radio, ini_cell);
 
-                //if (pos != null)
-                //{
-                //    Cell cell = new Cell(pos, new TumorCellBehavior(), new ClassicProbability());
-                //    cell_list.Add(cell);
-                //    cell_div_list.Add(cell);
-                //    new_cells--;
-                //}
-            }
-            return cell_div_list;
-        }
+        //        //if (pos != null)
+        //        //{
+        //        //    Cell cell = new Cell(pos, new TumorCellBehavior(), new ClassicProbability());
+        //        //    cell_list.Add(cell);
+        //        //    cell_div_list.Add(cell);
+        //        //    new_cells--;
+        //        //}
+        //    }
+        //    return cell_div_list;
+        //}
 
-        public int VerhulstEquation()
+        public void VerhulstEquation()
         {
             double loading_capacity;
 
@@ -88,7 +91,11 @@ namespace AutomataCelularLogic
                 loading_capacity = avascular_carrying_capacity;
             else loading_capacity = vascular_carrying_capacity;
 
-            return (int)(growth_rate * actual_population * (1 - actual_population / loading_capacity));
+            new_cells_count = (int)(growth_rate * actual_population * (1 - actual_population / loading_capacity));
+        }
+        public void UpdateNewCellCount()
+        {
+            new_cells_count--;
         }
     }
 }

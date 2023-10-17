@@ -42,6 +42,18 @@ namespace AutomataCelularLogic
             //this.artery = artery;
         }
     }
+    public class NeuronCellBehavior: Behavior
+    {
+        public NeuronCellBehavior()
+        {
+
+        }
+    }
+    
+    public class TumorNeuronCellBehavior : NeuronCellBehavior
+    {
+
+    }
 
     public class TumorAstrocyteCellBehavior : AstrocyteCellBehavior
     {

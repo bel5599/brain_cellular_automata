@@ -6,7 +6,7 @@ using AutomataCelularLogic;
 public class Environment : MonoBehaviour
 {
     [SerializeField]
-    Transform TumoralCellPrefab, StemCellPrefab, TumoralSpherePrefab;
+    Transform TumoralCellPrefab, StemCellPrefab, TumoralSpherePrefab, NeuronPrefab, AstrocytePrefab, ArteryPrefab;
 
     //Transform target;
     public float speed;
@@ -15,7 +15,13 @@ public class Environment : MonoBehaviour
     bool is_over = false;
     int count = 6;
 
-    Dictionary<Cell, Transform> cell_list;
+    Dictionary<Cell, Transform> cell_dict;
+
+    Dictionary<Cell, Transform> astrocyte_list;
+    Dictionary<Cell, Transform> neuron_list;
+    Dictionary<Artery, Transform> artery_list;
+
+
     Dictionary<Cell, Transform> tumoral_cell_list;
     Dictionary<Sphere, Transform> sphere_list;
     //List<Transform> cell_list;
@@ -30,34 +36,125 @@ public class Environment : MonoBehaviour
 
         //EnvironmentLogic env = new EnvironmentLogic();
 
-        EnvironmentLogic.InitializeVariables();
+        Utils.InitializeVariables();
 
         EnvironmentLogic.StartCellularLifeInTheBrain();
-        
 
-        tumoralCell = Instantiate(TumoralCellPrefab);
-        tumoralCell.localPosition = new Vector3(EnvironmentLogic.tumor_stem_cell.pos.X, EnvironmentLogic.tumor_stem_cell.pos.Y, EnvironmentLogic.tumor_stem_cell.pos.Z);
 
-        Debug.Log(EnvironmentLogic.stem_cell_list.Count);
+        MoveVectorsToTumoralCell();
 
-        cell_list = new Dictionary<Cell, Transform>();
+        //Debug.Log(EnvironmentLogic.stem_cell_list.Count);
+
+
+        InitializeLists();
+
+        CreateCellTransform(EnvironmentLogic.stem_cell_list, StemCellPrefab, cell_dict);
+        CreateCellTransform(EnvironmentLogic.astrocyte_cell_list, AstrocytePrefab, astrocyte_list);
+        CreateCellTransform(EnvironmentLogic.neuron_cell_list, NeuronPrefab, neuron_list);
+
+        CreateArteryTransform();
+
+        //EnvironmentLogic.GetCellsThatSenseTheTumorSubstance();
+        //EnvironmentLogic.PathFromCellsToTumorCell();
+
+
+        //UpdateTumorCellTransforms();
+    }
+
+    void Update()
+    {
+        //if (!is_over)
+        //    MoveCellsToTumor();
+
+        //is_over = true;
+        //foreach (var item in tumoral_cell_list)
+        //{
+        //    Pos pos1 = null;
+
+        //    if (item.Key.des_pos != null)
+        //        pos1 = item.Key.des_pos;
+        //    else
+        //        pos1 = item.Key.pos;
+
+        //    var pos2 = item.Value.localPosition;
+
+        //    if (pos1.X != pos2.x || pos1.Y != pos2.y || pos1.Z != pos2.z)
+        //        is_over = false;
+        //}
+
+        //if (is_over)
+        //{
+        //    if (!is_over_conver)
+        //    {
+        //        EnvironmentLogic.StemCellConvertToTumoralCell();
+        //        is_over_conver = true;
+        //    }
+        //    //int time = 0;
+        //    //while (time != 10)
+        //    //{
+        //    //    time++;
+        //    while (count != 0)
+        //    {
+        //        count--;
+        //        Debug.Log("Estoy en el ciclo");
+        //        Debug.Log(count);
+
+        //        SphereDraw();
+
+        //        CellDraw();
+
+        //        //Invoke("SphereDraw", 7);
+
+
+        //        //Invoke("CellDraw", 5); 
+        //    }
+        //}
+
+
+    }
+
+    void InitializeLists()
+    {
+        cell_dict = new Dictionary<Cell, Transform>();
         tumoral_cell_list = new Dictionary<Cell, Transform>();
         sphere_list = new Dictionary<Sphere, Transform>();
+        astrocyte_list = new Dictionary<Cell, Transform>();
+        neuron_list = new Dictionary<Cell, Transform>();
+        artery_list = new Dictionary<Artery, Transform>();
+    }
 
-        foreach (Cell cell in EnvironmentLogic.stem_cell_list)
+    void MoveVectorsToTumoralCell()
+    {
+        tumoralCell = Instantiate(TumoralCellPrefab);
+        tumoralCell.localPosition = new Vector3(EnvironmentLogic.tumor_stem_cell.pos.X, EnvironmentLogic.tumor_stem_cell.pos.Y, EnvironmentLogic.tumor_stem_cell.pos.Z);
+    }
+
+    void CreateArteryTransform()
+    {
+        foreach (Artery artery in EnvironmentLogic.artery_list)
         {
-            Transform stemCell = Instantiate(StemCellPrefab);
-            stemCell.localPosition = new Vector3(cell.pos.X, cell.pos.Y, cell.pos.Z);
-            cell_list.Add(cell, stemCell);
+            Transform artery_transform = Instantiate(ArteryPrefab);
+            artery_transform.localPosition = new Vector3(artery.pos.X, artery.pos.Y, artery.pos.Z);
+            artery_list.Add(artery, artery_transform);
         }
+    }
 
-        EnvironmentLogic.GetCellsThatSenseTheTumorSubstance();
-        EnvironmentLogic.PathFromCellsToTumorCell();
+    void CreateCellTransform(List<Cell> cell_list, Transform prefab, Dictionary<Cell, Transform> cell_transform_dict)
+    {
+        foreach (Cell cell in cell_list)
+        {
+            Transform stemCell = Instantiate(prefab);
+            stemCell.localPosition = new Vector3(cell.pos.X, cell.pos.Y, cell.pos.Z);
+            cell_transform_dict.Add(cell, stemCell);
+        }
+    }
 
+    void UpdateTumorCellTransforms()
+    {
         foreach (Cell cell in EnvironmentLogic.tumor_cell_list)
         {
-            if (cell_list.ContainsKey(cell))
-                tumoral_cell_list.Add(cell, cell_list[cell]);
+            if (cell_dict.ContainsKey(cell))
+                tumoral_cell_list.Add(cell, cell_dict[cell]);
             else
             {
                 Transform t = Instantiate(StemCellPrefab);
@@ -65,60 +162,8 @@ public class Environment : MonoBehaviour
                 tumoral_cell_list.Add(cell, t);
             }
         }
-
     }
 
-    void Update()
-    {
-        if (!is_over)
-            MoveCellsToTumor();
-
-        is_over = true;
-        foreach (var item in tumoral_cell_list)
-        {
-            Pos pos1 = null;
-
-            if (item.Key.des_pos != null)
-                pos1 = item.Key.des_pos;
-            else
-                pos1 = item.Key.pos;
-
-            var pos2 = item.Value.localPosition;
-
-            if (pos1.X != pos2.x || pos1.Y != pos2.y || pos1.Z != pos2.z)
-                is_over = false;
-        }
-
-        if (is_over)
-        {
-            if (!is_over_conver)
-            {
-                EnvironmentLogic.StemCellConvertToTumoralCell();
-                is_over_conver = true;
-            }
-            //int time = 0;
-            //while (time != 10)
-            //{
-            //    time++;
-            while (count != 0)
-            {
-                count--;
-                Debug.Log("Estoy en el ciclo");
-                Debug.Log(count);
-
-                SphereDraw();
-
-                CellDraw();
-
-                //Invoke("SphereDraw", 7);
-
-
-                //Invoke("CellDraw", 5); 
-            }
-        }
-
-
-    }
     void MoveCellsToTumor()
     {
         float step = speed * Time.deltaTime;
@@ -150,33 +195,33 @@ public class Environment : MonoBehaviour
         }
     }
 
-    void SphereDraw()
-    {
-        EnvironmentLogic.CellMove();
+    //void SphereDraw()
+    //{
+    //    Utils.CellMove();
 
-        if (EnvironmentLogic.sphere_cell_dict.Count > 0)
-        {
-            Debug.Log("Estoy aqui");
-            Debug.Log(EnvironmentLogic.sphere_cell_dict.Count);
+    //    if (EnvironmentLogic.sphere_cell_dict.Count > 0)
+    //    {
+    //        Debug.Log("Estoy aqui");
+    //        Debug.Log(EnvironmentLogic.sphere_cell_dict.Count);
 
-            foreach (Cell cell in EnvironmentLogic.sphere_cell_dict.Keys)
-            {
-                Sphere sphere = EnvironmentLogic.sphere_cell_dict[cell];
-                if (!sphere_list.ContainsKey(sphere))
-                {
-                    Transform t = Instantiate(TumoralSpherePrefab);
-                    t.localPosition = new Vector3(cell.pos.X, cell.pos.Y, cell.pos.Z);
-                    t.localScale = new Vector3(sphere.radio, sphere.radio, sphere.radio);
-                    sphere_list.Add(sphere, t);
-                }
-                else
-                    sphere_list[sphere].localScale = new Vector3(sphere.radio, sphere.radio, sphere.radio);
+    //        foreach (Cell cell in EnvironmentLogic.sphere_cell_dict.Keys)
+    //        {
+    //            Sphere sphere = EnvironmentLogic.sphere_cell_dict[cell];
+    //            if (!sphere_list.ContainsKey(sphere))
+    //            {
+    //                Transform t = Instantiate(TumoralSpherePrefab);
+    //                t.localPosition = new Vector3(cell.pos.X, cell.pos.Y, cell.pos.Z);
+    //                t.localScale = new Vector3(sphere.radio, sphere.radio, sphere.radio);
+    //                sphere_list.Add(sphere, t);
+    //            }
+    //            else
+    //                sphere_list[sphere].localScale = new Vector3(sphere.radio, sphere.radio, sphere.radio);
 
-                Destroy_Transform(sphere.cell_list, cell);
-                //AQUI ES DONDE DEBERIA ACTUALIZAR EL RADIO DE LA ESFERA
-            }
-        }
-    }
+    //            Destroy_Transform(sphere.cell_list, cell);
+    //            //AQUI ES DONDE DEBERIA ACTUALIZAR EL RADIO DE LA ESFERA
+    //        }
+    //    }
+    //}
 
     void Destroy_Transform(List<Cell> cell_list, Cell cell)
     {

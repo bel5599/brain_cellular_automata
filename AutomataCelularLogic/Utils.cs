@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutomataCelularLogic
 {
+
     public static class Utils
     {
         public static Random rdm = new Random();

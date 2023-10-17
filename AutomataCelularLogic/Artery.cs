@@ -28,7 +28,7 @@ namespace AutomataCelularLogic
             //this.before = before;
             this.pos = pos;
             //this.astrocyte = astrocyte;
-
+            layer_list = new List<Layer>();
             layer_list.Add(new GlialBasalLamina());
             layer_list.Add(new VascularBasalLamina());
             layer_list.Add(new SmoothVesselCells(5));

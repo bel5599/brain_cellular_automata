@@ -8,14 +8,14 @@ namespace AutomataCelularLogic
 {
     public abstract class Probability
     {
-        public abstract float DivisionProbability(Pos pos, Dictionary<Pos, Cell> pos_cell_dict, int radio, int distance);
+        public abstract float DivisionProbability(Pos pos, int radio, int distance, int new_cells_count);
         public abstract float MigrateProbability(Pos pos, Tumor tumor);
         public abstract float ContaminateProbability(Pos pos, Cell cell);
-        public abstract float ContamineProbability(Pos pos);
-        public abstract float ProbabilityOfBreakingDownTheGlialBasalLamina();
-        public abstract float ProbabilityOfBreakingDownTheVascularBasalLamina();
-        public abstract float ProbabilityOfBreakingDownTheEndothelialBasalLamina();
-        public abstract float ProbabilityOfBreakingDownTheSmoothVesselCells();
+        public abstract float ContamineProbability(Pos pos, int new_cells_count);
+        public abstract float ProbabilityOfBreakingDownTheGlialBasalLamina(Pos pos);
+        public abstract float ProbabilityOfBreakingDownTheVascularBasalLamina(Pos pos);
+        public abstract float ProbabilityOfBreakingDownTheEndothelialBasalLamina(Pos pos);
+        public abstract float ProbabilityOfBreakingDownTheSmoothVesselCells(Pos pos);
     }
 
     public class ClassicProbability: Probability
@@ -25,20 +25,24 @@ namespace AutomataCelularLogic
 
         }
 
-        public override float DivisionProbability(Pos pos, Dictionary<Pos, Cell> pos_cell_dict, int radio, int distance)
+        public override float DivisionProbability(Pos pos, int radio, int distance, int new_cells_count)
         {
-            int free_pos_count = 14;
-            for (int i = 0; i < Utils.mov_3d.Count; i++)
+            if (new_cells_count > 0)
             {
-                int[] array = Utils.mov_3d[i];
-                int x = pos.X;
-                int y = pos.Y;
-                int z = pos.Z;
-                if (pos_cell_dict.ContainsKey(new Pos(x + array[0], y + array[1], z + array[2])))
-                    free_pos_count--;
-            }
+                int free_pos_count = 14;
+                for (int i = 0; i < Utils.mov_3d.Count; i++)
+                {
+                    int[] array = Utils.mov_3d[i];
+                    int x = pos.X;
+                    int y = pos.Y;
+                    int z = pos.Z;
+                    if (EnvironmentLogic.pos_cell_dict.ContainsKey(new Pos(x + array[0], y + array[1], z + array[2])))
+                        free_pos_count--;
+                }
 
-            return free_pos_count/14 * distance/radio;
+                return free_pos_count / 14 * distance / radio;
+            }
+            return 0;
         }
 
         public override float MigrateProbability(Pos pos, Tumor tumor)
@@ -55,28 +59,140 @@ namespace AutomataCelularLogic
             return 0f;
         }
         
-        public override float ContamineProbability(Pos pos)
+        public override float ContamineProbability(Pos pos, int new_cells_count)
         {
+            if(new_cells_count > 0)
+            {
+                int tumor_cell_count = 0;
+                for (int i = 0; i < Utils.mov_3d.Count; i++)
+                {
+                    int[] array = Utils.mov_3d[i];
+                    int x = pos.X;
+                    int y = pos.Y;
+                    int z = pos.Z;
+                    Pos cell_pos = new Pos(x + array[0], y + array[1], z + array[2]);
+                    if (EnvironmentLogic.pos_cell_dict.ContainsKey(cell_pos) && EnvironmentLogic.pos_cell_dict[cell_pos].cell_behavior is TumorCellBehavior)
+                        tumor_cell_count++;
+                }
+                return tumor_cell_count / 14;
+            }
             return 0f;
         }
 
-        public override float ProbabilityOfBreakingDownTheGlialBasalLamina()
+        public override float ProbabilityOfBreakingDownTheGlialBasalLamina(Pos pos)
         {
+            int tumoral_cell_in_lamina_count = 0;
+            int tumoral_cell_count = 0;
+            for (int i = 0; i < Utils.mov_3d.Count; i++)
+            {
+                int[] array = Utils.mov_3d[i];
+                int x = pos.X;
+                int y = pos.Y;
+                int z = pos.Z;
+                Pos cell_pos = new Pos(x + array[0], y + array[1], z + array[2]);
+                if(EnvironmentLogic.pos_cell_dict.ContainsKey(cell_pos))
+                {
+                    if (EnvironmentLogic.pos_cell_dict[cell_pos].cell_behavior is TumorCellBehavior)
+                    {
+                        tumoral_cell_count++;
+                        if (EnvironmentLogic.pos_cell_dict[cell_pos].loca_status == LocationStatus.GlialBasalLamina)
+                            tumoral_cell_in_lamina_count++;
+                    }
+                }
+            }
+            return tumoral_cell_in_lamina_count/tumoral_cell_count;
+        }
+
+        public override float ProbabilityOfBreakingDownTheVascularBasalLamina(Pos pos)
+        {
+            if (EnvironmentLogic.pos_cell_dict[pos].loca_status == LocationStatus.GlialBasalLamina)
+            {
+                int tumoral_cell_in_lamina_count = 0;
+                int tumoral_cell_count = 0;
+                for (int i = 0; i < Utils.mov_3d.Count; i++)
+                {
+                    int[] array = Utils.mov_3d[i];
+                    int x = pos.X;
+                    int y = pos.Y;
+                    int z = pos.Z;
+                    Pos cell_pos = new Pos(x + array[0], y + array[1], z + array[2]);
+                    if (EnvironmentLogic.pos_cell_dict.ContainsKey(cell_pos))
+                    {
+                        if (EnvironmentLogic.pos_cell_dict[cell_pos].cell_behavior is TumorCellBehavior)
+                        {
+                            tumoral_cell_count++;
+                            if (EnvironmentLogic.pos_cell_dict[cell_pos].loca_status == LocationStatus.VascularBasalLamina)
+                                tumoral_cell_in_lamina_count++;
+                        }
+                    }
+                }
+                return tumoral_cell_in_lamina_count / tumoral_cell_count;
+            }
             return 0f;
         }
 
-        public override float ProbabilityOfBreakingDownTheVascularBasalLamina()
+        public override float ProbabilityOfBreakingDownTheEndothelialBasalLamina(Pos pos)
         {
+            if (EnvironmentLogic.pos_cell_dict[pos].loca_status == LocationStatus.SmoothVesselCells_time3)
+            {
+                int tumoral_cell_in_lamina_count = 0;
+                int tumoral_cell_count = 0;
+                for (int i = 0; i < Utils.mov_3d.Count; i++)
+                {
+                    int[] array = Utils.mov_3d[i];
+                    int x = pos.X;
+                    int y = pos.Y;
+                    int z = pos.Z;
+                    Pos cell_pos = new Pos(x + array[0], y + array[1], z + array[2]);
+                    if (EnvironmentLogic.pos_cell_dict.ContainsKey(cell_pos))
+                    {
+                        if (EnvironmentLogic.pos_cell_dict[cell_pos].cell_behavior is TumorCellBehavior)
+                        {
+                            tumoral_cell_count++;
+                            if (EnvironmentLogic.pos_cell_dict[cell_pos].loca_status == LocationStatus.EndothelialBasalLamina)
+                                tumoral_cell_in_lamina_count++;
+                        }
+                    }
+                }
+                return tumoral_cell_in_lamina_count / tumoral_cell_count;
+            }
             return 0f;
         }
 
-        public override float ProbabilityOfBreakingDownTheEndothelialBasalLamina()
+        public override float ProbabilityOfBreakingDownTheSmoothVesselCells(Pos pos)
         {
-            return 0f;
-        }
 
-        public override float ProbabilityOfBreakingDownTheSmoothVesselCells()
-        {
+            LocationStatus loc_stat = LocationStatus.MatrixExtracelular;
+            if (EnvironmentLogic.pos_cell_dict[pos].loca_status == LocationStatus.VascularBasalLamina)
+                loc_stat = LocationStatus.SmoothVesselCells_time1;
+            else if(EnvironmentLogic.pos_cell_dict[pos].loca_status == LocationStatus.SmoothVesselCells_time1)
+                loc_stat = LocationStatus.SmoothVesselCells_time2;
+            else if (EnvironmentLogic.pos_cell_dict[pos].loca_status == LocationStatus.SmoothVesselCells_time1)
+                loc_stat = LocationStatus.SmoothVesselCells_time3;
+
+            if (loc_stat != LocationStatus.MatrixExtracelular)
+            {
+                int tumoral_cell_in_lamina_count = 0;
+                int tumoral_cell_count = 0;
+                for (int i = 0; i < Utils.mov_3d.Count; i++)
+                {
+                    int[] array = Utils.mov_3d[i];
+                    int x = pos.X;
+                    int y = pos.Y;
+                    int z = pos.Z;
+                    Pos cell_pos = new Pos(x + array[0], y + array[1], z + array[2]);
+                    if (EnvironmentLogic.pos_cell_dict.ContainsKey(cell_pos))
+                    {
+                        if (EnvironmentLogic.pos_cell_dict[cell_pos].cell_behavior is TumorCellBehavior)
+                        {
+                            tumoral_cell_count++;
+                            if (EnvironmentLogic.pos_cell_dict[cell_pos].loca_status == loc_stat)
+                                tumoral_cell_in_lamina_count++;
+                        }
+                    }
+                }
+                return tumoral_cell_in_lamina_count / tumoral_cell_count;
+            }
             return 0f;
         }
 
@@ -92,12 +208,12 @@ namespace AutomataCelularLogic
             throw new NotImplementedException();
         }
 
-        public override float ContamineProbability(Pos pos)
+        public override float ContamineProbability(Pos pos, int new_cells_count)
         {
             throw new NotImplementedException();
         }
 
-        public override float DivisionProbability(Pos pos, Dictionary<Pos, Cell> pos_cell_dict, int radio, int distance)
+        public override float DivisionProbability(Pos pos, int radio, int distance, int new_cells_count)
         {
             throw new NotImplementedException();
         }
@@ -107,33 +223,28 @@ namespace AutomataCelularLogic
             throw new NotImplementedException();
         }
 
-        public override float ProbabilityOfBreakingDownTheEndothelialBasalLamina()
+        public override float ProbabilityOfBreakingDownTheEndothelialBasalLamina(Pos pos)
         {
             throw new NotImplementedException();
         }
 
-        public override float ProbabilityOfBreakingDownTheGlialBasalLamina()
+        public override float ProbabilityOfBreakingDownTheGlialBasalLamina(Pos pos)
         {
             throw new NotImplementedException();
         }
 
-        public override float ProbabilityOfBreakingDownTheSmoothVesselCells()
+        public override float ProbabilityOfBreakingDownTheSmoothVesselCells(Pos pos)
         {
             throw new NotImplementedException();
         }
 
-        public override float ProbabilityOfBreakingDownTheVascularBasalLamina()
+        public override float ProbabilityOfBreakingDownTheVascularBasalLamina(Pos pos)
         {
             throw new NotImplementedException();
         }
     }
     public class HardProbability : Probability
     {
-        public override float DivisionProbability(Pos pos, Dictionary<Pos, Cell> pos_cell_dict, int radio, int distance)
-        {
-            throw new NotImplementedException();
-        }
-
         public override float MigrateProbability(Pos pos, Tumor tumor)
         {
             throw new NotImplementedException();
@@ -143,27 +254,32 @@ namespace AutomataCelularLogic
             throw new NotImplementedException();
         }
 
-        public override float ContamineProbability(Pos pos)
+        public override float ProbabilityOfBreakingDownTheGlialBasalLamina(Pos pos)
         {
             throw new NotImplementedException();
         }
 
-        public override float ProbabilityOfBreakingDownTheGlialBasalLamina()
+        public override float ProbabilityOfBreakingDownTheVascularBasalLamina(Pos pos)
         {
             throw new NotImplementedException();
         }
 
-        public override float ProbabilityOfBreakingDownTheVascularBasalLamina()
+        public override float ProbabilityOfBreakingDownTheEndothelialBasalLamina(Pos pos)
         {
             throw new NotImplementedException();
         }
 
-        public override float ProbabilityOfBreakingDownTheEndothelialBasalLamina()
+        public override float ProbabilityOfBreakingDownTheSmoothVesselCells(Pos pos)
         {
             throw new NotImplementedException();
         }
 
-        public override float ProbabilityOfBreakingDownTheSmoothVesselCells()
+        public override float DivisionProbability(Pos pos, int radio, int distance, int new_cells_count)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override float ContamineProbability(Pos pos, int new_cells_count)
         {
             throw new NotImplementedException();
         }

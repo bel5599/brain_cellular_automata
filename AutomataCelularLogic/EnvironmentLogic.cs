@@ -30,6 +30,7 @@ namespace AutomataCelularLogic
         public static List<Cell> stem_cell_list = new List<Cell>();
         public static List<Cell> astrocyte_cell_list = new List<Cell>();
         public static List<Cell> endothelial_cell_list = new List<Cell>();
+        public static List<Cell> neuron_cell_list = new List<Cell>();
         //public static List<Cell> cell_list = new List<Cell>();
 
         //VARIABLES RELACIONADAS CON LOS VASOS SANGUINEOS
@@ -61,6 +62,7 @@ namespace AutomataCelularLogic
         public static int stem_cells_count = 15;
         public static int astrocytes_count = 20;
         public static int blood_vessels_count = 10;
+        public static int neuron_count = 20;
 
         static void Main(string[] args)
         {
@@ -68,13 +70,77 @@ namespace AutomataCelularLogic
 
             //Console.WriteLine("Hello World");
 
-            Simulation();
+            //Simulation();
+            StartCellularLifeInTheBrain();
 
-            Console.WriteLine("Esferas");
-            foreach (var item in sphere_cell_dict)
+            Console.WriteLine(tumor.tumor_stage);
+            Console.WriteLine(tumor.ini_cell.pos);
+            foreach (Cell cell in tumor.cell_list)
             {
-                Console.WriteLine(item.Value.radio);
+                Pos pos = cell.pos;
+                Console.WriteLine(pos.X);
+                Console.WriteLine(pos.Y);
+                Console.WriteLine(pos.Z);
+                Console.WriteLine(cell.actual_action);
+                Console.WriteLine();
             }
+
+            Console.WriteLine(tumor.vasc_mecha);
+
+            Console.WriteLine("_________________________________________________");
+
+            Console.WriteLine("Stem Cells");
+            foreach (Cell cell in stem_cell_list)
+            {
+                Pos pos = cell.pos;
+                Console.WriteLine(pos.X);
+                Console.WriteLine(pos.Y);
+                Console.WriteLine(pos.Z);
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("_________________________________________________");
+
+            Console.WriteLine("Neuron Cells");
+            foreach (Cell cell in neuron_cell_list)
+            {
+                Pos pos = cell.pos;
+                Console.WriteLine(pos.X);
+                Console.WriteLine(pos.Y);
+                Console.WriteLine(pos.Z);
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("_________________________________________________");
+
+            Console.WriteLine("Astrocytes Cells");
+            foreach (Cell cell in astrocyte_cell_list)
+            {
+                Pos pos = cell.pos;
+                Console.WriteLine(pos.X);
+                Console.WriteLine(pos.Y);
+                Console.WriteLine(pos.Z);
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("_________________________________________________");
+
+            Console.WriteLine("Arterys");
+            foreach (Artery artery in artery_list)
+            {
+                Pos pos = artery.pos;
+                Console.WriteLine(pos.X);
+                Console.WriteLine(pos.Y);
+                Console.WriteLine(pos.Z);
+                Console.WriteLine(artery.astrocyte);
+                Console.WriteLine();
+            }
+            Console.WriteLine("_________________________________________________");
+            //Console.WriteLine("Esferas");
+            //foreach (var item in sphere_cell_dict)
+            //{
+            //    Console.WriteLine(item.Value.radio);
+            //}
             Console.ReadLine();
 
         }
@@ -91,17 +157,23 @@ namespace AutomataCelularLogic
 
             StemCellConvertToTumoralCell();
 
-            int time = 0;
-            while (time != 10)
-            {
-                time++;
-                UpdateActions();
-                //Console.WriteLine("Lista");
-                Console.WriteLine(cells_without_sphere.Count);
+            UpdateActions();
 
-            }
-            Console.WriteLine("Termine");
-            
+            ExecuteActions();
+
+            UpdateTumorState();
+
+            //int time = 0;
+            //while (time != 10)
+            //{
+            //    time++;
+            //    UpdateActions();
+            //    //Console.WriteLine("Lista");
+            //    Console.WriteLine(cells_without_sphere.Count);
+
+            //}
+            //Console.WriteLine("Termine");
+
         }
 
 
@@ -117,9 +189,7 @@ namespace AutomataCelularLogic
 
             CreateBloodVessels();
 
-            UpdateActions();
-
-            ExecuteActions();
+            CreateNeuronCells();
 
             //HACER!!!!!!!!!!!!!!!!!!!!!!!!!!
             //Crear las celulas astrocitos, pericitos, etc
@@ -148,6 +218,22 @@ namespace AutomataCelularLogic
 
                 stem_cell_list.Add(new Cell(new_pos, new StemCellBehavior(), new ClassicProbability(), LocationStatus.MatrixExtracelular));
                 pos_cell_dict.Add(new_pos, stem_cell_list[stem_cell_list.Count - 1]);
+            }
+        }
+
+        public static void CreateNeuronCells()
+        {
+            for (int i = 0; i < neuron_count; i++)
+            {
+                Pos new_pos;
+                do
+                {
+                    new_pos = Utils.GetRandomPosition(0, limit_of_x, 0, limit_of_y, 0, limit_of_z);
+                }
+                while (pos_cell_dict.ContainsKey(new_pos)); //ARREGLAR ESTO
+
+                neuron_cell_list.Add(new Cell(new_pos, new NeuronCellBehavior(), new ClassicProbability(), LocationStatus.MatrixExtracelular));
+                pos_cell_dict.Add(new_pos, neuron_cell_list[neuron_cell_list.Count - 1]);
             }
         }
         public static Cell CreateAstrocyteCell()
@@ -299,6 +385,15 @@ namespace AutomataCelularLogic
             }
         }
 
+        public static void UpdateTumorState()
+        {
+            foreach (Cell cell in tumor.cell_list)
+            {
+                if ((cell.loca_status == LocationStatus.EndothelialBasalLamina || cell.loca_status == LocationStatus.GlialBasalLamina || cell.loca_status == LocationStatus.VascularBasalLamina ||
+                    cell.loca_status == LocationStatus.SmoothVesselCells_time1) && tumor.vasc_mecha == VascularizationMechanism.InitialGrowth)
+                    tumor.vasc_mecha = VascularizationMechanism.VascularCooption;
+            }
+        }
         public static void UpdateActions()
         {
             foreach (Cell cell in tumor.cell_list)
@@ -318,16 +413,20 @@ namespace AutomataCelularLogic
                         cell.actual_action = new Migrate();
                     else
                     {
-                        if (cell.move_prob.DivisionProbability(cell.pos, pos_cell_dict, tumoral_cell_radio, distance) > cell.move_prob.ContamineProbability(cell.pos))
+                        float div_prob = cell.move_prob.DivisionProbability(cell.pos, tumoral_cell_radio, distance, tumor.new_cells_count);
+                        float cont_prob = cell.move_prob.ContamineProbability(cell.pos, tumor.new_cells_count);
+                        if (div_prob > cont_prob)
                         {
-                            int r = Utils.rdm.Next(0, available_positions.Count);
+                            //int r = Utils.rdm.Next(0, available_positions.Count);
 
-                            cell.actual_action = new Division(tumor, cell, available_positions[r]);
+                            cell.actual_action = new Division(tumor, cell, GetPositionCloserToBloodVessels(available_positions));
+                            tumor.UpdateNewCellCount();
                         }
-                        else
+                        else if(cont_prob > 0)
                         {
                             int r = Utils.rdm.Next(0, available_cell_list.Count);
                             cell.actual_action = new Contaminate(tumor, cell, available_cell_list[r]);
+                            tumor.UpdateNewCellCount();
                         }
                     }
 
@@ -347,6 +446,7 @@ namespace AutomataCelularLogic
 
                     //O ESTO
                     cell.actual_action = new Contaminate(tumor, cell, available_cell_list[r]);
+                    tumor.UpdateNewCellCount();
                 }
             }
                 
@@ -355,6 +455,25 @@ namespace AutomataCelularLogic
             //cells_without_sphere.AddRange(list);
             FormationOfSpheres();
 
+        }
+
+        public static Pos GetPositionCloserToBloodVessels(List<Pos> positions_list)
+        {
+            Pos pos = null;
+            int min_distance = int.MaxValue;
+            foreach (Pos item in positions_list)
+            {
+                foreach (Artery artery in artery_list)
+                {
+                    int distance = Utils.EuclideanDistance(item, artery.pos);
+                    if(distance < min_distance)
+                    {
+                        pos = item;
+                        min_distance = distance;
+                    }
+                }
+            }
+            return pos;
         }
         public static bool EmptyPositions(List<Pos> pos_list)
         {
@@ -491,15 +610,6 @@ namespace AutomataCelularLogic
         //    return action;
         //}
 
-        public static void CellMigrate(Cell cell)
-        {
-            
-        }
-
-        public static void CellContaminate(Cell cell)
-        {
-
-        }
 
         #endregion
     }

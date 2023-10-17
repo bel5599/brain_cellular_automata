@@ -21,6 +21,7 @@ namespace AutomataCelularLogic
         GlialBasalLamina,
         VascularBasalLamina,
         EndothelialBasalLamina,
+        Lumen,
         MatrixExtracelular
     }
     public class Cell
@@ -58,7 +59,7 @@ namespace AutomataCelularLogic
                     if (!pos_cell_dict.ContainsKey(new_position))
                     {
                         new_pos = true;
-                        float prob = move_prob.DivisionProbability(pos, pos_cell_dict, tumoral_cell_radio, Utils.EuclideanDistance(tumor_stem_cell.pos, pos));
+                        float prob = move_prob.DivisionProbability(pos, tumoral_cell_radio, Utils.EuclideanDistance(tumor_stem_cell.pos, pos), EnvironmentLogic.tumor.new_cells_count);
                         if (prob >= 0.5)
                         {
                             return pos;
