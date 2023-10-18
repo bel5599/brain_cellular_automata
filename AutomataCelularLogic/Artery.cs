@@ -8,7 +8,8 @@ namespace AutomataCelularLogic
 {
     public class Artery
     {
-        public Pos pos;
+        public Pos pos1;
+        public Pos pos2;
 
         public Artery next;
         public Artery before;
@@ -16,7 +17,7 @@ namespace AutomataCelularLogic
         public Cell astrocyte;
         public List<Layer> layer_list;
         public Cell endothelial_cell;
-        public Artery(Pos pos, Cell astrocyte, Cell endothelial)
+        public Artery(Pos pos1, Pos pos2, Cell astrocyte, Cell endothelial)
         {
             if (astrocyte != null)
                 this.astrocyte = astrocyte;
@@ -26,7 +27,8 @@ namespace AutomataCelularLogic
             endothelial_cell = endothelial;
 
             //this.before = before;
-            this.pos = pos;
+            this.pos1 = pos1;
+            this.pos2 = pos2;
             //this.astrocyte = astrocyte;
             layer_list = new List<Layer>();
             layer_list.Add(new GlialBasalLamina());

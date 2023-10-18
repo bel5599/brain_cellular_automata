@@ -16,13 +16,13 @@ namespace AutomataCelularLogic
 
         public static void InitializeVariables()
         {
+            mov_3d.Add(new[] { 1, 0, 0 });
             mov_3d.Add(new[] { 0, 0, 1 });
             mov_3d.Add(new[] { 0, 0, -1 });
             mov_3d.Add(new[] { 0, 1, 0 });
             mov_3d.Add(new[] { 0, -1, 0 });
             mov_3d.Add(new[] { 0, 1, 1 });
             mov_3d.Add(new[] { 0, -1, -1 });
-            mov_3d.Add(new[] { 1, 0, 0 });
             mov_3d.Add(new[] { -1, 0, 0 });
             mov_3d.Add(new[] { 1, 0, 1 });
             mov_3d.Add(new[] { -1, 0, -1 });
@@ -68,7 +68,7 @@ namespace AutomataCelularLogic
             return d;
         }
 
-        public static Pos GetAdjacentPosition(Pos pos, Dictionary<Pos, Cell> pos_cell_dict)
+        public static Pos GetAdjacentPosition(Pos pos, Dictionary<Pos, Cell> pos_cell_dict, Dictionary<Pos, Artery> pos_artery_dict)
         {
             Pos new_pos;
             for (int i = 0; i < mov_3d.Count; i++)
@@ -76,7 +76,7 @@ namespace AutomataCelularLogic
                 int[] array = mov_3d[i];
                 new_pos = new Pos(pos.X + array[0], pos.Y + array[1], pos.Z + array[2]);
 
-                if (!pos_cell_dict.ContainsKey(new_pos))
+                if (!pos_cell_dict.ContainsKey(new_pos) && !pos_artery_dict.ContainsKey(new_pos))
                     return new_pos;
             }
             return null;

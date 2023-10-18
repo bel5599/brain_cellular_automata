@@ -3,7 +3,13 @@ guid: 3f2f76d25a745b244911cea02dc1a439
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - TumoralCellPrefab: {instanceID: 0}
+  - StemCellPrefab: {instanceID: 0}
+  - TumoralSpherePrefab: {instanceID: 0}
+  - NeuronPrefab: {instanceID: 0}
+  - AstrocytePrefab: {fileID: 5390118347573300508, guid: c60c00ba8c7605b4187f834facb09a99, type: 3}
+  - ArteryPrefab: {fileID: 4226642942321990567, guid: 58680cc13f43b74428b38ee63a2556c3, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

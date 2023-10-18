@@ -38,6 +38,8 @@ namespace AutomataCelularLogic
  
         public static Dictionary<Pos, Cell> pos_cell_dict = new Dictionary<Pos, Cell>();
 
+        public static Dictionary< Pos, Artery> pos_artery_dict = new Dictionary<Pos, Artery>();
+
         //LISTA RELACIONADAS CON LAS ACCIONES DE LAS CELULAS EN CADA INSTANTE DE TIEMPO
         public static Dictionary<Pos, Pos> contaminate_dict = new Dictionary<Pos, Pos>();
         public static Dictionary<Pos, Pos> division_dict = new Dictionary<Pos, Pos>();
@@ -71,7 +73,17 @@ namespace AutomataCelularLogic
             //Console.WriteLine("Hello World");
 
             //Simulation();
+            Utils.InitializeVariables();
+
             StartCellularLifeInTheBrain();
+
+            GetCellsThatSenseTheTumorSubstance();
+
+            MoveAstrocyteToVessels();
+
+            PathFromCellsToTumorCell();
+
+            StemCellConvertToTumoralCell();
 
             Console.WriteLine(tumor.tumor_stage);
             Console.WriteLine(tumor.ini_cell.pos);
@@ -117,9 +129,12 @@ namespace AutomataCelularLogic
             foreach (Cell cell in astrocyte_cell_list)
             {
                 Pos pos = cell.pos;
+                Pos pos1 = cell.des_pos;
                 Console.WriteLine(pos.X);
                 Console.WriteLine(pos.Y);
                 Console.WriteLine(pos.Z);
+                Console.WriteLine("posicion destino");
+                Console.WriteLine(pos1);
                 Console.WriteLine();
             }
 
@@ -128,7 +143,7 @@ namespace AutomataCelularLogic
             Console.WriteLine("Arterys");
             foreach (Artery artery in artery_list)
             {
-                Pos pos = artery.pos;
+                Pos pos = artery.pos1;
                 Console.WriteLine(pos.X);
                 Console.WriteLine(pos.Y);
                 Console.WriteLine(pos.Z);
@@ -147,7 +162,7 @@ namespace AutomataCelularLogic
 
         public static void Simulation()
         {
-            //InitializeVariables();
+            Utils.InitializeVariables();
 
             StartCellularLifeInTheBrain();
 
@@ -180,6 +195,8 @@ namespace AutomataCelularLogic
         public static void StartCellularLifeInTheBrain()
         {
             //Crear la primera celula tumoral y cambiar la posicion del tumor
+            CreateBloodVessels();
+
             StartTumoraCell();
 
             CreateTumor();
@@ -187,7 +204,7 @@ namespace AutomataCelularLogic
             //Crear las celulas madres pluripotencial
             CreateStemCells();
 
-            CreateBloodVessels();
+            CreateAstrocyteCell();
 
             CreateNeuronCells();
 
@@ -199,12 +216,10 @@ namespace AutomataCelularLogic
         {
             tumor_stem_cell = new Cell(new Pos(15, 15, 15), new TumorCellBehavior(), new ClassicProbability(), LocationStatus.MatrixExtracelular);
         }
-
         public static void CreateTumor()
         {
             tumor = new Tumor(tumor_stem_cell, tumoral_cell_radio, avascular_carrying_capacity, vascular_carrying_capacity, growth_rate, initial_population);
         }
-
         public static void CreateStemCells()
         {
             for (int i = 0; i < stem_cells_count; i++)
@@ -220,7 +235,6 @@ namespace AutomataCelularLogic
                 pos_cell_dict.Add(new_pos, stem_cell_list[stem_cell_list.Count - 1]);
             }
         }
-
         public static void CreateNeuronCells()
         {
             for (int i = 0; i < neuron_count; i++)
@@ -236,24 +250,24 @@ namespace AutomataCelularLogic
                 pos_cell_dict.Add(new_pos, neuron_cell_list[neuron_cell_list.Count - 1]);
             }
         }
-        public static Cell CreateAstrocyteCell()
+        public static void CreateAstrocyteCell()
         {
-            //for (int i = 0; i < astrocytes_count; i++)
-            //{
-
-            Pos new_pos;
-            do
+            for (int i = 0; i < astrocytes_count; i++)
             {
-                new_pos = Utils.GetRandomPosition(0, limit_of_x, 0, limit_of_y, 0, limit_of_z);
+
+                Pos new_pos;
+                do
+                {
+                    new_pos = Utils.GetRandomPosition(0, limit_of_x, 0, limit_of_y, 0, limit_of_z);
+                }
+                while (pos_cell_dict.ContainsKey(new_pos)); //ARREGLAR ESTO
+
+                Cell cell = new Cell(new_pos, new AstrocyteCellBehavior(), new ClassicProbability(), LocationStatus.MatrixExtracelular);
+                astrocyte_cell_list.Add(cell);
+                pos_cell_dict.Add(new_pos, cell);
             }
-            while (pos_cell_dict.ContainsKey(new_pos)); //ARREGLAR ESTO
-
-            Cell cell = new Cell(new_pos, new AstrocyteCellBehavior(), new ClassicProbability(), LocationStatus.GlialBasalLamina);
-            astrocyte_cell_list.Add(cell);
-            pos_cell_dict.Add(new_pos, cell);
-            return cell;
+            //return cell;
         }
-
         public static Cell CreateEndothelialCell()
         {
             Pos new_pos;
@@ -268,34 +282,52 @@ namespace AutomataCelularLogic
             pos_cell_dict.Add(new_pos, cell);
             return cell;
         }
-
-        
         public static void CreateBloodVessels()
         {
-            for (int i = 0; i < blood_vessels_count; i++)
+            Pos pos1 = Utils.GetRandomPosition(0, limit_of_x, 0, limit_of_y, 0, limit_of_z);
+            Pos pos2 = null; 
+            //Cell endothelial_cell = new Cell(pos, new EndothelialCellBehavior(), new ClassicProbability(), LocationStatus.EndothelialBasalLamina);
+            //endothelial_cell_list.Add(endothelial_cell);
+            //artery_list.Add(new Artery(endothelial_cell.pos, null, endothelial_cell));
+
+            for (int i = 1; i <= blood_vessels_count; i++)
             {
-                int r = Utils.rdm.Next(0, 2);
-                Cell astrocyte;
-                if (r == 1)
+                pos2 = new Pos(pos1.X + 2, pos1.Y, pos1.Z);
+                pos1 = new Pos(pos1.X + 1, pos1.Y, pos1.Z);
+                
+                if(!pos_cell_dict.ContainsKey(pos1) && !pos_cell_dict.ContainsKey(pos2) && !pos_artery_dict.ContainsKey(pos1) && !pos_artery_dict.ContainsKey(pos2))
                 {
-                    astrocyte = CreateAstrocyteCell();
+                    Cell endothelial_cell = new Cell(pos1, new EndothelialCellBehavior(), new ClassicProbability(), LocationStatus.EndothelialBasalLamina);
+                    endothelial_cell_list.Add(endothelial_cell);
 
-                    Pos pos = Utils.GetAdjacentPosition(astrocyte.pos, pos_cell_dict);
-                    if (pos != null)
-                    {
-                        Cell endothelial_cell = new Cell(pos, new EndothelialCellBehavior(), new ClassicProbability(), LocationStatus.EndothelialBasalLamina);
-                        endothelial_cell_list.Add(endothelial_cell);
-                        pos_cell_dict.Add(pos, astrocyte);
+                    Artery artery = new Artery(endothelial_cell.pos, pos2, null, endothelial_cell);
+                    artery_list.Add(artery);
+                    pos_artery_dict.Add(pos1, artery);
+                    pos_artery_dict.Add(pos2, artery);
+                }
+                pos1 = pos2;
+                //int r = Utils.rdm.Next(0, 2);
+                //Cell astrocyte;
+                //if (r == 1)
+                //{
+                //    //astrocyte = CreateAstrocyteCell();
 
-                        artery_list.Add(new Artery(endothelial_cell.pos, astrocyte, endothelial_cell));
-                    }
-                    //VAMOS ASUMIR POR AHORA QUE QUE LA VARIBALE ASTROCITO ES DISTINTO DE NULL Y QUE EXISTE UNA POSICION ADYACENTE
-                }
-                else
-                {
-                    Cell endothelial_cell = CreateEndothelialCell();
-                    artery_list.Add(new Artery(endothelial_cell.pos, null, endothelial_cell));
-                }
+                //    Pos pos = Utils.GetAdjacentPosition(astrocyte.pos, pos_cell_dict);
+                //    if (pos != null)
+                //    {
+                //        Cell endothelial_cell = new Cell(pos, new EndothelialCellBehavior(), new ClassicProbability(), LocationStatus.EndothelialBasalLamina);
+                //        endothelial_cell_list.Add(endothelial_cell);
+                //        pos_cell_dict.Add(pos, astrocyte);
+
+                //        artery_list.Add(new Artery(endothelial_cell.pos, astrocyte, endothelial_cell));
+                //    }
+                //    //VAMOS ASUMIR POR AHORA QUE QUE LA VARIBALE ASTROCITO ES DISTINTO DE NULL Y QUE EXISTE UNA POSICION ADYACENTE
+                //}
+                //else
+                //{
+                //    Cell endothelial_cell = CreateEndothelialCell();
+                //    artery_list.Add(new Artery(endothelial_cell.pos, null, endothelial_cell));
+                //}
             }
             
         }
@@ -311,6 +343,38 @@ namespace AutomataCelularLogic
                 {
                     tumor_cell_list.Add(cell);
                 }
+            }
+        }
+        public static void MoveAstrocyteToVessels()
+        {
+            for (int i = 0; i < astrocyte_cell_list.Count; i++)
+            {
+                int r = Utils.rdm.Next(0, 2);
+                if (r == 1)
+                {
+                    Cell cell = astrocyte_cell_list[i];
+                    Artery artery = null;
+
+                    do
+                    {
+                        r = Utils.rdm.Next(0, artery_list.Count);
+                        artery = artery_list[r];
+                    } 
+                    while (artery.astrocyte != null);
+
+                    cell.des_pos = Utils.GetAdjacentPosition(artery.pos1, pos_cell_dict, pos_artery_dict);
+                    pos_cell_dict.Add(cell.des_pos, cell);
+                }
+
+            }
+        }
+        public static void UpdateAstrocytePosition()
+        {
+            foreach (Cell cell in astrocyte_cell_list)
+            {
+                pos_cell_dict.Remove(cell.pos);
+                cell.pos = cell.des_pos;
+                cell.loca_status = LocationStatus.GlialBasalLamina;
             }
         }
 
@@ -465,7 +529,7 @@ namespace AutomataCelularLogic
             {
                 foreach (Artery artery in artery_list)
                 {
-                    int distance = Utils.EuclideanDistance(item, artery.pos);
+                    int distance = Utils.EuclideanDistance(item, artery.pos1);
                     if(distance < min_distance)
                     {
                         pos = item;
