@@ -46,7 +46,7 @@
   <ItemGroup>
     <Compile Include="Action.cs" />
     <Compile Include="Artery.cs" />
-    <Compile Include="Behavior.cs" />
+    <Compile Include="CellularAutomaton.cs" />
     <Compile Include="Cell.cs" />
     <Compile Include="EnvironmentLogic.cs" />
     <Compile Include="Node.cs" />

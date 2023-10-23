@@ -37,7 +37,7 @@ namespace AutomataCelularLogic
         {
             if ((obj == null) || !this.GetType().Equals(obj.GetType())) return false;
             Pos pos = (Pos)obj;
-            return x == pos.z && y == pos.y && z == pos.z;
+            return x == pos.x && y == pos.y && z == pos.z;
         }
     }
 }
