@@ -11,6 +11,9 @@ public class Environment : MonoBehaviour
     //Transform target;
     public float speed;
 
+    float secondsCounter = 0;
+    float secondsToCount = 5;
+
     bool is_over_conver = false;
     bool is_over = false;
     int count = 6;
@@ -32,7 +35,7 @@ public class Environment : MonoBehaviour
     {
         EnvironmentLogic.Simulation();
         ////Aqui es donde se inicializa el array de movimiento en el espacio 3d
-        Utils.InitializeVariables();
+        //Utils.InitializeVariables();
 
         ////aqui es donde se crean todas las celulas junto con la clase tumor
         //EnvironmentLogic.StartCellularLifeInTheBrain();
@@ -68,14 +71,19 @@ public class Environment : MonoBehaviour
 
     void Update()
     {
-        EnvironmentLogic.ca.Update();
+        secondsCounter += Time.deltaTime;
+        if (secondsCounter >= secondsToCount)
+        {
+            secondsCounter = 0;
+            EnvironmentLogic.ca.Update();
 
-        UpdatePosCellDict(neuron_dict);
-        UpdatePosCellDict(stem_cell_dict);
-        UpdatePosCellDict(tumoral_cell_dict);
-        UpdatePosCellDict(astrocyte_dict);
+            UpdatePosCellDict(neuron_dict);
+            UpdatePosCellDict(stem_cell_dict);
+            UpdatePosCellDict(tumoral_cell_dict);
+            UpdatePosCellDict(astrocyte_dict);
 
-        UpdateCellTransformsDict();
+            UpdateCellTransformsDict();
+        }
 
         //if (!is_over)
         //{

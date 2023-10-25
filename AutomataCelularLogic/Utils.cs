@@ -78,6 +78,7 @@ namespace AutomataCelularLogic
             for (int i = 0; i < pos_list.Count; i++)
             {
                 if (pos_list[i].pos.X == cell_pos.X && pos_list[i].pos.Y == cell_pos.Y && pos_list[i].pos.Z == cell_pos.Z) return pos_list[i].pos;
+                else if(pos_list[i].behavior_state == CellState.nothing)
                 {
                     int dist = EuclideanDistance(pos_list[i].pos, cell_pos);
                     if (dist < min)

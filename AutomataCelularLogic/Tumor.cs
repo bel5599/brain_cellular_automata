@@ -41,7 +41,7 @@ namespace AutomataCelularLogic
 
         public int time;
 
-        public Tumor(Cell cell, int radio, int avascular_carrying_capacity, int vascular_carrying_capacity, double growth_rate, int initial_population)
+        public Tumor(Cell cell/*, int radio*/, int avascular_carrying_capacity, int vascular_carrying_capacity, double growth_rate, int initial_population)
         {
             ini_cell = cell;
             cell_list = new List<Cell>();
@@ -49,7 +49,7 @@ namespace AutomataCelularLogic
             tumor_stage = TumosStage.Avascular;
             vasc_mecha = VascularizationMechanism.InitialGrowth;
 
-            this.radio = radio;
+            //this.radio = radio;
             this.avascular_carrying_capacity = avascular_carrying_capacity;
             this.vascular_carrying_capacity = vascular_carrying_capacity;
             this.growth_rate = growth_rate;
