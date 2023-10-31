@@ -16,7 +16,7 @@ namespace AutomataCelularLogic
         public static int avascular_carrying_capacity = 500;
         public static int vascular_carrying_capacity = 1000;
         public static double growth_rate = 1.2 * Math.Pow(10, -2);
-        public static int initial_population = 1;
+        public static int initial_population = 5;
 
         //VARIABLES QUE TIENE QUE VER CON EL ENTORNO
         public static int time = 0;
@@ -73,6 +73,38 @@ namespace AutomataCelularLogic
             //console.writeline("hello world");
 
             //Console.WriteLine("Hello World");
+            //int new_cells_count;
+
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    time = i;
+            //    new_cells_count = (int)((initial_population * avascular_carrying_capacity * Math.Exp(growth_rate * time)) / ((avascular_carrying_capacity - initial_population) + initial_population * Math.Exp(growth_rate * time)));
+            //    initial_population = new_cells_count;
+            //    Console.WriteLine(new_cells_count);
+            //}
+
+
+
+            //double P0 = 15;
+            //double K = 1072764;
+            //double r = 0.2311;
+            //double t = 10; // puedes cambiar este valor para obtener la poblacion en diferentes momentos
+
+            //for (int i = 0; i < 50; i++)
+            //{
+            //    t = i;
+            //    double P = LogisticGrowth(P0, K, growth_rate, t);
+
+            //    Console.WriteLine("La población de ciervos después de " + t + " años es " + P);
+            //}
+            //float num = 0.002f;
+            //double num2 = 0.0002;
+            //Console.WriteLine(num);
+            //Console.WriteLine(num2);
+
+
+
+
 
             Simulation();
             //Utils.InitializeVariables();
@@ -112,6 +144,10 @@ namespace AutomataCelularLogic
             //StemCellConvertToTumoralCell();
 
         }
+        static double LogisticGrowth(double P0, double K, double r, double t)
+        {
+            return (P0 * K * Math.Exp(r * t)) / ((K - P0) + P0 * Math.Exp(r * t));
+        }
         public static void Simulation()
         {
             Utils.InitializeVariables();
@@ -119,26 +155,27 @@ namespace AutomataCelularLogic
             //int count = 0;
             //while (count++ < 30)
             //{
-            //    //foreach (var key_value in ca.next_stem_position)
-            //    //{
-            //    //    Pos pos = key_value.Key;
-            //    //    if (key_value.Key != null)
-            //    //    {
-            //    //        Console.WriteLine("Nuevo");
-            //    //        Console.WriteLine(pos.X);
-            //    //        Console.WriteLine(pos.Y);
-            //    //        Console.WriteLine(pos.Z);
-            //    //        Console.WriteLine();
-            //    //        if (key_value.Value != null)
-            //    //        {
-            //    //            Console.WriteLine(key_value.Value.X);
-            //    //            Console.WriteLine(key_value.Value.Y);
-            //    //            Console.WriteLine(key_value.Value.Z);
-            //    //        }
-            //    //    }
-            //    //}
+                //    //    //foreach (var key_value in ca.next_stem_position)
+                //    //    //{
+                //    //    //    Pos pos = key_value.Key;
+                //    //    //    if (key_value.Key != null)
+                //    //    //    {
+                //    //    //        Console.WriteLine("Nuevo");
+                //    //    //        Console.WriteLine(pos.X);
+                //    //    //        Console.WriteLine(pos.Y);
+                //    //    //        Console.WriteLine(pos.Z);
+                //    //    //        Console.WriteLine();
+                //    //    //        if (key_value.Value != null)
+                //    //    //        {
+                //    //    //            Console.WriteLine(key_value.Value.X);
+                //    //    //            Console.WriteLine(key_value.Value.Y);
+                //    //    //            Console.WriteLine(key_value.Value.Z);
+                //    //    //        }
+                //    //    //    }
+                //    //    //}
 
             //    ca.Update();
+            //}
 
             //    Console.WriteLine("Luego del update");
             //    foreach (var item in ca.pos_cell_dict)

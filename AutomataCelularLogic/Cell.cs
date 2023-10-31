@@ -42,6 +42,7 @@ namespace AutomataCelularLogic
         StemCell,
         Neuron,
         TumoralCell,
+        Migratory,
         nothing
         //TumoralAstrocyte,
         //TumoralStemCell,
@@ -105,6 +106,7 @@ namespace AutomataCelularLogic
             return count;
         }
     }
+
 
     //public class Cell
     //{
