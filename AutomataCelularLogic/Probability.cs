@@ -9,7 +9,7 @@ namespace AutomataCelularLogic
     public abstract class Probability
     {
         public abstract double DivisionProbability(Cell cell, List<Cell> cell_list, Tumor tumor);
-        public abstract double MigrateProbability(Pos pos, Tumor tumor);
+        public abstract double MigrateProbability(Cell cell, Tumor tumor);
         public abstract double ContaminateProbability(Pos pos, Cell cell);
         public abstract double ContamineProbability(Cell cell, List<Cell> cell_list, Tumor tumor);
         public abstract double AvascularGrowthProbability();
@@ -56,11 +56,12 @@ namespace AutomataCelularLogic
             //return 0;
         }
 
-        public override double MigrateProbability(Pos pos, Tumor tumor)
+        public override double MigrateProbability(Cell cell, Tumor tumor)
         {
+
             if (tumor.tumor_stage == TumosStage.Vascular)
             {
-                return 0f;
+                return (double)Utils.EmptyPositions(cell.neighborhood).Count / cell.neighborhood.Count;
             }
             return 0f;
         }
@@ -72,19 +73,7 @@ namespace AutomataCelularLogic
 
         public override double ContamineProbability(Cell cell, List<Cell> cell_list, Tumor tumor)
         {
-            //Console.WriteLine("Celula en el metodo contamine");
-            //Console.WriteLine("{0} {1} {2}", cell.pos.X, cell.pos.Y, cell.pos.Z);
-            //Console.WriteLine(cell.behavior_state);
-            //Console.WriteLine(cell.loca_state);
-
-            //foreach (var item in cell_list)
-            //{
-            //    Console.WriteLine("contamine probability");
-            //    Console.WriteLine("{0} {1} {2}", item.pos.X, item.pos.Y, item.pos.Z);
-            //    Console.WriteLine(item.behavior_state);
-            //    Console.WriteLine(item.loca_state);
-            //}
-
+            
             //if (tumor.new_cells_count > tumor.cell_list.Count)
             //{
             int tumoral_cells_count = 0;

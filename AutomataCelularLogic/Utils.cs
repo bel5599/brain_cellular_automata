@@ -70,7 +70,16 @@ namespace AutomataCelularLogic
 
 
         }
-
+        public static List<Cell> EmptyPositions(List<Cell> cell_list)
+        {
+            List<Cell> empty_pos = new List<Cell>();
+            foreach (var item in cell_list)
+            {
+                if (item.behavior_state == CellState.nothing && item.loca_state == CellLocationState.MatrixExtracelular)
+                    empty_pos.Add(item);
+            }
+            return empty_pos;
+        }
         public static Pos MinDistancePos(List<Cell> pos_list, Pos cell_pos)
         {
             int min = int.MaxValue;

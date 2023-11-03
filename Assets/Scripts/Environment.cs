@@ -6,7 +6,7 @@ using AutomataCelularLogic;
 public class Environment : MonoBehaviour
 {
     [SerializeField]
-    Transform TumoralCellPrefab, StemCellPrefab, TumoralSpherePrefab, NeuronPrefab, AstrocytePrefab, ArteryPrefab;
+    Transform TumoralCellPrefab, StemCellPrefab, TumoralSpherePrefab, NeuronPrefab, AstrocytePrefab, ArteryPrefab, ArteriolePrefab, CapillaryPrefab, MigratoryPrefab;
 
     //Transform target;
     public float speed;
@@ -16,14 +16,19 @@ public class Environment : MonoBehaviour
 
     bool is_over_conver = false;
     bool is_over = false;
-    int count = 6;
+    int count = 40;
+
+    int actual_count = 0;
 
     Dictionary<Cell, Transform> stem_cell_dict;
 
     Dictionary<Cell, Transform> astrocyte_dict;
     Dictionary<Cell, Transform> neuron_dict;
-    Dictionary<Artery, Transform> artery_list;
+    Dictionary<Artery, Transform> artery_dict;
+    Dictionary<Arteriole, Transform> arteriole_dict;
+    Dictionary<Capillary, Transform> capillary_dict;
 
+    Dictionary<Cell, Transform> migratory_dict;
 
     Dictionary<Cell, Transform> tumoral_cell_dict;
     Dictionary<Sphere, Transform> sphere_list;
@@ -34,6 +39,7 @@ public class Environment : MonoBehaviour
     void Awake()
     {
         EnvironmentLogic.Simulation();
+        Debug.Log("Termine Simulation");
         ////Aqui es donde se inicializa el array de movimiento en el espacio 3d
         //Utils.InitializeVariables();
 
@@ -50,7 +56,8 @@ public class Environment : MonoBehaviour
         //CreateArteryTransform();
 
         Rellenar();
-
+        UpdateBloodVessels(); 
+        Debug.Log("Termine de rellenar");
         ////creacion de los transform de las celulas madres, astrocitos y neuronas
         //CreateCellTransform(EnvironmentLogic.stem_cell_list, StemCellPrefab, stem_cell_dict);
         //CreateCellTransform(EnvironmentLogic.astrocyte_cell_list, AstrocytePrefab, astrocyte_list);
@@ -71,9 +78,12 @@ public class Environment : MonoBehaviour
 
     void Update()
     {
+        //if (actual_count < count)
+        //{
         secondsCounter += Time.deltaTime;
         if (secondsCounter >= secondsToCount)
         {
+            Debug.Log("Estoy aqui");
             secondsCounter = 0;
             EnvironmentLogic.ca.Update();
 
@@ -83,7 +93,11 @@ public class Environment : MonoBehaviour
             UpdatePosCellDict(astrocyte_dict);
 
             UpdateCellTransformsDict();
+
+            UpdateBloodVessels();
         }
+            //actual_count++;
+        //}
 
         //if (!is_over)
         //{
@@ -126,7 +140,10 @@ public class Environment : MonoBehaviour
         sphere_list = new Dictionary<Sphere, Transform>();
         astrocyte_dict = new Dictionary<Cell, Transform>();
         neuron_dict = new Dictionary<Cell, Transform>();
-        artery_list = new Dictionary<Artery, Transform>();
+        artery_dict = new Dictionary<Artery, Transform>();
+        arteriole_dict = new Dictionary<Arteriole, Transform>();
+        capillary_dict = new Dictionary<Capillary, Transform>();
+        migratory_dict = new Dictionary<Cell, Transform>();
     }
 
     void InitialTumoralCell()
@@ -135,6 +152,7 @@ public class Environment : MonoBehaviour
         tumoralCell.localPosition = new Vector3(EnvironmentLogic.ca.tumor_stem_cell.pos.X, EnvironmentLogic.ca.tumor_stem_cell.pos.Y, EnvironmentLogic.ca.tumor_stem_cell.pos.Z);
     }
 
+    #region metodos_que_no_se_utilizan_ahora
     //void VerificarMovCell(Dictionary<Cell, Transform> cell_transf_dict)
     //{
     //    foreach (var item in cell_transf_dict)
@@ -321,6 +339,8 @@ public class Environment : MonoBehaviour
     ////        }
     ////    }
     ////}
+    #endregion
+
 
     void Destroy_Transform(List<Cell> cell_list, Cell cell)
     {
@@ -382,6 +402,44 @@ public class Environment : MonoBehaviour
                 Transform neuron = Instantiate(NeuronPrefab);
                 neuron.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
                 neuron_dict.Add(key_value.Value, neuron);
+            }
+        }
+
+        
+    }
+
+    void UpdateBloodVessels()
+    {
+        Dictionary<Pos, Artery> pos_artery_dict = EnvironmentLogic.ca.pos_artery_dict;
+        foreach (var key_value in pos_artery_dict)
+        {
+            if (!artery_dict.ContainsKey(key_value.Value))
+            {
+                Transform artery = Instantiate(ArteryPrefab);
+                artery.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
+                artery_dict.Add(key_value.Value, artery);
+            }
+        }
+
+        Dictionary<Pos, Arteriole> pos_arteriole_dict = EnvironmentLogic.ca.pos_arteriole_dict;
+        foreach (var key_value in pos_arteriole_dict)
+        {
+            if (!arteriole_dict.ContainsKey(key_value.Value))
+            {
+                Transform arteriole = Instantiate(ArteriolePrefab);
+                arteriole.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
+                arteriole_dict.Add(key_value.Value, arteriole);
+            }
+        }
+
+        Dictionary<Pos, Capillary> pos_capillary_dict = EnvironmentLogic.ca.pos_capillary_dict;
+        foreach (var key_value in pos_capillary_dict)
+        {
+            if (!capillary_dict.ContainsKey(key_value.Value))
+            {
+                Transform capillary = Instantiate(CapillaryPrefab);
+                capillary.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
+                capillary_dict.Add(key_value.Value, capillary);
             }
         }
     }
@@ -451,6 +509,12 @@ public class Environment : MonoBehaviour
                 Transform stemCell = Instantiate(StemCellPrefab);
                 stemCell.localPosition = new Vector3(item.Key.X, item.Key.Y, item.Key.Z);
                 stem_cell_dict.Add(item.Value, stemCell);
+            }
+            else if(item.Value.behavior_state == CellState.Migratory && !migratory_dict.ContainsKey(item.Value))
+            {
+                Transform migratory_cell = Instantiate(MigratoryPrefab);
+                migratory_cell.localPosition = new Vector3(item.Key.X, item.Key.Y, item.Key.Z);
+                migratory_dict.Add(item.Value, migratory_cell);
             }
         }
     }

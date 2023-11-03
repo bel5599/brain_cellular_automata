@@ -132,7 +132,7 @@ namespace AutomataCelularLogic
             //    }
             //    Console.WriteLine();
             //}
-            Console.ReadLine();
+            
 
 
             //GetCellsThatSenseTheTumorSubstance();
@@ -155,24 +155,26 @@ namespace AutomataCelularLogic
             //int count = 0;
             //while (count++ < 30)
             //{
-                //    //    //foreach (var key_value in ca.next_stem_position)
-                //    //    //{
-                //    //    //    Pos pos = key_value.Key;
-                //    //    //    if (key_value.Key != null)
-                //    //    //    {
-                //    //    //        Console.WriteLine("Nuevo");
-                //    //    //        Console.WriteLine(pos.X);
-                //    //    //        Console.WriteLine(pos.Y);
-                //    //    //        Console.WriteLine(pos.Z);
-                //    //    //        Console.WriteLine();
-                //    //    //        if (key_value.Value != null)
-                //    //    //        {
-                //    //    //            Console.WriteLine(key_value.Value.X);
-                //    //    //            Console.WriteLine(key_value.Value.Y);
-                //    //    //            Console.WriteLine(key_value.Value.Z);
-                //    //    //        }
-                //    //    //    }
-                //    //    //}
+            Console.WriteLine("Estoy aqui");
+            Console.ReadLine();
+            //    //    //foreach (var key_value in ca.next_stem_position)
+            //    //    //{
+            //    //    //    Pos pos = key_value.Key;
+            //    //    //    if (key_value.Key != null)
+            //    //    //    {
+            //    //    //        Console.WriteLine("Nuevo");
+            //    //    //        Console.WriteLine(pos.X);
+            //    //    //        Console.WriteLine(pos.Y);
+            //    //    //        Console.WriteLine(pos.Z);
+            //    //    //        Console.WriteLine();
+            //    //    //        if (key_value.Value != null)
+            //    //    //        {
+            //    //    //            Console.WriteLine(key_value.Value.X);
+            //    //    //            Console.WriteLine(key_value.Value.Y);
+            //    //    //            Console.WriteLine(key_value.Value.Z);
+            //    //    //        }
+            //    //    //    }
+            //    //    //}
 
             //    ca.Update();
             //}
