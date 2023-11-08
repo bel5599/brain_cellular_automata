@@ -32,7 +32,7 @@ namespace AutomataCelularLogic
         public Dictionary<Pos, Artery> pos_artery_dict;
         public Dictionary<Pos, Arteriole> pos_arteriole_dict;
         public Dictionary<Pos, Capillary> pos_capillary_dict;
-        public Dictionary<Artery, Tuple<List<Arteriole>, Capillary>> artery_arteriole_dict;
+        public Dictionary<Cell, Tuple<List<Arteriole>, Capillary>> artery_arteriole_dict;
 
         public Dictionary<Pos, Pos> next_stem_position;
         public Dictionary<Pos, Pos> next_migratory_position;
@@ -75,7 +75,7 @@ namespace AutomataCelularLogic
             pos_vessel_dict = new Dictionary<Pos, Cell>();
 
             pos_artery_dict = new Dictionary<Pos, Artery>();
-            artery_arteriole_dict = new Dictionary<Artery, Tuple<List<Arteriole>, Capillary>>();
+            artery_arteriole_dict = new Dictionary<Cell, Tuple<List<Arteriole>, Capillary>>();
             pos_arteriole_dict = new Dictionary<Pos, Arteriole>();
             pos_capillary_dict = new Dictionary<Pos, Capillary>();
 
@@ -122,7 +122,7 @@ namespace AutomataCelularLogic
                 if(cell.behavior_state != CellState.nothing)
                     pos_cell_dict.Add(cell.pos, cell);
                 if (cell.behavior_state == CellState.StemCell)
-                    next_stem_position.Add(cell.pos, null);
+                    next_stem_position.Add(cell.pos, Utils.NullPos());
             }
         }
 
@@ -168,7 +168,7 @@ namespace AutomataCelularLogic
 
         public void StartTumoraCell()
         {
-            tumor_stem_cell = new Cell(new Pos(20, 20, 20), CellState.TumoralCell, CellLocationState.MatrixExtracelular);
+            tumor_stem_cell = new Cell(new Pos(35, 35, 35), CellState.TumoralCell, CellLocationState.MatrixExtracelular);
             //tumor_stem_cell.neighborhood = Utils.GetMooreNeighbours3D(tumor_stem_cell.pos, space);
             //pos_cell_dict.Add(tumor_stem_cell.pos, tumor_stem_cell);
 
@@ -307,7 +307,7 @@ namespace AutomataCelularLogic
         {
             foreach (var item in pos_artery_dict.Values)
             { 
-                if(Utils.rdm.Next(0,2) == 1)
+                if(Utils.rdm.Next(0,2) == 1  && FreePositions(item))
                 {
                     CreateArteriole(item);
                 }
@@ -318,139 +318,184 @@ namespace AutomataCelularLogic
             }
         }
 
-        public void CreateArteriole(Artery artery)
+        public bool FreePositions(Cell artery)
         {
             int[,] array_mov = new int[,] { { 0, 1, 1 }, { 0, -1, 1 }, { 0, 0, 1 } };
+            Pos pos = artery.pos;
+
+            Pos pos1 = new Pos(pos.X, pos.Y + array_mov[0, 1], pos.Z + array_mov[0, 2]);
+            Pos pos2 = new Pos(pos.X, pos.Y + array_mov[1, 1], pos.Z + array_mov[1, 2]);
+            Pos pos3 = new Pos(pos.X, pos.Y + array_mov[2, 1], pos.Z + array_mov[2, 2]);
+            return ((!pos_vessel_dict.ContainsKey(pos1)) && Utils.ValidPosition(pos1)) || (!pos_vessel_dict.ContainsKey(pos2) && Utils.ValidPosition(pos2)) ||
+                (!pos_vessel_dict.ContainsKey(pos3) && Utils.ValidPosition(pos3));
+        }
+
+        public Pos FreePos(Pos pos)
+        {
+            int[,] array_mov = new int[,] { { 0, 1, 1 }, { 0, -1, 1 }, { 0, 0, 1 } };
+            List<Pos> free_positions = new List<Pos>();
+
+            for (int i = 0; i < array_mov.GetLength(1); i++)
+            {
+                Pos pos1 = new Pos(pos.X, pos.Y + array_mov[i, 1], pos.Z + array_mov[i, 2]);
+                if (!pos_vessel_dict.ContainsKey(pos1) && Utils.ValidPosition(pos1))
+                    free_positions.Add(pos1);
+            }
+
+            if(free_positions.Count > 0)
+                return free_positions[Utils.rdm.Next(0, free_positions.Count)];
+            return Utils.NullPos();
+        }
+        public void CreateArteriole(Cell artery)
+        {
+            //int[,] array_mov = new int[,] { { 0, 1, 1 }, { 0, -1, 1 }, { 0, 0, 1 } };
 
 
             if (Utils.rdm.Next(0, 2) == 1)
             {
-                Pos pos = null;
-                Pos pos1 = null;
+                Pos pos = Utils.NullPos();
+                Pos pos1 = Utils.NullPos();
 
-                //int x = 0;
-                //int y = 5;
-                //int z = 5;
-                //do
-                //{
 
-                //}
-                //while (space[x, y, z] != null);
-
-                do
+                pos = FreePos(artery.pos);
+                if (!pos.NullPos())
                 {
-                    int i = Utils.rdm.Next(0, array_mov.GetLength(1));
+                    Arteriole arteriole = new Arteriole(pos, CellState.nothing, CellLocationState.GlialBasalLamina);
 
-                    pos = new Pos(artery.pos.X, artery.pos.Y + array_mov[i, 1], artery.pos.Z + array_mov[i, 2]);
-                    i = Utils.rdm.Next(0, array_mov.GetLength(1));
-                    pos1 = new Pos(pos.X, pos.Y + array_mov[i, 1], pos.Z + array_mov[i, 2]);
+                    List<Arteriole> arteriole_list = new List<Arteriole>();
+                    arteriole_list.Add(arteriole);
+
+                    pos_arteriole_dict.Add(pos, arteriole);
+
+                    pos_vessel_dict.Add(pos, arteriole);
+
+                    space[arteriole.pos.X, arteriole.pos.Y, arteriole.pos.Z] = arteriole;
+
+                    pos1 = FreePos(pos);
+                    if(!pos1.NullPos())
+                    {
+                        Arteriole arteriole1 = new Arteriole(pos1, CellState.nothing, CellLocationState.GlialBasalLamina);
+                        
+                        arteriole_list.Add(arteriole1);
+                        artery_arteriole_dict.Add(artery, new Tuple<List<Arteriole>, Capillary>(arteriole_list, null));
+                        
+                        pos_arteriole_dict.Add(pos1, arteriole1);
+                        
+                        pos_vessel_dict.Add(pos1, arteriole1);
+                        
+                        space[arteriole1.pos.X, arteriole1.pos.Y, arteriole1.pos.Z] = arteriole1;
+
+                        if (FreePositions(arteriole1))
+                            CreateCapilar(arteriole1, artery);
+                    }
+                    else
+                    {
+                        artery_arteriole_dict.Add(artery, new Tuple<List<Arteriole>, Capillary>(arteriole_list, null));
+                        if (FreePositions(arteriole))
+                            CreateCapilar(arteriole, artery);
+                    }
+                    
                 }
-                while (!Utils.ValidPosition(pos) || !Utils.ValidPosition(pos1) || pos_vessel_dict.ContainsKey(pos) || pos_vessel_dict.ContainsKey(pos1));
-                //while (!Utils.ValidPosition(pos) || !Utils.ValidPosition(pos1) || pos_artery_dict.ContainsKey(pos) || pos_artery_dict.ContainsKey(pos1) || pos_arteriole_dict.ContainsKey(pos)
-                //|| pos_arteriole_dict.ContainsKey(pos1) || pos_capillary_dict.ContainsKey(pos) || pos_capillary_dict.ContainsKey(pos1));
-                //while (!Utils.ValidPosition(pos) || !Utils.ValidPosition(pos1) || space[pos.X, pos.Y, pos.Z] != null || space[pos1.X, pos1.Y, pos1.Z] != null);
 
-                if(space[pos.X, pos.Y, pos.Z] != null || space[pos1.X, pos1.Y, pos1.Z] != null)
-                    Console.WriteLine("hay un error aqui en la primera parte");
+                //if (space[pos.X, pos.Y, pos.Z] != null || space[pos1.X, pos1.Y, pos1.Z] != null)
+                //    Console.WriteLine("hay un error aqui en la primera parte");
 
-                Arteriole arteriole = new Arteriole(pos, CellState.nothing, CellLocationState.GlialBasalLamina);
-                Arteriole arteriole1 = new Arteriole(pos1, CellState.nothing, CellLocationState.GlialBasalLamina);
-
-                List<Arteriole> arteriole_list = new List<Arteriole>();
-
-                arteriole_list.Add(arteriole);
-                arteriole_list.Add(arteriole1);
-                artery_arteriole_dict.Add(artery, new Tuple<List<Arteriole>, Capillary>(arteriole_list, null));
-
-                pos_arteriole_dict.Add(pos, arteriole);
-                pos_arteriole_dict.Add(pos1, arteriole1);
-
-                pos_vessel_dict.Add(pos, arteriole);
-                pos_vessel_dict.Add(pos1, arteriole1);
-
-                space[arteriole.pos.X, arteriole.pos.Y, arteriole.pos.Z] = arteriole;
-                space[arteriole1.pos.X, arteriole1.pos.Y, arteriole1.pos.Z] = arteriole1;
-
-                CreateCapilar(arteriole1, artery);
+                
+                //CreateCapilar(arteriole1, artery);
             }
             else
             {
-                Pos pos = null;
-                Pos pos1 = null;
-                Pos pos2 = null;
+                //Pos pos = Utils.NullPos();
+                //Pos pos1 = Utils.NullPos();
+                //Pos pos2 = Utils.NullPos();
 
-                do
+                //Pos pos = FreePos(artery.pos);
+                //Pos pos1 = FreePos(pos);
+                //Pos pos2 = FreePos(pos1);
+
+                Pos pos = FreePos(artery.pos);
+                if (!pos.NullPos())
                 {
-                    int i = Utils.rdm.Next(0, array_mov.GetLength(1));
+                    Arteriole arteriole = new Arteriole(pos, CellState.nothing, CellLocationState.GlialBasalLamina);
 
-                    pos = new Pos(artery.pos.X, artery.pos.Y + array_mov[i, 1], artery.pos.Z + array_mov[i, 2]);
-                    i = Utils.rdm.Next(0, array_mov.GetLength(1));
-                    pos1 = new Pos(pos.X, pos.Y + array_mov[i, 1], pos.Z + array_mov[i, 2]);
-                    i = Utils.rdm.Next(0, array_mov.GetLength(1));
-                    pos2 = new Pos(pos.X, pos.Y + array_mov[i, 1], pos.Z + array_mov[i, 2]);
+                    List<Arteriole> arteriole_list = new List<Arteriole>();
+                    arteriole_list.Add(arteriole);
+
+                    pos_arteriole_dict.Add(pos, arteriole);
+
+                    pos_vessel_dict.Add(pos, arteriole);
+
+                    space[arteriole.pos.X, arteriole.pos.Y, arteriole.pos.Z] = arteriole;
+
+                    Pos pos1 = FreePos(pos);
+                    if (!pos1.NullPos())
+                    {
+                        Arteriole arteriole1 = new Arteriole(pos1, CellState.nothing, CellLocationState.GlialBasalLamina);
+
+                        arteriole_list.Add(arteriole1);
+
+                        pos_arteriole_dict.Add(pos1, arteriole1);
+
+                        pos_vessel_dict.Add(pos1, arteriole1);
+                        
+                        space[arteriole1.pos.X, arteriole1.pos.Y, arteriole1.pos.Z] = arteriole1;
+                        
+                        Pos pos2 = FreePos(pos1);
+                        if(!pos2.NullPos())
+                        {
+                            Arteriole arteriole2 = new Arteriole(pos2, CellState.nothing, CellLocationState.GlialBasalLamina);
+
+                            arteriole_list.Add(arteriole2);
+                            artery_arteriole_dict.Add(artery, new Tuple<List<Arteriole>, Capillary>(arteriole_list, null));
+
+                            pos_arteriole_dict.Add(pos2, arteriole2);
+
+                            pos_vessel_dict.Add(pos2, arteriole2);
+
+                            space[arteriole2.pos.X, arteriole2.pos.Y, arteriole2.pos.Z] = arteriole2;
+
+                            if (FreePositions(arteriole2))
+                                CreateCapilar(arteriole2, artery);
+                        }
+                        else
+                        {
+                            artery_arteriole_dict.Add(artery, new Tuple<List<Arteriole>, Capillary>(arteriole_list, null));
+                            if (FreePositions(arteriole1))
+                                CreateCapilar(arteriole1, artery);
+                        }
+                    }
+                    else
+                    {
+                        artery_arteriole_dict.Add(artery, new Tuple<List<Arteriole>, Capillary>(arteriole_list, null));
+                        if (FreePositions(arteriole))
+                            CreateCapilar(arteriole, artery);
+                    }
+
                 }
-                while (!Utils.ValidPosition(pos) || !Utils.ValidPosition(pos1) || pos_vessel_dict.ContainsKey(pos) || pos_vessel_dict.ContainsKey(pos1) || pos_vessel_dict.ContainsKey(pos2));
-                //while (!Utils.ValidPosition(pos) || !Utils.ValidPosition(pos1) || !Utils.ValidPosition(pos2) || pos_artery_dict.ContainsKey(pos) || pos_artery_dict.ContainsKey(pos1) || pos_artery_dict.ContainsKey(pos2) || pos_arteriole_dict.ContainsKey(pos)
-                //|| pos_arteriole_dict.ContainsKey(pos1) || pos_arteriole_dict.ContainsKey(pos2) || pos_capillary_dict.ContainsKey(pos) || pos_capillary_dict.ContainsKey(pos1) || pos_capillary_dict.ContainsKey(pos2));
+                //if (space[pos.X, pos.Y, pos.Z] != null || space[pos1.X, pos1.Y, pos1.Z] != null || space[pos2.X, pos2.Y, pos2.Z] != null)
+                //    Console.WriteLine("hay un error aqui en la segunda parte");
 
-                //while (!Utils.ValidPosition(pos) || !Utils.ValidPosition(pos1) || !Utils.ValidPosition(pos2) || space[pos.X, pos.Y, pos.Z] != null || space[pos1.X, pos1.Y, pos1.Z] != null || space[pos2.X, pos2.Y, pos2.Z] != null);
-
-                if (space[pos.X, pos.Y, pos.Z] != null || space[pos1.X, pos1.Y, pos1.Z] != null || space[pos2.X, pos2.Y, pos2.Z] != null)
-                    Console.WriteLine("hay un error aqui en la segunda parte");
-
-                Arteriole arteriole = new Arteriole(pos, CellState.nothing, CellLocationState.GlialBasalLamina);
-                Arteriole arteriole1 = new Arteriole(pos1, CellState.nothing, CellLocationState.GlialBasalLamina);
-                Arteriole arteriole2 = new Arteriole(pos2, CellState.nothing, CellLocationState.GlialBasalLamina);
-
-                List<Arteriole> arteriole_list = new List<Arteriole>();
-
-                arteriole_list.Add(arteriole);
-                arteriole_list.Add(arteriole1);
-                arteriole_list.Add(arteriole2);
-                artery_arteriole_dict.Add(artery, new Tuple<List<Arteriole>, Capillary>(arteriole_list, null));
-
-                pos_arteriole_dict.Add(pos, arteriole);
-                pos_arteriole_dict.Add(pos1, arteriole1);
-                pos_arteriole_dict.Add(pos2, arteriole2);
-
-                pos_vessel_dict.Add(pos, arteriole);
-                pos_vessel_dict.Add(pos1, arteriole1);
-                pos_vessel_dict.Add(pos2, arteriole2);
-
-                space[arteriole.pos.X, arteriole.pos.Y, arteriole.pos.Z] = arteriole;
-                space[arteriole1.pos.X, arteriole1.pos.Y, arteriole1.pos.Z] = arteriole1;
-                space[arteriole2.pos.X, arteriole2.pos.Y, arteriole2.pos.Z] = arteriole2;
-
-                CreateCapilar(arteriole2, artery);
             }
 
         }
 
-        public void CreateCapilar(Arteriole arteriole, Artery artery)
+        public void CreateCapilar(Arteriole arteriole, Cell artery)
         {
-            int[,] array_mov = new int[,] { { 0, 1, 1 }, { 0, -1, 1 }, { 0, 0, 1 } };
+            //int[,] array_mov = new int[,] { { 0, 1, 1 }, { 0, -1, 1 }, { 0, 0, 1 } };
 
-            Pos pos = null;
-            do
+            Pos pos = FreePos(arteriole.pos);
+            if (!pos.NullPos())
             {
-                int i = Utils.rdm.Next(0, array_mov.GetLength(1));
-                pos = new Pos(arteriole.pos.X + array_mov[i, 0], arteriole.pos.Y + array_mov[i, 1], arteriole.pos.Z + array_mov[i, 2]);
+
+                Capillary capillary = new Capillary(pos, CellState.nothing, CellLocationState.GlialBasalLamina);
+                artery_arteriole_dict[artery] = new Tuple<List<Arteriole>, Capillary>(artery_arteriole_dict[artery].Item1, capillary);
+
+                pos_capillary_dict.Add(pos, capillary);
+
+                pos_vessel_dict.Add(pos, capillary);
+
+                space[pos.X, pos.Y, pos.Z] = capillary;
             }
-            while (!Utils.ValidPosition(pos) || pos_vessel_dict.ContainsKey(pos));
-            //while (!Utils.ValidPosition(pos) || pos_arteriole_dict.ContainsKey(pos) || pos_artery_dict.ContainsKey(pos) || pos_capillary_dict.ContainsKey(pos));
-            //while (!Utils.ValidPosition(pos) || space[pos.X, pos.Y, pos.Z] != null);
-
-            if (space[pos.X, pos.Y, pos.Z] != null)
-                Console.WriteLine("hay un error aqui en la capilar");
-
-            Capillary capillary = new Capillary(pos, CellState.nothing, CellLocationState.GlialBasalLamina);
-            artery_arteriole_dict[artery] = new Tuple<List<Arteriole>, Capillary>(artery_arteriole_dict[artery].Item1, capillary);
-
-            pos_capillary_dict.Add(pos, capillary);
-
-            pos_vessel_dict.Add(pos, capillary);
-
-            space[pos.X, pos.Y, pos.Z] = capillary;
             
         }
 
@@ -591,9 +636,12 @@ namespace AutomataCelularLogic
             {
                 //aqui se quiere obtener las casillas vacias vecinas
                 List<Cell> free_neighbord = Utils.EmptyPositions(pos_cell_dict[item.Key].neighborhood);
-                temp.Add(item.Key, free_neighbord[Utils.rdm.Next(0, free_neighbord.Count)].pos);
-
+                if (free_neighbord.Count > 0)
+                {
+                    temp.Add(item.Key, free_neighbord[Utils.rdm.Next(0, free_neighbord.Count)].pos);
+                }
             }
+            next_migratory_position = temp;
         }
 
         //La idea de las celulas migratorias es moverse a lugares donde exista alta concentracion de nutrientes
@@ -678,7 +726,7 @@ namespace AutomataCelularLogic
 
                 //AGREGAR AQUI ESTA ARTERIOLA AL DICCIONARIO DE ARTERIAS CON ARTERIOLAS
             }
-            else if(tumorCell_bloodVessel.Item2 is Artery)
+            else if(tumorCell_bloodVessel.Item2 is Cell)
             {
                 new_artery_list.Add(vecino_mas_cercano);
                 vasos_en_crecimiento_dict.Add(tumorCell_bloodVessel.Item1, vecino_mas_cercano);
@@ -782,7 +830,7 @@ namespace AutomataCelularLogic
 
                     //AGREGAR AQUI ESTA ARTERIOLA AL DICCIONARIO DE ARTERIAS CON ARTERIOLAS
                 }
-                else if (item.Item2 is Artery)
+                else if (item.Item2 is Cell)
                 {
                     new_artery_list.Add(vecino);
                     temp.Add(item.Item1, vecino);
@@ -858,7 +906,7 @@ namespace AutomataCelularLogic
             foreach (Pos pos in next_stem_position.Keys)
             {
                 if (!temp.ContainsKey(next_stem_position[pos]))
-                    temp.Add(next_stem_position[pos], null);
+                    temp.Add(next_stem_position[pos], Utils.NullPos());
             }
             next_stem_position = temp;
         }
@@ -883,7 +931,7 @@ namespace AutomataCelularLogic
                 if(posible_migratory_cells.Contains(cell))
                 {
                     cell.behavior_state = CellState.Migratory;
-                    next_migratory_position.Add(cell.pos, null);
+                    next_migratory_position.Add(cell.pos, Utils.NullPos());
                     migratory_cells.Add(cell);
                 }
                 //tener en cuenta aqui tambien lo de la migracion de las celulas tumorales
@@ -894,7 +942,7 @@ namespace AutomataCelularLogic
             }
             else if(cell.behavior_state == CellState.Migratory)
             {
-                if(next_migratory_position.ContainsKey(cell.pos) && next_migratory_position[cell.pos] != null)
+                if(next_migratory_position.ContainsKey(cell.pos) && next_migratory_position[cell.pos].NullPos())
                 {
                     pos_cell_dict.Remove(cell.pos);
                     tumor.cell_list.Remove(cell);
@@ -959,23 +1007,26 @@ namespace AutomataCelularLogic
                 }
                 else if(new_artery_list.Contains(cell))
                 {
-                    cell = new Artery(cell.pos, CellState.nothing, CellLocationState.GlialBasalLamina);
-                    pos_artery_dict.Add(cell.pos, (Artery)cell);
                     pos_cell_dict.Remove(cell.pos);
+                    cell = new Cell(cell.pos, CellState.nothing, CellLocationState.GlialBasalLamina);
+                    pos_artery_dict.Add(cell.pos, (Artery)cell);
+                    
                     space[cell.pos.X, cell.pos.Y, cell.pos.Z] = cell;
                 }
                 else if(new_arteriole_list.Contains(cell))
                 {
-                    cell = new Arteriole(cell.pos, CellState.nothing, CellLocationState.GlialBasalLamina);
-                    pos_arteriole_dict.Add(cell.pos, (Arteriole)cell);
                     pos_cell_dict.Remove(cell.pos);
+                    cell = new Arteriole(cell.pos, CellState.nothing, CellLocationState.GlialBasalLamina);
+
+                    pos_arteriole_dict.Add(cell.pos, (Arteriole)cell);
                     space[cell.pos.X, cell.pos.Y, cell.pos.Z] = cell;
                 }
                 else if(new_capillary_list.Contains(cell))
                 {
+                    pos_cell_dict.Remove(cell.pos);
                     cell = new Capillary(cell.pos, CellState.nothing, CellLocationState.GlialBasalLamina);
                     pos_capillary_dict.Add(cell.pos, (Capillary)cell);
-                    pos_cell_dict.Remove(cell.pos);
+                    
                     space[cell.pos.X, cell.pos.Y, cell.pos.Z] = cell;
                 }
             }

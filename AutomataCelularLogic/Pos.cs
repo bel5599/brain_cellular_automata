@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutomataCelularLogic
 {
-    public class Pos
+    public struct Pos
     {
         int x;
         int y;
@@ -32,6 +32,11 @@ namespace AutomataCelularLogic
         {
             get { return z; }
             set { z = value; }
+        }
+
+        public bool NullPos()
+        {
+            return x == -1;
         }
         public override bool Equals(object obj)
         {

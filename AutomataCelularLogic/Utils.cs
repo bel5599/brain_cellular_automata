@@ -26,6 +26,11 @@ namespace AutomataCelularLogic
             return neighbours;
         }
 
+        public static Pos NullPos()
+        {
+            return new Pos(-1, -1, -1);
+        }
+
         public static void InitializeVariables()
         {
             mov_3d.Add(new[] { 0, 0, 1 });
@@ -69,6 +74,20 @@ namespace AutomataCelularLogic
             mov_3d.Add(new[] { -1, 0, 0 });
 
 
+        }
+
+        public static List<Pos> EmptyPositions(Pos pos, List<Pos> marks)
+        {
+            List<Pos> empty_pos = new List<Pos>();
+
+            for (int i = 0; i < mov_3d.Count; i++)
+            {
+                int[] array = mov_3d[i];
+                Pos new_pos = new Pos(pos.X + array[0], pos.Y + array[1], pos.Z + array[2]);
+                if (ValidPosition(new_pos) && !marks.Contains(new_pos))
+                    empty_pos.Add(new_pos);
+            }
+            return empty_pos;
         }
         public static List<Cell> EmptyPositions(List<Cell> cell_list)
         {
@@ -118,7 +137,7 @@ namespace AutomataCelularLogic
             return d;
         }
 
-        public static Pos GetAdjacentPosition(Pos pos, Dictionary<Pos, Cell> pos_cell_dict, Dictionary<Pos, Artery> pos_artery_dict)
+        public static Pos GetAdjacentPosition(Pos pos, Dictionary<Pos, Cell> pos_cell_dict, Dictionary<Pos, Cell> pos_artery_dict)
         {
             Pos new_pos;
             for (int i = 0; i < mov_3d.Count; i++)
@@ -129,7 +148,7 @@ namespace AutomataCelularLogic
                 if (!pos_cell_dict.ContainsKey(new_pos) && !pos_artery_dict.ContainsKey(new_pos))
                     return new_pos;
             }
-            return null;
+            return new Pos(-1, -1, -1);
         }
 
         public static bool ValidPosition(Pos pos)

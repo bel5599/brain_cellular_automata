@@ -34,11 +34,11 @@ namespace AutomataCelularLogic
         //public static List<Cell> cell_list = new List<Cell>();
 
         //VARIABLES RELACIONADAS CON LOS VASOS SANGUINEOS
-        public static List<Artery> artery_list = new List<Artery>();
- 
-        
+        public static List<Cell> artery_list = new List<Cell>();
 
-        public static Dictionary< Pos, Artery> pos_artery_dict = new Dictionary<Pos, Artery>();
+
+
+        public static Dictionary<Pos, Cell> pos_artery_dict = new Dictionary<Pos, Cell>();
 
         //LISTA RELACIONADAS CON LAS ACCIONES DE LAS CELULAS EN CADA INSTANTE DE TIEMPO
         public static Dictionary<Pos, Pos> contaminate_dict = new Dictionary<Pos, Pos>();
@@ -48,7 +48,7 @@ namespace AutomataCelularLogic
         public static int tumoral_cell_radio = 5;
         public static Cell tumor_stem_cell = null;
 
-        
+
 
         public static CellularAutomaton ca;
 
@@ -70,6 +70,11 @@ namespace AutomataCelularLogic
 
         static void Main(string[] args)
         {
+            Utils.InitializeVariables();
+            World world = new World();
+            world.CreateBloodVesselsTree(limit_of_x);
+
+            #region comentarios
             //console.writeline("hello world");
 
             //Console.WriteLine("Hello World");
@@ -101,12 +106,13 @@ namespace AutomataCelularLogic
             //double num2 = 0.0002;
             //Console.WriteLine(num);
             //Console.WriteLine(num2);
+            //Console.WriteLine(Utils.ValidPosition(new Pos(12, -1, 14)));
+            //Console.WriteLine(Utils.ValidPosition(new Pos(-12, -1, 14)));
+            //Console.WriteLine(Utils.ValidPosition(new Pos(12, 1, 14)));
+            //Console.WriteLine(Utils.ValidPosition(new Pos(-1, 12, 14)));
+            //Console.WriteLine(Utils.ValidPosition(12, -1, 14));
 
-
-
-
-
-            Simulation();
+            //Simulation();
             //Utils.InitializeVariables();
             //foreach (Pos pos in ca.pos_cell_dict.Keys)
             //{
@@ -132,7 +138,7 @@ namespace AutomataCelularLogic
             //    }
             //    Console.WriteLine();
             //}
-            
+
 
 
             //GetCellsThatSenseTheTumorSubstance();
@@ -142,6 +148,8 @@ namespace AutomataCelularLogic
             //PathFromCellsToTumorCell();
 
             //StemCellConvertToTumoralCell();
+            #endregion
+
 
         }
         static double LogisticGrowth(double P0, double K, double r, double t)
@@ -155,26 +163,26 @@ namespace AutomataCelularLogic
             //int count = 0;
             //while (count++ < 30)
             //{
-            Console.WriteLine("Estoy aqui");
-            Console.ReadLine();
-            //    //    //foreach (var key_value in ca.next_stem_position)
-            //    //    //{
-            //    //    //    Pos pos = key_value.Key;
-            //    //    //    if (key_value.Key != null)
-            //    //    //    {
-            //    //    //        Console.WriteLine("Nuevo");
-            //    //    //        Console.WriteLine(pos.X);
-            //    //    //        Console.WriteLine(pos.Y);
-            //    //    //        Console.WriteLine(pos.Z);
-            //    //    //        Console.WriteLine();
-            //    //    //        if (key_value.Value != null)
-            //    //    //        {
-            //    //    //            Console.WriteLine(key_value.Value.X);
-            //    //    //            Console.WriteLine(key_value.Value.Y);
-            //    //    //            Console.WriteLine(key_value.Value.Z);
-            //    //    //        }
-            //    //    //    }
-            //    //    //}
+                //Console.WriteLine("Estoy aqui");
+                //Console.ReadLine();
+                //    //    //foreach (var key_value in ca.next_stem_position)
+                //    //    //{
+                //    //    //    Pos pos = key_value.Key;
+                //    //    //    if (key_value.Key != null)
+                //    //    //    {
+                //    //    //        Console.WriteLine("Nuevo");
+                //    //    //        Console.WriteLine(pos.X);
+                //    //    //        Console.WriteLine(pos.Y);
+                //    //    //        Console.WriteLine(pos.Z);
+                //    //    //        Console.WriteLine();
+                //    //    //        if (key_value.Value != null)
+                //    //    //        {
+                //    //    //            Console.WriteLine(key_value.Value.X);
+                //    //    //            Console.WriteLine(key_value.Value.Y);
+                //    //    //            Console.WriteLine(key_value.Value.Z);
+                //    //    //        }
+                //    //    //    }
+                //    //    //}
 
             //    ca.Update();
             //}
@@ -232,7 +240,7 @@ namespace AutomataCelularLogic
 
         #region Surgimiento
 
-       
+
         //public static void MoveAstrocyteToVessels()
         //{
         //    for (int i = 0; i < astrocyte_cell_list.Count; i++)

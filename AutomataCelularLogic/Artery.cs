@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutomataCelularLogic
 {
-    public class Artery : Cell
+    public class Artery: Cell
     {
         //    public Pos pos1;
         //    public Pos pos2;
