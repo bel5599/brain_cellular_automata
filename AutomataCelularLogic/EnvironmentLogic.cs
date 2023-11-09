@@ -70,9 +70,19 @@ namespace AutomataCelularLogic
 
         static void Main(string[] args)
         {
-            Utils.InitializeVariables();
-            World world = new World();
-            world.CreateBloodVesselsTree(limit_of_x);
+            //Utils.InitializeVariables();
+            //World world = new World();
+            //world.CreateBloodVesselsTree(limit_of_x);
+
+            //PoissonDiskGenerator poisson = new PoissonDiskGenerator();
+
+            List<Point3D> list = PoissonDiskGenerator.GeneratePoissonDiskPoints(20, 20, 20);
+            foreach (var item in list)
+            {
+                Console.WriteLine("{0} {1} {2}", item.X, item.Y, item.Z);
+            }
+
+            Console.ReadLine();
 
             #region comentarios
             //console.writeline("hello world");
@@ -572,6 +582,72 @@ namespace AutomataCelularLogic
 
 
         #endregion
+    }
+    public struct Point3D
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int Z { get; set; }
+    }
+    public class PoissonDiskGenerator
+    {
+        private static Random random = new Random();
+        private static double radius = 1.0;
+        private static List<Point3D> points = new List<Point3D>();
+
+        public static Point3D GenerateRandomPoint(int height, int width, int depth)
+        {
+            int x;
+            int y;
+            int z;
+            do
+                x = (int)(random.Next(0, height) * radius * 2 - radius);
+            while (x < 0);
+            do
+                y = (int)(random.Next(0, width) * radius * 2 - radius);
+            while (y < 0);
+            do
+                z = (int)(random.Next(0, depth) * radius * 2 - radius);
+            while (z < 0);
+
+            return new Point3D { X = x, Y = y, Z = z };
+        }
+
+        public static bool IsTooClose(Point3D point, List<Point3D> points)
+        {
+            foreach (Point3D existingPoint in points)
+            {
+                double distance = Math.Sqrt(Math.Pow(point.X - existingPoint.X, 2) + Math.Pow(point.Y - existingPoint.Y, 2) + Math.Pow(point.Z - existingPoint.Z, 2));
+                if (distance < radius)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static List<Point3D> GeneratePoissonDiskPoints(int width, int height, int depth)
+        {
+            List<Point3D> poissonDiskPoints = new List<Point3D>();
+            for (int x = 0; x < width; x++)
+            {
+                //for (int y = 0; y < height; y++)
+                //{
+                //    for (int z = 0; z < depth; z++)
+                //    {
+                Point3D point = GenerateRandomPoint(height, width, depth);
+                while (IsTooClose(point, poissonDiskPoints))
+                {
+                    point = GenerateRandomPoint(height, width, depth);
+                }
+                if (poissonDiskPoints.Contains(point))
+                    Console.WriteLine("Ya existe");
+                poissonDiskPoints.Add(point);
+                //    }
+                //}
+            }
+            return poissonDiskPoints;
+        }
     }
 
 }

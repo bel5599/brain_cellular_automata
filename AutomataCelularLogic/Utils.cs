@@ -130,6 +130,24 @@ namespace AutomataCelularLogic
             return new Pos(x, y, z);
         }
 
+        public static Pos GenerateRandomPoint(double radius, int height, int width, int depth)
+        {
+            int x;
+            int y;
+            int z;
+            do
+                x = (int)(rdm.Next(0, height) * radius * 2 - radius);
+            while (x < 0);
+            do
+                y = (int)(rdm.Next(0, width) * radius * 2 - radius);
+            while (y < 0);
+            do
+                z = (int)(rdm.Next(0, depth) * radius * 2 - radius);
+            while (z < 0);
+
+            return new Pos { X = x, Y = y, Z = z };
+        }
+
         public static int EuclideanDistance(Pos pos_tumor_cell, Pos pos_stem_cell)
         {
             int d = (int)Math.Sqrt(Math.Pow(pos_stem_cell.X - pos_tumor_cell.X, 2) + Math.Pow(pos_stem_cell.Y - pos_tumor_cell.Y, 2) + Math.Pow(pos_stem_cell.Z - pos_tumor_cell.Z, 2));
