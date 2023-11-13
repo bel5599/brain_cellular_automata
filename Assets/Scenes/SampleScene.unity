@@ -342,7 +342,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f2f76d25a745b244911cea02dc1a439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TumoralCellPrefab: {fileID: 6037692881192581947, guid: 5f76a3f96be45314090950cd7fb105d3, type: 3}
+  ProliferativeTumoralCellPrefab: {fileID: 6037692881192581947, guid: 5f76a3f96be45314090950cd7fb105d3, type: 3}
+  NecroticTumoralCellPrefab: {fileID: 1303921705111346017, guid: c8a0160f0d7ec0c47bd101e329786a44, type: 3}
+  QuiescentTumorCellPrefab: {fileID: 5647794170781693403, guid: 6deac5b0b77562d4b81a112b032ac451, type: 3}
   StemCellPrefab: {fileID: 5857302913311388681, guid: 5311622f75232474889f72529507503b, type: 3}
   TumoralSpherePrefab: {fileID: 8486816614014879814, guid: f69c3e1320bdd084f8e8cc7dde51bd61, type: 3}
   NeuronPrefab: {fileID: 3593598548196053762, guid: e547d6c918617c548be59fbd58dd20f7, type: 3}

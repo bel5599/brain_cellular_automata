@@ -6,7 +6,7 @@ using AutomataCelularLogic;
 public class Environment : MonoBehaviour
 {
     [SerializeField]
-    Transform TumoralCellPrefab, StemCellPrefab, TumoralSpherePrefab, NeuronPrefab, AstrocytePrefab, ArteryPrefab, ArteriolePrefab, CapillaryPrefab, MigratoryPrefab;
+    Transform ProliferativeTumoralCellPrefab, NecroticTumoralCellPrefab, QuiescentTumorCellPrefab, StemCellPrefab, TumoralSpherePrefab, NeuronPrefab, AstrocytePrefab, ArteryPrefab, ArteriolePrefab, CapillaryPrefab, MigratoryPrefab;
 
     //Transform target;
     public float speed;
@@ -25,11 +25,12 @@ public class Environment : MonoBehaviour
     Dictionary<Cell, Transform> astrocyte_dict;
     Dictionary<Cell, Transform> neuron_dict;
     Dictionary<Artery, Transform> artery_dict;
-    Dictionary<Arteriole, Transform> arteriole_dict;
-    Dictionary<Capillary, Transform> capillary_dict;
+    //Dictionary<Arteriole, Transform> arteriole_dict;
+    //Dictionary<Capillary, Transform> capillary_dict;
 
     Dictionary<Cell, Transform> migratory_dict;
-
+    Dictionary<Cell, Transform> necrotic_cell_dict;
+    Dictionary<Cell, Transform> quiescent_cell_dict;
     Dictionary<Cell, Transform> tumoral_cell_dict;
     Dictionary<Sphere, Transform> sphere_list;
     //List<Transform> cell_list;
@@ -141,14 +142,16 @@ public class Environment : MonoBehaviour
         astrocyte_dict = new Dictionary<Cell, Transform>();
         neuron_dict = new Dictionary<Cell, Transform>();
         artery_dict = new Dictionary<Artery, Transform>();
-        arteriole_dict = new Dictionary<Arteriole, Transform>();
-        capillary_dict = new Dictionary<Capillary, Transform>();
+        necrotic_cell_dict = new Dictionary<Cell, Transform>();
+        quiescent_cell_dict = new Dictionary<Cell, Transform>();
+        //arteriole_dict = new Dictionary<Arteriole, Transform>();
+        //capillary_dict = new Dictionary<Capillary, Transform>();
         migratory_dict = new Dictionary<Cell, Transform>();
     }
 
     void InitialTumoralCell()
     {
-        tumoralCell = Instantiate(TumoralCellPrefab);
+        tumoralCell = Instantiate(ProliferativeTumoralCellPrefab);
         tumoralCell.localPosition = new Vector3(EnvironmentLogic.ca.tumor_stem_cell.pos.X, EnvironmentLogic.ca.tumor_stem_cell.pos.Y, EnvironmentLogic.ca.tumor_stem_cell.pos.Z);
     }
 
@@ -403,6 +406,18 @@ public class Environment : MonoBehaviour
                 neuron.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
                 neuron_dict.Add(key_value.Value, neuron);
             }
+            else if(key_value.Value.behavior_state == CellState.NecroticTumorCell)
+            {
+                Transform necrotic = Instantiate(NecroticTumoralCellPrefab);
+                necrotic.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
+                necrotic_cell_dict.Add(key_value.Value, necrotic);
+            }
+            else if(key_value.Value.behavior_state == CellState.QuiescentTumorCell)
+            {
+                Transform quiescent = Instantiate(QuiescentTumorCellPrefab);
+                quiescent.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
+                quiescent_cell_dict.Add(key_value.Value, quiescent);
+            }
         }
 
         
@@ -421,27 +436,27 @@ public class Environment : MonoBehaviour
             }
         }
 
-        Dictionary<Pos, Arteriole> pos_arteriole_dict = EnvironmentLogic.ca.pos_arteriole_dict;
-        foreach (var key_value in pos_arteriole_dict)
-        {
-            if (!arteriole_dict.ContainsKey(key_value.Value))
-            {
-                Transform arteriole = Instantiate(ArteriolePrefab);
-                arteriole.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
-                arteriole_dict.Add(key_value.Value, arteriole);
-            }
-        }
+        //Dictionary<Pos, Arteriole> pos_arteriole_dict = EnvironmentLogic.ca.pos_arteriole_dict;
+        //foreach (var key_value in pos_arteriole_dict)
+        //{
+        //    if (!arteriole_dict.ContainsKey(key_value.Value))
+        //    {
+        //        Transform arteriole = Instantiate(ArteriolePrefab);
+        //        arteriole.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
+        //        arteriole_dict.Add(key_value.Value, arteriole);
+        //    }
+        //}
 
-        Dictionary<Pos, Capillary> pos_capillary_dict = EnvironmentLogic.ca.pos_capillary_dict;
-        foreach (var key_value in pos_capillary_dict)
-        {
-            if (!capillary_dict.ContainsKey(key_value.Value))
-            {
-                Transform capillary = Instantiate(CapillaryPrefab);
-                capillary.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
-                capillary_dict.Add(key_value.Value, capillary);
-            }
-        }
+        //Dictionary<Pos, Capillary> pos_capillary_dict = EnvironmentLogic.ca.pos_capillary_dict;
+        //foreach (var key_value in pos_capillary_dict)
+        //{
+        //    if (!capillary_dict.ContainsKey(key_value.Value))
+        //    {
+        //        Transform capillary = Instantiate(CapillaryPrefab);
+        //        capillary.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
+        //        capillary_dict.Add(key_value.Value, capillary);
+        //    }
+        //}
     }
 
     void UpdatePosCellDict(Dictionary<Cell, Transform> cell_dict)
@@ -469,11 +484,23 @@ public class Environment : MonoBehaviour
                     astrocyte_cell.localPosition = new Vector3(cell.pos.X, cell.pos.Y, cell.pos.Z);
                     astrocyte_dict.Add(cell, astrocyte_cell);
                 }
-                else if (behavior_state == CellState.TumoralCell)
+                else if (behavior_state == CellState.ProliferativeTumoralCell)
                 {
-                    Transform tumoral_cell = Instantiate(TumoralCellPrefab);
+                    Transform tumoral_cell = Instantiate(ProliferativeTumoralCellPrefab);
                     tumoral_cell.localPosition = new Vector3(cell.pos.X, cell.pos.Y, cell.pos.Z);
                     tumoral_cell_dict.Add(cell, tumoral_cell);
+                }
+                else if (behavior_state == CellState.NecroticTumorCell)
+                {
+                    Transform necrotic = Instantiate(NecroticTumoralCellPrefab);
+                    necrotic.localPosition = new Vector3(cell.pos.X, cell.pos.Y, cell.pos.Z);
+                    necrotic_cell_dict.Add(cell, necrotic);
+                }
+                else if (behavior_state == CellState.QuiescentTumorCell)
+                {
+                    Transform quiescent = Instantiate(QuiescentTumorCellPrefab);
+                    quiescent.localPosition = new Vector3(cell.pos.X, cell.pos.Y, cell.pos.Z);
+                    quiescent_cell_dict.Add(cell, quiescent);
                 }
             }
         }
@@ -492,9 +519,9 @@ public class Environment : MonoBehaviour
                 astrocyte_cell.localPosition = new Vector3(item.Key.X, item.Key.Y, item.Key.Z);
                 astrocyte_dict.Add(item.Value, astrocyte_cell);
             }
-            else if (item.Value.behavior_state == CellState.TumoralCell && !tumoral_cell_dict.ContainsKey(item.Value))
+            else if (item.Value.behavior_state == CellState.ProliferativeTumoralCell && !tumoral_cell_dict.ContainsKey(item.Value))
             {
-                Transform tumoral_cell = Instantiate(TumoralCellPrefab);
+                Transform tumoral_cell = Instantiate(ProliferativeTumoralCellPrefab);
                 tumoral_cell.localPosition = new Vector3(item.Key.X, item.Key.Y, item.Key.Z);
                 tumoral_cell_dict.Add(item.Value, tumoral_cell);
             }
@@ -510,11 +537,23 @@ public class Environment : MonoBehaviour
                 stemCell.localPosition = new Vector3(item.Key.X, item.Key.Y, item.Key.Z);
                 stem_cell_dict.Add(item.Value, stemCell);
             }
-            else if(item.Value.behavior_state == CellState.Migratory && !migratory_dict.ContainsKey(item.Value))
+            else if(item.Value.behavior_state == CellState.MigratoryTumorCell && !migratory_dict.ContainsKey(item.Value))
             {
                 Transform migratory_cell = Instantiate(MigratoryPrefab);
                 migratory_cell.localPosition = new Vector3(item.Key.X, item.Key.Y, item.Key.Z);
                 migratory_dict.Add(item.Value, migratory_cell);
+            }
+            else if(item.Value.behavior_state == CellState.NecroticTumorCell && !necrotic_cell_dict.ContainsKey(item.Value))
+            {
+                Transform necrotic = Instantiate(NecroticTumoralCellPrefab);
+                necrotic.localPosition = new Vector3(item.Key.X, item.Key.Y, item.Key.Z);
+                necrotic_cell_dict.Add(item.Value, necrotic);
+            }
+            else if(item.Value.behavior_state == CellState.QuiescentTumorCell && !quiescent_cell_dict.ContainsKey(item.Value))
+            {
+                Transform quiescent = Instantiate(QuiescentTumorCellPrefab);
+                quiescent.localPosition = new Vector3(item.Key.X, item.Key.Y, item.Key.Z);
+                quiescent_cell_dict.Add(item.Value, quiescent);
             }
         }
     }
