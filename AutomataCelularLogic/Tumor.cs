@@ -86,20 +86,23 @@ namespace AutomataCelularLogic
         public void VerhulstEquation()
         {
             double loading_capacity;
-            actual_population = cell_list.Count;
+            actual_population = cell_list.Count + 1;
 
             if (tumor_stage == TumosStage.Avascular)
                 loading_capacity = avascular_carrying_capacity;
             else loading_capacity = vascular_carrying_capacity;
 
-            //new_cells_count = (int)(growth_rate * actual_population * (1 - actual_population / loading_capacity));
-
-            new_cells_count = (int)LogisticGrowth(actual_population, loading_capacity, growth_rate, time);
+            new_cells_count = (int)VerhulstGrowth(actual_population, growth_rate, loading_capacity, time);
         }
-        double LogisticGrowth(double P0, double K, double r, double t)
+        static double VerhulstGrowth(double actual_population, double growth_rate, double loading_capacity, double time)
         {
-            return (P0 * K * Math.Exp(r * t)) / ((K - P0) + P0 * Math.Exp(r * t));
+            double dP = growth_rate * actual_population * (1 - actual_population / loading_capacity) * time;
+            return actual_population + dP;
         }
+        //double LogisticGrowth(double P0, double K, double r, double t)
+        //{
+        //    return (P0 * K * Math.Exp(r * t)) / ((K - P0) + P0 * Math.Exp(r * t));
+        //}
         public void UpdateNewCellCount()
         {
             new_cells_count--;

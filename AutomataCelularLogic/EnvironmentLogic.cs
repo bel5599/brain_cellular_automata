@@ -92,6 +92,14 @@ namespace AutomataCelularLogic
             //MathematicalModel mm = new MathematicalModel();
             //mm.ReactionDiffusionEcuacion();
 
+            //double current = 1;
+            //for (int i = 0; i < 48; i++)
+            //{
+            //    current = VerhulstGrowth(current, growth_rate, avascular_carrying_capacity, i);
+            //    Console.WriteLine($"The size of the tumor at time {i} is {current}.");
+            //}
+            //Console.ReadLine();
+
             #region comentarios
             //console.writeline("hello world");
 
@@ -170,9 +178,10 @@ namespace AutomataCelularLogic
 
 
         }
-        static double LogisticGrowth(double P0, double K, double r, double t)
+        static double VerhulstGrowth(double actual_population, double growth_rate, double loading_capacity, double time)
         {
-            return (P0 * K * Math.Exp(r * t)) / ((K - P0) + P0 * Math.Exp(r * t));
+            double dP = growth_rate * actual_population * (1 - actual_population / loading_capacity) * time;
+            return actual_population + dP;
         }
         public static void Simulation()
         {
@@ -203,6 +212,12 @@ namespace AutomataCelularLogic
                 //    //    //}
 
                 ca.Update();
+
+                foreach (var item in ca.tumor.cell_list)
+                {
+                    Console.WriteLine(item.behavior_state);
+                }
+                Console.WriteLine();
             }
 
             //    Console.WriteLine("Luego del update");

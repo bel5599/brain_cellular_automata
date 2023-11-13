@@ -42,18 +42,18 @@ namespace AutomataCelularLogic
             //    Console.WriteLine(item.loca_state);
             //}
 
-            //if (tumor.new_cells_count > tumor.cell_list.Count)
-            //{
-            int tumoral_cells_count = 0;
-            foreach (Cell item in cell_list)
+            if (tumor.new_cells_count > tumor.cell_list.Count)
             {
-                if (item.behavior_state == CellState.ProliferativeTumoralCell)
-                    tumoral_cells_count++;
+                int tumoral_cells_count = 0;
+                foreach (Cell item in cell_list)
+                {
+                    if (item.behavior_state == CellState.ProliferativeTumoralCell)
+                        tumoral_cells_count++;
+                }
+                double prob = (double)tumoral_cells_count / cell_list.Count;
+                return prob;
             }
-            double prob = (double)tumoral_cells_count / cell_list.Count;
-            return prob;
-            //}
-            //return 0;
+            return 0;
         }
 
         public override double MigrateProbability(Cell cell, Tumor tumor)
@@ -73,19 +73,19 @@ namespace AutomataCelularLogic
 
         public override double ContamineProbability(Cell cell, List<Cell> cell_list, Tumor tumor)
         {
-            
-            //if (tumor.new_cells_count > tumor.cell_list.Count)
-            //{
-            int tumoral_cells_count = 0;
-            foreach (Cell item in cell_list)
+
+            if (tumor.new_cells_count > tumor.cell_list.Count)
             {
-                if (item.behavior_state == CellState.ProliferativeTumoralCell)
-                    tumoral_cells_count++;
+                int tumoral_cells_count = 0;
+                foreach (Cell item in cell_list)
+                {
+                    if (item.behavior_state == CellState.ProliferativeTumoralCell)
+                        tumoral_cells_count++;
+                }
+                double prob = (double)tumoral_cells_count / cell_list.Count;
+                return prob;
             }
-            double prob = (double)tumoral_cells_count / cell_list.Count;
-            return prob;
-            //}
-            //return 0f;
+            return 0f;
         }
 
         public override double AvascularGrowthProbability()

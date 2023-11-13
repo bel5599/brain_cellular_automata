@@ -54,6 +54,7 @@ namespace AutomataCelularLogic
         public void StartTumoraCell()
         {
             tumor_stem_cell = new Cell(new Pos(35, 35, 35), CellState.ProliferativeTumoralCell, CellLocationState.MatrixExtracelular);
+            tumor_stem_cell.proliferation_age = -1;
             //tumor_stem_cell.neighborhood = Utils.GetMooreNeighbours3D(tumor_stem_cell.pos, space);
             //pos_cell_dict.Add(tumor_stem_cell.pos, tumor_stem_cell);
 
@@ -129,6 +130,7 @@ namespace AutomataCelularLogic
             foreach (Pos pos in random_positions)
             {
                 Cell cell = new Cell(pos, cell_state, loca_state);
+                cell.proliferation_age = -1;
                 world[pos.X, pos.Y, pos.Z] = cell;
             }
         }

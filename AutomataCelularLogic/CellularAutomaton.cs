@@ -86,6 +86,7 @@ namespace AutomataCelularLogic
             //pos_vessel_dict = new Dictionary<Pos, Cell>();
 
             proliferation_cells = new Dictionary<Cell, int[]>();
+            new_quiescent_cells = new List<Cell>();
 
             pos_artery_dict = new Dictionary<Pos, Artery>();
 
@@ -527,6 +528,11 @@ namespace AutomataCelularLogic
 
             ClearCloserCellsToVessels();
             UpdateNextStemPositionDict();
+
+            Console.WriteLine("tiempo {0} ", tumor.time);
+            Console.WriteLine("cantidad de celulas tumorales {0}", tumor.cell_list.Count);
+            Console.WriteLine("cantidad de celulas que da la ecuacion de verulst {0}", tumor.new_cells_count);
+            Console.WriteLine();
         }
 
         public void UpdateTumorState()
@@ -609,21 +615,21 @@ namespace AutomataCelularLogic
                 cell.behavior_state = CellState.nothing;
 
             }
-            else if (tumoral_cells_count >= 1 && Utils.rdm.Next(0, 2) == 1)
+            else if (tumoral_cells_count >= 1 /*&& Utils.rdm.Next(0, 2) == 1*/ && tumor.new_cells_count > tumor.cell_list.Count)
             {
                 cell.behavior_state = CellState.ProliferativeTumoralCell;
                 tumor.cell_list.Add(cell);
 
-                tumor.UpdateNewCellCount();
+                //tumor.UpdateNewCellCount();
                 //pos_cell_dict.Add(cell.pos, cell);
             }
-            else if (CloserToTumoralCell(cell) && Utils.rdm.Next(0, 2) == 1)
+            else if (CloserToTumoralCell(cell) /*&& Utils.rdm.Next(0, 2) == 1*/ && tumor.new_cells_count > tumor.cell_list.Count)
             {
                 //aqui es donde se supone que hay que analizar las celulas que tiene alrededor de un radio de 5 celdas
                 cell.behavior_state = CellState.ProliferativeTumoralCell;
                 tumor.cell_list.Add(cell);
 
-                tumor.UpdateNewCellCount();
+                //tumor.UpdateNewCellCount();
                 //pos_cell_dict.Add(cell.pos, cell);
             }
         }
@@ -639,18 +645,24 @@ namespace AutomataCelularLogic
             else if (closer_cells_to_vessels.Contains(cell) && Utils.rdm.NextDouble() < prob)
             {
                 cell.behavior_state = CellState.ProliferativeTumoralCell;
+                cell.proliferation_age = 0;
                 pos_cell_dict.Add(cell.pos, cell);
                 tumor.cell_list.Add(cell);
 
-                tumor.UpdateNewCellCount();
+                proliferation_cells.Add(cell, new int[] { 0, 0 });
+
+                //tumor.UpdateNewCellCount();
             }
             else if (Utils.rdm.NextDouble() < prob)
             {
                 cell.behavior_state = CellState.ProliferativeTumoralCell;
+                cell.proliferation_age = 0;
                 pos_cell_dict.Add(cell.pos, cell);
                 tumor.cell_list.Add(cell);
 
-                tumor.UpdateNewCellCount();
+                proliferation_cells.Add(cell, new int[] { 0, 0 });
+
+                //tumor.UpdateNewCellCount();
             }
             else if (next_migratory_position.ContainsValue(cell.pos))
             {
@@ -666,9 +678,10 @@ namespace AutomataCelularLogic
 
                 space[cell.pos.X, cell.pos.Y, cell.pos.Z] = cell;
             }
-            else if(new_tumoral_cells.Contains(cell))
+            else if(new_tumoral_cells.Contains(cell) && tumor.new_cells_count > tumor.cell_list.Count)
             {
                 cell.behavior_state = CellState.ProliferativeTumoralCell;
+                cell.proliferation_age = 0;
                 pos_cell_dict.Add(cell.pos, cell);
                 tumor.cell_list.Add(cell);
 
