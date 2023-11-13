@@ -8,7 +8,7 @@ namespace AutomataCelularLogic
 {
     public class World
     {
-        public Cell[,,] space;
+        public Cell[,,] world;
         public Children blood_vessels_tree;
         public List<Pos> blood_vessels;
 
@@ -25,7 +25,7 @@ namespace AutomataCelularLogic
         public Dictionary<Pos, Cell> pos_cell_dict;
         public World(int height, int width, int depth, double radius, int stem_cells_count, int astrocytes_count, int neuron_count)
         {
-            space = new Cell[height, width, depth];
+            world = new Cell[height, width, depth];
             
             points = new List<Pos>();
             this.radius = radius;
@@ -33,6 +33,9 @@ namespace AutomataCelularLogic
             this.stem_cells_count = stem_cells_count;
             this.astrocytes_count = astrocytes_count;
             this.neuron_count = neuron_count;
+
+            InicializarListas();
+            StartCellularLifeInTheBrain();
         }
 
         public void InicializarListas()
@@ -40,22 +43,21 @@ namespace AutomataCelularLogic
             pos_artery_dict = new Dictionary<Pos, Artery>();
             pos_cell_dict = new Dictionary<Pos, Cell>();
         }
-
         public void StartCellularLifeInTheBrain()
         {
             CreateBloodVesselsTree(5);
+            LocateTheBloodVesselsOnTheBoard();
             StartTumoraCell();
-
+            CreateCells();
             RellenarHuecos();
         }
-
         public void StartTumoraCell()
         {
-            tumor_stem_cell = new Cell(new Pos(35, 35, 35), CellState.TumoralCell, CellLocationState.MatrixExtracelular);
+            tumor_stem_cell = new Cell(new Pos(35, 35, 35), CellState.ProliferativeTumoralCell, CellLocationState.MatrixExtracelular);
             //tumor_stem_cell.neighborhood = Utils.GetMooreNeighbours3D(tumor_stem_cell.pos, space);
             //pos_cell_dict.Add(tumor_stem_cell.pos, tumor_stem_cell);
 
-            space[tumor_stem_cell.pos.X, tumor_stem_cell.pos.Y, tumor_stem_cell.pos.Z] = tumor_stem_cell;
+            world[tumor_stem_cell.pos.X, tumor_stem_cell.pos.Y, tumor_stem_cell.pos.Z] = tumor_stem_cell;
 
         }
 
@@ -65,7 +67,7 @@ namespace AutomataCelularLogic
             {
                 Artery artery = new Artery(pos, CellState.nothing, CellLocationState.GlialBasalLamina);
                 pos_artery_dict.Add(pos, artery);
-                space[pos.X, pos.Y, pos.Z] = artery;
+                world[pos.X, pos.Y, pos.Z] = artery;
             }
         }
 
@@ -127,24 +129,25 @@ namespace AutomataCelularLogic
             foreach (Pos pos in random_positions)
             {
                 Cell cell = new Cell(pos, cell_state, loca_state);
-                space[pos.X, pos.Y, pos.Z] = cell;
+                world[pos.X, pos.Y, pos.Z] = cell;
             }
         }
 
         public void RellenarHuecos()
         {
-            for (int i = 0; i < space.GetLength(0); i++)
+            for (int i = 0; i < world.GetLength(0); i++)
             {
-                for (int j = 0; j < space.GetLength(1); j++)
+                for (int j = 0; j < world.GetLength(1); j++)
                 {
-                    for (int k = 0; k < space.GetLength(2); k++)
+                    for (int k = 0; k < world.GetLength(2); k++)
                     {
-                        if (space[i, j, k] == null)
-                            space[i, j, k] = new Cell(new Pos(i, j, k), CellState.nothing, CellLocationState.MatrixExtracelular);
+                        if (world[i, j, k] == null)
+                            world[i, j, k] = new Cell(new Pos(i, j, k), CellState.nothing, CellLocationState.MatrixExtracelular);
                     }
                 }
             }
         }
+
 
         public bool IsTooClose(Pos point, List<Pos> points)
         {
@@ -163,15 +166,81 @@ namespace AutomataCelularLogic
 
             for (int i = 0; i < amount; i++)
             {
-                Pos point = Utils.GenerateRandomPoint(radius, space.GetLength(0), space.GetLength(1), space.GetLength(2));
+                Pos point = Utils.GenerateRandomPoint(radius, world.GetLength(0), world.GetLength(1), world.GetLength(2));
                 while (IsTooClose(point, poissonDiskPoints))
                 {
-                    point = Utils.GenerateRandomPoint(radius, space.GetLength(0), space.GetLength(1), space.GetLength(2));
+                    point = Utils.GenerateRandomPoint(radius, world.GetLength(0), world.GetLength(1), world.GetLength(2));
                 }
                 poissonDiskPoints.Add(point);
             }
+            //for (int x = 0; x < width; x++)
+            //{
+            //    for (int y = 0; y < height; y++)
+            //    {
+            //        for (int z = 0; z < depth; z++)
+            //        {
+            //            Pos point = Utils.GenerateRandomPoint(radius);
+            //            while (IsTooClose(point, poissonDiskPoints))
+            //            {
+            //                point = Utils.GenerateRandomPoint(radius);
+            //            }
+            //            poissonDiskPoints.Add(point);
+            //        }
+            //    }
+            //}
             return poissonDiskPoints;
         }
+
+
+
+        //public class PoissonDiskGenerator
+        //{
+        //    private static Random random = new Random();
+        //    private static double radius = 1.0;
+        //    private static List<Point3D> points = new List<Point3D>();
+
+        //    public static Point3D GenerateRandomPoint()
+        //    {
+        //        double x = random.NextDouble() * radius * 2 - radius;
+        //        double y = random.NextDouble() * radius * 2 - radius;
+        //        double z = random.NextDouble() * radius * 2 - radius;
+        //        return new Point3D { X = x, Y = y, Z = z };
+        //    }
+
+        //    public static bool IsTooClose(Point3D point, List<Point3D> points)
+        //    {
+        //        foreach (Point3D existingPoint in points)
+        //        {
+        //            double distance = Math.Sqrt(Math.Pow(point.X - existingPoint.X, 2) + Math.Pow(point.Y - existingPoint.Y, 2) + Math.Pow(point.Z - existingPoint.Z, 2));
+        //            if (distance < radius)
+        //            {
+        //                return true;
+        //            }
+        //        }
+        //        return false;
+        //    }
+
+        //    public static List<Point3D> GeneratePoissonDiskPoints(int width, int height, int depth)
+        //    {
+        //        List<Point3D> poissonDiskPoints = new List<Point3D>();
+        //        for (int x = 0; x < width; x++)
+        //        {
+        //            for (int y = 0; y < height; y++)
+        //            {
+        //                for (int z = 0; z < depth; z++)
+        //                {
+        //                    Point3D point = GenerateRandomPoint();
+        //                    while (IsTooClose(point, poissonDiskPoints))
+        //                    {
+        //                        point = GenerateRandomPoint();
+        //                    }
+        //                    poissonDiskPoints.Add(point);
+        //                }
+        //            }
+        //        }
+        //        return poissonDiskPoints;
+        //    }
+        //}
 
     }
 

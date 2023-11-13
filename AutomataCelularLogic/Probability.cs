@@ -47,7 +47,7 @@ namespace AutomataCelularLogic
             int tumoral_cells_count = 0;
             foreach (Cell item in cell_list)
             {
-                if (item.behavior_state == CellState.TumoralCell)
+                if (item.behavior_state == CellState.ProliferativeTumoralCell)
                     tumoral_cells_count++;
             }
             double prob = (double)tumoral_cells_count / cell_list.Count;
@@ -79,7 +79,7 @@ namespace AutomataCelularLogic
             int tumoral_cells_count = 0;
             foreach (Cell item in cell_list)
             {
-                if (item.behavior_state == CellState.TumoralCell)
+                if (item.behavior_state == CellState.ProliferativeTumoralCell)
                     tumoral_cells_count++;
             }
             double prob = (double)tumoral_cells_count / cell_list.Count;

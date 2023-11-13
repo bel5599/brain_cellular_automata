@@ -136,13 +136,13 @@ namespace AutomataCelularLogic
             int y;
             int z;
             do
-                x = (int)(rdm.Next(0, height) * radius * 2 - radius);
+                x = (int)(rdm.Next(0, height/2) * radius * 2 - radius);
             while (x < 0);
             do
-                y = (int)(rdm.Next(0, width) * radius * 2 - radius);
+                y = (int)(rdm.Next(0, width/2) * radius * 2 - radius);
             while (y < 0);
             do
-                z = (int)(rdm.Next(0, depth) * radius * 2 - radius);
+                z = (int)(rdm.Next(0, depth/2) * radius * 2 - radius);
             while (z < 0);
 
             return new Pos { X = x, Y = y, Z = z };

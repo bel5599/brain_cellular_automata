@@ -41,8 +41,10 @@ namespace AutomataCelularLogic
         Astrocyte,
         StemCell,
         Neuron,
-        TumoralCell,
-        Migratory,
+        ProliferativeTumoralCell,
+        NecroticTumorCell,
+        QuiescentTumorCell,
+        MigratoryTumorCell,
         nothing
         //TumoralAstrocyte,
         //TumoralStemCell,
@@ -55,11 +57,13 @@ namespace AutomataCelularLogic
         public CellState behavior_state;
         public CellLocationState loca_state;
         public List<Cell> neighborhood;
+        public double proliferation_age;
         public Cell(Pos pos, CellState behavior_state, CellLocationState loca_state)
         {
             this.pos = pos;
             this.behavior_state = behavior_state;
             this.loca_state = loca_state;
+            proliferation_age = 0;
         }
 
         //public void UpdateState()
@@ -100,7 +104,7 @@ namespace AutomataCelularLogic
             int count = 0;
             foreach (Cell cell in neighborhood)
             {
-                if (cell.behavior_state == CellState.TumoralCell)
+                if (cell.behavior_state == CellState.ProliferativeTumoralCell)
                     count++;
             }
             return count;

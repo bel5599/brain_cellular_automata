@@ -4,3 +4,8 @@ C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\obj\Debug
 C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\obj\Debug\AutomataCelularLogic.pdb
 C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\AutomataCelularLogic.exe
 C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\obj\Debug\AutomataCelularLogic.exe
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\MathNet.Numerics.dll
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\System.ValueTuple.dll
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\MathNet.Numerics.xml
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\System.ValueTuple.xml
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\obj\Debug\AutomataCelularLogic.csproj.CopyComplete

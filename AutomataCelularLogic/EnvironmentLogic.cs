@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 
+
 namespace AutomataCelularLogic
 {
     public class EnvironmentLogic
@@ -76,13 +77,20 @@ namespace AutomataCelularLogic
 
             //PoissonDiskGenerator poisson = new PoissonDiskGenerator();
 
-            List<Point3D> list = PoissonDiskGenerator.GeneratePoissonDiskPoints(20, 20, 20);
-            foreach (var item in list)
-            {
-                Console.WriteLine("{0} {1} {2}", item.X, item.Y, item.Z);
-            }
+            //List<Point3D> list = PoissonDiskGenerator.GeneratePoissonDiskPoints(20, 20, 20);
+            //foreach (var item in list)
+            //{
+            //    Console.WriteLine("{0} {1} {2}", item.X, item.Y, item.Z);
+            //}
 
-            Console.ReadLine();
+            //Console.ReadLine();
+
+            //double rc = (1 * Math.Pow(0.0025, -2) * 4.5 * Math.Pow(10, -17)) / 1.7 * Math.Pow(10, -8);
+            //Console.WriteLine(rc);
+            //Console.ReadLine();
+
+            //MathematicalModel mm = new MathematicalModel();
+            //mm.ReactionDiffusionEcuacion();
 
             #region comentarios
             //console.writeline("hello world");
@@ -122,7 +130,7 @@ namespace AutomataCelularLogic
             //Console.WriteLine(Utils.ValidPosition(new Pos(-1, 12, 14)));
             //Console.WriteLine(Utils.ValidPosition(12, -1, 14));
 
-            //Simulation();
+            Simulation();
             //Utils.InitializeVariables();
             //foreach (Pos pos in ca.pos_cell_dict.Keys)
             //{
@@ -170,9 +178,9 @@ namespace AutomataCelularLogic
         {
             Utils.InitializeVariables();
             ca = new CellularAutomaton(limit_of_x, limit_of_y, limit_of_z, new ClassicProbability(), avascular_carrying_capacity, vascular_carrying_capacity, growth_rate, initial_population);
-            //int count = 0;
-            //while (count++ < 30)
-            //{
+            int count = 0;
+            while (count++ < 30)
+            {
                 //Console.WriteLine("Estoy aqui");
                 //Console.ReadLine();
                 //    //    //foreach (var key_value in ca.next_stem_position)
@@ -194,8 +202,8 @@ namespace AutomataCelularLogic
                 //    //    //    }
                 //    //    //}
 
-            //    ca.Update();
-            //}
+                ca.Update();
+            }
 
             //    Console.WriteLine("Luego del update");
             //    foreach (var item in ca.pos_cell_dict)
