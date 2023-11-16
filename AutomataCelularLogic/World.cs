@@ -53,7 +53,14 @@ namespace AutomataCelularLogic
         }
         public void StartTumoraCell()
         {
-            tumor_stem_cell = new Cell(new Pos(35, 35, 35), CellState.ProliferativeTumoralCell, CellLocationState.MatrixExtracelular);
+            Pos pos;
+            do
+            {
+                pos = Utils.GetRandomPosition(0, world.GetLength(0), 0, world.GetLength(1), 0, world.GetLength(2));
+            }
+            while (pos_artery_dict.ContainsKey(pos));
+
+            tumor_stem_cell = new Cell(pos, CellState.ProliferativeTumoralCell, CellLocationState.MatrixExtracelular);
             tumor_stem_cell.proliferation_age = -1;
             //tumor_stem_cell.neighborhood = Utils.GetMooreNeighbours3D(tumor_stem_cell.pos, space);
             //pos_cell_dict.Add(tumor_stem_cell.pos, tumor_stem_cell);

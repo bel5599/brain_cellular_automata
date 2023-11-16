@@ -17,16 +17,18 @@ namespace AutomataCelularLogic
         double dy;
         double dz;
 
-        private double difussion_coeficient_oxygen = 1.8 * Math.Pow(10, -5); // Difusividad
-        //The base oxygen consumption rate
-        private double r_c = 4.5 * Math.Pow(10, -17);
-
-
         //cancer cell density
         private double n_0 = 1.6 * Math.Pow(10, -5);
 
         //umbral para una celula muera por apostosis
         private double c_ap;
+
+        #region PARAMETROS RELACIONADOS CON LA CONCENTRACION DE OXIGENO
+
+        private double diffussion_coeficient_oxygen = 1.8 * Math.Pow(10, -5); // Difusividad
+        //The base oxygen consumption rate
+        private double r_c = 4.5 * Math.Pow(10, -17);
+
         //background oxigen concentration
         private double c_0 = 1.7 * Math.Pow(10, -8);
         private double c_n;
@@ -37,17 +39,44 @@ namespace AutomataCelularLogic
 
         public double[,,] oxygen_matrix;
         public double[,,] oxygen_discret_matrix;
-        public double[,,] delta_oxygen;
-
-        private int t = 16;
-        public int time;
-        private int dt;
+        public double[,,] oxygen_delta;
 
         private int t_disc;
         private Pos pos_disc;
         private double oxigen_conc_disc;
         private double dif_conc_disc;
         private double oxy_consp_rate_disc;
+        #endregion
+
+        #region PARAMETROS RELACIONADOS CON LA DENSIDAD DE LA MATRIX EXTRACELULAR
+
+        public double[,,] density_matrix;
+
+        #endregion
+
+        #region PARAMETROS RELACIONADOS CON LA CONCENTRACION DE REGULADORES ANGIOGENICOS
+
+        private double diffusion_coeficient_angio = 2.0;
+        private double natural_disintegration_rate = 6.0;
+        //tasa de transferencia del suministro desde las celulas hipoxicas
+        private double Sc = Math.Pow(10, 3);
+        //este valor hay que calcularlo con la matrix de celulas
+        private double hypoxic_cell_volume_fraction;
+        //nivel de saturacion
+        private double c_sat = 1.0;
+
+        public double[,,] angiogenic_reg_conc_matrix;
+        public double[,,] angio_reg_conc_delta;
+
+
+        #endregion
+
+
+        private int t = 16;
+        public int time;
+        private int dt;
+
+        
 
         public MathematicalModel(Cell[,,] space)
         {
@@ -63,7 +92,12 @@ namespace AutomataCelularLogic
 
             oxygen_matrix = new double[space.GetLength(0), space.GetLength(1), space.GetLength(2)];
             oxygen_discret_matrix = new double[space.GetLength(0), space.GetLength(1), space.GetLength(2)];
-            delta_oxygen = new double[space.GetLength(0), space.GetLength(1), space.GetLength(2)];
+            oxygen_delta = new double[space.GetLength(0), space.GetLength(1), space.GetLength(2)];
+
+            density_matrix = new double[space.GetLength(0), space.GetLength(1), space.GetLength(2)];
+
+            angiogenic_reg_conc_matrix = new double[space.GetLength(0), space.GetLength(1), space.GetLength(2)];
+            angio_reg_conc_delta = new double[space.GetLength(0), space.GetLength(1), space.GetLength(2)];
 
             consumption_rate = new double[] { 2 * r_c, 5 * r_c, 10 * r_c };
 
@@ -81,6 +115,7 @@ namespace AutomataCelularLogic
             metabolic_rate.Add(CellState.nothing, necrotic);
 
             InitializeConcentrationMatrix();
+            InitializeDensityMatrix();
         }
         public double[,,] Laplacian3D(double[,,] u, double dx, double dy, double dz)
         {
@@ -133,6 +168,23 @@ namespace AutomataCelularLogic
                 }
             }
         }
+
+        private void InitializeDensityMatrix()
+        {
+            for (int i = 0; i < density_matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < density_matrix.GetLength(1); j++)
+                {
+                    for (int k = 0; k < density_matrix.GetLength(2); k++)
+                    {
+                        var cell = space[i, j, k];
+                        if (cell.behavior_state == CellState.nothing && cell.loca_state == CellLocationState.MatrixExtracelular)
+                            density_matrix[i, j, k] = Utils.rdm.NextDouble();
+                    }
+                }
+            }
+        }
+
         public void DiscretizeOxigenConcentration(double c)
         {
             oxigen_conc_disc = c / c_0;
@@ -150,7 +202,7 @@ namespace AutomataCelularLogic
 
         public void DiscretizeTheOxygenDiffusionCoefficient()
         {
-            dif_conc_disc = difussion_coeficient_oxygen * t / space.GetLength(0) * space.GetLength(1) * space.GetLength(2);
+            dif_conc_disc = diffussion_coeficient_oxygen * t / space.GetLength(0) * space.GetLength(1) * space.GetLength(2);
         }
 
         public void DiscretizeOxygenConsumptionRate()
@@ -161,7 +213,7 @@ namespace AutomataCelularLogic
         {
             this.space = space;
             DiscretizeTime(time);
-            delta_oxygen = Laplacian3D(oxygen_matrix, dx, dy, dz);
+            oxygen_delta = Laplacian3D(oxygen_matrix, dx, dy, dz);
             dt = t_disc;
 
             for (int i = 0; i < space.GetLength(0); i++)
@@ -181,13 +233,13 @@ namespace AutomataCelularLogic
                             //oxygen_matrix[i, j, k] += dt * (difussion_coeficient_oxygen * delta_oxygen[i, j, k] + metabolic_rate[CellState.TumoralCell][0]);
 
                             //oxygen_matrix[i, j, k] += dt * (difussion_coeficient_oxygen * delta_oxygen[i, j, k] - k * delta_oxygen[i, j, k] * v[i, j, k]);
-                            double termino = time * (difussion_coeficient_oxygen * delta_oxygen[i, j, k] * oxygen_matrix[i, j, k] - metabolic_rate[cell_state][0]);
+                            double termino = time * (diffussion_coeficient_oxygen * oxygen_delta[i, j, k] * oxygen_matrix[i, j, k] - metabolic_rate[cell_state][0]);
                             double conc = oxygen_matrix[i, j, k] + (termino);
                             oxygen_matrix[i, j, k] += termino;
 
                             DiscretizeOxigenConcentration(oxygen_matrix[i, j, k]);
 
-                            double t1 = dt * (dif_conc_disc * delta_oxygen[i, j, k] * oxigen_conc_disc - metabolic_rate[cell_state][1]);
+                            double t1 = dt * (dif_conc_disc * oxygen_delta[i, j, k] * oxigen_conc_disc - metabolic_rate[cell_state][1]);
                             double tt = oxygen_discret_matrix[i, j, k] + t1;
                             oxygen_discret_matrix[i,j,k] += t1;
                         }
@@ -196,6 +248,27 @@ namespace AutomataCelularLogic
             }
 
             oxygen_matrix = DirichletBoundaryConditions(oxygen_matrix);
+        }
+
+        public void UpdateAngiogenicRegulatorConcentration(Cell[,,] space, int time)
+        {
+            this.space = space;
+            angio_reg_conc_delta = Laplacian3D(angiogenic_reg_conc_matrix, dx, dy, dz);
+
+            //Hay que calcular el volumen de las celulas hipoxicas
+
+            for (int i = 0; i < space.GetLength(0); i++)
+            {
+                for (int j = 0; j < space.GetLength(1); j++)
+                {
+                    for (int k = 0; k < space.GetLength(2); k++)
+                    {
+                        double c = angiogenic_reg_conc_matrix[i, j, k];
+                        angiogenic_reg_conc_matrix[i,j,k] += time * (diffusion_coeficient_angio * angio_reg_conc_delta[i, j, k] - natural_disintegration_rate * c +
+                                                        Sc * hypoxic_cell_volume_fraction * (c_sat - c));
+                    }
+                }
+            }
         }
 
         public double[,,] DirichletBoundaryConditions(double[,,] oxygen_matrix)

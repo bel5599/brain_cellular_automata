@@ -54,12 +54,20 @@ namespace AutomataCelularLogic
     public class Cell
     {
         public Pos pos;
+
+        //public double density;
+
         public CellState behavior_state;
         public CellLocationState loca_state;
         public List<Cell> neighborhood;
         public double proliferation_age;
         public Cell(Pos pos, CellState behavior_state, CellLocationState loca_state)
         {
+            //if (loca_state == CellLocationState.MatrixExtracelular && behavior_state == CellState.nothing)
+            //    density = Utils.rdm.NextDouble();
+            //else
+            //    density = 0;
+
             this.pos = pos;
             this.behavior_state = behavior_state;
             this.loca_state = loca_state;

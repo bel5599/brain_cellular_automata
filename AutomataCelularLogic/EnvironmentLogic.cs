@@ -187,38 +187,38 @@ namespace AutomataCelularLogic
         {
             Utils.InitializeVariables();
             ca = new CellularAutomaton(limit_of_x, limit_of_y, limit_of_z, new ClassicProbability(), avascular_carrying_capacity, vascular_carrying_capacity, growth_rate, initial_population);
-            int count = 0;
-            while (count++ < 30)
-            {
-                //Console.WriteLine("Estoy aqui");
-                //Console.ReadLine();
-                //    //    //foreach (var key_value in ca.next_stem_position)
-                //    //    //{
-                //    //    //    Pos pos = key_value.Key;
-                //    //    //    if (key_value.Key != null)
-                //    //    //    {
-                //    //    //        Console.WriteLine("Nuevo");
-                //    //    //        Console.WriteLine(pos.X);
-                //    //    //        Console.WriteLine(pos.Y);
-                //    //    //        Console.WriteLine(pos.Z);
-                //    //    //        Console.WriteLine();
-                //    //    //        if (key_value.Value != null)
-                //    //    //        {
-                //    //    //            Console.WriteLine(key_value.Value.X);
-                //    //    //            Console.WriteLine(key_value.Value.Y);
-                //    //    //            Console.WriteLine(key_value.Value.Z);
-                //    //    //        }
-                //    //    //    }
-                //    //    //}
+            //int count = 0;
+            //while (count++ < 100)
+            //{
+            //    //Console.WriteLine("Estoy aqui");
+            //    //Console.ReadLine();
+            //    //    //    //foreach (var key_value in ca.next_stem_position)
+            //    //    //    //{
+            //    //    //    //    Pos pos = key_value.Key;
+            //    //    //    //    if (key_value.Key != null)
+            //    //    //    //    {
+            //    //    //    //        Console.WriteLine("Nuevo");
+            //    //    //    //        Console.WriteLine(pos.X);
+            //    //    //    //        Console.WriteLine(pos.Y);
+            //    //    //    //        Console.WriteLine(pos.Z);
+            //    //    //    //        Console.WriteLine();
+            //    //    //    //        if (key_value.Value != null)
+            //    //    //    //        {
+            //    //    //    //            Console.WriteLine(key_value.Value.X);
+            //    //    //    //            Console.WriteLine(key_value.Value.Y);
+            //    //    //    //            Console.WriteLine(key_value.Value.Z);
+            //    //    //    //        }
+            //    //    //    //    }
+            //    //    //    //}
 
-                ca.Update();
+            //    ca.Update();
 
-                foreach (var item in ca.tumor.cell_list)
-                {
-                    Console.WriteLine(item.behavior_state);
-                }
-                Console.WriteLine();
-            }
+            //    foreach (var item in ca.tumor.cell_list)
+            //    {
+            //        Console.WriteLine(item.behavior_state);
+            //    }
+            //    Console.WriteLine();
+            //}
 
             //    Console.WriteLine("Luego del update");
             //    foreach (var item in ca.pos_cell_dict)

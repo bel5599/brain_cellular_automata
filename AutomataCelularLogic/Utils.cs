@@ -89,12 +89,12 @@ namespace AutomataCelularLogic
             }
             return empty_pos;
         }
-        public static List<Cell> EmptyPositions(List<Cell> cell_list)
+        public static List<Cell> EmptyPositions(List<Cell> cell_list, List<Cell> occupied_cells = null)
         {
             List<Cell> empty_pos = new List<Cell>();
             foreach (var item in cell_list)
             {
-                if (item.behavior_state == CellState.nothing && item.loca_state == CellLocationState.MatrixExtracelular)
+                if (item.behavior_state == CellState.nothing && item.loca_state == CellLocationState.MatrixExtracelular && occupied_cells.Contains(item))
                     empty_pos.Add(item);
             }
             return empty_pos;
