@@ -71,200 +71,422 @@ namespace AutomataCelularLogic
 
         static void Main(string[] args)
         {
-            //Utils.InitializeVariables();
-            //World world = new World();
-            //world.CreateBloodVesselsTree(limit_of_x);
-
-            //PoissonDiskGenerator poisson = new PoissonDiskGenerator();
-
-            //List<Point3D> list = PoissonDiskGenerator.GeneratePoissonDiskPoints(20, 20, 20);
-            //foreach (var item in list)
-            //{
-            //    Console.WriteLine("{0} {1} {2}", item.X, item.Y, item.Z);
-            //}
-
-            //Console.ReadLine();
-
-            //double rc = (1 * Math.Pow(0.0025, -2) * 4.5 * Math.Pow(10, -17)) / 1.7 * Math.Pow(10, -8);
-            //Console.WriteLine(rc);
-            //Console.ReadLine();
-
-            //MathematicalModel mm = new MathematicalModel();
-            //mm.ReactionDiffusionEcuacion();
-
-            //double current = 1;
-            //for (int i = 0; i < 48; i++)
-            //{
-            //    current = VerhulstGrowth(current, growth_rate, avascular_carrying_capacity, i);
-            //    Console.WriteLine($"The size of the tumor at time {i} is {current}.");
-            //}
-            //Console.ReadLine();
 
             #region comentarios
-            //console.writeline("hello world");
+            //Cell[,,] example = new Cell[10, 10, 10];
+            //Pos pos = Utils.GetRandomPosition(0, 10, 0, 10, 0, 10);
+            //example[pos.X, pos.Y, pos.Z] = new Cell(pos, CellState.TumoralStemCell, CellLocationState.MatrixExtracelular);
 
-            //Console.WriteLine("Hello World");
-            //int new_cells_count;
+            //double[,,] oxygen = new double[10, 10, 10];
+            //oxygen[pos.X -1, pos.Y, pos.Z] = 1.0;
+            //oxygen[pos.X +1, pos.Y, pos.Z] = 1.0;
+            //oxygen[pos.X, pos.Y -1, pos.Z] = 1.0;
+            //oxygen[pos.X, pos.Y +1, pos.Z] = 1.0;
+            //oxygen[pos.X, pos.Y, pos.Z -1] = 1.0;
+            //oxygen[pos.X, pos.Y, pos.Z +1] = 1.0;
+            //oxygen[pos.X, pos.Y, pos.Z] = 1.0;
 
-            //for (int i = 0; i < 10; i++)
+            //int i = pos.X;
+            //int j = pos.Y;
+            //int k = pos.Z;
+
+            //double delta = (oxygen[i - 1, j, k] - 2 * oxygen[i, j, k] + oxygen[i + 1, j, k]) / 1 +
+            //               (oxygen[i, j - 1, k] - 2 * oxygen[i, j, k] + oxygen[i, j + 1, k]) / 1 +
+            //               (oxygen[i, j, k - 1] - 2 * oxygen[i, j, k] + oxygen[i, j, k + 1]) / 1;
+
+            //Console.WriteLine(delta);
+
+            //double value = oxygen[pos.X, pos.Y, pos.Z];
+            //oxygen[pos.X, pos.Y, pos.Z] += 1.0 * delta * value - 1.0 * value * value;
+
+
+
+
+            //double u = 3.34 * Math.Pow(10, -3) * 1.0;
+            //Console.WriteLine(u);
+            //double s = (2 * Math.PI * 0 * 1 * Math.Pow(10, -3) * (0 - 1.0)) / 1.0;
+            //Console.WriteLine(s);
+
+            //oxygen[i, j, k] += 2 * ((1.67 * Math.Pow(10, -7) / 1.0 * (-16) - u + s));
+
+            //Console.WriteLine(oxygen[i, j, k]);
+            //Console.ReadLine();
+            #endregion
+
+            //double diffussion_coeficient_oxygen = 1.8 * Math.Pow(10, -5);
+            //double r_c = 4.5 * Math.Pow(10, -17);
+
+            double dx = 1.0;
+            double dy = 1.0;
+            double dz = 1.0;
+            //double[,,] u = new double[20, 20, 20]; // Supongamos que esta es la matriz u
+            double[,,] laplacian = new double[10, 10, 10]; // Esta es la matriz del operador de Laplace
+
+            //// Inicializar la matriz u con algunos valores
+            //for (int i = 0; i < u.GetLength(0); i++)
             //{
-            //    time = i;
-            //    new_cells_count = (int)((initial_population * avascular_carrying_capacity * Math.Exp(growth_rate * time)) / ((avascular_carrying_capacity - initial_population) + initial_population * Math.Exp(growth_rate * time)));
-            //    initial_population = new_cells_count;
-            //    Console.WriteLine(new_cells_count);
-            //}
-
-
-
-            //double P0 = 15;
-            //double K = 1072764;
-            //double r = 0.2311;
-            //double t = 10; // puedes cambiar este valor para obtener la poblacion en diferentes momentos
-
-            //for (int i = 0; i < 50; i++)
-            //{
-            //    t = i;
-            //    double P = LogisticGrowth(P0, K, growth_rate, t);
-
-            //    Console.WriteLine("La población de ciervos después de " + t + " años es " + P);
-            //}
-            //float num = 0.002f;
-            //double num2 = 0.0002;
-            //Console.WriteLine(num);
-            //Console.WriteLine(num2);
-            //Console.WriteLine(Utils.ValidPosition(new Pos(12, -1, 14)));
-            //Console.WriteLine(Utils.ValidPosition(new Pos(-12, -1, 14)));
-            //Console.WriteLine(Utils.ValidPosition(new Pos(12, 1, 14)));
-            //Console.WriteLine(Utils.ValidPosition(new Pos(-1, 12, 14)));
-            //Console.WriteLine(Utils.ValidPosition(12, -1, 14));
-
-            Simulation();
-            //Utils.InitializeVariables();
-            //foreach (Pos pos in ca.pos_cell_dict.Keys)
-            //{
-            //    Console.WriteLine(pos);
-            //}
-
-
-            //Console.WriteLine(ca.next_stem_position);
-
-            //for (int i = 0; i < ca.space.GetLength(0); i++)
-            //{
-            //    for (int j = 0; j < ca.space.GetLength(1); j++)
+            //    for (int j = 0; j < u.GetLength(1); j++)
             //    {
-            //        for (int k = 0; k < ca.space.GetLength(2); k++)
+            //        for (int k = 0; k < u.GetLength(2); k++)
             //        {
-            //            if (ca.space[i, j, k].behavior_state != CellState.nothing)
-            //            {
-            //                Console.WriteLine(ca.space[i, j, k].behavior_state);
-            //                Console.WriteLine(ca.space[i, j, k].loca_state);
-            //            }
+            //            if (/*i == 0 || i == (u.GetLength(0) - 1) ||*/ k == 0 || k == (u.GetLength(2) - 1) || j == 0 || j == (u.GetLength(1) - 1))
+            //                u[i, j, k] = 0.28;
+            //            else
+            //                u[i, j, k] = 1.5;
+            //        }
+            //    }
+            //}
+
+            //// Calcular la matriz laplacian
+            //for (int i = 1; i < u.GetLength(0) - 1; i++)
+            //{
+            //    for (int j = 1; j < u.GetLength(1) - 1; j++)
+            //    {
+            //        for (int k = 1; k < u.GetLength(2) - 1; k++)
+            //        {
+            //            laplacian[i, j, k] = (u[i - 1, j, k] - 2 * u[i, j, k] + u[i + 1, j, k]) / (dx * dx) +
+            //                                (u[i, j - 1, k] - 2 * u[i, j, k] + u[i, j + 1, k]) / (dy * dy) +
+            //                                (u[i, j, k - 1] - 2 * u[i, j, k] + u[i, j, k + 1]) / (dz * dz);
+            //            Console.WriteLine(laplacian[i, j, k]);
             //        }
             //        Console.WriteLine();
             //    }
             //    Console.WriteLine();
             //}
 
+            //int count = 0;
+            //while (count++ < 20)
+            //{
+            //    for (int i = 0; i < u.GetLength(0); i++)
+            //    {
+            //        for (int j = 0; j < u.GetLength(0); j++)
+            //        {
+            //            for (int k = 0; k < u.GetLength(0); k++)
+            //            {
+            //                if (/*i == 0 || i == (u.GetLength(0) - 1) ||*/ k == 0 || k == (u.GetLength(2) - 1) || j == 0 || j == (u.GetLength(1) - 1))
+            //                    u[i, j, k] = 0.28;
+            //                else
+            //                    u[i, j, k] += count * (diffussion_coeficient_oxygen * laplacian[i, j, k] * u[i, j, k] - r_c);
+            //            }
+            //        }
+            //    }
+
+            //    for (int i = 1; i < u.GetLength(0) - 1; i++)
+            //    {
+            //        for (int j = 1; j < u.GetLength(0) - 1; j++)
+            //        {
+            //            for (int k = 1; k < u.GetLength(0) - 1; k++)
+            //            {
+            //                laplacian[i, j, k] = (u[i - 1, j, k] - 2 * u[i, j, k] + u[i + 1, j, k]) / (dx * dx) +
+            //                                    (u[i, j - 1, k] - 2 * u[i, j, k] + u[i, j + 1, k]) / (dy * dy) +
+            //                                    (u[i, j, k - 1] - 2 * u[i, j, k] + u[i, j, k + 1]) / (dz * dz);
+            //                Console.WriteLine(laplacian[i, j, k]);
+            //            }
+            //            Console.WriteLine();
+            //        }
+            //        Console.WriteLine();
+            //    }
+
+            //    for (int i = 0; i < u.GetLength(0); i++)
+            //    {
+            //        for (int j = 0; j < u.GetLength(0); j++)
+            //        {
+            //            for (int k = 0; k < u.GetLength(0); k++)
+            //            {
+            //                if (laplacian[i, j, k] > 0 || laplacian[i, j, k] < 0)
+            //                {
+            //                    Console.WriteLine("u[{0}][{1}][{2}] = {3}", i, j, k, u[i, j, k]);
+            //                    Console.WriteLine("laplacian[{0}][{1}][{2}] = {3}", i, j, k, laplacian[i, j, k]);
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+
+            //// Imprimir los valores de las matrices u y laplacian
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    for (int j = 0; j < 3; j++)
+            //    {
+            //        for (int k = 0; k < 3; k++)
+            //        {
+            //            Console.WriteLine("u[{0}][{1}][{2}] = {3}", i, j, k, u[i,j,k]);
+            //            Console.WriteLine("laplacian[{0}][{1}][{2}] = {3}", i, j, k, laplacian[i,j,k]);
+            //        }
+            //    }
+            //}
+            //Console.ReadLine();
 
 
-            //GetCellsThatSenseTheTumorSubstance();
+            //double var1 = 1.3 * Math.Pow(10, 2);
+            //double miu_t = 1.7 * Math.Pow(10, -18);
+            //double diffusion_coef = Math.Pow(10, -9);
+            //double decay = 1.7 * Math.Pow(10, -8);
 
-            //MoveAstrocyteToVessels();
+            //double[,,] ecm = new double[10, 10, 10];
+            //double[,,] mde = new double[10, 10, 10];
 
-            //PathFromCellsToTumorCell();
+            //for (int i = 0; i < mde.GetLength(0); i++)
+            //{
+            //    for (int j = 0; j < mde.GetLength(1); j++)
+            //    {
+            //        for (int k = 0; k < mde.GetLength(2); k++)
+            //        {
+            //            //if (/*i == 0 || i == (u.GetLength(0) - 1) ||*/ k == 0 || k == (mde.GetLength(2) - 1) || j == 0 || j == (mde.GetLength(1) - 1))
+            //            //    mde[i, j, k] = 0;
+            //            //else
+            //            mde[i, j, k] = 0;
+            //        }
+            //    }
+            //}
 
-            //StemCellConvertToTumoralCell();
-            #endregion
+            //for (int i = 1; i < mde.GetLength(0) - 1; i++)
+            //{
+            //    for (int j = 1; j < mde.GetLength(1) - 1; j++)
+            //    {
+            //        for (int k = 1; k < mde.GetLength(2) - 1; k++)
+            //        {
+            //            laplacian[i, j, k] = (mde[i - 1, j, k] - 2 * mde[i, j, k] + mde[i + 1, j, k]) / (dx * dx) +
+            //                                (mde[i, j - 1, k] - 2 * mde[i, j, k] + mde[i, j + 1, k]) / (dy * dy) +
+            //                                (mde[i, j, k - 1] - 2 * mde[i, j, k] + mde[i, j, k + 1]) / (dz * dz);
+            //            Console.WriteLine(laplacian[i, j, k]);
+            //        }
+            //        //Console.WriteLine();
+            //    }
+            //    //Console.WriteLine();
+            //}
 
+            //for (int i = 0; i < ecm.GetLength(0); i++)
+            //{
+            //    for (int j = 0; j < ecm.GetLength(1); j++)
+            //    {
+            //        for (int k = 0; k < ecm.GetLength(2); k++)
+            //        {
+            //            //if (/*i == 0 || i == (u.GetLength(0) - 1) ||*/ k == 0 || k == (ecm.GetLength(2) - 1) || j == 0 || j == (ecm.GetLength(1) - 1))
+            //            //    ecm[i, j, k] = 1;
+            //            //else
+            //            //    ecm[i, j, k] = - var1 * mde[i, j, k] * ecm[i, j, k];
+            //            ecm[i, j, k] = 1;
+            //        }
+            //    }
+            //}
 
+            //int count = 0;
+            //while (count++ < 10)
+            //{
+            //    for (int i = 0; i < mde.GetLength(0); i++)
+            //    {
+            //        for (int j = 0; j < mde.GetLength(1); j++)
+            //        {
+            //            for (int k = 0; k < mde.GetLength(2); k++)
+            //            {
+            //                if (/*i == 0 || i == (u.GetLength(0) - 1) ||*/ k == 0 || k == (mde.GetLength(2) - 1) || j == 0 || j == (mde.GetLength(1) - 1))
+            //                    mde[i, j, k] = 0;
+            //                else
+            //                {
+            //                    int r = Utils.rdm.Next(0, 2);
+            //                    if(r == 1)
+            //                        mde[i, j, k] += count * (diffusion_coef * laplacian[i, j, k] * mde[i, j, k] + miu_t - decay * mde[i, j, k]);
+            //                    else
+            //                        mde[i, j, k] += count * (diffusion_coef * laplacian[i, j, k] * mde[i, j, k] - decay * mde[i, j, k]);
+            //                }
+
+            //                Console.WriteLine("mde[{0}][{1}][{2}] = {3}", i, j, k, mde[i, j, k]);
+            //            }
+            //        }
+            //    }
+
+            //    for (int i = 1; i < mde.GetLength(0) - 1; i++)
+            //    {
+            //        for (int j = 1; j < mde.GetLength(1) - 1; j++)
+            //        {
+            //            for (int k = 1; k < mde.GetLength(2) - 1; k++)
+            //            {
+            //                laplacian[i, j, k] = (mde[i - 1, j, k] - 2 * mde[i, j, k] + mde[i + 1, j, k]) / (dx * dx) +
+            //                                    (mde[i, j - 1, k] - 2 * mde[i, j, k] + mde[i, j + 1, k]) / (dy * dy) +
+            //                                    (mde[i, j, k - 1] - 2 * mde[i, j, k] + mde[i, j, k + 1]) / (dz * dz);
+            //                //Console.WriteLine(laplacian[i, j, k]);
+            //            }
+            //            //Console.WriteLine();
+            //        }
+            //        //Console.WriteLine();
+            //    }
+
+            //    for (int i = 0; i < ecm.GetLength(0); i++)
+            //    {
+            //        for (int j = 0; j < ecm.GetLength(1); j++)
+            //        {
+            //            for (int k = 0; k < ecm.GetLength(2); k++)
+            //            {
+            //                if (/*i == 0 || i == (u.GetLength(0) - 1) ||*/ k == 0 || k == (ecm.GetLength(2) - 1) || j == 0 || j == (ecm.GetLength(1) - 1))
+            //                    ecm[i, j, k] = 1;
+            //                else
+            //                    ecm[i, j, k] += count * (-var1 * mde[i, j, k] * ecm[i, j, k]);
+
+            //                Console.WriteLine("ecm[{0}][{1}][{2}] = {3}", i, j, k, ecm[i, j, k]);
+            //            }
+            //        }
+            //    }
+
+            //    //for (int i = 0; i < u.GetLength(0); i++)
+            //    //{
+            //    //    for (int j = 0; j < u.GetLength(0); j++)
+            //    //    {
+            //    //        for (int k = 0; k < u.GetLength(0); k++)
+            //    //        {
+            //    //            if (laplacian[i, j, k] > 0 || laplacian[i, j, k] < 0)
+            //    //            {
+            //    //                Console.WriteLine("u[{0}][{1}][{2}] = {3}", i, j, k, u[i, j, k]);
+            //    //                Console.WriteLine("laplacian[{0}][{1}][{2}] = {3}", i, j, k, laplacian[i, j, k]);
+            //    //            }
+            //    //        }
+            //    //    }
+            //    //}
+            //}
+
+            Simulation();
+        }
+
+        private double DeltaVEGFConcentration(Cell cell, double conc, double[,,] vegf_conc_matrix)
+        {
+            List<double> neighbors_sum = new List<double>();
+            foreach (var item in cell.neighborhood)
+                neighbors_sum.Add(vegf_conc_matrix[item.pos.X, item.pos.Y, item.pos.Z]);
+
+            return neighbors_sum.Sum() - 26 * conc;
         }
         static double VerhulstGrowth(double actual_population, double growth_rate, double loading_capacity, double time)
         {
             double dP = growth_rate * actual_population * (1 - actual_population / loading_capacity) * time;
             return actual_population + dP;
         }
+        public static void PrintMatrix(double[,,] matrix, Cell[,,] space)
+        {
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    for (int k = 0; k < matrix.GetLength(2); k++)
+                    {
+                        if(space[i,j,k].behavior_state == CellState.ProliferativeTumoralCell)
+                            Console.WriteLine("Posicion: {0} {1} {2}, Concentracion: {3}", i, j, k, matrix[i,j,k]);
+                    }
+                }
+            }
+        }
+
+        public static void PrintCells(Cell[,,] matrix, double[,,] oxygen, double[,,] densidad, double[,,] mde, double[,,] tnf)
+        {
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    for (int k = 0; k < matrix.GetLength(2); k++)
+                    {
+                        CellState cs = matrix[i, j, k].behavior_state;
+                        if(cs == CellState.TumoralStemCell || cs == CellState.ProliferativeTumoralCell || cs == CellState.MigratoryTumorCell || cs == CellState.QuiescentTumorCell || cs == CellState.NecroticTumorCell)
+                            Console.WriteLine("Posicion: {0} {1} {2}, Tipo: {3}, Oxygen: {4}, Densidad: {5}, MDE: {6} TNF: {7}", i, j, k,
+                            cs, oxygen[i, j, k], densidad[i, j, k], mde[i, j, k], tnf[i, j, k]);
+                        else
+                        Console.WriteLine("Posicion: {0} {1} {2}, Tipo: {3}, Oxygen: {4}, Densidad: {5}, MDE: {6} TNF: {7}", i, j, k,
+                            cs, oxygen[i,j,k], densidad[i,j,k], mde[i,j,k], tnf[i,j,k]);
+                    }
+                    Console.WriteLine();
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+        }
+
         public static void Simulation()
         {
             Utils.InitializeVariables();
             ca = new CellularAutomaton(limit_of_x, limit_of_y, limit_of_z, new ClassicProbability(), avascular_carrying_capacity, vascular_carrying_capacity, growth_rate, initial_population);
-            //int count = 0;
-            //while (count++ < 100)
-            //{
-            //    //Console.WriteLine("Estoy aqui");
-            //    //Console.ReadLine();
-            //    //    //    //foreach (var key_value in ca.next_stem_position)
-            //    //    //    //{
-            //    //    //    //    Pos pos = key_value.Key;
-            //    //    //    //    if (key_value.Key != null)
-            //    //    //    //    {
-            //    //    //    //        Console.WriteLine("Nuevo");
-            //    //    //    //        Console.WriteLine(pos.X);
-            //    //    //    //        Console.WriteLine(pos.Y);
-            //    //    //    //        Console.WriteLine(pos.Z);
-            //    //    //    //        Console.WriteLine();
-            //    //    //    //        if (key_value.Value != null)
-            //    //    //    //        {
-            //    //    //    //            Console.WriteLine(key_value.Value.X);
-            //    //    //    //            Console.WriteLine(key_value.Value.Y);
-            //    //    //    //            Console.WriteLine(key_value.Value.Z);
-            //    //    //    //        }
-            //    //    //    //    }
-            //    //    //    //}
+            PrintCells(ca.space, ca.model.oxygen_matrix, ca.model.density_matrix, ca.model.mde, ca.model.angiogenic_reg_conc_matrix);
 
-            //    ca.Update();
+            //Console.ReadLine();
+            int count = 0;
+            while (count++ < 100)
+            {
+                //    //Console.WriteLine("Estoy aqui");
+                //    //Console.ReadLine();
+                //    //    //    //foreach (var key_value in ca.next_stem_position)
+                //    //    //    //{
+                //    //    //    //    Pos pos = key_value.Key;
+                //    //    //    //    if (key_value.Key != null)
+                //    //    //    //    {
+                //    //    //    //        Console.WriteLine("Nuevo");
+                //    //    //    //        Console.WriteLine(pos.X);
+                //    //    //    //        Console.WriteLine(pos.Y);
+                //    //    //    //        Console.WriteLine(pos.Z);
+                //    //    //    //        Console.WriteLine();
+                //    //    //    //        if (key_value.Value != null)
+                //    //    //    //        {
+                //    //    //    //            Console.WriteLine(key_value.Value.X);
+                //    //    //    //            Console.WriteLine(key_value.Value.Y);
+                //    //    //    //            Console.WriteLine(key_value.Value.Z);
+                //    //    //    //        }
+                //    //    //    //    }
+                //    //    //    //}
 
-            //    foreach (var item in ca.tumor.cell_list)
-            //    {
-            //        Console.WriteLine(item.behavior_state);
-            //    }
-            //    Console.WriteLine();
-            //}
+                ca.Update();
+                //PrintMatrix(ca.model.oxygen_matrix, ca.space);
 
-            //    Console.WriteLine("Luego del update");
-            //    foreach (var item in ca.pos_cell_dict)
-            //    {
-            //        if (item.Value.behavior_state == CellState.TumoralCell)
-            //        {
-            //            Console.WriteLine(item.Key.X);
-            //            Console.WriteLine(item.Key.Y);
-            //            Console.WriteLine(item.Key.Z);
-            //        }
-            //        Console.WriteLine();
-            //    }
-            //    //foreach (var key_value in ca.next_stem_position)
-            //    //{
-            //    //    Pos pos = key_value.Key;
-            //    //    if (key_value.Key != null)
-            //    //    {
-            //    //        Console.WriteLine("Nuevo");
-            //    //        Console.WriteLine(pos.X);
-            //    //        Console.WriteLine(pos.Y);
-            //    //        Console.WriteLine(pos.Z);
-            //    //        Console.WriteLine();
-            //    //        if (key_value.Value != null)
-            //    //        {
-            //    //            Console.WriteLine(key_value.Value.X);
-            //    //            Console.WriteLine(key_value.Value.Y);
-            //    //            Console.WriteLine(key_value.Value.Z);
-            //    //        }
-            //    //    }
-            //    //}
-            //}
+                PrintCells(ca.space, ca.model.oxygen_matrix, ca.model.density_matrix, ca.model.mde, ca.model.angiogenic_reg_conc_matrix);
+            }
+
+                //    foreach (var item in ca.tumor.cell_list)
+                //    {
+                //        Console.WriteLine(item.behavior_state);
+                //    }
+                //    Console.WriteLine();
+                //}
+
+                //    Console.WriteLine("Luego del update");
+                //    foreach (var item in ca.pos_cell_dict)
+                //    {
+                //        if (item.Value.behavior_state == CellState.TumoralCell)
+                //        {
+                //            Console.WriteLine(item.Key.X);
+                //            Console.WriteLine(item.Key.Y);
+                //            Console.WriteLine(item.Key.Z);
+                //        }
+                //        Console.WriteLine();
+                //    }
+                //    //foreach (var key_value in ca.next_stem_position)
+                //    //{
+                //    //    Pos pos = key_value.Key;
+                //    //    if (key_value.Key != null)
+                //    //    {
+                //    //        Console.WriteLine("Nuevo");
+                //    //        Console.WriteLine(pos.X);
+                //    //        Console.WriteLine(pos.Y);
+                //    //        Console.WriteLine(pos.Z);
+                //    //        Console.WriteLine();
+                //    //        if (key_value.Value != null)
+                //    //        {
+                //    //            Console.WriteLine(key_value.Value.X);
+                //    //            Console.WriteLine(key_value.Value.Y);
+                //    //            Console.WriteLine(key_value.Value.Z);
+                //    //        }
+                //    //    }
+                //    //}
+                //}
 
 
-            //GetCellsThatSenseTheTumorSubstance();
+                //GetCellsThatSenseTheTumorSubstance();
 
-            //PathFromCellsToTumorCell();
+                //PathFromCellsToTumorCell();
 
-            //StemCellConvertToTumoralCell();
+                //StemCellConvertToTumoralCell();
 
-            //UpdateActions();
+                //UpdateActions();
 
-            //ExecuteActions();
+                //ExecuteActions();
 
-            //UpdateTumorState();
+                //UpdateTumorState();
 
-        }
+            }
 
 
 

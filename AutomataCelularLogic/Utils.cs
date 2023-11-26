@@ -20,10 +20,30 @@ namespace AutomataCelularLogic
             for (int i = 0; i < mov_3d.Count; i++)
             {
                 int[] array= mov_3d[i];
-                if (ValidPosition(pos.X + array[0], pos.Y + array[1], pos.Z + array[2]))
-                    neighbours.Add(grid[pos.X + array[0], pos.Y + array[1], pos.Z + array[2]]);
+                Pos new_pos = new Pos(pos.X + array[0], pos.Y + array[1], pos.Z + array[2]);
+                new_pos = ValidatingAPositionInAClosedSpace(new_pos, grid.GetLength(0));
+
+                if (ValidPosition(new_pos.X, new_pos.Y, new_pos.Z))
+                    neighbours.Add(grid[new_pos.X, new_pos.Y, new_pos.Z]);
             }
             return neighbours;
+        }
+
+        public static Pos ValidatingAPositionInAClosedSpace(Pos pos, int limit_of_x)
+        {
+            int x = pos.X;
+            if (x < 0)
+            {
+                x = limit_of_x + x;
+                pos.X = x;
+            }
+            else if (x >= limit_of_x)
+            {
+                x = x - limit_of_x;
+                pos.X = x;
+            }
+
+            return pos;
         }
 
         public static Pos NullPos()
@@ -76,7 +96,7 @@ namespace AutomataCelularLogic
 
         }
 
-        public static List<Pos> EmptyPositions(Pos pos, List<Pos> marks)
+        public static List<Pos> EmptyPositions(Pos pos, List<Pos> marks, int limit_of_x)
         {
             List<Pos> empty_pos = new List<Pos>();
 
@@ -84,6 +104,7 @@ namespace AutomataCelularLogic
             {
                 int[] array = mov_3d[i];
                 Pos new_pos = new Pos(pos.X + array[0], pos.Y + array[1], pos.Z + array[2]);
+                new_pos = ValidatingAPositionInAClosedSpace(new_pos, limit_of_x);
                 if (ValidPosition(new_pos) && !marks.Contains(new_pos))
                     empty_pos.Add(new_pos);
             }
@@ -94,7 +115,7 @@ namespace AutomataCelularLogic
             List<Cell> empty_pos = new List<Cell>();
             foreach (var item in cell_list)
             {
-                if (item.behavior_state == CellState.nothing && item.loca_state == CellLocationState.MatrixExtracelular && occupied_cells.Contains(item))
+                if (item.behavior_state == CellState.nothing && item.loca_state == CellLocationState.MatrixExtracelular && !occupied_cells.Contains(item))
                     empty_pos.Add(item);
             }
             return empty_pos;
@@ -171,11 +192,11 @@ namespace AutomataCelularLogic
 
         public static bool ValidPosition(Pos pos)
         {
-            return pos.X >= 0 && pos.X < EnvironmentLogic.limit_of_x && pos.Y >= 0 && pos.Y < EnvironmentLogic.limit_of_y && pos.Z >= 0 && pos.Z < EnvironmentLogic.limit_of_z;
+            return /*pos.X >= 0 && pos.X < EnvironmentLogic.limit_of_x &&*/ pos.Y >= 0 && pos.Y < EnvironmentLogic.limit_of_y && pos.Z >= 0 && pos.Z < EnvironmentLogic.limit_of_z;
         }
         public static bool ValidPosition(int x, int y, int z)
         {
-            return x >= 0 && x < EnvironmentLogic.limit_of_x && y >= 0 && y < EnvironmentLogic.limit_of_y && z >= 0 && z < EnvironmentLogic.limit_of_z;
+            return /*x >= 0 && x < EnvironmentLogic.limit_of_x &&*/ y >= 0 && y < EnvironmentLogic.limit_of_y && z >= 0 && z < EnvironmentLogic.limit_of_z;
         }
     }
 }

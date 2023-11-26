@@ -60,7 +60,7 @@ namespace AutomataCelularLogic
             }
             while (pos_artery_dict.ContainsKey(pos));
 
-            tumor_stem_cell = new Cell(pos, CellState.ProliferativeTumoralCell, CellLocationState.MatrixExtracelular);
+            tumor_stem_cell = new Cell(pos, CellState.TumoralStemCell, CellLocationState.MatrixExtracelular);
             tumor_stem_cell.proliferation_age = -1;
             //tumor_stem_cell.neighborhood = Utils.GetMooreNeighbours3D(tumor_stem_cell.pos, space);
             //pos_cell_dict.Add(tumor_stem_cell.pos, tumor_stem_cell);
@@ -91,7 +91,7 @@ namespace AutomataCelularLogic
 
         public Pos RandomAdjPos(Pos pos, List<Pos> marks)
         {
-            List<Pos> empty_pos = Utils.EmptyPositions(pos, marks);
+            List<Pos> empty_pos = Utils.EmptyPositions(pos, marks, world.GetLength(0));
             return empty_pos[Utils.rdm.Next(0, empty_pos.Count)];
         }
 
