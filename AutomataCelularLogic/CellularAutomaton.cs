@@ -560,8 +560,8 @@ namespace AutomataCelularLogic
                 foreach (Cell cell in pos_artery_dict.Values)
                     first_vessel_close_tumoral_cell_dict.Add(cell, CancerCellClosestToTheVessel(cell));
             }
-            else
-                ArteriesNearTheTumor();
+            //else
+            ArteriesNearTheTumor();
         }
 
         //////////////////ESTE METODO NO DEBE IR AQUI///////////////////
@@ -607,7 +607,7 @@ namespace AutomataCelularLogic
         private bool GrowthFactorInNeighboringCells(Cell artery)
         {
             List<Cell> empty_cells = Utils.EmptyPositions(artery.neighborhood);
-            List<double> tnf_list = NutrientConcentrationValues(empty_cells, model.angiogenic_reg_conc_matrix);
+            List<double> tnf_list = NutrientConcentrationValues(empty_cells, model.vegf_conc_matrix);
 
             for (int i = 0; i < tnf_list.Count; i++)
             {
@@ -623,6 +623,7 @@ namespace AutomataCelularLogic
             if (CheckIsNotANeighborOfTumorCell(artery))
             {
                 Cell cell = SelectionOfCellsToMigrate(artery, model.angiogenic_reg_conc_matrix);
+                Console.WriteLine("Neo Blood Vessel Pos: {0} {1} {2} VEGF: {3}", cell.pos.X, cell.pos.Y, cell.pos.Z, model.vegf_conc_matrix[cell.pos.X, cell.pos.Y, cell.pos.Z]);
                 neo_blood_vessels.Add(cell);
             }
             else
@@ -917,6 +918,11 @@ namespace AutomataCelularLogic
 
             if(tumoral_angiogenic_factor > 0.5)
             {
+                if(tumor.tumor_stage == TumosStage.Avascular)
+                {
+                    tumor.vasc_mecha = VascularizationMechanism.Angiogenesis;
+                    tumor.tumor_stage = TumosStage.Vascular;
+                }
                 //Angiogenesis();
                 UpdateMigratoryCells();
 
@@ -953,8 +959,8 @@ namespace AutomataCelularLogic
             UpdateNewMigratoryCells();
 
             Console.WriteLine("tiempo {0} ", tumor.time);
-            Console.WriteLine("cantidad de celulas tumorales {0}", tumor.cell_list.Count);
-            Console.WriteLine("cantidad de celulas que da la ecuacion de verhuslt {0}", tumor.new_cells_count);
+            //Console.WriteLine("cantidad de celulas tumorales {0}", tumor.cell_list.Count);
+            //Console.WriteLine("cantidad de celulas que da la ecuacion de verhuslt {0}", tumor.new_cells_count);
             Console.WriteLine();
         }
 
@@ -975,7 +981,7 @@ namespace AutomataCelularLogic
                 else
                     model.oxygen_matrix[item.pos.X, item.pos.Y, item.pos.Z] = model.oxygen_tumoral_threshold_2;
 
-                Console.WriteLine(model.oxygen_matrix[item.pos.X, item.pos.Y, item.pos.Z]);
+                //Console.WriteLine(model.oxygen_matrix[item.pos.X, item.pos.Y, item.pos.Z]);
             }
         }
 
@@ -1106,6 +1112,15 @@ namespace AutomataCelularLogic
             }
         }
 
+        public void UpdateQuiescentCell(Cell cell)
+        {
+            Pos pos = cell.pos;
+            if(model.oxygen_matrix[pos.X, pos.Y, pos.Z] < 0.2)//cambiar este valor
+                cell.behavior_state = CellState.NecroticTumorCell;
+            else
+                tumoral_angiogenic_factor += 0.01;
+        }
+
         public void UpdateEmptyCell(Cell cell, int tumoral_cells_count)
         {
             double prob = move_prob.DivisionProbability(cell, cell.neighborhood, tumor);
@@ -1219,10 +1234,12 @@ namespace AutomataCelularLogic
                 UpdateAstrocyteOrNeuronCell(cell);
             else if (cell.behavior_state == CellState.ProliferativeTumoralCell)
                 UpdateProliferativeTumorCell(cell);
-            else if(cell.behavior_state == CellState.MigratoryTumorCell)
+            else if (cell.behavior_state == CellState.MigratoryTumorCell)
                 UpdateMigratoryTumorCell(cell);
             else if (cell.behavior_state == CellState.StemCell)
                 UpdateStemCell(cell, tumoral_cells_count);
+            else if (cell.behavior_state == CellState.QuiescentTumorCell)
+                UpdateQuiescentCell(cell);
             else if (cell.behavior_state == CellState.nothing && cell.loca_state == CellLocationState.MatrixExtracelular)
                 UpdateEmptyCell(cell, tumoral_cells_count);
         }

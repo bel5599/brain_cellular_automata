@@ -45,7 +45,7 @@ namespace AutomataCelularLogic
         }
         public void StartCellularLifeInTheBrain()
         {
-            CreateBloodVesselsTree(5);
+            CreateBloodVesselsTree(world.GetLength(0));
             LocateTheBloodVesselsOnTheBoard();
             StartTumoraCell();
             CreateCells();
@@ -73,9 +73,12 @@ namespace AutomataCelularLogic
         {
             foreach (Pos pos in blood_vessels)
             {
-                Artery artery = new Artery(pos, CellState.nothing, CellLocationState.GlialBasalLamina);
-                pos_artery_dict.Add(pos, artery);
-                world[pos.X, pos.Y, pos.Z] = artery;
+                if (!pos_artery_dict.ContainsKey(pos))
+                {
+                    Artery artery = new Artery(pos, CellState.nothing, CellLocationState.GlialBasalLamina);
+                    pos_artery_dict.Add(pos, artery);
+                    world[pos.X, pos.Y, pos.Z] = artery;
+                }
             }
         }
 
@@ -85,43 +88,81 @@ namespace AutomataCelularLogic
             Pos root = Utils.GetRandomPosition(0, limit, 0, limit, 0, limit);
             tree.Add(root);
 
-            blood_vessels_tree = CreateBloodVesselsTree(root, 0, 3, new List<Pos>(), tree);
+            blood_vessels_tree = CreateBloodVesselsTree(root, 0, 15, new List<Pos>(), tree);
             blood_vessels = tree;
         }
 
         public Pos RandomAdjPos(Pos pos, List<Pos> marks)
         {
             List<Pos> empty_pos = Utils.EmptyPositions(pos, marks, world.GetLength(0));
-            return empty_pos[Utils.rdm.Next(0, empty_pos.Count)];
+            if(empty_pos.Count > 0)
+                return empty_pos[Utils.rdm.Next(0, empty_pos.Count)];
+            return new Pos(-1,-1,-1);
         }
 
         public Children CreateBloodVesselsTree(Pos pos, int depth, int max_depth, List<Pos> marks, List<Pos> pos_list)
         {
             Pos new_pos = RandomAdjPos(pos, marks);
-            Children c = new Children(new_pos);
-            pos_list.Add(new_pos);
-            marks.Add(pos);
-
-            if (depth == max_depth)
+            if (new_pos.X != -1 && new_pos.Y != -1 && new_pos.Z != -1)
             {
-                c.child_left = c.child_right = null;
-                return c;
-            }
-            else
-            {
-                int i = Utils.rdm.Next(0, 3);
+                Children c = new Children(new_pos);
+                pos_list.Add(new_pos);
+                marks.Add(pos);
 
-                if (i == 0)
-                    c.child_left = CreateBloodVesselsTree(c.pos, depth+1, max_depth, marks, pos_list);
-                else if (i == 1)
-                    c.child_right = CreateBloodVesselsTree(c.pos, depth + 1, max_depth, marks, pos_list);
+                //Console.WriteLine("Afuera de los hilos de la recursividad");
+                //Console.WriteLine(marks.Count);
+                //for (int i = 0; i < marks.Count; i++)
+                //{
+                //    Console.WriteLine("{0} {1} {2}", marks[i].X, marks[i].Y, marks[i].Z);
+                //}
+
+                if (depth == max_depth)
+                {
+                    c.child_left = c.child_right = null;
+                    return c;
+                }
                 else
                 {
-                    c.child_left = CreateBloodVesselsTree(c.pos, depth + 1, max_depth, marks, pos_list);
-                    c.child_right = CreateBloodVesselsTree(c.pos, depth + 1, max_depth, marks, pos_list);
+                    int i = Utils.rdm.Next(0, 3);
+
+                    if (i == 0)
+                    {
+                        c.child_left = CreateBloodVesselsTree(c.pos, depth + 1, max_depth, marks, pos_list);
+
+                        //Console.WriteLine("Estoy en uno de los hilos de la recursividad");
+                        //Console.WriteLine(marks.Count);
+                        //for (int j = 0; j < marks.Count; j++)
+                        //{
+                        //    Console.WriteLine("{0} {1} {2}", marks[j].X, marks[j].Y, marks[j].Z);
+                        //}
+                    }
+                    else if (i == 1)
+                    {
+                        c.child_right = CreateBloodVesselsTree(c.pos, depth + 1, max_depth, marks, pos_list);
+
+                        //Console.WriteLine("Estoy en uno de los hilos de la recursividad");
+                        //Console.WriteLine(marks.Count);
+                        //for (int j = 0; j < marks.Count; j++)
+                        //{
+                        //    Console.WriteLine("{0} {1} {2}", marks[j].X, marks[j].Y, marks[j].Z);
+                        //}
+                    }
+                    else
+                    {
+                        c.child_left = CreateBloodVesselsTree(c.pos, depth + 1, max_depth, marks, pos_list);
+                        c.child_right = CreateBloodVesselsTree(c.pos, depth + 1, max_depth, marks, pos_list);
+
+                        //Console.WriteLine("Estoy en uno de los hilos de la recursividad");
+                        //Console.WriteLine(marks.Count);
+                        //for (int j = 0; j < marks.Count; j++)
+                        //{
+                        //    Console.WriteLine("{0} {1} {2}", marks[j].X, marks[j].Y, marks[j].Z);
+                        //}
+                    }
+                    return c;
                 }
-                return c;
             }
+            return null;
         }
 
         public void CreateCells()

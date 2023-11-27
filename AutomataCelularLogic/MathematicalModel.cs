@@ -488,7 +488,7 @@ namespace AutomataCelularLogic
                             //oxygen_matrix[i, j, k] += t1;
                             //CellState behavior = space[i, j, k].behavior_state;
                             //if (behavior == CellState.MigratoryTumorCell || behavior == CellState.QuiescentTumorCell || behavior == CellState.ProliferativeTumoralCell || behavior == CellState.TumoralStemCell)
-                            Console.WriteLine("Valor de Laplace: {0} y la concentracion: {1}", oxygen_delta[i, j, k], conc);
+                            //Console.WriteLine("Valor de Laplace: {0} y la concentracion: {1}", oxygen_delta[i, j, k], conc);
                         }
                     }
                 }
@@ -533,8 +533,8 @@ namespace AutomataCelularLogic
 
                                 double actual = oxygen_matrix[i, j, k];
 
-                                if (cell.behavior_state == CellState.nothing)
-                                    Console.WriteLine("Este es el valor de una celda vacia: {0}", actual);
+                                //if (cell.behavior_state == CellState.nothing)
+                                //    Console.WriteLine("Este es el valor de una celda vacia: {0}", actual);
                                 //CellState behavior = cell.behavior_state;
                                 //if (behavior == CellState.MigratoryTumorCell || behavior == CellState.QuiescentTumorCell || behavior == CellState.ProliferativeTumoralCell || behavior == CellState.TumoralStemCell)
                                 //    Console.WriteLine("Valor de Laplace: {0} y El metodo simple: {1}", oxygen_delta[i, j, k], delta);

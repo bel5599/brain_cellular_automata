@@ -14,8 +14,8 @@ namespace AutomataCelularLogic
 
         //VARIABLES DEL MODELO DEL AUTOMATA
         //public static int cell_proliferation;
-        public static int avascular_carrying_capacity = 500;
-        public static int vascular_carrying_capacity = 1000;
+        public static int avascular_carrying_capacity = 1000;
+        public static int vascular_carrying_capacity = 2000;
         public static double growth_rate = 1.2 * Math.Pow(10, -2);
         public static int initial_population = 5;
 
@@ -345,6 +345,8 @@ namespace AutomataCelularLogic
             //}
 
             Simulation();
+
+            Console.ReadLine();
         }
 
         private double DeltaVEGFConcentration(Cell cell, double conc, double[,,] vegf_conc_matrix)
@@ -402,7 +404,7 @@ namespace AutomataCelularLogic
         {
             Utils.InitializeVariables();
             ca = new CellularAutomaton(limit_of_x, limit_of_y, limit_of_z, new ClassicProbability(), avascular_carrying_capacity, vascular_carrying_capacity, growth_rate, initial_population);
-            PrintCells(ca.space, ca.model.oxygen_matrix, ca.model.density_matrix, ca.model.mde, ca.model.angiogenic_reg_conc_matrix);
+            //PrintCells(ca.space, ca.model.oxygen_matrix, ca.model.density_matrix, ca.model.mde, ca.model.angiogenic_reg_conc_matrix);
 
             //Console.ReadLine();
             int count = 0;
@@ -432,61 +434,86 @@ namespace AutomataCelularLogic
                 ca.Update();
                 //PrintMatrix(ca.model.oxygen_matrix, ca.space);
 
-                PrintCells(ca.space, ca.model.oxygen_matrix, ca.model.density_matrix, ca.model.mde, ca.model.angiogenic_reg_conc_matrix);
+                int total_count = 0;
+
+                int prolif = 0;
+                int inactiva = 0;
+                int necrotica = 0;
+                int migratoria = 0;
+
+                foreach (var item in ca.tumor.cell_list)
+                {
+                    CellState behavior = item.behavior_state;
+                    if (behavior == CellState.NecroticTumorCell)
+                        necrotica++;
+                    else if (behavior == CellState.MigratoryTumorCell)
+                        migratoria++;
+                    else if (behavior == CellState.ProliferativeTumoralCell)
+                        prolif++;
+                    else if (behavior == CellState.QuiescentTumorCell)
+                        inactiva++;
+                }
+                total_count = ca.tumor.cell_list.Count;
+
+                Console.WriteLine("Tumorales: {0}, Verhuslt: {1} Proliferativas: {2} Inactivas: {3} Migratorias: {4} Necroticas: {5}", total_count, ca.tumor.new_cells_count,
+                                    prolif, inactiva, migratoria, necrotica);
+
+                //PrintCells(ca.space, ca.model.oxygen_matrix, ca.model.density_matrix, ca.model.mde, ca.model.angiogenic_reg_conc_matrix);
             }
 
-                //    foreach (var item in ca.tumor.cell_list)
-                //    {
-                //        Console.WriteLine(item.behavior_state);
-                //    }
-                //    Console.WriteLine();
-                //}
 
-                //    Console.WriteLine("Luego del update");
-                //    foreach (var item in ca.pos_cell_dict)
-                //    {
-                //        if (item.Value.behavior_state == CellState.TumoralCell)
-                //        {
-                //            Console.WriteLine(item.Key.X);
-                //            Console.WriteLine(item.Key.Y);
-                //            Console.WriteLine(item.Key.Z);
-                //        }
-                //        Console.WriteLine();
-                //    }
-                //    //foreach (var key_value in ca.next_stem_position)
-                //    //{
-                //    //    Pos pos = key_value.Key;
-                //    //    if (key_value.Key != null)
-                //    //    {
-                //    //        Console.WriteLine("Nuevo");
-                //    //        Console.WriteLine(pos.X);
-                //    //        Console.WriteLine(pos.Y);
-                //    //        Console.WriteLine(pos.Z);
-                //    //        Console.WriteLine();
-                //    //        if (key_value.Value != null)
-                //    //        {
-                //    //            Console.WriteLine(key_value.Value.X);
-                //    //            Console.WriteLine(key_value.Value.Y);
-                //    //            Console.WriteLine(key_value.Value.Z);
-                //    //        }
-                //    //    }
-                //    //}
-                //}
+            //    foreach (var item in ca.tumor.cell_list)
+            //    {
+            //        Console.WriteLine(item.behavior_state);
+            //    }
+            //    Console.WriteLine();
+            //}
+
+            //    Console.WriteLine("Luego del update");
+            //    foreach (var item in ca.pos_cell_dict)
+            //    {
+            //        if (item.Value.behavior_state == CellState.TumoralCell)
+            //        {
+            //            Console.WriteLine(item.Key.X);
+            //            Console.WriteLine(item.Key.Y);
+            //            Console.WriteLine(item.Key.Z);
+            //        }
+            //        Console.WriteLine();
+            //    }
+            //    //foreach (var key_value in ca.next_stem_position)
+            //    //{
+            //    //    Pos pos = key_value.Key;
+            //    //    if (key_value.Key != null)
+            //    //    {
+            //    //        Console.WriteLine("Nuevo");
+            //    //        Console.WriteLine(pos.X);
+            //    //        Console.WriteLine(pos.Y);
+            //    //        Console.WriteLine(pos.Z);
+            //    //        Console.WriteLine();
+            //    //        if (key_value.Value != null)
+            //    //        {
+            //    //            Console.WriteLine(key_value.Value.X);
+            //    //            Console.WriteLine(key_value.Value.Y);
+            //    //            Console.WriteLine(key_value.Value.Z);
+            //    //        }
+            //    //    }
+            //    //}
+            //}
 
 
-                //GetCellsThatSenseTheTumorSubstance();
+            //GetCellsThatSenseTheTumorSubstance();
 
-                //PathFromCellsToTumorCell();
+            //PathFromCellsToTumorCell();
 
-                //StemCellConvertToTumoralCell();
+            //StemCellConvertToTumoralCell();
 
-                //UpdateActions();
+            //UpdateActions();
 
-                //ExecuteActions();
+            //ExecuteActions();
 
-                //UpdateTumorState();
+            //UpdateTumorState();
 
-            }
+        }
 
 
 

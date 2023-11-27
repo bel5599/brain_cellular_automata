@@ -88,7 +88,7 @@ namespace AutomataCelularLogic
             double loading_capacity;
             actual_population = cell_list.Count + 1;
 
-            if (tumor_stage == TumosStage.Avascular)
+            if (tumor_stage == TumosStage.Avascular && cell_list.Count < (avascular_carrying_capacity - 5))
                 loading_capacity = avascular_carrying_capacity;
             else loading_capacity = vascular_carrying_capacity;
 

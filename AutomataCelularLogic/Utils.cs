@@ -115,7 +115,7 @@ namespace AutomataCelularLogic
             List<Cell> empty_pos = new List<Cell>();
             foreach (var item in cell_list)
             {
-                if (item.behavior_state == CellState.nothing && item.loca_state == CellLocationState.MatrixExtracelular && !occupied_cells.Contains(item))
+                if (item.behavior_state == CellState.nothing && item.loca_state == CellLocationState.MatrixExtracelular && occupied_cells != null && !occupied_cells.Contains(item))
                     empty_pos.Add(item);
             }
             return empty_pos;
