@@ -115,8 +115,17 @@ namespace AutomataCelularLogic
             List<Cell> empty_pos = new List<Cell>();
             foreach (var item in cell_list)
             {
-                if (item.behavior_state == CellState.nothing && item.loca_state == CellLocationState.MatrixExtracelular && occupied_cells != null && !occupied_cells.Contains(item))
-                    empty_pos.Add(item);
+                if (item.behavior_state == CellState.nothing && item.loca_state == CellLocationState.MatrixExtracelular)/* && */
+                {
+                    if(occupied_cells != null)
+                    {
+                        if (!occupied_cells.Contains(item))
+                            empty_pos.Add(item);
+                    }
+                    else
+                        empty_pos.Add(item);
+                }
+                    
             }
             return empty_pos;
         }
@@ -196,7 +205,100 @@ namespace AutomataCelularLogic
         }
         public static bool ValidPosition(int x, int y, int z)
         {
+            //return /*x >= 0 && x < EnvironmentLogic.limit_of_x &&*/ y >= 0 && y < 10 && z >= 0 && z < 10;
             return /*x >= 0 && x < EnvironmentLogic.limit_of_x &&*/ y >= 0 && y < EnvironmentLogic.limit_of_y && z >= 0 && z < EnvironmentLogic.limit_of_z;
         }
+
+        //public static void FormationOfSpheres()
+        //{
+        //    CellActions action = new CellActions();
+        //    //action = (CellActions)rdm.Next(0, 3);
+        //    action = CellActions.Division;
+        //    return action;
+        //    //int radio_1_count = 0;
+        //    //int radio_2_count = 0;
+
+        //    List<Cell> radio_1_cells = new List<Cell>();
+        //    List<Cell> radio_2_cells = new List<Cell>();
+
+        //    foreach (Cell cell in cells_center_of_the_sphere_list)
+        //    {
+        //        int radio_1_count = 0;
+        //        int radio_2_count = 0;
+        //        if (sphere_cell_dict.ContainsKey(cell))
+        //        {
+        //            int count = 0;
+        //            int count2 = 0;
+        //            List<Cell> cell_list = new List<Cell>();
+        //            List<Cell> cell_list2 = new List<Cell>();
+        //            int radio = sphere_cell_dict[cell].radio;
+
+        //            //Sphere sphere = sphere_cell_dict[cell];
+
+        //            foreach (var key_value in pos_cell_dict)
+        //            {
+        //                if (Utils.EuclideanDistance(key_value.Key, cell.pos) == (radio + 1))
+        //                {
+        //                    count++;
+        //                    cell_list.Add(key_value.Value);
+        //                }
+        //                else if (Utils.EuclideanDistance(key_value.Key, cell.pos) == (radio + 2))
+        //                {
+        //                    count2++;
+        //                    cell_list2.Add(key_value.Value);
+        //                }
+        //            }
+        //            if (count2 >= 10)
+        //            {
+        //                cell_list.AddRange(cell_list2);
+        //                sphere_cell_dict[cell].radio = radio + 1;
+        //                sphere_cell_dict[cell].cell_list.AddRange(cell_list);
+        //                //sphere_cell_dict[cell].cell_list.AddRange(cell_list2);
+        //                foreach (Cell item in cell_list)
+        //                    cells_without_sphere.Remove(item);
+        //            }
+        //            else if (count >= 10)
+        //            {
+        //                sphere_cell_dict[cell].radio = radio + 1;
+        //                sphere_cell_dict[cell].cell_list.AddRange(cell_list);
+        //                foreach (Cell item in cell_list)
+        //                    cells_without_sphere.Remove(item);
+
+        //                //Sphere sphere2 = sphere_cell_dict[cell];
+        //                //Console.WriteLine("Vamos a ver si dos esferas son iguales aunque cambie el radio");
+        //                //Console.WriteLine(sphere==sphere2);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            foreach (var key_value in pos_cell_dict)
+        //            {
+        //                if (Utils.EuclideanDistance(key_value.Key, cell.pos) == 1)
+        //                {
+        //                    radio_1_count++;
+        //                    radio_1_cells.Add(key_value.Value);
+        //                }
+        //                else if (Utils.EuclideanDistance(key_value.Key, cell.pos) == 2)
+        //                {
+        //                    radio_2_count++;
+        //                    radio_2_cells.Add(key_value.Value);
+        //                }
+        //            }
+        //            if (radio_2_count >= 10)
+        //            {
+        //                radio_1_cells.AddRange(radio_2_cells);
+        //                sphere_cell_dict.Add(cell, new Sphere(2, radio_1_cells));
+        //                foreach (Cell item in radio_1_cells)
+        //                    cells_without_sphere.Remove(item);
+        //            }
+        //            else if (radio_1_count >= 10)
+        //            {
+        //                sphere_cell_dict.Add(cell, new Sphere(2, radio_1_cells));
+        //                foreach (Cell item in radio_1_cells)
+        //                    cells_without_sphere.Remove(item);
+        //            }
+        //        }
+        //    }
+        //}
     }
 }

@@ -60,7 +60,7 @@ namespace AutomataCelularLogic
 
         public List<Cell> new_artery_list;
 
-        
+        public List<EdgeTree> edges;
 
 
         Dictionary<Cell, Cell> vasos_en_crecimiento_dict;
@@ -111,6 +111,7 @@ namespace AutomataCelularLogic
 
             //StartCellularLifeInTheBrain();
             World world = new World(x, y, z, 1, stem_cells_count, astrocytes_count, neuron_count);
+            edges = world.edges;
             pos_cell_dict = world.pos_cell_dict;
             pos_artery_dict = world.pos_artery_dict;
             space = world.world;
@@ -892,7 +893,10 @@ namespace AutomataCelularLogic
             //model.UpdateOxygenConcentration(space, tumor.time);
 
             //model.UpdateAngiogenicRegulatorConcentration(space, tumor.time);
+            //if (tumoral_angiogenic_factor > 0)
+            //{
             model.VEGF(space, tumor.time);
+            //}
             model.UpdateMDE2(space, tumor.time, tumor);
             model.UpdateECMDensity2(space, tumor.time);
             

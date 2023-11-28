@@ -217,39 +217,6 @@ namespace AutomataCelularLogic
                 }
             }
 
-            //for (int i = 1; i < u.GetLength(0) - 1; i++)
-            //{
-            //    for (int j = 1; j < u.GetLength(1) - 1; j++)
-            //    {
-            //        for (int k = 1; k < u.GetLength(2) - 1; k++)
-            //        {
-            //            laplacian[i, j, k] = (u[i - 1, j, k] - 2 * u[i, j, k] + u[i + 1, j, k]) / (dx * dx) +
-            //                                (u[i, j - 1, k] - 2 * u[i, j, k] + u[i, j + 1, k]) / (dy * dy) +
-            //                                (u[i, j, k - 1] - 2 * u[i, j, k] + u[i, j, k + 1]) / (dz * dz);
-            //            Console.WriteLine(laplacian[i, j, k]);
-            //        }
-            //        Console.WriteLine();
-            //    }
-            //    Console.WriteLine();
-            //}
-
-            //for (int i = 0; i < delta.GetLength(0); i++)
-            //{
-            //    for (int j = 0; j < delta.GetLength(1); j++)
-            //    {
-            //        for (int k = 0; k < delta.GetLength(2); k++)
-            //        {
-            //            if(delta[i,j,k] != 0)
-            //                Console.WriteLine(delta[i,j,k]);
-            //        }
-            //        Console.WriteLine();
-            //    }
-            //    Console.WriteLine();
-            //}
-            //foreach (var item in u_laplacian)
-            //{
-            //    Console.WriteLine(item);
-            //}
             return u_laplacian;
         }
 
@@ -501,8 +468,6 @@ namespace AutomataCelularLogic
         {
             double[,,] copy_oxygen = new double[space.GetLength(0), space.GetLength(1), space.GetLength(2)];
             Array.Copy(oxygen_matrix, copy_oxygen, copy_oxygen.Length);
-            if (copy_oxygen == oxygen_matrix)
-                Console.WriteLine("Si son iguales");
 
             oxygen_delta = Laplacian3D(oxygen_matrix, dx, dy, dz);
 
@@ -529,7 +494,7 @@ namespace AutomataCelularLogic
                                 double delta = DeltaVEGFConcentration(cell, conc, copy_oxygen);
                                 oxygen_matrix[i, j, k] += delta_t * (diffusion_coeficient_oxygen / Math.Pow(delta_S, 2) * delta - UptakeOxygen(cell)
                                                                         + SourceOxygen(cell, conc));
-                                oxygen_matrix[i, j, k] = Math.Round(oxygen_matrix[i, j, k], 4);
+                                //oxygen_matrix[i, j, k] = Math.Round(oxygen_matrix[i, j, k], 4);
 
                                 double actual = oxygen_matrix[i, j, k];
 
@@ -537,7 +502,7 @@ namespace AutomataCelularLogic
                                 //    Console.WriteLine("Este es el valor de una celda vacia: {0}", actual);
                                 //CellState behavior = cell.behavior_state;
                                 //if (behavior == CellState.MigratoryTumorCell || behavior == CellState.QuiescentTumorCell || behavior == CellState.ProliferativeTumoralCell || behavior == CellState.TumoralStemCell)
-                                //    Console.WriteLine("Valor de Laplace: {0} y El metodo simple: {1}", oxygen_delta[i, j, k], delta);
+                                //    Console.WriteLine("Oxygen Concentration: {0} y El metodo simple: {1}", actual, delta);
                             }
                         }
                     }
@@ -756,8 +721,6 @@ namespace AutomataCelularLogic
             //falta poner laplacien 
             double[,,] copy_vegf = new double[space.GetLength(0), space.GetLength(1), space.GetLength(2)];
             Array.Copy(vegf_conc_matrix, copy_vegf, copy_vegf.Length);
-            if (copy_vegf == vegf_conc_matrix)
-                Console.WriteLine("Si son iguales");
 
             for (int i = 0; i < space.GetLength(0); i++)
             {
@@ -767,8 +730,16 @@ namespace AutomataCelularLogic
                     {
                         double conc = vegf_conc_matrix[i, j, k];
                         Cell cell = space[i, j, k];
-                        vegf_conc_matrix[i, j, k] += delta_t * (diffusion_coeficient_of_VEGF / Math.Pow(delta_S, 2) * DeltaVEGFConcentration(cell, conc, copy_vegf) - Uptake(cell, conc)
-                                                                + Source(cell) - Waste(conc));
+                        double delta = DeltaVEGFConcentration(cell, conc, copy_vegf);
+                        double uptake = Uptake(cell, conc);
+                        double source = Source(cell);
+                        double waste = Waste(conc);
+                        vegf_conc_matrix[i, j, k] += diffusion_coeficient_of_VEGF * 0.05 * delta - 0.05 * uptake + source - waste;
+                        //vegf_conc_matrix[i, j, k] += delta_t * (diffusion_coeficient_of_VEGF / Math.Pow(delta_S, 2) * DeltaVEGFConcentration(cell, conc, copy_vegf) - Uptake(cell, conc)
+                        //                                        + Source(cell) - Waste(conc));
+                        if(vegf_conc_matrix[i, j, k] != 0)
+                            Console.WriteLine("VEGF anterior: {0} VEGF act: {1} Delta:{2} Uptake: {3} Source: {4} Waste: {5}", conc, vegf_conc_matrix[i, j, k], delta, uptake, source, waste);
+                        //Console.WriteLine("Behavior: {0} VEGF: {1}",cell.behavior_state, vegf_conc_matrix[i,j,k]);
                     }
                 }
             }
@@ -787,7 +758,7 @@ namespace AutomataCelularLogic
         {
             //double radius = 3 * 10;
             if (cell is Artery)
-                return (2 * Math.PI * arteriole_radius * p_e * vegf_conc) / Math.Pow(delta_S, 2);
+                return (2 * Math.PI * arteriole_radius * p_e * vegf_conc);
             return 0;
         }
 

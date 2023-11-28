@@ -14,7 +14,8 @@ namespace AutomataCelularLogic
 
         public Cell tumor_stem_cell;
 
-        private List<Pos> points;
+        public List<EdgeTree> edges;
+
         private double radius;
 
         private int stem_cells_count;
@@ -27,7 +28,6 @@ namespace AutomataCelularLogic
         {
             world = new Cell[height, width, depth];
             
-            points = new List<Pos>();
             this.radius = radius;
 
             this.stem_cells_count = stem_cells_count;
@@ -36,12 +36,16 @@ namespace AutomataCelularLogic
 
             InicializarListas();
             StartCellularLifeInTheBrain();
+
+            Edges();
         }
 
         public void InicializarListas()
         {
             pos_artery_dict = new Dictionary<Pos, Artery>();
             pos_cell_dict = new Dictionary<Pos, Cell>();
+
+            edges = new List<EdgeTree>();
         }
         public void StartCellularLifeInTheBrain()
         {
@@ -109,13 +113,6 @@ namespace AutomataCelularLogic
                 pos_list.Add(new_pos);
                 marks.Add(pos);
 
-                //Console.WriteLine("Afuera de los hilos de la recursividad");
-                //Console.WriteLine(marks.Count);
-                //for (int i = 0; i < marks.Count; i++)
-                //{
-                //    Console.WriteLine("{0} {1} {2}", marks[i].X, marks[i].Y, marks[i].Z);
-                //}
-
                 if (depth == max_depth)
                 {
                     c.child_left = c.child_right = null;
@@ -126,38 +123,13 @@ namespace AutomataCelularLogic
                     int i = Utils.rdm.Next(0, 3);
 
                     if (i == 0)
-                    {
                         c.child_left = CreateBloodVesselsTree(c.pos, depth + 1, max_depth, marks, pos_list);
-
-                        //Console.WriteLine("Estoy en uno de los hilos de la recursividad");
-                        //Console.WriteLine(marks.Count);
-                        //for (int j = 0; j < marks.Count; j++)
-                        //{
-                        //    Console.WriteLine("{0} {1} {2}", marks[j].X, marks[j].Y, marks[j].Z);
-                        //}
-                    }
                     else if (i == 1)
-                    {
                         c.child_right = CreateBloodVesselsTree(c.pos, depth + 1, max_depth, marks, pos_list);
-
-                        //Console.WriteLine("Estoy en uno de los hilos de la recursividad");
-                        //Console.WriteLine(marks.Count);
-                        //for (int j = 0; j < marks.Count; j++)
-                        //{
-                        //    Console.WriteLine("{0} {1} {2}", marks[j].X, marks[j].Y, marks[j].Z);
-                        //}
-                    }
                     else
                     {
                         c.child_left = CreateBloodVesselsTree(c.pos, depth + 1, max_depth, marks, pos_list);
                         c.child_right = CreateBloodVesselsTree(c.pos, depth + 1, max_depth, marks, pos_list);
-
-                        //Console.WriteLine("Estoy en uno de los hilos de la recursividad");
-                        //Console.WriteLine(marks.Count);
-                        //for (int j = 0; j < marks.Count; j++)
-                        //{
-                        //    Console.WriteLine("{0} {1} {2}", marks[j].X, marks[j].Y, marks[j].Z);
-                        //}
                     }
                     return c;
                 }
@@ -195,6 +167,34 @@ namespace AutomataCelularLogic
                             world[i, j, k] = new Cell(new Pos(i, j, k), CellState.nothing, CellLocationState.MatrixExtracelular);
                     }
                 }
+            }
+        }
+
+        public void Edges()
+        {
+            Children temp = blood_vessels_tree;
+            List<Children> children_list = new List<Children>();
+
+            children_list.Add(temp);
+
+            int i = 0;
+
+            while(i < children_list.Count)
+            {
+                temp = children_list[i];
+
+                if (temp.child_left != null)
+                {
+                    edges.Add(new EdgeTree(temp.pos, temp.child_left.pos));
+                    children_list.Add(temp.child_left);
+                }
+                if (temp.child_right != null)
+                {
+                    edges.Add(new EdgeTree(temp.pos, temp.child_right.pos));
+                    children_list.Add(temp.child_right);
+                }
+
+                i++;
             }
         }
 
@@ -302,6 +302,17 @@ namespace AutomataCelularLogic
         public Children(Pos pos)
         {
             this.pos = pos;
+        }
+    }
+
+    public class EdgeTree
+    {
+        public Pos pos1;
+        public Pos pos2;
+        public EdgeTree(Pos pos1, Pos pos2)
+        {
+            this.pos1 = pos1;
+            this.pos2 = pos2;
         }
     }
 }

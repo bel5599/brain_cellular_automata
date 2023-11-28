@@ -120,7 +120,7 @@ namespace AutomataCelularLogic
             double dy = 1.0;
             double dz = 1.0;
             //double[,,] u = new double[20, 20, 20]; // Supongamos que esta es la matriz u
-            double[,,] laplacian = new double[10, 10, 10]; // Esta es la matriz del operador de Laplace
+            //double[,,] laplacian = new double[10, 10, 10]; // Esta es la matriz del operador de Laplace
 
             //// Inicializar la matriz u con algunos valores
             //for (int i = 0; i < u.GetLength(0); i++)
@@ -225,131 +225,121 @@ namespace AutomataCelularLogic
 
             //double[,,] ecm = new double[10, 10, 10];
             //double[,,] mde = new double[10, 10, 10];
+            //Utils.InitializeVariables();
 
-            //for (int i = 0; i < mde.GetLength(0); i++)
+            //double[,,] vegf_conc_matrix = new double[10,10,10];
+
+            //double diffusion_coeficient_of_VEGF = 2.90 * Math.Pow(10, -7);//cmm^2/s
+            //double const_VEGF = 2 * Math.Pow(10, -2);//nMolar/s
+            //double arteriole_radius = 3 * 10;//um
+            //double p_e = 1 * Math.Pow(10, -1);//um/s
+            //double w_VEGF = 1 * Math.Pow(10, -2);//s^-1
+            //double delta_S = 2 * 10;
+            //double delta_t = 1;
+
+            //Cell[,,] table = new Cell[10, 10, 10];
+
+            //for (int i = 0; i < table.GetLength(0); i++)
             //{
-            //    for (int j = 0; j < mde.GetLength(1); j++)
+            //    for (int j = 0; j < table.GetLength(1); j++)
             //    {
-            //        for (int k = 0; k < mde.GetLength(2); k++)
+            //        for (int k = 0; k < table.GetLength(2); k++)
             //        {
-            //            //if (/*i == 0 || i == (u.GetLength(0) - 1) ||*/ k == 0 || k == (mde.GetLength(2) - 1) || j == 0 || j == (mde.GetLength(1) - 1))
-            //            //    mde[i, j, k] = 0;
-            //            //else
-            //            mde[i, j, k] = 0;
+            //            int r = Utils.rdm.Next(0, 5);
+            //            if (r == 1)
+            //                table[i, j, k] = new Cell(new Pos(i, j, k), CellState.ProliferativeTumoralCell, CellLocationState.MatrixExtracelular);
+            //            else if(r == 2)
+            //                table[i, j, k] = new Cell(new Pos(i, j, k), CellState.nothing, CellLocationState.MatrixExtracelular);
+            //            else if(r == 3)
+            //                table[i, j, k] = new Cell(new Pos(i, j, k), CellState.QuiescentTumorCell, CellLocationState.MatrixExtracelular);
+            //            else if(r == 4)
+            //                table[i, j, k] = new Cell(new Pos(i, j, k), CellState.MigratoryTumorCell, CellLocationState.MatrixExtracelular);
+            //            else
+            //                table[i, j, k] = new Cell(new Pos(i, j, k), CellState.NecroticTumorCell, CellLocationState.MatrixExtracelular);
             //        }
             //    }
             //}
 
-            //for (int i = 1; i < mde.GetLength(0) - 1; i++)
+            //foreach (var item in table)
             //{
-            //    for (int j = 1; j < mde.GetLength(1) - 1; j++)
-            //    {
-            //        for (int k = 1; k < mde.GetLength(2) - 1; k++)
-            //        {
-            //            laplacian[i, j, k] = (mde[i - 1, j, k] - 2 * mde[i, j, k] + mde[i + 1, j, k]) / (dx * dx) +
-            //                                (mde[i, j - 1, k] - 2 * mde[i, j, k] + mde[i, j + 1, k]) / (dy * dy) +
-            //                                (mde[i, j, k - 1] - 2 * mde[i, j, k] + mde[i, j, k + 1]) / (dz * dz);
-            //            Console.WriteLine(laplacian[i, j, k]);
-            //        }
-            //        //Console.WriteLine();
-            //    }
-            //    //Console.WriteLine();
+            //    item.neighborhood = Utils.GetMooreNeighbours3D(item.pos, table);
             //}
-
-            //for (int i = 0; i < ecm.GetLength(0); i++)
-            //{
-            //    for (int j = 0; j < ecm.GetLength(1); j++)
-            //    {
-            //        for (int k = 0; k < ecm.GetLength(2); k++)
-            //        {
-            //            //if (/*i == 0 || i == (u.GetLength(0) - 1) ||*/ k == 0 || k == (ecm.GetLength(2) - 1) || j == 0 || j == (ecm.GetLength(1) - 1))
-            //            //    ecm[i, j, k] = 1;
-            //            //else
-            //            //    ecm[i, j, k] = - var1 * mde[i, j, k] * ecm[i, j, k];
-            //            ecm[i, j, k] = 1;
-            //        }
-            //    }
-            //}
-
             //int count = 0;
-            //while (count++ < 10)
+            //while (count++ < 20)
             //{
-            //    for (int i = 0; i < mde.GetLength(0); i++)
-            //    {
-            //        for (int j = 0; j < mde.GetLength(1); j++)
-            //        {
-            //            for (int k = 0; k < mde.GetLength(2); k++)
-            //            {
-            //                if (/*i == 0 || i == (u.GetLength(0) - 1) ||*/ k == 0 || k == (mde.GetLength(2) - 1) || j == 0 || j == (mde.GetLength(1) - 1))
-            //                    mde[i, j, k] = 0;
-            //                else
-            //                {
-            //                    int r = Utils.rdm.Next(0, 2);
-            //                    if(r == 1)
-            //                        mde[i, j, k] += count * (diffusion_coef * laplacian[i, j, k] * mde[i, j, k] + miu_t - decay * mde[i, j, k]);
-            //                    else
-            //                        mde[i, j, k] += count * (diffusion_coef * laplacian[i, j, k] * mde[i, j, k] - decay * mde[i, j, k]);
-            //                }
 
-            //                Console.WriteLine("mde[{0}][{1}][{2}] = {3}", i, j, k, mde[i, j, k]);
+            //    for (int i = 0; i < vegf_conc_matrix.GetLength(0); i++)
+            //    {
+            //        for (int j = 0; j < vegf_conc_matrix.GetLength(1); j++)
+            //        {
+            //            for (int k = 0; k < vegf_conc_matrix.GetLength(2); k++)
+            //            {
+            //                Cell cell = table[i, j, k];
+            //                double conc = vegf_conc_matrix[i, j, k];
+            //                double delta = DeltaVEGFConcentration(cell, conc, vegf_conc_matrix, 0);
+            //                double uptake = Uptake(cell, conc, arteriole_radius, p_e, delta_S);
+            //                double source = Source(cell, const_VEGF);
+            //                double waste = Waste(conc, w_VEGF);
+
+            //                vegf_conc_matrix[i, j, k] += diffusion_coeficient_of_VEGF * 0.05 * delta - 0.05 * uptake + source - waste;
+
+            //                Console.WriteLine(cell.behavior_state);
+            //                Console.WriteLine("VEGF anterior: {0} VEGF act: {1} Delta:{2} Uptake: {3} Source: {4} Waste: {5}", conc, vegf_conc_matrix[i, j, k], delta, uptake, source, waste);
             //            }
             //        }
             //    }
-
-            //    for (int i = 1; i < mde.GetLength(0) - 1; i++)
-            //    {
-            //        for (int j = 1; j < mde.GetLength(1) - 1; j++)
-            //        {
-            //            for (int k = 1; k < mde.GetLength(2) - 1; k++)
-            //            {
-            //                laplacian[i, j, k] = (mde[i - 1, j, k] - 2 * mde[i, j, k] + mde[i + 1, j, k]) / (dx * dx) +
-            //                                    (mde[i, j - 1, k] - 2 * mde[i, j, k] + mde[i, j + 1, k]) / (dy * dy) +
-            //                                    (mde[i, j, k - 1] - 2 * mde[i, j, k] + mde[i, j, k + 1]) / (dz * dz);
-            //                //Console.WriteLine(laplacian[i, j, k]);
-            //            }
-            //            //Console.WriteLine();
-            //        }
-            //        //Console.WriteLine();
-            //    }
-
-            //    for (int i = 0; i < ecm.GetLength(0); i++)
-            //    {
-            //        for (int j = 0; j < ecm.GetLength(1); j++)
-            //        {
-            //            for (int k = 0; k < ecm.GetLength(2); k++)
-            //            {
-            //                if (/*i == 0 || i == (u.GetLength(0) - 1) ||*/ k == 0 || k == (ecm.GetLength(2) - 1) || j == 0 || j == (ecm.GetLength(1) - 1))
-            //                    ecm[i, j, k] = 1;
-            //                else
-            //                    ecm[i, j, k] += count * (-var1 * mde[i, j, k] * ecm[i, j, k]);
-
-            //                Console.WriteLine("ecm[{0}][{1}][{2}] = {3}", i, j, k, ecm[i, j, k]);
-            //            }
-            //        }
-            //    }
-
-            //    //for (int i = 0; i < u.GetLength(0); i++)
-            //    //{
-            //    //    for (int j = 0; j < u.GetLength(0); j++)
-            //    //    {
-            //    //        for (int k = 0; k < u.GetLength(0); k++)
-            //    //        {
-            //    //            if (laplacian[i, j, k] > 0 || laplacian[i, j, k] < 0)
-            //    //            {
-            //    //                Console.WriteLine("u[{0}][{1}][{2}] = {3}", i, j, k, u[i, j, k]);
-            //    //                Console.WriteLine("laplacian[{0}][{1}][{2}] = {3}", i, j, k, laplacian[i, j, k]);
-            //    //            }
-            //    //        }
-            //    //    }
-            //    //}
+            //    Console.WriteLine();
             //}
+
+
+
 
             Simulation();
 
             Console.ReadLine();
         }
 
-        private double DeltaVEGFConcentration(Cell cell, double conc, double[,,] vegf_conc_matrix)
+        private static double DeltaVEGFConcentration(Cell cell, double conc, double[,,] concentracion)
+        {
+            List<double> neighbors_sum = new List<double>();
+            foreach (var item in cell.neighborhood)
+                neighbors_sum.Add(concentracion[item.pos.X, item.pos.Y, item.pos.Z]);
+
+            return neighbors_sum.Sum() - 26 * conc;
+        }
+
+        private static double Uptake(Cell cell, double vegf_conc, double arteriole_radius, double p_e, double delta_S)
+        {
+            //double radius = 3 * 10;
+            if (cell is Artery)
+                return (2 * Math.PI * arteriole_radius * p_e * vegf_conc)/* / Math.Pow(delta_S, 2)*/;
+            return 0;
+        }
+
+        private static double Source(Cell cell, double const_VEGF)
+        {
+            CellState behavior_state = cell.behavior_state;
+            switch (behavior_state)
+            {
+                case CellState.ProliferativeTumoralCell:
+                    return const_VEGF / 8;
+                case CellState.NecroticTumorCell:
+                    return const_VEGF;
+                case CellState.QuiescentTumorCell:
+                    return const_VEGF / 4;
+                case CellState.MigratoryTumorCell:
+                    return const_VEGF / 6;
+                default:
+                    return 0;
+            }
+        }
+
+        private static double Waste(double vegf_conc, double w_VEGF)
+        {
+            return w_VEGF * vegf_conc;
+        }
+
+        private static double DeltaVEGFConcentration(Cell cell, double conc, double[,,] vegf_conc_matrix, int x)
         {
             List<double> neighbors_sum = new List<double>();
             foreach (var item in cell.neighborhood)
@@ -357,6 +347,10 @@ namespace AutomataCelularLogic
 
             return neighbors_sum.Sum() - 26 * conc;
         }
+
+
+
+
         static double VerhulstGrowth(double actual_population, double growth_rate, double loading_capacity, double time)
         {
             double dP = growth_rate * actual_population * (1 - actual_population / loading_capacity) * time;
