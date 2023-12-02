@@ -14,8 +14,8 @@ namespace AutomataCelularLogic
 
         //VARIABLES DEL MODELO DEL AUTOMATA
         //public static int cell_proliferation;
-        public static int avascular_carrying_capacity = 1000;
-        public static int vascular_carrying_capacity = 2000;
+        public static int avascular_carrying_capacity = 5000;
+        public static int vascular_carrying_capacity = 10000;
         public static double growth_rate = 1.2 * Math.Pow(10, -2);
         public static int initial_population = 5;
 
@@ -116,179 +116,53 @@ namespace AutomataCelularLogic
             //double diffussion_coeficient_oxygen = 1.8 * Math.Pow(10, -5);
             //double r_c = 4.5 * Math.Pow(10, -17);
 
-            double dx = 1.0;
-            double dy = 1.0;
-            double dz = 1.0;
-            //double[,,] u = new double[20, 20, 20]; // Supongamos que esta es la matriz u
-            //double[,,] laplacian = new double[10, 10, 10]; // Esta es la matriz del operador de Laplace
+            //double dx = 1.0;
+            //double dy = 1.0;
+            //double dz = 1.0;
 
-            //// Inicializar la matriz u con algunos valores
-            //for (int i = 0; i < u.GetLength(0); i++)
+            // Definir el tamaño del tablero
+            //int tablero_tamanno = 40;
+
+            //// Definir la tasa media de células neuronales por celda
+            ////double tasa_media = 1.0;
+
+            //// Definir la densidad de células
+            //double densidad = 0.5; // 0.5 para un tablero denso, 0.1 para un tablero con pocas células
+
+            //// Calcular el número de células
+            //int numero_celulas = (int)(tablero_tamanno * tablero_tamanno * densidad);
+
+            //Console.WriteLine($"El número de células en el tablero es: {numero_celulas}");
+
+            // Crear una matriz de tamaño tablero_tamanno x tablero_tamanno
+            //int[,,] tablero = new int[tablero_tamanno, tablero_tamanno, tablero_tamanno];
+
+            //// Generar el número de células neuronales iniciales para cada celda en el tablero
+            //Random random = new Random();
+            //for (int i = 0; i < tablero_tamanno; i++)
             //{
-            //    for (int j = 0; j < u.GetLength(1); j++)
+            //    for (int j = 0; j < tablero_tamanno; j++)
             //    {
-            //        for (int k = 0; k < u.GetLength(2); k++)
+            //        for (int k = 0; k < tablero_tamanno; k++)
             //        {
-            //            if (/*i == 0 || i == (u.GetLength(0) - 1) ||*/ k == 0 || k == (u.GetLength(2) - 1) || j == 0 || j == (u.GetLength(1) - 1))
-            //                u[i, j, k] = 0.28;
-            //            else
-            //                u[i, j, k] = 1.5;
+            //            // Usar la distribución de Poisson para generar el número de células neuronales iniciales
+            //            tablero[i, j, k] = GenerarPoisson(tasa_media, random);
             //        }
+
             //    }
             //}
 
-            //// Calcular la matriz laplacian
-            //for (int i = 1; i < u.GetLength(0) - 1; i++)
+            //// Imprimir el tablero
+            //for (int i = 0; i < tablero_tamanno; i++)
             //{
-            //    for (int j = 1; j < u.GetLength(1) - 1; j++)
+            //    for (int j = 0; j < tablero_tamanno; j++)
             //    {
-            //        for (int k = 1; k < u.GetLength(2) - 1; k++)
+            //        for (int k = 0; k < tablero_tamanno; k++)
             //        {
-            //            laplacian[i, j, k] = (u[i - 1, j, k] - 2 * u[i, j, k] + u[i + 1, j, k]) / (dx * dx) +
-            //                                (u[i, j - 1, k] - 2 * u[i, j, k] + u[i, j + 1, k]) / (dy * dy) +
-            //                                (u[i, j, k - 1] - 2 * u[i, j, k] + u[i, j, k + 1]) / (dz * dz);
-            //            Console.WriteLine(laplacian[i, j, k]);
+            //            Console.WriteLine($"Celda ({i}, {j}, {k}): {tablero[i, j, k]} células neuronales");
             //        }
-            //        Console.WriteLine();
+
             //    }
-            //    Console.WriteLine();
-            //}
-
-            //int count = 0;
-            //while (count++ < 20)
-            //{
-            //    for (int i = 0; i < u.GetLength(0); i++)
-            //    {
-            //        for (int j = 0; j < u.GetLength(0); j++)
-            //        {
-            //            for (int k = 0; k < u.GetLength(0); k++)
-            //            {
-            //                if (/*i == 0 || i == (u.GetLength(0) - 1) ||*/ k == 0 || k == (u.GetLength(2) - 1) || j == 0 || j == (u.GetLength(1) - 1))
-            //                    u[i, j, k] = 0.28;
-            //                else
-            //                    u[i, j, k] += count * (diffussion_coeficient_oxygen * laplacian[i, j, k] * u[i, j, k] - r_c);
-            //            }
-            //        }
-            //    }
-
-            //    for (int i = 1; i < u.GetLength(0) - 1; i++)
-            //    {
-            //        for (int j = 1; j < u.GetLength(0) - 1; j++)
-            //        {
-            //            for (int k = 1; k < u.GetLength(0) - 1; k++)
-            //            {
-            //                laplacian[i, j, k] = (u[i - 1, j, k] - 2 * u[i, j, k] + u[i + 1, j, k]) / (dx * dx) +
-            //                                    (u[i, j - 1, k] - 2 * u[i, j, k] + u[i, j + 1, k]) / (dy * dy) +
-            //                                    (u[i, j, k - 1] - 2 * u[i, j, k] + u[i, j, k + 1]) / (dz * dz);
-            //                Console.WriteLine(laplacian[i, j, k]);
-            //            }
-            //            Console.WriteLine();
-            //        }
-            //        Console.WriteLine();
-            //    }
-
-            //    for (int i = 0; i < u.GetLength(0); i++)
-            //    {
-            //        for (int j = 0; j < u.GetLength(0); j++)
-            //        {
-            //            for (int k = 0; k < u.GetLength(0); k++)
-            //            {
-            //                if (laplacian[i, j, k] > 0 || laplacian[i, j, k] < 0)
-            //                {
-            //                    Console.WriteLine("u[{0}][{1}][{2}] = {3}", i, j, k, u[i, j, k]);
-            //                    Console.WriteLine("laplacian[{0}][{1}][{2}] = {3}", i, j, k, laplacian[i, j, k]);
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-
-            //// Imprimir los valores de las matrices u y laplacian
-            //for (int i = 0; i < 3; i++)
-            //{
-            //    for (int j = 0; j < 3; j++)
-            //    {
-            //        for (int k = 0; k < 3; k++)
-            //        {
-            //            Console.WriteLine("u[{0}][{1}][{2}] = {3}", i, j, k, u[i,j,k]);
-            //            Console.WriteLine("laplacian[{0}][{1}][{2}] = {3}", i, j, k, laplacian[i,j,k]);
-            //        }
-            //    }
-            //}
-            //Console.ReadLine();
-
-
-            //double var1 = 1.3 * Math.Pow(10, 2);
-            //double miu_t = 1.7 * Math.Pow(10, -18);
-            //double diffusion_coef = Math.Pow(10, -9);
-            //double decay = 1.7 * Math.Pow(10, -8);
-
-            //double[,,] ecm = new double[10, 10, 10];
-            //double[,,] mde = new double[10, 10, 10];
-            //Utils.InitializeVariables();
-
-            //double[,,] vegf_conc_matrix = new double[10,10,10];
-
-            //double diffusion_coeficient_of_VEGF = 2.90 * Math.Pow(10, -7);//cmm^2/s
-            //double const_VEGF = 2 * Math.Pow(10, -2);//nMolar/s
-            //double arteriole_radius = 3 * 10;//um
-            //double p_e = 1 * Math.Pow(10, -1);//um/s
-            //double w_VEGF = 1 * Math.Pow(10, -2);//s^-1
-            //double delta_S = 2 * 10;
-            //double delta_t = 1;
-
-            //Cell[,,] table = new Cell[10, 10, 10];
-
-            //for (int i = 0; i < table.GetLength(0); i++)
-            //{
-            //    for (int j = 0; j < table.GetLength(1); j++)
-            //    {
-            //        for (int k = 0; k < table.GetLength(2); k++)
-            //        {
-            //            int r = Utils.rdm.Next(0, 5);
-            //            if (r == 1)
-            //                table[i, j, k] = new Cell(new Pos(i, j, k), CellState.ProliferativeTumoralCell, CellLocationState.MatrixExtracelular);
-            //            else if(r == 2)
-            //                table[i, j, k] = new Cell(new Pos(i, j, k), CellState.nothing, CellLocationState.MatrixExtracelular);
-            //            else if(r == 3)
-            //                table[i, j, k] = new Cell(new Pos(i, j, k), CellState.QuiescentTumorCell, CellLocationState.MatrixExtracelular);
-            //            else if(r == 4)
-            //                table[i, j, k] = new Cell(new Pos(i, j, k), CellState.MigratoryTumorCell, CellLocationState.MatrixExtracelular);
-            //            else
-            //                table[i, j, k] = new Cell(new Pos(i, j, k), CellState.NecroticTumorCell, CellLocationState.MatrixExtracelular);
-            //        }
-            //    }
-            //}
-
-            //foreach (var item in table)
-            //{
-            //    item.neighborhood = Utils.GetMooreNeighbours3D(item.pos, table);
-            //}
-            //int count = 0;
-            //while (count++ < 20)
-            //{
-
-            //    for (int i = 0; i < vegf_conc_matrix.GetLength(0); i++)
-            //    {
-            //        for (int j = 0; j < vegf_conc_matrix.GetLength(1); j++)
-            //        {
-            //            for (int k = 0; k < vegf_conc_matrix.GetLength(2); k++)
-            //            {
-            //                Cell cell = table[i, j, k];
-            //                double conc = vegf_conc_matrix[i, j, k];
-            //                double delta = DeltaVEGFConcentration(cell, conc, vegf_conc_matrix, 0);
-            //                double uptake = Uptake(cell, conc, arteriole_radius, p_e, delta_S);
-            //                double source = Source(cell, const_VEGF);
-            //                double waste = Waste(conc, w_VEGF);
-
-            //                vegf_conc_matrix[i, j, k] += diffusion_coeficient_of_VEGF * 0.05 * delta - 0.05 * uptake + source - waste;
-
-            //                Console.WriteLine(cell.behavior_state);
-            //                Console.WriteLine("VEGF anterior: {0} VEGF act: {1} Delta:{2} Uptake: {3} Source: {4} Waste: {5}", conc, vegf_conc_matrix[i, j, k], delta, uptake, source, waste);
-            //            }
-            //        }
-            //    }
-            //    Console.WriteLine();
             //}
 
 
@@ -298,56 +172,6 @@ namespace AutomataCelularLogic
 
             Console.ReadLine();
         }
-
-        private static double DeltaVEGFConcentration(Cell cell, double conc, double[,,] concentracion)
-        {
-            List<double> neighbors_sum = new List<double>();
-            foreach (var item in cell.neighborhood)
-                neighbors_sum.Add(concentracion[item.pos.X, item.pos.Y, item.pos.Z]);
-
-            return neighbors_sum.Sum() - 26 * conc;
-        }
-
-        private static double Uptake(Cell cell, double vegf_conc, double arteriole_radius, double p_e, double delta_S)
-        {
-            //double radius = 3 * 10;
-            if (cell is Artery)
-                return (2 * Math.PI * arteriole_radius * p_e * vegf_conc)/* / Math.Pow(delta_S, 2)*/;
-            return 0;
-        }
-
-        private static double Source(Cell cell, double const_VEGF)
-        {
-            CellState behavior_state = cell.behavior_state;
-            switch (behavior_state)
-            {
-                case CellState.ProliferativeTumoralCell:
-                    return const_VEGF / 8;
-                case CellState.NecroticTumorCell:
-                    return const_VEGF;
-                case CellState.QuiescentTumorCell:
-                    return const_VEGF / 4;
-                case CellState.MigratoryTumorCell:
-                    return const_VEGF / 6;
-                default:
-                    return 0;
-            }
-        }
-
-        private static double Waste(double vegf_conc, double w_VEGF)
-        {
-            return w_VEGF * vegf_conc;
-        }
-
-        private static double DeltaVEGFConcentration(Cell cell, double conc, double[,,] vegf_conc_matrix, int x)
-        {
-            List<double> neighbors_sum = new List<double>();
-            foreach (var item in cell.neighborhood)
-                neighbors_sum.Add(vegf_conc_matrix[item.pos.X, item.pos.Y, item.pos.Z]);
-
-            return neighbors_sum.Sum() - 26 * conc;
-        }
-
 
 
 
@@ -456,43 +280,6 @@ namespace AutomataCelularLogic
             }
 
 
-            //    foreach (var item in ca.tumor.cell_list)
-            //    {
-            //        Console.WriteLine(item.behavior_state);
-            //    }
-            //    Console.WriteLine();
-            //}
-
-            //    Console.WriteLine("Luego del update");
-            //    foreach (var item in ca.pos_cell_dict)
-            //    {
-            //        if (item.Value.behavior_state == CellState.TumoralCell)
-            //        {
-            //            Console.WriteLine(item.Key.X);
-            //            Console.WriteLine(item.Key.Y);
-            //            Console.WriteLine(item.Key.Z);
-            //        }
-            //        Console.WriteLine();
-            //    }
-            //    //foreach (var key_value in ca.next_stem_position)
-            //    //{
-            //    //    Pos pos = key_value.Key;
-            //    //    if (key_value.Key != null)
-            //    //    {
-            //    //        Console.WriteLine("Nuevo");
-            //    //        Console.WriteLine(pos.X);
-            //    //        Console.WriteLine(pos.Y);
-            //    //        Console.WriteLine(pos.Z);
-            //    //        Console.WriteLine();
-            //    //        if (key_value.Value != null)
-            //    //        {
-            //    //            Console.WriteLine(key_value.Value.X);
-            //    //            Console.WriteLine(key_value.Value.Y);
-            //    //            Console.WriteLine(key_value.Value.Z);
-            //    //        }
-            //    //    }
-            //    //}
-            //}
 
 
             //GetCellsThatSenseTheTumorSubstance();

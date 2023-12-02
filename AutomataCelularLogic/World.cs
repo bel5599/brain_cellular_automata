@@ -217,7 +217,7 @@ namespace AutomataCelularLogic
             for (int i = 0; i < amount; i++)
             {
                 Pos point = Utils.GenerateRandomPoint(radius, world.GetLength(0), world.GetLength(1), world.GetLength(2));
-                while (IsTooClose(point, poissonDiskPoints))
+                while (IsTooClose(point, poissonDiskPoints) || pos_artery_dict.ContainsKey(point))
                 {
                     point = Utils.GenerateRandomPoint(radius, world.GetLength(0), world.GetLength(1), world.GetLength(2));
                 }

@@ -487,23 +487,23 @@ namespace AutomataCelularLogic
                             double conc = oxygen_matrix[i, j, k];
                             Cell cell = space[i, j, k];
 
+                            //if (cell.behavior_state == CellState.nothing)
+                            //    oxygen_matrix[i, j, k] = 0;
+                            //else
+                            //{
+                            double delta = DeltaVEGFConcentration(cell, conc, copy_oxygen);
+                            oxygen_matrix[i, j, k] += delta_t * (diffusion_coeficient_oxygen / Math.Pow(delta_S, 2) * delta - UptakeOxygen(cell)
+                                                                    + SourceOxygen(cell, conc));
+                            //oxygen_matrix[i, j, k] = Math.Round(oxygen_matrix[i, j, k], 4);
+
+                            double actual = oxygen_matrix[i, j, k];
+
                             if (cell.behavior_state == CellState.nothing)
-                                oxygen_matrix[i, j, k] = 0;
-                            else
-                            {
-                                double delta = DeltaVEGFConcentration(cell, conc, copy_oxygen);
-                                oxygen_matrix[i, j, k] += delta_t * (diffusion_coeficient_oxygen / Math.Pow(delta_S, 2) * delta - UptakeOxygen(cell)
-                                                                        + SourceOxygen(cell, conc));
-                                //oxygen_matrix[i, j, k] = Math.Round(oxygen_matrix[i, j, k], 4);
-
-                                double actual = oxygen_matrix[i, j, k];
-
-                                //if (cell.behavior_state == CellState.nothing)
-                                //    Console.WriteLine("Este es el valor de una celda vacia: {0}", actual);
-                                //CellState behavior = cell.behavior_state;
-                                //if (behavior == CellState.MigratoryTumorCell || behavior == CellState.QuiescentTumorCell || behavior == CellState.ProliferativeTumoralCell || behavior == CellState.TumoralStemCell)
-                                //    Console.WriteLine("Oxygen Concentration: {0} y El metodo simple: {1}", actual, delta);
-                            }
+                                Console.WriteLine("Oxygen anterior: {0} Oxygen actual: {1}", conc, actual);
+                            //CellState behavior = cell.behavior_state;
+                            //if (behavior == CellState.MigratoryTumorCell || behavior == CellState.QuiescentTumorCell || behavior == CellState.ProliferativeTumoralCell || behavior == CellState.TumoralStemCell)
+                            //    Console.WriteLine("Oxygen Concentration: {0} y El metodo simple: {1}", actual, delta);
+                            //}
                         }
                     }
                 }
@@ -737,8 +737,10 @@ namespace AutomataCelularLogic
                         vegf_conc_matrix[i, j, k] += diffusion_coeficient_of_VEGF * 0.05 * delta - 0.05 * uptake + source - waste;
                         //vegf_conc_matrix[i, j, k] += delta_t * (diffusion_coeficient_of_VEGF / Math.Pow(delta_S, 2) * DeltaVEGFConcentration(cell, conc, copy_vegf) - Uptake(cell, conc)
                         //                                        + Source(cell) - Waste(conc));
-                        if(vegf_conc_matrix[i, j, k] != 0)
-                            Console.WriteLine("VEGF anterior: {0} VEGF act: {1} Delta:{2} Uptake: {3} Source: {4} Waste: {5}", conc, vegf_conc_matrix[i, j, k], delta, uptake, source, waste);
+
+                        //if(vegf_conc_matrix[i, j, k] != 0)
+                        //    Console.WriteLine("VEGF anterior: {0} VEGF act: {1} Delta:{2} Uptake: {3} Source: {4} Waste: {5}", conc, vegf_conc_matrix[i, j, k], delta, uptake, source, waste);
+
                         //Console.WriteLine("Behavior: {0} VEGF: {1}",cell.behavior_state, vegf_conc_matrix[i,j,k]);
                     }
                 }
