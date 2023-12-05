@@ -46,6 +46,7 @@ namespace AutomataCelularLogic
         QuiescentTumorCell,
         MigratoryTumorCell,
         TumoralStemCell,
+        EndothelialCell,
         nothing
         //TumoralAstrocyte,
         //TumoralStemCell,

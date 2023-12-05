@@ -17,6 +17,7 @@ namespace AutomataCelularLogic
         public Cell[,,] world;
         public Children blood_vessels_tree;
         public List<Pos> blood_vessels;
+        public Dictionary<Pos, Children> pos_children;
 
         public Cell tumor_stem_cell;
 
@@ -55,6 +56,7 @@ namespace AutomataCelularLogic
             pos_cell_dict = new Dictionary<Pos, Cell>();
 
             edge_order_dict = new Dictionary<Tuple<Pos, Pos>, StrahlerOrder>();
+            pos_children = new Dictionary<Pos, Children>();
 
             edges = new List<EdgeTree>();
         }
@@ -104,6 +106,7 @@ namespace AutomataCelularLogic
             tree.Add(root_pos);
 
             Children root = new Children(root_pos);
+            pos_children.Add(root_pos, root);
 
             blood_vessels_tree = CreateBloodVesselsTree(root, root_pos, 0, 15, new List<Pos>(), tree);
             blood_vessels = tree;
@@ -123,6 +126,7 @@ namespace AutomataCelularLogic
             if (new_pos.X != -1 && new_pos.Y != -1 && new_pos.Z != -1)
             {
                 Children c = new Children(new_pos);
+                pos_children.Add(new_pos, c);
                 pos_list.Add(new_pos);
                 marks.Add(pos);
 
@@ -140,14 +144,14 @@ namespace AutomataCelularLogic
                         root.child_left = null;
                     }
 
-                    edge_order_dict.Add(new Tuple<Pos, Pos>(pos, new_pos), StrahlerOrder.StrahlerOrder_1);
+                    edge_order_dict.Add(new Tuple<Pos, Pos>(pos, new_pos), StrahlerOrder.StrahlerOrder_3);
                 }
 
                 if (depth == max_depth)
                 {
                     c.child_left = c.child_right = null;
 
-                    edge_order_dict.Add(new Tuple<Pos, Pos>(pos, new_pos), StrahlerOrder.StrahlerOrder_3);
+                    edge_order_dict.Add(new Tuple<Pos, Pos>(pos, new_pos), StrahlerOrder.StrahlerOrder_1);
                     return c;
                 }
                 else

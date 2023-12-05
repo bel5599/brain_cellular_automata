@@ -150,7 +150,7 @@ namespace AutomataCelularLogic
         public double tumoral_hydraulic_permeability = 2.8 * Math.Pow(10, -7);//LpT cm/mmHg s
         public double normal_hydraulic_permeability = 0.36 * Math.Pow(10, -7);//LpN cm/mmHg s
 
-        public double aver_osmotic_reflec_coeff = 0.82;//ot
+        public double sigmaT = 0.82;//ot aver_osmotic_reflec_coeff
         public double pressure_collapse;//Pc
 
         public double vascular_flow_rate;
@@ -161,6 +161,8 @@ namespace AutomataCelularLogic
 
         public double b = 0.1;
         public double max_radius = 10;//um
+
+        public double wss = 1 / 2 * 2.0;
         #endregion
 
 
@@ -822,14 +824,16 @@ namespace AutomataCelularLogic
 
         #region Blood Vessels and Endothelial Cell
 
-        public double CalculateInterstitialPressure(double pc, double qt, double lp, double s, double sigmaT, double pi_v, double pi_i)
+        public double CalculateInterstitialPressure(BloodVesselSegment segment, double lp)
         {
+            double s = 2 * Math.PI * segment.mean_length;
+            double qt = CalculateVascularFlowRateWithoutFluidLeakage(segment.radius, intravascular_pressure, segment.mean_length, 1);
             return intravascular_pressure - (qt/(lp * s)) - sigmaT * ( pi_v - pi_i);
         }
 
-        public void CalculateVascularFlowRateWithoutFluidLeakage(double radius, double pv, double length, double mium)
+        public double CalculateVascularFlowRateWithoutFluidLeakage(double radius, double pv, double length, double mium)
         {
-            vascular_flow_rate = (Math.PI * Math.Pow(radius, 4) * pv) / (8 * mium * length);
+            return (Math.PI * Math.Pow(radius, 4) * pv) / (8 * mium * length);
         }
 
         public void CalculateTransvascularFlowRate(double pc, double pi, double lp, double s, double sigmaT, double pi_v, double pi_i)
@@ -841,26 +845,26 @@ namespace AutomataCelularLogic
         {
             if (segment.radio_clasf == RadioClassification.MatureVessel)
                 return normal_hydraulic_permeability;
-            return tumoral_hydraulic_permeability * (Math.Sqrt(segment.mean_diameter)/ max_radius);
+            return tumoral_hydraulic_permeability * (segment.radius/ max_radius);
         }
 
-        public double CalculateCollapsePressure(BloodVesselSegment segment)
+        public double CalculateCollapsePressure(BloodVesselSegment segment, double lp)
         {
             return 0.5 * segment.pressure_collapse * (tumoral_hydraulic_permeability /
-                CalculatePermeabilityOfTheVesselWall(segment));
+                lp);
         }
 
-        public double CalculateRadius(BloodVesselSegment segment)
+        public double CalculateRadius(BloodVesselSegment segment, double pi, double pc)
         {
             if (segment.radio_clasf == RadioClassification.MatureVessel)
-                return Math.Sqrt(segment.mean_diameter);
+                return segment.radius;
             //agregar el metodo de la presion intersticial
-            return Math.Sqrt(segment.mean_diameter) * Math.Pow((intravascular_pressure - CalculateCollapsePressure(segment)), b);
+            return segment.radius * Math.Pow((intravascular_pressure - pi + pc), b);
         }
 
         public double CalculateWSS(BloodVesselSegment segment)
         {
-            return (intravascular_pressure * Math.Sqrt(segment.mean_diameter)) / (2 * segment.mean_length);
+            return (intravascular_pressure * segment.radius) / (2 * segment.mean_length);
         }
 
         public void UpdateEndothelialDensity(Cell[,,] space, int time)

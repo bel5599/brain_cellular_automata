@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Action.cs" />
     <Compile Include="Artery.cs" />
+    <Compile Include="BloodVesselSegment.cs" />
     <Compile Include="CellularAutomaton.cs" />
     <Compile Include="Cell.cs" />
     <Compile Include="EnvironmentLogic.cs" />

@@ -100,9 +100,22 @@ namespace AutomataCelularLogic
 
         #region PARAMETROS RELACIONADOS CON EL FLUJO DE SANGRE EN LOS VASOS SANGUINEOS
         List<BloodVesselSegment> vessel_segment_list;
+        List<BloodVesselSegment> immature_vessel;
+        List<BloodVesselSegment> wss_segment_list;
 
-        
+        //este es para agregar en el metodo que tiene comentarios
+        List<BloodVesselSegment> new_vessel_segment_list;
+        List<BloodVesselSegment> neo_vessel_segment_list;
 
+        List<NeoBloodVessels> neo_blood_vessel_list;
+
+        Dictionary<BloodVessel, List<Cell>> growing_vessels;
+
+        List<Cell> new_endothelial_cells;
+        List<Cell> edothelial_cells;
+        Dictionary<Pos, Children> pos_children_dict = new Dictionary<Pos, Children>();
+
+        List<Cell> new_vessel_cells;
         #endregion
 
 
@@ -123,10 +136,7 @@ namespace AutomataCelularLogic
             edges = world.edges;
             pos_cell_dict = world.pos_cell_dict;
             pos_artery_dict = world.pos_artery_dict;
-
-
-
-            
+            pos_children_dict = world.pos_children;
 
             space = world.world;
             tumor_stem_cell = world.tumor_stem_cell;
@@ -136,15 +146,6 @@ namespace AutomataCelularLogic
             UpdateNeighborhood();
             AleatorizarCelulas();
 
-            //foreach (var item in pos_artery_dict)
-            //{
-            //    Pos pos = item.Key;
-            //    var cell = space[pos.X, pos.Y, pos.Z];
-            //    if (item.Value != cell)
-            //        Console.WriteLine("No son iguales {0} {1} {2}", pos.X, pos.Y, pos.Z);
-            //    if(item.Value.neighborhood == null || item.Value.neighborhood.Count == 0)
-            //        Console.WriteLine("Hell {0}", item.Value.neighborhood);
-            //}
 
             model = new MathematicalModel(space);
         }
@@ -196,6 +197,15 @@ namespace AutomataCelularLogic
             new_proliferative_cells = new List<Cell>();
 
             vessel_segment_list = new List<BloodVesselSegment>();
+            immature_vessel = new List<BloodVesselSegment>();
+
+            new_vessel_segment_list = new List<BloodVesselSegment>();
+            neo_vessel_segment_list = new List<BloodVesselSegment>();
+
+            growing_vessels = new Dictionary<BloodVessel, List<Cell>>();
+            new_vessel_cells = new List<Cell>();
+            new_endothelial_cells = new List<Cell>();
+            neo_blood_vessel_list = new List<NeoBloodVessels>();
         }
 
         public void BuildTheVesselSegments(World world)
@@ -295,6 +305,178 @@ namespace AutomataCelularLogic
             closer_cells_to_vessels = new List<Cell>();
         }
 
+        #region FLUJO DE SANGRE A TRAVES DE LOS VASOS SANGUINEOS
+        public void UpdateBloodFlow()
+        {
+            foreach (var item in vessel_segment_list)
+            {
+                double lp = model.CalculatePermeabilityOfTheVesselWall(item);
+                double pi = model.CalculateInterstitialPressure(item, lp);
+                double pc = model.CalculateCollapsePressure(item, lp);
+                double radius = model.CalculateRadius(item, pi, pc);
+
+                item.radius = radius;
+            }
+            //UpdateLp();
+            //UpdatePi();
+            //UpdatePc();
+            //UpdateRadius();
+        }
+
+        public void VEGFEnLosVasos()
+        {
+            foreach (var item in vessel_segment_list)
+            {
+                if (item.radio_clasf == RadioClassification.MatureVessel)
+                    VEGFEnLosVasos(item);
+            }
+        }
+
+        public void VEGFEnLosVasos(BloodVesselSegment segment)
+        {
+            List<double> vegf = new List<double>();
+            vegf = NutrientConcentrationValues(segment.blood_vessel1.neighborhood, model.vegf_conc_matrix);
+            vegf.AddRange(NutrientConcentrationValues(segment.blood_vessel2.neighborhood, model.vegf_conc_matrix));
+
+            foreach (var item in vegf)
+            {
+                if (item >= 0.1)
+                {
+                    immature_vessel.Add(segment);
+                    segment.radio_clasf = RadioClassification.ImmatureVessel;
+                    return;
+                }
+            }
+
+        }
+
+        public void UpdateImmatureVesselSegmentRadius()
+        {
+            foreach (var item in immature_vessel)
+            {
+                if(item.radius < 10)
+                    item.radius += 0.40;
+            }
+        }
+
+        public void WSS()
+        {
+            foreach (var item in immature_vessel)
+            {
+                double wss = model.CalculateWSS(item);
+                if (wss < model.wss)
+                    wss_segment_list.Add(item);
+            }
+        }
+
+        #endregion
+
+        public void EndothelialCellMigration()
+        {
+            foreach (var item in immature_vessel)
+            {
+                if(item.order == StrahlerOrder.StrahlerOrder_1)
+                {
+                    if (pos_children_dict[item.blood_vessel1.pos].child_left == null && pos_children_dict[item.blood_vessel1.pos].child_left == null)
+                        GetPositionForEndothelialCellMigration(item.blood_vessel1);
+                    else
+                        GetPositionForEndothelialCellMigration(item.blood_vessel2);
+                }
+            }
+        }
+
+        public void GetPositionForEndothelialCellMigration(BloodVessel vessel)
+        {
+            List<Cell> empty_cells = Utils.EmptyPositions(vessel.neighborhood);
+            List<double> tnf_list = NutrientConcentrationValues(empty_cells, model.vegf_conc_matrix);
+
+            List<Cell> selection_cells = new List<Cell>();
+
+            for (int i = 0; i < tnf_list.Count; i++)
+            {
+                if (tnf_list[i] >= 0.1)
+                    selection_cells.Add(empty_cells[i]);
+            }
+
+            if (selection_cells.Count > 0)
+            {
+                if(selection_cells.Count == 1)
+                {
+                    growing_vessels.Add(vessel, new List<Cell>() { selection_cells[0]});
+                    new_endothelial_cells.Add(selection_cells[0]);
+                }
+                else
+                {
+                    growing_vessels.Add(vessel, new List<Cell>() { selection_cells[0], selection_cells[1] });
+                    new_endothelial_cells.Add(selection_cells[0]);
+                    new_endothelial_cells.Add(selection_cells[1]);
+                }
+            }
+
+            //agregar aqui los nuevos posibles vasos
+
+
+        }
+
+        public void VesselGrowth()
+        {
+            foreach (var item in growing_vessels)
+            {
+                //si se tiene la edad de maduracion y se cumple una variable aleatoria en 1 entonces
+                if (item.Key.maturation_time >= 18 && Utils.rdm.Next(0, 2) == 1)
+                {
+                    if (item.Value.Count == 2)
+                    {
+                        new_vessel_cells.Add(item.Value[0]);
+                        new_vessel_cells.Add(item.Value[1]);
+                    }
+                    else
+                        new_vessel_cells.Add(item.Value[0]);
+                }
+
+            }
+        }
+
+        public void UpdateNewNeoVesselsSegment()
+        {
+            foreach (var item in growing_vessels)
+            {
+                if(item.Value.Count == 2)
+                {
+                    var vessel1 = (NeoBloodVessels)item.Value[0];
+                    var vessel2 = (NeoBloodVessels)item.Value[1];
+
+                    if(vessel1 is NeoBloodVessels)
+                    {
+                        var diameter_length_pc = model.strahler_order_dict[StrahlerOrder.StrahlerOrder_1];
+                        BloodVesselSegment segment = new BloodVesselSegment(item.Key, vessel1, StrahlerOrder.StrahlerOrder_1, diameter_length_pc.Item1, diameter_length_pc.Item2, diameter_length_pc.Item3);
+                        neo_vessel_segment_list.Add(segment);
+                    }
+                    if(vessel2 is NeoBloodVessels)
+                    {
+                        var diameter_length_pc = model.strahler_order_dict[StrahlerOrder.StrahlerOrder_1];
+                        BloodVesselSegment segment = new BloodVesselSegment(item.Key, vessel2, StrahlerOrder.StrahlerOrder_1, diameter_length_pc.Item1, diameter_length_pc.Item2, diameter_length_pc.Item3);
+                        neo_vessel_segment_list.Add(segment);
+                    }
+                }
+            }
+        }
+
+        public void UpdateMaturationTime()
+        {
+            foreach (var item in neo_blood_vessel_list)
+            {
+                item.maturation_time += 1;
+            }
+            foreach (var item in immature_vessel)
+            {
+                if(item.order == StrahlerOrder.StrahlerOrder_1)
+                {
+                    item.blood_vessel1.maturation_time += 1;
+                    item.blood_vessel2.maturation_time += 1;
+                }
+            }
+        }
 
 
         #region ObtenerPosicionesCercanaALosVasosParaContaminar
@@ -599,23 +781,7 @@ namespace AutomataCelularLogic
 
         }
 
-        public void AnalisisDelEstadoDelTumor()
-        {
-            //List<Cell> vasos_cooptados = CooptionVessels();
-
-            //hay que tener en cuenta la asfixia
-            if(vasos_cooptados.Count >= 3)
-            {
-                UpdateTumorState();
-                //cambiar la direccion en la que busca nutrientes
-            }
-
-            //if(vasos_cooptados.Count >= (pos_capillary_dict.Count + pos_arteriole_dict.Count))
-            //{
-            //    //Hacer Algo
-            //    throw new Exception();
-            //}
-        }
+        
         #endregion
 
 
@@ -986,24 +1152,6 @@ namespace AutomataCelularLogic
 
         #region Update
 
-        private void UpdateBloodVessels()
-        {
-            if (next_blood_vessels.Count > 0)
-            {
-                blood_vessels_actual = next_blood_vessels;
-                next_blood_vessels = new List<Cell>();
-            }
-        }
-
-        public void UpdateNewMigratoryCells()
-        {
-            if (next_migratory_cells.Count > 0)
-            {
-                migratory_cells_actual = next_migratory_cells;
-                next_migratory_cells = new List<Cell>();
-            }
-        }
-
         public void Update()
         {
             //Aspectos relacionados con el tumor
@@ -1021,7 +1169,9 @@ namespace AutomataCelularLogic
             //}
             model.UpdateMDE2(space, tumor.time, tumor);
             model.UpdateECMDensity2(space, tumor.time);
-            
+
+            UpdateImmatureVesselSegmentRadius();
+
 
             //Variables relacionadas con las celulas proliferativas
             UpdateProliferationAgeCounter();
@@ -1086,10 +1236,38 @@ namespace AutomataCelularLogic
 
             UpdateNewMigratoryCells();
 
+            VEGFEnLosVasos();
+
+            UpdateBloodFlow();
+
+            WSS();
+
+            UpdateMaturationTime();
+
+            UpdateNewNeoVesselsSegment();
+
             Console.WriteLine("tiempo {0} ", tumor.time);
             //Console.WriteLine("cantidad de celulas tumorales {0}", tumor.cell_list.Count);
             //Console.WriteLine("cantidad de celulas que da la ecuacion de verhuslt {0}", tumor.new_cells_count);
             Console.WriteLine();
+        }
+
+        private void UpdateBloodVessels()
+        {
+            if (next_blood_vessels.Count > 0)
+            {
+                blood_vessels_actual = next_blood_vessels;
+                next_blood_vessels = new List<Cell>();
+            }
+        }
+
+        public void UpdateNewMigratoryCells()
+        {
+            if (next_migratory_cells.Count > 0)
+            {
+                migratory_cells_actual = next_migratory_cells;
+                next_migratory_cells = new List<Cell>();
+            }
         }
 
         private void UpdateOxygenConcentration(List<Cell> cell_list)
@@ -1141,6 +1319,26 @@ namespace AutomataCelularLogic
             next_stem_position = temp;
         }
 
+        #region UPDATE BEHAVIOR CELLS
+        public void UpdateState(Cell cell)
+        {
+            UpdateCellWithNoOxigen(cell);
+
+            int tumoral_cells_count = cell.TumoralCellCount();
+            if (cell.behavior_state == CellState.Astrocyte || cell.behavior_state == CellState.Neuron)
+                UpdateAstrocyteOrNeuronCell(cell);
+            else if (cell.behavior_state == CellState.ProliferativeTumoralCell)
+                UpdateProliferativeTumorCell(cell);
+            else if (cell.behavior_state == CellState.MigratoryTumorCell)
+                UpdateMigratoryTumorCell(cell);
+            else if (cell.behavior_state == CellState.StemCell)
+                UpdateStemCell(cell, tumoral_cells_count);
+            else if (cell.behavior_state == CellState.QuiescentTumorCell)
+                UpdateQuiescentCell(cell);
+            else if (cell.behavior_state == CellState.nothing && cell.loca_state == CellLocationState.MatrixExtracelular)
+                UpdateEmptyCell(cell, tumoral_cells_count);
+        }
+
         public void UpdateAstrocyteOrNeuronCell(Cell cell)
         {
             double prob = move_prob.ContamineProbability(cell, cell.neighborhood, tumor);
@@ -1160,7 +1358,7 @@ namespace AutomataCelularLogic
 
         public void UpdateProliferativeTumorCell(Cell cell)
         {
-            if(new_quiescent_cells.Contains(cell))
+            if (new_quiescent_cells.Contains(cell))
             {
                 proliferation_cells.Remove(cell);
                 new_quiescent_cells.Remove(cell);
@@ -1172,7 +1370,7 @@ namespace AutomataCelularLogic
                 //ARREGLAR EL VALOR A AGREGAR
                 tumoral_angiogenic_factor += 0.01;
             }
-            if(model.oxygen_matrix[cell.pos.X, cell.pos.Y, cell.pos.Z] < 1.0)
+            if (model.oxygen_matrix[cell.pos.X, cell.pos.Y, cell.pos.Z] < 1.0)
             {
                 proliferation_cells.Remove(cell);
                 cell.behavior_state = CellState.QuiescentTumorCell;
@@ -1214,7 +1412,7 @@ namespace AutomataCelularLogic
                 //ARREGLAR EL VALOR A AGREGAR
                 tumoral_angiogenic_factor += 0.01;
             }
-            else if(migratory_cells_actual.Contains(cell))
+            else if (migratory_cells_actual.Contains(cell))
             {
                 pos_cell_dict.Remove(cell.pos);
                 tumor.cell_list.Remove(cell);
@@ -1280,7 +1478,7 @@ namespace AutomataCelularLogic
             else if (closer_cells_to_vessels.Contains(cell) && Utils.rdm.NextDouble() < prob)
             {
                 if (empty_cells.Contains(cell))
-                    empty_cells.Remove(cell); 
+                    empty_cells.Remove(cell);
 
                 cell.behavior_state = CellState.ProliferativeTumoralCell;
                 cell.proliferation_age = 0;
@@ -1330,7 +1528,7 @@ namespace AutomataCelularLogic
             //    migratory_cells.Add(cell);
             //    pos_cell_dict.Add(cell.pos, cell);
             //}
-            
+
             //else if (new_artery_list.Contains(cell))
             //{
             //    if (empty_cells.Contains(cell))
@@ -1342,7 +1540,7 @@ namespace AutomataCelularLogic
 
             //    space[cell.pos.X, cell.pos.Y, cell.pos.Z] = cell;
             //}
-            else if(new_tumoral_cells.Contains(cell) && tumor.new_cells_count > tumor.cell_list.Count)
+            else if (new_tumoral_cells.Contains(cell) && tumor.new_cells_count > tumor.cell_list.Count)
             {
                 if (empty_cells.Contains(cell))
                     empty_cells.Remove(cell);
@@ -1356,11 +1554,31 @@ namespace AutomataCelularLogic
 
                 proliferation_cells.Add(cell, new int[] { 0, 0 });
             }
-            else if(neo_blood_vessels.Contains(cell))
+            else if (neo_blood_vessels.Contains(cell))
             {
                 cell = new NeoBloodVessels(cell.pos, CellState.nothing, CellLocationState.GlialBasalLamina);
                 cell.neighborhood = Utils.GetMooreNeighbours3D(cell.pos, space);
                 pos_neo_vessel_dict.Add(cell.pos, (NeoBloodVessels)cell);
+            }
+            else if(new_endothelial_cells.Contains(cell))
+            {
+                new_endothelial_cells.Remove(cell);
+                cell.behavior_state = CellState.EndothelialCell;
+
+                //No se si deba agregarlo al tumor
+                edothelial_cells.Add(cell);
+                pos_cell_dict.Add(cell.pos, cell);
+            }
+        }
+
+        public void UpdateEndothelialCell(Cell cell)
+        {
+            if(new_vessel_cells.Contains(cell))
+            {
+                cell = new NeoBloodVessels(cell.pos, CellState.nothing, CellLocationState.GlialBasalLamina);
+                //hay que eliminar la celula endotelial de la lista de celulas endoteliales
+                //hay que adicionar los nuevos vasos a la lista de nuevos vasos
+                neo_blood_vessel_list.Add((NeoBloodVessels)cell);
             }
         }
 
@@ -1396,25 +1614,11 @@ namespace AutomataCelularLogic
 
             }
         }
+        #endregion
 
-        public void UpdateState(Cell cell)
-        {
-            UpdateCellWithNoOxigen(cell);
 
-            int tumoral_cells_count = cell.TumoralCellCount();
-            if (cell.behavior_state == CellState.Astrocyte || cell.behavior_state == CellState.Neuron)
-                UpdateAstrocyteOrNeuronCell(cell);
-            else if (cell.behavior_state == CellState.ProliferativeTumoralCell)
-                UpdateProliferativeTumorCell(cell);
-            else if (cell.behavior_state == CellState.MigratoryTumorCell)
-                UpdateMigratoryTumorCell(cell);
-            else if (cell.behavior_state == CellState.StemCell)
-                UpdateStemCell(cell, tumoral_cells_count);
-            else if (cell.behavior_state == CellState.QuiescentTumorCell)
-                UpdateQuiescentCell(cell);
-            else if (cell.behavior_state == CellState.nothing && cell.loca_state == CellLocationState.MatrixExtracelular)
-                UpdateEmptyCell(cell, tumoral_cells_count);
-        }
+
+        
         #endregion
 
         

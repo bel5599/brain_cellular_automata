@@ -8,7 +8,7 @@ namespace AutomataCelularLogic
 {
     public class BloodVessel: Cell
     {
-
+        public int maturation_time;
         //    public Pos pos1;
         //    public Pos pos2;
 
@@ -67,6 +67,7 @@ namespace AutomataCelularLogic
         //    }
         public BloodVessel(Pos pos, CellState behavior_state, CellLocationState loca_state) : base(pos, behavior_state, loca_state)
         {
+            maturation_time = 0;
         }
     }
 
@@ -74,6 +75,7 @@ namespace AutomataCelularLogic
     {
         public NeoBloodVessels(Pos pos, CellState behavior_state, CellLocationState loca_state) : base(pos, behavior_state, loca_state)
         {
+            
         }
     }
 

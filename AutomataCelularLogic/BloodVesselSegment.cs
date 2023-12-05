@@ -16,7 +16,7 @@ namespace AutomataCelularLogic
         public BloodVessel blood_vessel1;
         public BloodVessel blood_vessel2;
 
-        public int mean_diameter;//R
+        public double radius;//R
         public double mean_length;
         public double pressure_collapse;//Pc
 
@@ -38,7 +38,7 @@ namespace AutomataCelularLogic
             this.blood_vessel2 = blood_vessel2;
             this.order = order;
 
-            this.mean_diameter = mean_diameter;
+            this.radius = Math.Sqrt(mean_diameter);
             this.mean_length = mean_length;
             this.pressure_collapse = pressure_collapse;
 
