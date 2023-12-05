@@ -71,9 +71,9 @@ namespace AutomataCelularLogic
         }
     }
 
-    public class NeoBloodVessels : BloodVessel
+    public class NeoBloodVessel : BloodVessel
     {
-        public NeoBloodVessels(Pos pos, CellState behavior_state, CellLocationState loca_state) : base(pos, behavior_state, loca_state)
+        public NeoBloodVessel(Pos pos, CellState behavior_state, CellLocationState loca_state) : base(pos, behavior_state, loca_state)
         {
             
         }

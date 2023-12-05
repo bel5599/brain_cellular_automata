@@ -75,7 +75,7 @@ namespace AutomataCelularLogic
         public List<Cell> next_migratory_cells;
 
         
-        Dictionary<Pos, NeoBloodVessels> pos_neo_vessel_dict;
+        Dictionary<Pos, NeoBloodVessel> pos_neo_vessel_dict;
         public List<Cell> final_tip_of_vessel_list;
 
         //variables que estoy utilizando ahora
@@ -107,9 +107,11 @@ namespace AutomataCelularLogic
         List<BloodVesselSegment> new_vessel_segment_list;
         List<BloodVesselSegment> neo_vessel_segment_list;
 
-        List<NeoBloodVessels> neo_blood_vessel_list;
+        List<NeoBloodVessel> neo_blood_vessel_list;
 
         Dictionary<BloodVessel, List<Cell>> growing_vessels;
+
+        Dictionary<BloodVesselSegment, NeoBloodVessel> segment_neo_vessel_dict;
 
         List<Cell> new_endothelial_cells;
         List<Cell> edothelial_cells;
@@ -184,7 +186,7 @@ namespace AutomataCelularLogic
             closer_cells_to_vessels = new List<Cell>();
 
             neo_blood_vessels = new List<Cell>();
-            pos_neo_vessel_dict = new Dictionary<Pos, NeoBloodVessels>();
+            pos_neo_vessel_dict = new Dictionary<Pos, NeoBloodVessel>();
             final_tip_of_vessel_list = new List<Cell>();
 
             next_migratory_cells = new List<Cell>();
@@ -205,7 +207,8 @@ namespace AutomataCelularLogic
             growing_vessels = new Dictionary<BloodVessel, List<Cell>>();
             new_vessel_cells = new List<Cell>();
             new_endothelial_cells = new List<Cell>();
-            neo_blood_vessel_list = new List<NeoBloodVessels>();
+            neo_blood_vessel_list = new List<NeoBloodVessel>();
+            segment_neo_vessel_dict = new Dictionary<BloodVesselSegment, NeoBloodVessel>();
         }
 
         public void BuildTheVesselSegments(World world)
@@ -383,6 +386,14 @@ namespace AutomataCelularLogic
                         GetPositionForEndothelialCellMigration(item.blood_vessel2);
                 }
             }
+
+            foreach (var item in segment_neo_vessel_dict)
+            {
+                if(item.Value.maturation_time < 18 && Utils.rdm.Next(0,2) == 1)
+                    GetPositionForEndothelialCellMigration(item.Value);
+            }
+
+            segment_neo_vessel_dict = new Dictionary<BloodVesselSegment, NeoBloodVessel>();
         }
 
         public void GetPositionForEndothelialCellMigration(BloodVessel vessel)
@@ -441,21 +452,24 @@ namespace AutomataCelularLogic
         {
             foreach (var item in growing_vessels)
             {
-                if(item.Value.Count == 2)
+                if(item.Key.maturation_time >= 18 && item.Value.Count == 2)
                 {
-                    var vessel1 = (NeoBloodVessels)item.Value[0];
-                    var vessel2 = (NeoBloodVessels)item.Value[1];
+                    //aqui los bordes son los que estan en la lista del value
+                    var vessel1 = (NeoBloodVessel)item.Value[0];
+                    var vessel2 = (NeoBloodVessel)item.Value[1];
 
-                    if(vessel1 is NeoBloodVessels)
+                    if(vessel1 is NeoBloodVessel)
                     {
                         var diameter_length_pc = model.strahler_order_dict[StrahlerOrder.StrahlerOrder_1];
                         BloodVesselSegment segment = new BloodVesselSegment(item.Key, vessel1, StrahlerOrder.StrahlerOrder_1, diameter_length_pc.Item1, diameter_length_pc.Item2, diameter_length_pc.Item3);
+                        segment_neo_vessel_dict.Add(segment, vessel1);
                         neo_vessel_segment_list.Add(segment);
                     }
-                    if(vessel2 is NeoBloodVessels)
+                    if(vessel2 is NeoBloodVessel)
                     {
                         var diameter_length_pc = model.strahler_order_dict[StrahlerOrder.StrahlerOrder_1];
                         BloodVesselSegment segment = new BloodVesselSegment(item.Key, vessel2, StrahlerOrder.StrahlerOrder_1, diameter_length_pc.Item1, diameter_length_pc.Item2, diameter_length_pc.Item3);
+                        segment_neo_vessel_dict.Add(segment, vessel2);
                         neo_vessel_segment_list.Add(segment);
                     }
                 }
@@ -1167,6 +1181,7 @@ namespace AutomataCelularLogic
             //{
             model.VEGF(space, tumor.time);
             //}
+            model.UpdateEndothelialDensity(space, tumor.time);
             model.UpdateMDE2(space, tumor.time, tumor);
             model.UpdateECMDensity2(space, tumor.time);
 
@@ -1243,6 +1258,8 @@ namespace AutomataCelularLogic
             WSS();
 
             UpdateMaturationTime();
+
+            VesselGrowth();
 
             UpdateNewNeoVesselsSegment();
 
@@ -1556,14 +1573,15 @@ namespace AutomataCelularLogic
             }
             else if (neo_blood_vessels.Contains(cell))
             {
-                cell = new NeoBloodVessels(cell.pos, CellState.nothing, CellLocationState.GlialBasalLamina);
+                cell = new NeoBloodVessel(cell.pos, CellState.nothing, CellLocationState.GlialBasalLamina);
                 cell.neighborhood = Utils.GetMooreNeighbours3D(cell.pos, space);
-                pos_neo_vessel_dict.Add(cell.pos, (NeoBloodVessels)cell);
+                pos_neo_vessel_dict.Add(cell.pos, (NeoBloodVessel)cell);
             }
             else if(new_endothelial_cells.Contains(cell))
             {
                 new_endothelial_cells.Remove(cell);
                 cell.behavior_state = CellState.EndothelialCell;
+                model.endo_density_matrix[cell.pos.X, cell.pos.Y, cell.pos.Z] = model.initial_density_endo;
 
                 //No se si deba agregarlo al tumor
                 edothelial_cells.Add(cell);
@@ -1575,10 +1593,10 @@ namespace AutomataCelularLogic
         {
             if(new_vessel_cells.Contains(cell))
             {
-                cell = new NeoBloodVessels(cell.pos, CellState.nothing, CellLocationState.GlialBasalLamina);
+                cell = new NeoBloodVessel(cell.pos, CellState.nothing, CellLocationState.GlialBasalLamina);
                 //hay que eliminar la celula endotelial de la lista de celulas endoteliales
                 //hay que adicionar los nuevos vasos a la lista de nuevos vasos
-                neo_blood_vessel_list.Add((NeoBloodVessels)cell);
+                neo_blood_vessel_list.Add((NeoBloodVessel)cell);
             }
         }
 

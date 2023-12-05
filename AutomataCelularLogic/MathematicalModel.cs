@@ -140,6 +140,12 @@ namespace AutomataCelularLogic
         double decrease_in_chemo_sensitivity = 0.6;
         double hapt_of_EC_sprout_tip = 0.16;
 
+        public double initial_density_endo = 2.0 * Math.Pow(10, -9);
+
+        //double diffusion_coeficient_endo = Math.Pow(10, -9);
+        //double chemo_of_EC_sprout_tip = 2.6 * Math.Pow(10, 3);
+        //double hapt_of_EC_sprout_tip = Math.Pow(10, 3);
+
         #endregion
 
         #region PARAMETROS RELACIONADOS CON EL FLUJO DE SANGRE EN LOS VASOS SANGUINEOS
@@ -880,17 +886,21 @@ namespace AutomataCelularLogic
                     for (int k = 0; k < space.GetLength(2); k++)
                     {
 
-                        if (space[i, j, k] is BloodVessel || space[i, j, k] is NeoBloodVessels)
+                        if (space[i, j, k] is BloodVessel || space[i, j, k] is NeoBloodVessel)
                         {
                             Cell cell = space[i, j, k];
                             double d = endo_density_matrix[i, j, k];
                             endo_density_matrix[i, j, k] += time * (diffusion_coeficient_endo * endo_delta_matrix[i, j, k] * endo_density_matrix[i, j, k] - ChemotactiMigration(cell.pos) * d *
                                                             angio_reg_conc_delta[i, j, k] - mde_delta[i, j, k] * hapt_of_EC_sprout_tip * d);
+
+                            endo_density_matrix[i, j, k] += time * (diffusion_coeficient_endo * endo_delta_matrix[i, j, k] * endo_density_matrix[i, j, k] - ChemotactiMigration(cell.pos) * d *
+                                                            angio_reg_conc_delta[i, j, k] + mde_delta[i, j, k] * hapt_of_EC_sprout_tip * d);
                         }
                     }
                 }
             }
         }
+
         #endregion
 
 
