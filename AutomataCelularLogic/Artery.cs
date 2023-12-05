@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace AutomataCelularLogic
 {
-    public class Artery: Cell
+    public class BloodVessel: Cell
     {
+
         //    public Pos pos1;
         //    public Pos pos2;
 
@@ -64,29 +65,29 @@ namespace AutomataCelularLogic
         //    {
         //        this.size = size;
         //    }
-        public Artery(Pos pos, CellState behavior_state, CellLocationState loca_state) : base(pos, behavior_state, loca_state)
+        public BloodVessel(Pos pos, CellState behavior_state, CellLocationState loca_state) : base(pos, behavior_state, loca_state)
         {
         }
     }
 
-    public class NeoBloodVessels : Artery
+    public class NeoBloodVessels : BloodVessel
     {
         public NeoBloodVessels(Pos pos, CellState behavior_state, CellLocationState loca_state) : base(pos, behavior_state, loca_state)
         {
         }
     }
 
-    public class Arteriole : Cell
-    {
-        public Arteriole(Pos pos, CellState behavior_state, CellLocationState loca_state) : base(pos, behavior_state, loca_state)
-        {
-        }
-    }
+    //public class Arteriole : Cell
+    //{
+    //    public Arteriole(Pos pos, CellState behavior_state, CellLocationState loca_state) : base(pos, behavior_state, loca_state)
+    //    {
+    //    }
+    //}
 
-    public class Capillary : Cell
-    {
-        public Capillary(Pos pos, CellState behavior_state, CellLocationState loca_state) : base(pos, behavior_state, loca_state)
-        {
-        }
-    }
+    //public class Capillary : Cell
+    //{
+    //    public Capillary(Pos pos, CellState behavior_state, CellLocationState loca_state) : base(pos, behavior_state, loca_state)
+    //    {
+    //    }
+    //}
 }

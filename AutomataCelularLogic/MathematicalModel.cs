@@ -142,6 +142,27 @@ namespace AutomataCelularLogic
 
         #endregion
 
+        #region PARAMETROS RELACIONADOS CON EL FLUJO DE SANGRE EN LOS VASOS SANGUINEOS
+        public Dictionary<StrahlerOrder, Tuple<int, int, double>> strahler_order_dict;
+
+        public double intravascular_pressure = 3.5;//Pv mmHg
+
+        public double tumoral_hydraulic_permeability = 2.8 * Math.Pow(10, -7);//LpT cm/mmHg s
+        public double normal_hydraulic_permeability = 0.36 * Math.Pow(10, -7);//LpN cm/mmHg s
+
+        public double aver_osmotic_reflec_coeff = 0.82;//ot
+        public double pressure_collapse;//Pc
+
+        public double vascular_flow_rate;
+        public double transvascular_flow_rate;
+
+        public double pi_v = 20;//mmHg
+        public double pi_i = 15;//mmHg
+
+        public double b = 0.1;
+        public double max_radius = 10;//um
+        #endregion
+
 
         private int t = 16;
         public int time;
@@ -180,6 +201,8 @@ namespace AutomataCelularLogic
 
             consumption_rate = new double[] { 2 * r_c, 5 * r_c, 10 * r_c };
 
+            FillOutTheStrahlerOrderDictionary();
+
             DiscretizeTheOxygenDiffusionCoefficient();
             DiscretizeOxygenConsumptionRate();
 
@@ -197,6 +220,15 @@ namespace AutomataCelularLogic
             InitializeOxygenConcentrationMatrix();
             InitializeDensityMatrix();
         }
+
+        public void FillOutTheStrahlerOrderDictionary()
+        {
+            strahler_order_dict.Add(StrahlerOrder.StrahlerOrder_1, new Tuple<int, int, double>(8, 80, 1.0));
+            strahler_order_dict.Add(StrahlerOrder.StrahlerOrder_2, new Tuple<int, int, double>(12, 200, 1.5));
+            strahler_order_dict.Add(StrahlerOrder.StrahlerOrder_3, new Tuple<int, int, double>(16, 320, 2.0));
+        }
+
+
         public double[,,] Laplacian3D(double[,,] u, double dx, double dy, double dz)
         {
             int nx = u.GetLength(0);
@@ -329,7 +361,7 @@ namespace AutomataCelularLogic
             int x = cell.pos.X;
             int y = cell.pos.Y;
             int z = cell.pos.Z;
-            if (cell is Artery)
+            if (cell is BloodVessel)
                 return transf_rate_from_pree_vessels * pree_blood_vessels_density * (1 - oxygen_matrix[x, y, z]);
             return 0;
         }
@@ -340,7 +372,7 @@ namespace AutomataCelularLogic
             double sum = 0;
             foreach (var item in space)
             {
-                if (item is Artery)
+                if (item is BloodVessel)
                     sum += OxygenTissueNeoBloodVessels(item);
             }
             return sum;
@@ -351,7 +383,7 @@ namespace AutomataCelularLogic
             int x = cell.pos.X;
             int y = cell.pos.Y;
             int z = cell.pos.Z;
-            if (cell is Artery)
+            if (cell is BloodVessel)
                 return transf_rate_from_neo_vessels * neo_blood_vessels_density * HematocritOnNeoNetwork() * (1 - oxygen_matrix[x, y, z]);
             return 0;
         }
@@ -362,7 +394,7 @@ namespace AutomataCelularLogic
             double sum = 0;
             foreach (var item in space)
             {
-                if (item is Artery)
+                if (item is BloodVessel)
                     sum += OxygenTissueNeoBloodVessels(item);
             }
             return sum;
@@ -532,7 +564,7 @@ namespace AutomataCelularLogic
 
         private double SourceOxygen(Cell cell, double conc)
         {
-            if (cell is Artery)
+            if (cell is BloodVessel)
                 return (2 * Math.PI * arteriole_radius * p_e_oxygen * (c_art_oxygen - conc)) / delta_S;
             return 0;
         }
@@ -759,7 +791,7 @@ namespace AutomataCelularLogic
         private double Uptake(Cell cell, double vegf_conc)
         {
             //double radius = 3 * 10;
-            if (cell is Artery)
+            if (cell is BloodVessel)
                 return (2 * Math.PI * arteriole_radius * p_e * vegf_conc);
             return 0;
         }
@@ -788,7 +820,48 @@ namespace AutomataCelularLogic
         }
         #endregion
 
+        #region Blood Vessels and Endothelial Cell
 
+        public double CalculateInterstitialPressure(double pc, double qt, double lp, double s, double sigmaT, double pi_v, double pi_i)
+        {
+            return intravascular_pressure - (qt/(lp * s)) - sigmaT * ( pi_v - pi_i);
+        }
+
+        public void CalculateVascularFlowRateWithoutFluidLeakage(double radius, double pv, double length, double mium)
+        {
+            vascular_flow_rate = (Math.PI * Math.Pow(radius, 4) * pv) / (8 * mium * length);
+        }
+
+        public void CalculateTransvascularFlowRate(double pc, double pi, double lp, double s, double sigmaT, double pi_v, double pi_i)
+        {
+            transvascular_flow_rate = lp * s * (pc - pi - sigmaT * (pi_v - pi_i));
+        }
+
+        public double CalculatePermeabilityOfTheVesselWall(BloodVesselSegment segment)
+        {
+            if (segment.radio_clasf == RadioClassification.MatureVessel)
+                return normal_hydraulic_permeability;
+            return tumoral_hydraulic_permeability * (Math.Sqrt(segment.mean_diameter)/ max_radius);
+        }
+
+        public double CalculateCollapsePressure(BloodVesselSegment segment)
+        {
+            return 0.5 * segment.pressure_collapse * (tumoral_hydraulic_permeability /
+                CalculatePermeabilityOfTheVesselWall(segment));
+        }
+
+        public double CalculateRadius(BloodVesselSegment segment)
+        {
+            if (segment.radio_clasf == RadioClassification.MatureVessel)
+                return Math.Sqrt(segment.mean_diameter);
+            //agregar el metodo de la presion intersticial
+            return Math.Sqrt(segment.mean_diameter) * Math.Pow((intravascular_pressure - CalculateCollapsePressure(segment)), b);
+        }
+
+        public double CalculateWSS(BloodVesselSegment segment)
+        {
+            return (intravascular_pressure * Math.Sqrt(segment.mean_diameter)) / (2 * segment.mean_length);
+        }
 
         public void UpdateEndothelialDensity(Cell[,,] space, int time)
         {
@@ -802,8 +875,8 @@ namespace AutomataCelularLogic
                 {
                     for (int k = 0; k < space.GetLength(2); k++)
                     {
-                        
-                        if(space[i,j,k] is Artery || space[i,j,k] is NeoBloodVessels)
+
+                        if (space[i, j, k] is BloodVessel || space[i, j, k] is NeoBloodVessels)
                         {
                             Cell cell = space[i, j, k];
                             double d = endo_density_matrix[i, j, k];
@@ -814,6 +887,9 @@ namespace AutomataCelularLogic
                 }
             }
         }
+        #endregion
+
+
 
         public double[,,] DirichletBoundaryConditions(double[,,] oxygen_matrix)
         {

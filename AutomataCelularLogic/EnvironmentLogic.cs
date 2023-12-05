@@ -14,17 +14,17 @@ namespace AutomataCelularLogic
 
         //VARIABLES DEL MODELO DEL AUTOMATA
         //public static int cell_proliferation;
-        public static int avascular_carrying_capacity = 5000;
-        public static int vascular_carrying_capacity = 10000;
+        public static int avascular_carrying_capacity = 10000;
+        public static int vascular_carrying_capacity = 50000;
         public static double growth_rate = 1.2 * Math.Pow(10, -2);
         public static int initial_population = 5;
 
         //VARIABLES QUE TIENE QUE VER CON EL ENTORNO
         public static int time = 0;
         public static int distance = 40;
-        public static int limit_of_x = 40;
-        public static int limit_of_y = 40;
-        public static int limit_of_z = 40;
+        public static int limit_of_x = 100;
+        public static int limit_of_y = 100;
+        public static int limit_of_z = 100;
 
         //VARIABLES QUE TIENE QUE VER CON LAS CELULAS
         public static List<Cell> tumor_cell_list = new List<Cell>(); //CAMBIARLE EL NOMBRE A LA LISTA
@@ -226,7 +226,7 @@ namespace AutomataCelularLogic
 
             //Console.ReadLine();
             int count = 0;
-            while (count++ < 100)
+            while (count++ < 500)
             {
                 //    //Console.WriteLine("Estoy aqui");
                 //    //Console.ReadLine();

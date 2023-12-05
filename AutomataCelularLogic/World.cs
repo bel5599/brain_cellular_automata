@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace AutomataCelularLogic
 {
+    public enum StrahlerOrder
+    {
+        StrahlerOrder_1,
+        StrahlerOrder_2,
+        StrahlerOrder_3
+    }
     public class World
     {
         public Cell[,,] world;
@@ -18,11 +24,14 @@ namespace AutomataCelularLogic
 
         private double radius;
 
+        //PARAMETROS RELACIONADOS CON LOS ORDEN DE STRAHLER EN LOS VASOS SANGUINEOS
+        public Dictionary<Tuple<Pos, Pos>, StrahlerOrder> edge_order_dict;
+
         private int stem_cells_count;
         private int astrocytes_count;
         private int neuron_count;
 
-        public Dictionary<Pos, Artery> pos_artery_dict;
+        public Dictionary<Pos, BloodVessel> pos_artery_dict;
         public Dictionary<Pos, Cell> pos_cell_dict;
         public World(int height, int width, int depth, double radius, int stem_cells_count, int astrocytes_count, int neuron_count)
         {
@@ -37,13 +46,15 @@ namespace AutomataCelularLogic
             InicializarListas();
             StartCellularLifeInTheBrain();
 
-            Edges();
+            //Edges();
         }
 
         public void InicializarListas()
         {
-            pos_artery_dict = new Dictionary<Pos, Artery>();
+            pos_artery_dict = new Dictionary<Pos, BloodVessel>();
             pos_cell_dict = new Dictionary<Pos, Cell>();
+
+            edge_order_dict = new Dictionary<Tuple<Pos, Pos>, StrahlerOrder>();
 
             edges = new List<EdgeTree>();
         }
@@ -79,9 +90,9 @@ namespace AutomataCelularLogic
             {
                 if (!pos_artery_dict.ContainsKey(pos))
                 {
-                    Artery artery = new Artery(pos, CellState.nothing, CellLocationState.GlialBasalLamina);
-                    pos_artery_dict.Add(pos, artery);
-                    world[pos.X, pos.Y, pos.Z] = artery;
+                    BloodVessel blood_vessel = new BloodVessel(pos, CellState.nothing, CellLocationState.GlialBasalLamina);
+                    pos_artery_dict.Add(pos, blood_vessel);
+                    world[pos.X, pos.Y, pos.Z] = blood_vessel;
                 }
             }
         }
@@ -89,10 +100,12 @@ namespace AutomataCelularLogic
         public void CreateBloodVesselsTree(int limit)
         {
             List<Pos> tree = new List<Pos>();
-            Pos root = Utils.GetRandomPosition(0, limit, 0, limit, 0, limit);
-            tree.Add(root);
+            Pos root_pos = Utils.GetRandomPosition(0, limit, 0, limit, 0, limit);
+            tree.Add(root_pos);
 
-            blood_vessels_tree = CreateBloodVesselsTree(root, 0, 15, new List<Pos>(), tree);
+            Children root = new Children(root_pos);
+
+            blood_vessels_tree = CreateBloodVesselsTree(root, root_pos, 0, 15, new List<Pos>(), tree);
             blood_vessels = tree;
         }
 
@@ -104,7 +117,7 @@ namespace AutomataCelularLogic
             return new Pos(-1,-1,-1);
         }
 
-        public Children CreateBloodVesselsTree(Pos pos, int depth, int max_depth, List<Pos> marks, List<Pos> pos_list)
+        public Children CreateBloodVesselsTree(Children root, Pos pos, int depth, int max_depth, List<Pos> marks, List<Pos> pos_list)
         {
             Pos new_pos = RandomAdjPos(pos, marks);
             if (new_pos.X != -1 && new_pos.Y != -1 && new_pos.Z != -1)
@@ -113,25 +126,51 @@ namespace AutomataCelularLogic
                 pos_list.Add(new_pos);
                 marks.Add(pos);
 
+                if (depth == 0)
+                {
+                    var r = Utils.rdm.Next(0, 2);
+                    if (r == 0)
+                    {
+                        root.child_left = c;
+                        root.child_right = null;
+                    }
+                    else
+                    {
+                        root.child_right = c;
+                        root.child_left = null;
+                    }
+
+                    edge_order_dict.Add(new Tuple<Pos, Pos>(pos, new_pos), StrahlerOrder.StrahlerOrder_1);
+                }
+
                 if (depth == max_depth)
                 {
                     c.child_left = c.child_right = null;
+
+                    edge_order_dict.Add(new Tuple<Pos, Pos>(pos, new_pos), StrahlerOrder.StrahlerOrder_3);
                     return c;
                 }
                 else
                 {
+                    if (depth != 0)
+                        edge_order_dict.Add(new Tuple<Pos, Pos>(pos, new_pos), StrahlerOrder.StrahlerOrder_2);
+
                     int i = Utils.rdm.Next(0, 3);
 
                     if (i == 0)
-                        c.child_left = CreateBloodVesselsTree(c.pos, depth + 1, max_depth, marks, pos_list);
+                        c.child_left = CreateBloodVesselsTree(root, c.pos, depth + 1, max_depth, marks, pos_list);
                     else if (i == 1)
-                        c.child_right = CreateBloodVesselsTree(c.pos, depth + 1, max_depth, marks, pos_list);
+                        c.child_right = CreateBloodVesselsTree(root, c.pos, depth + 1, max_depth, marks, pos_list);
                     else
                     {
-                        c.child_left = CreateBloodVesselsTree(c.pos, depth + 1, max_depth, marks, pos_list);
-                        c.child_right = CreateBloodVesselsTree(c.pos, depth + 1, max_depth, marks, pos_list);
+                        c.child_left = CreateBloodVesselsTree(root, c.pos, depth + 1, max_depth, marks, pos_list);
+                        c.child_right = CreateBloodVesselsTree(root, c.pos, depth + 1, max_depth, marks, pos_list);
                     }
-                    return c;
+
+                    if (depth == 0)
+                        return root;
+                    else
+                        return c;
                 }
             }
             return null;
@@ -169,11 +208,25 @@ namespace AutomataCelularLogic
                 }
             }
         }
+        
+
+        public void CreateBloodVesselsTreeNoRecursivo(Pos pos, int depth, int max_depth, List<Pos> marks, List<Pos> pos_list)
+        {
+            Children actual = new Children(pos);
+
+            while(depth < max_depth)
+            {
+                Pos new_pos = RandomAdjPos(pos, marks);
+
+            }
+        }
 
         public void Edges()
         {
             Children temp = blood_vessels_tree;
             List<Children> children_list = new List<Children>();
+
+            
 
             children_list.Add(temp);
 
@@ -223,6 +276,7 @@ namespace AutomataCelularLogic
                 }
                 poissonDiskPoints.Add(point);
             }
+
             //for (int x = 0; x < width; x++)
             //{
             //    for (int y = 0; y < height; y++)
