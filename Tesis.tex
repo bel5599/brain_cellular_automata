@@ -1,0 +1,1094 @@
+\documentclass[11pt]{report}
+	\linespread{1.0}
+	\oddsidemargin 0.0cm
+	\headsep -1.0cm
+	\textheight=23cm
+	\textwidth=16cm
+\usepackage[pdftex]{graphics} %entorno grafico
+\usepackage{epsfig} %graficar funciones
+\usepackage[spanish]{babel} %reconocimiento del idioma
+\usepackage{amsmath,amssymb,amsfonts,latexsym} %permite simbolos matematicos especiales AMS
+\usepackage{xcolor} %permite definir colores personalizados
+\usepackage{fancyhdr} %permite personalizar las cabeceras y los pie de pagina
+\usepackage{textcomp} %permite caracteres muy especiales(e.g. simbolo de copyright)
+\usepackage[pdftex]{hyperref} %permite resaltar texto
+\hypersetup{colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=black} %setup de hyperref
+%\usepackage[latin1]{inputenc} %acentos desde el teclado
+\usepackage[ruled,vlined,lined,linesnumbered,portuguese]{algorithm2e} %permite escribir pseudocodigo
+	\setcounter{secnumdepth}{3}
+	\setcounter{tocdepth}{3}
+	\numberwithin{equation}{chapter} 
+%\bibliographystyle{unsrt}
+\usepackage{wrapfig}
+\usepackage{subfigure}
+\usepackage{supertabular}
+\newtheorem{definition}{Definici\'on}[chapter]
+\newtheorem{proposition}{Proposici\'on}[chapter]
+\hyphenation{Es-ta-dos}
+\hyphenation{Uni-dos}
+
+\begin{document}
+
+\section{Introducci\'on}
+
+La simulaci\'on de un glioblastoma multiforme a trav\'es de un aut\'omata celular en tres dimensiones es un enfoque que combina la biolog\'ia, la ciencia de la computaci\'on y la modelizaci\'on matem\'atica para entender y predecir el comportamiento de los tumores a nivel celular. Este enfoque se ha desarrollado en respuesta a la heterogeneidad del glioblastoma multiforme (GBM), un tipo de tumor cerebral que es conocido por su resistencia a las terapias convencionales.
+
+El t\'ermino "glioblastoma multiforme" fue introducido por Cushing en la segunda mitad del siglo XIX, y la primera operaci\'on en un paciente con este tipo de tumor se realiz\'o en Viena en 1904 \cite{1}. 
+ 
+Este tumor se desarrolla principalmente en el cerebro y es caracterizado por un crecimiento infiltrante, lo que significa que la masa tumoral no es claramente distinguible del tejido normal.
+Adem\'as se caracteriza por ser altamente heterog\'eneo, lo que significa que contiene una variedad de c\'elulas con diferentes caracter\'isticas y comportamientos, de ah\'i el t\'ermino "multiuniforme", que se aplica con la misma precisi\'on a las alteraciones moleculares y a la evoluci\'on cl\'inica. Esta heterogeneidad puede contribuir a la resistencia del GBM al tratamiento y a la variabilidad en la gravedad de la enfermedad en los pacientes \cite{2}. 
+
+Cada a\~no, el glioblastoma multiforme causa m\'as de 200 000 muertes en todo el mundo. Seg\'un las estad\'isticas disponibles, la tasa de supervivencia es baja. Tras el diagn\'ostico, un 40\% de los pacientes fallece en el primer a\~no y un 17\% en el segundo a\~no. Si no se recibe tratamiento, los pacientes rara vez sobreviven a m\'as de 3 meses. Sin embargo, los pacientes tratados con una terapia \'optima tienen una supervivencia media de 12 \textminus 15 meses. La tasa de supervivencia a 1 a\~no es del 38\% \textminus 50\% y la tasa de supervivencia a 5 a\~nos es del 5\% \textminus 10\%.
+
+Un aut\'omata celular es un modelo computacional que simula el comportamiento de las c\'elulas en un sistema biol\'ogico. En el caso del GBM, un aut\'omata celular puede simular la proliferaci\'on y la invasi\'on de las c\'elulas tumorales en un tejido cerebral en tres dimensiones. Este tipo de modelo puede ayudar a los investigadores a entender c\'omo las c\'elulas tumorales se dividen y crecen, c\'omo interact\'uan con las c\'elulas sanas y c\'omo se desplazan a trav\'es del tejido cerebral 
+
+La simulaci\'on de aut\'omatas celulares en tres dimensiones puede ser una herramienta valiosa para los investigadores que buscan entender mejor la heterogeneidad del GBM y probar diferentes estrategias de tratamiento. Esta simulaci\'on permite replicar la complejidad del tumor en un modelo, lo que puede ser \'util para estudiar factores que contribuyen al crecimiento de este. Adem\'as, pueden proporcionar una comprensi\'on m\'as profunda del comportamiento biol\'ogico del gliobastoma, permitiendo una evaluaci\'on m\'as efectiva de las nuevas terapias. Este tipo de investigaci\'on puede contribuir a una mejor comprensi\'on de los hallazgos del c\'ancer y a la identificaci\'on de nuevas estrategias para su cura.
+
+En los \'ultimos a\~nos, se han desarrollado nuevos modelos experimentales para el estudio del tumor. Estos incluyen cultivos celulares in vitro, modelos de roedores, \'organos cerebrales y 3D bioprinting. Estos modelos han permitido a los investigadores entender mejor el comportamiento biol\'ogico y probar de manera m\'as efectiva las nuevas terapias \cite{3}.
+
+
+
+\subsection{Antecedentes}
+Los modelos de crecimiento han sido fundamentales en la comprensi\'on del crecimiento de los tumores. Los tres modelos cl\'asicos que se conocen son: el modelo de crecimiento exponencial de Malthus, la ley de crecimiento de Gompertz y el modelo de crecimiento log\'istico de Verhulst, los cuales son esenciales para entender c\'omo los tumores crecen y se desarrollan. Cada uno de estos modelos puede capturar diferentes aspectos del crecimiento tumoral. Por ejemplo, el modelo de crecimiento exponencial de Malthus puede capturar el comportamiento de crecimiento r\'apido que caracteriza a los tumores, mientras que la ley de crecimiento de Gompertz puede capturar el comportamiento de crecimiento que eventualmente se estabiliza, caracter\'istico de muchos tipos de tumores. Finalmente, el modelo de crecimiento log\'istico de Verhulst puede capturar el comportamiento de crecimiento que se estabiliza cuando el tama\~no del tumor alcanza un l\'imite debido a la falta de espacio o recursos \cite{4}.
+
+El crecimiento de los tumores es un fen\'omeno complejo que ha sido objeto de estudio a lo largo de la historia. Los modelos matem\'aticos y estad\'isticos han sido utilizados para describir y predecir el crecimiento de los tumores. En este contexto, la distribuci\'on de Poisson ha sido una herramienta valiosa para modelarlo.
+
+La distribuci\'on de Poisson es una distribuci\'on de probabilidad discreta que se utiliza para modelar el n\'umero de eventos que ocurren en un intervalo de tiempo o espacio fijo. Esta distribuci\'on es particularmente \'util en la simulaci\'on de tumores porque puede modelar el crecimiento de las c\'elulas tumorales en el espacio. En particular, la distribuci\'on de Poisson puede generar puntos que parecen aleatorios pero sin ninguna repetici\'on en una grilla regular, lo que es \'util para simular la distribuci\'on de las c\'elulas en un tumor \cite{4}.
+
+Adem\'as, la distribuci\'on de Poisson puede ser utilizada para modelar el crecimiento de los tumores en t\'erminos de la tasa de crecimiento de las c\'elulas tumorales. Esto puede ser \'util para predecir el tama\~no y la morfolog\'ia de los tumores en diferentes tipos de c\'ancer \cite{4}.
+
+Los aut\'omatas celulares son un modelo matem\'atico y computacional para un sistema din\'amico que evoluciona en pasos discretos. Son adecuados para modelar sistemas naturales que pueden ser descritos como una colecci\'on masiva de objetos simples que interact\'uan localmente unos con otros \cite{5}.
+
+En el contexto de la simulaci\'on del crecimiento de un tumor, los aut\'omatas celulares pueden ser utilizados para modelar la distribuci\'on de las c\'elulas tumorales en un espacio tridimensional. Cada c\'elula en el tumor puede ser representada como una celda en el aut\'omata celular, y las interacciones entre las c\'elulas pueden ser modeladas a trav\'es de la funci\'on de transici\'on de estado \cite{5}.
+
+El modelado del c\'ancer ha empleado dos metodolog\'ias matem\'aticas principales: las ecuaciones diferenciales ordinarias (ODE) y las ecuaciones diferenciales parciales (PDE). Los aut\'omatas celulares, que representan c\'elulas individuales en un espacio cartesiano y permiten que el tiempo cambie en saltos, son un ejemplo de un modelo discreto. Las PDE, que describen la variaci\'on temporal y espacial de las c\'elulas bajo la influencia de factores como la concentraci\'on de una sustancia espec\'ifica o un campo de fuerza, son un ejemplo de un modelo continuo \cite{6}.
+
+Los modelos h\'ibridos surgieron de la necesidad de representar y entender fen\'omenos biol\'ogicos complejos que ocurren a diferentes escalas de tiempo y espacio. Estos modelos permiten a los investigadores simular estos fen\'omenos y proporcionar una comprensi\'on m\'as profunda de c\'omo funcionan estos sistemas. Los modelos h\'ibridos combinan aspectos discretos, como los aut\'omatas celulares, y aspectos continuos, como las ecuaciones diferenciales parciales y ordinarias, proporcionando una representaci\'on m\'as precisa y detallada de los fen\'omenos biol\'ogicos que los modelos discretos y continuos por separado \cite{6}, \cite{7}.
+
+En el contexto de la simulaci\'on del crecimiento de un tumor, nuestro modelo h\'ibrido permite modelar la evoluci\'on de un tumor en tres dimensiones, proporcionando una comprensi\'on m\'as profunda de c\'omo las c\'elulas tumorales se dividen y crecen. Los modelos h\'ibridos en el modelado computacional del c\'ancer son una combinaci\'on de enfoques discretos y continuos que permiten a los investigadores simular fen\'omenos biol\'ogicos complejos. Estos modelos pueden ser utilizados para entender c\'omo las c\'elulas individuales interact\'uan con su entorno y c\'omo estas interacciones pueden llevar al crecimiento del tumor \cite{6}, \cite{7}.
+
+En resumen, los modelos h\'ibridos que combinan aspectos discretos y continuos han surgido como una necesidad de entender fen\'omenos biol\'ogicos complejos. Estos modelos permiten a los investigadores simular estos fen\'omenos y proporcionar una comprensi\'on m\'as profunda de c\'omo funcionan estos sistemas.
+
+
+\subsection{Motivaci\'on}
+El glioblastoma multiuniforme es uno de los tipos de c\'ancer m\'as agresivos y mortales, y su comprensi\'on es fundamental para el desarrollo de nuevos tratamientos y terapias. Sin embargo, la naturaleza compleja y din\'amica de este tipo de c\'ancer hace que sea un desaf\'io para los investigadores.
+
+Las simulaciones, como las que se est\'an realizando en este estudio, ofrecen una oportunidad \'unica para explorar y entender estos procesos complejos. Al combinar un aut\'omata celular con ecuaciones de difusi\'on, se puede proporcionar una representaci\'on m\'as detallada y realista del crecimiento y desarrollo del tumor. Esto puede ayudar a identificar patrones y tendencias que no ser\'ian visibles a trav\'es de m\'etodos experimentales convencionales \cite{8}.
+
+Adem\'as, la simulaci\'on puede proporcionar una base s\'olida para la experimentaci\'on y el desarrollo de nuevos tratamientos. Por ejemplo, podr\'ia ayudar a identificar c\'omo el tumor puede adaptarse a las condiciones de falta de ox\'igeno y c\'omo estas adaptaciones pueden influir en la progresi\'on y la supervivencia del tumor. Estos hallazgos podr\'ian informar el desarrollo de nuevas estrategias de tratamiento que sean m\'as efectivas para el glioblastoma multiuniforme \cite{8}.
+
+Finalmente, la simulaci\'on puede proporcionar una herramienta valiosa para la investigaci\'on en el campo de la oncolog\'ia computacional. Al proporcionar una representaci\'on m\'as detallada y realista de este tipo de c\'ancer, los investigadores pueden explorar nuevas \'areas de la biolog\'ia del c\'ancer y desarrollar nuevas t\'ecnicas y enfoques para el tratamiento del glioblastoma multiuniforme
+
+\subsection{Objetivos}
+\subsubsection{Objetivo General}
+El prop\'osito general de este estudio es desarrollar un modelo para simular las etapas de crecimiento de un glioblastoma multiuniforme, utilizando un aut\'omata celular de tres dimensiones. Adem\'as, el estudio busca modelar el microambiente tumoral y su impacto en el crecimiento del tumor. Este enfoque se basa en la premisa de que los modelos matem\'aticos y estad\'isticos pueden proporcionar una visi\'on valiosa de los procesos que ocurren dentro de un tumor y c\'omo estos procesos pueden ser influenciados por las propiedades del entorno del hu\'esped.
+\subsubsection{Objetivos Espec\'ificos:}
+\begin{itemize}
+\item Implementar el algoritmo de tiling no peri\'odico de Wang en un aut\'omata celular tridimensional para identificar y localizar las c\'elulas normales en un espacio tridimensional. Utilizar la distribuci\'on de Poisson para modelar la distribuci\'on de las c\'elulas normales en el espacio tridimensional.
+\item Generar una ubicaci\'on aleatoria de los vasos sangu\'ineos a trav\'es de un \'arbol binario para simular el medio de obtenci\'on de nutrientes en el contexto de un gliobastoma mutiuniforme.
+\item Establecer un conjunto de estados para las c\'elulas del aut\'omata que permitan representar diversas entidades biol\'ogicas, incluyendo diferentes tipos de c\'elulas normales y cancer\'igenas.
+\item Implementar ecuaciones de difusi\'on para simular la propagaci\'on de la concentraci\'on de ox\'igeno y el factor de crecimiento endotelial vascular(VEGF), as\'i como la degradaci\'on de la matriz extracelular. Esto permitir\'a modelar el crecimiento y desarrollo del tumor en un aut\'omata celular tridimensional, proporcionando una representaci\'on m\'as precisa de c\'omo estos factores pueden influir en el crecimiento y desarrollo del tumor.
+\item Desarrollar una funci\'on de transici\'on que, a trav\'es de diversas reglas, describa la evoluci\'on tumoral durante las etapas de su desarrollo, las interacciones entre el tumor y las c\'elulas normales, la influencia de las concentraciones de nutrientes como el ox\'igeno y VEGF, que afectan a la topolog\'ia de las c\'elulas tumorales, y la migraci\'on de c\'elulas cancer\'igenas a trav\'es de los tejidos sanos.
+\item Simular la formaci\'on de nuevos vasos sangu\'ineos en respuesta a la secreci\'on de VEGF por las c\'elulas tumorales debido a la falta de ox\'igeno. Este estudio permitir\'a entender c\'omo el tumor puede adaptarse a las condiciones de falta de ox\'igeno y c\'omo estas adaptaciones pueden influir en la progresi\'on y la supervivencia del tumor.
+\item Analizar y comparar los resultados obtenidos en la simulaci\'on con los datos y evidencias experimentales existentes en la literatura cient\'ifica.
+\item Utilizar Unity para generar visualizaciones tridimensionales de todos los procesos que se manifiestan en el aut\'omata celular, especificados en la funci\'on de transici\'on, incluyendo el crecimiento y la migraci\'on de las c\'elulas normales y cancer\'igenas.
+\end{itemize}
+
+\subsection{Aspectos novedosos}
+\begin{itemize}
+\item La utilizaci\'on de un aut\'omata celular en tres dimensiones para proporcionar una representaci\'on m\'as precisa y detalla del tumor y su entorno.
+\item La formaci\'on de nuevos vasos en respuesta a la secreci\'on de el factor de crecimiento endotelial vascular(VEGF) para propocionar informaci\'on valiosa sobre como el tumor puede adaptarse a las condiciones de falta de ox\'igeno.
+\item La comparaci\'on de los resultados obtenidos en la simulaci\'on con los datos y evidencias experimentales existentes para proporcionar una validaci\'on y confirmaci\'on de los resultados de la simulaci\'on.
+\item La implementaci\'on de un modelo h\'ibrido que combina un aut\'omata celular con ecuaciones de difusi\'on para proporcionar una investigaci\'on m\'as realista y detallada del crecimiento y desarrollo del tumor.
+\end{itemize}
+
+\section{Conceptos Biol\'ogicos}
+\section{Celulas madres}
+Las cÈlulas madre son un tipo de cÈlulas no especializadas que tienen la capacidad de diferenciarse en diversos tipos de cÈlulas especializadas. Son las ˙nicas cÈlulas del cuerpo con la capacidad de generar nuevos tipos de cÈlulas. Se dividen mediante un proceso de mitosis, dando lugar a una divisiÛn asimÈtrica, en el sentido que el resultado son dos cÈlulas hijas distintas. Una de las cÈlulas resultantes ser· una cÈlula con las mismas propiedades que la cÈlula de la que procede (de esta manera, la cÈlula madre se autorrenueva) y la otra es la que adquiere esta capacidad de diferenciarse en otra cÈlula especÌfica 2.
+
+Existen diferentes tipos de cÈlulas madre, que se clasifican seg˙n su potencial de diferenciaciÛn:
+
+CÈlulas madre omnipotentes: Son las madres de todas las cÈlulas madre y se encuentran solo en la mÛrula, que es el conjunto de cÈlulas que se da tras la uniÛn del gameto sexual masculino y femenino 2.
+
+CÈlulas madre pluripotentes: Son aquellas que tienen el potencial de diferenciarse en pr·cticamente cualquier tipo de cÈlula especializada del organismo. Las embrionarias son un ejemplo de cÈlulas madre pluripotentes 2.
+
+CÈlulas madre oligopotentes: Son aquellas que pueden diferenciarse en muy pocos tipos de cÈlulas. Un ejemplo son las cÈlulas madre linfoides, que se convierten primero en linfoblastos y, despuÈs, en uno de los tres tipos de glÛbulos principales: linfocitos B, linfocitos T y cÈlulas Natural Killer 2.
+
+CÈlulas madre unipotentes: Son aquellas que pueden diferenciarse solo en un tipo de cÈlula concreto. Un ejemplo son las cÈlulas madre musculares, que solo pueden diferenciarse en nuevas cÈlulas que constituir·n los m˙sculos 2.
+
+CÈlulas madre adultas: Son aquellas que no se encuentran en el embriÛn, sino en el individuo adulto. Su capacidad de diversificaciÛn es m·s limitada ya que no necesitamos fabricar tantos tipos de cÈlulas distintas. Aun asÌ, siguen encontr·ndose en determinados tejidos del cuerpo, siendo la mÈdula Ûsea el lugar m·s cÈlebre de todos 2.
+
+CÈlulas madre perinatales: Son aquellas presentes en el lÌquido amniÛtico y en el cordÛn umbilical. Al parecer, estas cÈlulas madre de m·s reciente descubrimiento, tambiÈn podrÌan diferenciarse en distintos tipos de cÈlulas especializadas 2.
+
+
+\section{Modelo Del Aut\'omata Celular}
+hay que hablar del metodo de tiling no periodico de Wang
+
+Nuestro espacio regular esta compuesto por celulas normales, celulas cancerigenas y vasos sanguineos
+
+
+\subsection{Espacio Regular}
+\subsubsection{Vasos Sanguineos}
+Los vasos sangu√≠neos son esenciales para el funcionamiento del cuerpo humano y cualquier alteracion en su estructura o funcion puede tener consecuencias graves para la salud. Es una estructura hueca y tubular que forma parte del aparato circulatorio y conduce la sangre impulsada por la acci√≥n del coraz√≥n. 
+Los vasos sangu√≠neos juegan un papel crucial en el cerebro, proporcionando ox√≠geno, nutrientes y eliminando los desechos metab√≥licos. El cerebro tiene un suministro de sangre privilegiado establecido por la barrera hematoencefalica, que protege y a√≠sla el sistema nervioso central
+Un \'arbol binario es una estructura de datos eficaz debido a su naturaleza jer\'arquica y su capacidad para representar relaciones de "uno a muchos". Esta estructura de datos relaciona informaci\'on de manera no lineal, y es binaria porque \'unicamente se desprenden dos ramas 2.\\
+Los \'arboles binarios son f\'aciles de recorrer y ofrecen varias formas de recorrido (inorden, preorden, postorden) que pueden ser \'utiles para analizar y entender la estructura del vaso sangu\'ineo. Adem\'as, son una estructura de datos eficiente en t\'erminos de memoria y tiempo de procesamiento, lo que los hace adecuados para representar estructuras de datos grandes y complejas.
+Para representar matem\'aticamente los vasos sangu\'ineos al inicio de la simulaci\'on, se establece un \'arbol binario aleatorio en el espacio regular del aut\'omata, que proporciona una estructura tridimensional que simula esta red en el cerebro. \\
+Esta red se asemeja a la vasculatura preexistente en el tejido hu\'esped. Las sustancias qu\'imicas que la componen incluyen ox\'igeno, factor de crecimiento endotelial vascular, matriz extracelular y enzimas de degradaci\'on de la matriz. Estas se calculan en funci\'on del entorno hemodin\'amico que se obtiene mediante el modelado acoplado del flujo sangu\'ineo intravascular con el flujo de l\'iquido intersticial.\\
+Los cambios hemodin\'amicos, que incluyen el di\'ametro y la permeabilidad de los vasos, se introducen para simular una serie de caracter\'isticas patol\'ogicas de los vasos tumorales anormales. Estas caracter\'isticas incluyen la dilataci\'on de los vasos, la fuga, la angiog\'enesis, la regresi\'on y el colapso.\\
+Para el an\'alisis topol\'ogico, las ramas de los vasos se clasifican seg\'un el sistema de Strahler ampliamente utilizado para describir el orden de las corrientes. El di\'ametro de los vasos se determina de acuerdo con este orden. En este sistema, se asigna el orden 1 a los segmentos de hojas. En nuestro modelo, se presentan tres \'ordenes para ilustrar una arquitectura de \'arbol de un patr\'on de ramificaci\'on arteriolar. El tronco principal de los \'arboles, con un orden 3, crece aproximadamente en direcci\'on vertical desde el plano x = 100 a x = 0, y tiene el mayor valor de di\'ametro de vaso. Los valores medios de di\'ametro y longitud capilar de diferentes \'ordenes del \'arbol vascular se presentan en la tabla 1.[articulo donde esta]
+
+\begin{definition}
+La funcion $d_E(p,q)$, que recibe dos posiciones ${p, q} \in E^3$, se corresponde con la distancia euclidiana entre los dos puntos del espacio que ocupan dichos posiciones y se determina como
+\begin{center}
+$d_E(p, q) = \sqrt[2]{(p_x - q_x)^2 + (p_y - q_y)^2}$.
+\end{center}
+\end{definition}
+
+\begin{definition}
+Sea $n_1, n_2$ nodos de un arbol binario. Se define segmento de vasos sanguineos si se cumple que $n_1$ es padre de $n_2$ o $n_2$ padre de $n_1$
+\begin{center}
+ECUACION DE SEGMENTO 
+\end{center}
+\end{definition}
+
+\begin{definition}
+La funcion $D_s(S_v(n_1,n_2), o)$ devuelve el valor del diametro medio correspondiente con el orden de Strahler
+\begin{center}
+$D_s(V_s(n_1,n_2),o)=
+\displaystyle \left\{
+\begin{array}{lclcl}
+8 & si & o=1 \\
+12 & si & o=2\\
+16 & si & o=3\\
+\end{array}
+\right.$
+\end{center}
+\end{definition}
+
+\begin{definition}
+La funcion $L_s(S_v(n_1,n_2), o)$ devuelve el tama\~n medio correspondiente con el orden de Strahler
+\begin{center}
+$L_s(V_s(n_1,n_2),o)=
+\displaystyle \left\{
+\begin{array}{lclcl}
+80 & si & o=1 \\
+200 & si & o=2\\
+320 & si & o=3\\
+\end{array}
+\right.$
+\end{center}
+\end{definition}
+
+\begin{definition}
+La funcion $P_c(S_v(n_1,n_2), o)$ devuelve el valor de la presion de colpaso media correspondiente con el orden de Strahler
+\begin{center}
+$P_c(V_s(n_1,n_2),o)=
+\displaystyle \left\{
+\begin{array}{lclcl}
+1.0 & si & o=1 \\
+1.5 & si & o=2\\
+2.0 & si & o=3\\
+\end{array}
+\right.$
+\end{center}
+\end{definition}
+
+\includegraphics[scale=0.6]{img/Strahler_order.jpg}\\[0.5cm]
+
+\subsubsection{Ubicaci\'on de las c\'elulas}
+\subsubsection{Tiling no periodico de Wang con distribucion de Poisson}
+El tiling no peri\'odico de Wang con distribuci\'on de disco Poisson es un m\'etodo para generar una disposici\'on de puntos en un espacio 3D que no es repetitiva y que sigue una distribuci\'on espec\'ifica.\\
+Los tiles de Wang, tambi\'en conocidos como domin\'os de Wang, son una clase de sistemas formales que se modelan visualmente como tiles cuadrados con un color en cada lado. Un conjunto de estos tiles se selecciona y se organizan uno al lado del otro con colores coincidentes, sin rotarlos ni reflejarlos. La pregunta b\'asica sobre un conjunto de tiles de Wang es si puede cubrir el plano o no, es decir, si se puede llenar un plano entero de esta manera. La siguiente pregunta es si esto se puede hacer en un patr\'on peri√≥dico 2.\\
+Para el tiling no periodico de Wang, se combina el resultado de la indecidibilidad de Berger con la observaci\'on de Wang para mostrar que debe existir un conjunto finito de tiles de Wang que cubran el plano, pero solo de manera aperiodica. Esto es similar a un tiling de Penrose, o la disposici\'on de \'atomos en un quasicristal 2.
+La distribuci\'on de disco Poisson es una forma de distribuci\'on de puntos que garantiza que no haya puntos m\'as cercanos entre s\'i que un cierto radio m\'inimo. Esta distribuci\'on es \'util para generar puntos aleatorios en una cuadr\'icula de manera uniforme.\\
+Por lo tanto, el tiling no periodico de Wang con distribuci\'on de disco Poisson implica generar una disposici\'on de puntos en un espacio 3D que no es repetitiva y que sigue una distribuci\'on de disco Poisson. Esto se logra generando puntos uno a la vez y verificando si cada nuevo punto est\'a a una distancia m\'inima de todos los puntos existentes antes de a\~nadirlo a la lista de puntos. Si el nuevo punto est\'a demasiado cerca de un punto existente, se genera un nuevo punto hasta que se encuentra uno que est\'e a una distancia m\'inima de todos los puntos existentes 3.
+
+\begin{definition}
+La funcion $d_E(p,q)$, que recibe dos posiciones ${p, q} \in E^3$, se corresponde con la distancia euclidiana entre los dos puntos del espacio que ocupan dichos posiciones y se determina como
+\begin{center}
+$d_E(p, q) = (p_x - q_x)^2 + (p_y - q_y)^2$.
+\end{center}
+\end{definition}
+
+\begin{definition}
+Un punto que pertenece al conjunto de puntos que cumplen con el tiling no periodoco 
+Un punto aleatorio con distribucion de disco de Poisso cumple
+\begin{center}
+$d_E(p, q) = (p_x - q_x)^2 + (p_y - q_y)^2$.
+\end{center}
+\end{definition}
+
+\subsubsection{Implementaci\'on Del Tiling no periodico}
+
+
+\begin{algorithm}[!ht]
+\caption{GeneratePoissonDiskPoints}
+\SetNlSty{textbf}{}{:}
+\KwData{$amount$}
+\KwResult{$pointDiskPoints$}
+$pointDiskPoints = \lbrace \rbrace$\;
+
+\For{$i=0,1,\ldots,amount-1$}{
+point = GenerateRandomPoint(radius, width, weight, depth)\;
+
+\While{IsTooClose(point, pointDiskPoint)} {
+point = GenerateRandomPoint(radius, width, weight, depth)\;
+}
+poissonDiskPoints.Add(point)\;
+}
+\Return $poissonDiskPoints$\;
+\end{algorithm}
+
+Datos de entrada: La cantidad de posiciones a generar. \\
+L\'inea 1: Declaraci\'on e inicializaci\'on de la lista de posiciones aleatorias. 
+L\'ineas 2-6: Se ejecuta un bucle for desde 0 hasta la cantidad de posiciones a generar. En cada iteraci\'on, se genera un punto aleatorio utilizando el m\'etodo GenerateRandomPoint (l\'inea 3). \\
+Luego, se verifica que el nuevo punto no est\'e demasiado cerca de los puntos ya generados. Si el nuevo punto est\'a demasiado cerca, se genera otro punto aleatorio hasta que se cumpla la condici\'on (l\'ineas 4-5). \\
+Si se cumple la condici\'on, se a\~nade el punto a la lista de puntos (l\'inea 6). 
+L\'inea 7: Retorno de la lista de posiciones.\\
+
+\begin{algorithm}[!ht]
+\caption{GenerateRandomPoint}
+\SetNlSty{textbf}{}{:}
+\KwData{$radius, width, height, depth$}
+\KwResult{$Pos$}
+$x = random.Next(0, height/2) * radius * 2 - radius$\;
+$y = random.Next(0, width/2) * radius * 2 - radius$\;
+$z = random.Next(0, depth/2) * radius * 2 - radius$\;
+\Return $Pos(x,y,z)$
+\end{algorithm}
+Datos de entrada: radius: el radio de distancia, width: limite del eje de las x, height: limite del eje de las y, depth: limite del eje de las z.
+L\'ineas (1-3): Se genera un n\'umero aleatorio por cada eje entre 0 y el limite del eje correspondiente entre 2 * el radio de distancia * 2 menos el radio.
+L\'inea (4): Retorna la nueva posicion.
+
+\begin{algorithm}[!ht]
+\caption{IsTooClose}
+\SetNlSty{textbf}{}{:}
+\KwData{$point, points$}
+\KwResult{$bool$}
+\For{Pos pos in points}{
+$distance = EuclideanDistance(point, pos)$\;
+\If{$distance < radius$}{
+\Return true\;
+}
+}
+\Return false\;
+\end{algorithm}
+Datos de entrada: point: es el punto generado, points: lista de puntos generados hasta el momento.
+Lineas(1-4): Se realiza un blucle for por cada punto de la lista de posiciones generadas. Luego se halla la distancia euclidiana entre el punto actual en el ciclo y el punto de entrada(l\'inea 2). Se comprueba si la distancia obtenida es menor que el radio, si se cumple se retorna true(linea 4), es decir el punto se encontra demasiado cerca de otro punto que ya existe.
+Linea (5): Si el nuevo punto no se encuentra a menos de un radio de distancia de las posiciones existentes, se retorna false.
+
+Este algoritmo se realiza por cada tipo de celula normal. Los tipos de celula normal son : celula astrocito, celula neuronal y celula madre.
+Para determinar la cantidad de celdas normales que se deben generar en un tablero tridimensional, se considera el porcentaje de celdas que se desean seleccionar del total de celdas que existen en el tablero. Esto se realiza multiplicando el total de celdas por el n√∫mero que representa el porcentaje deseado. El resultado obtenido se divide entre 3, ya que representa la cantidad de tipos de celdas normales que existen.
+
+
+%Aplicaci\'on del algoritmo de tiling no peri\'odico de Wang: Este algoritmo es una t\'ecnica de generaci\'on de patrones que se utiliza para distribuir las c\'elulas en el espacio regular del aut\'omata. Este algoritmo es no peri\'odico, lo que significa que no se repite en un patr\'on fijo, lo que permite una mayor variedad en la distribuci\'on de las c\'elulas.
+
+
+%Distribuci\'on de Poisson: La distribuci\'on de Poisson se utiliza para determinar la cantidad de cada tipo de c\'elula que se ubicar\'a en el aut\'omata. Esta distribuci\'on permite una variabilidad en la cantidad de c\'elulas, lo que ayuda a simular la variabilidad que se encuentra en los tejidos cerebrales reales.
+%Ubicaci\'on de las c\'elulas: Con el \'arbol binario y el algoritmo de tiling ya establecidos, se ubican las c\'elulas astroc\'iticas, c\'elulas neuronales, c\'elulas madre y una c\'elula tumoral en el espacio regular del aut\'omata. La cantidad de cada tipo de c\'elula se determina utilizando la distribuci\'on de Poisson.\\
+
+\subsection{Matriz Extracelular}
+ESTE TEXTO HABRA QUE MODIFICARLO\\
+La matriz extracelular (MEC) es una red tridimensional que abarca todos los organos, tejidos y celulas del organismo. Esta matriz cumple una funcion de filtro biofa≠sico, proporcionando proteccion, nutricion e inervacion celular, y sirve como sustrato para la respuesta inmune, angiogenesis, fibrosis y regeneracion tisular. Ademas, la MEC actua como un canal para la transmisi√≥n de fuerzas mec√°nicas a la membrana basal, que a traves de las integrinas soporta el sistema de tensegridad y activa los mecanismos epigeneticos celulares.
+
+Cuando se altera la MEC, se pierde su funcion de filtro eficaz, nutrici√≥n, eliminacion, denervacion celular, y se pierde la capacidad de regeneracion y cicatrizaci√≥n. Tambi√©n se altera la transmision mec√°nica o mecanotransducci√≥n. Adem√°s, se pierde el sustrato para una correcta respuesta inmune ante agentes infecciosos, tumorales y toxicos.
+
+En nuestro automata celular, la matriz extracelular (MEC) es simulada a trav√©s de ecuaciones que describen su comportamiento y din√°mica. En un modelo de este tipo, la MEC puede ser visualizada como una red tridimensional de elementos de tensi√≥n y deformaci√≥n, los cuales pueden ser modelados utilizando ecuaciones de elasticidad y deformacion.
+
+Estas ecuaciones representan c√≥mo la MEC responde a las fuerzas mec√°nicas aplicadas. Los elementos de la MEC pueden estar conectados entre s√≠ a traves de nodos, los cuales representan los sitios de uni√≥n entre las c√©lulas y la MEC. Los nodos pueden estar conectados a las c√©lulas a trav√©s de interacciones de fuerza que representan las fuerzas de adhesi√≥n y de tensi√≥n en la MEC.
+
+Adem√°s, la MEC act√∫a como un canal para la transmisi√≥n de fuerzas mec√°nicas a la membrana basal, la cual a trav√©s de las integrinas soporta el sistema de tensegridad y activa los mecanismos epigen√©ticos celulares. Esto puede ser representado en el automata celular a trav√©s de ecuaciones que describen la transmisi√≥n de fuerzas mec√°nicas a trav√©s de las integrinas y c√≥mo esto afecta a las c√©lulas.
+
+Para describir el microambiente tumoral, introducimos una densidad de matriz extracelular E, que representa la concentraci√≥n de macromol√©culas de la matriz extracelular no difusibles, como fibronectina, col√°geno, elastina y laminina, entre otras. Adem√°s, como se indic√≥ previamente, rastreamos la densidad E0 de la matriz extracelular original y la densidad B0 de los vasos sangu√≠neos preexistentes para evaluar el nivel de absorci√≥n y suministro de ox√≠geno en el microambiente.
+
+En nuestro automata la matrix celular se representa a traves de su densidad, a traves de la siguiente definicion:
+\begin{definition}
+La ecuacion que describe las interaciones entre las celulas tumorales y las celulas endoteliales en la densidad de la matriz extracelular es:
+\begin{center}
+$\frac{dC_m(c,t)}{dt}= - \delta C_m(c,t) C_f(c,t)$
+\end{center}
+\end{definition}
+
+\subsection{Degradacion de la matriz}
+ESTO HAY QUE MODIFICARLO TAMBIEN
+Las c√©lulas tumorales utilizan enzimas proteolo≠ticas para degradar la matriz extracelular (MEC) y permitir su migracion a traves del tejido huesped. Entre estas enzimas se encuentran las metaloproteasas de matriz y los activadores del plasmin√≥geno, como la uroquinasa, que degradan la MEC, proporcionando espacio para las c√©lulas y mejorando la union de las c√©lulas a las macromoleculas de la MEC. Esto permite a las celulas ejercer fuerzas de traccion para moverse a traves de la MEC. Adem√°s, las celulas tumorales remodelan la MEC secretando macromoleculas de matriz insolubles y posiblemente reorientandolas.
+
+Durante la respuesta angiog√©nica de la vasculatura del huesped, se produce una cascada molecular similar cuando los factores de angiogenesis tumoral (TAF) y las macromoleculas de la ECM (como la fibronectina, el colageno y la laminina) se unen a receptores de membrana especificos en las celulas endoteliales y activan la maquinaria migratoria de las c√©lulas. Esto conduce a una remodelacion de la ECM similar a la descrita anteriormente para las c√©lulas tumorales. No consideraremos el efecto de la remodelacion orientativa en este modelo.
+
+Para el degrado de la MEC, asumimos que M es la concentraci√≥n de MDE adimensional, D M =DÃÑ M es el coeficiente de difusi√≥n (se supone constante), Œª¬ØMETROpinchar.y Œª¬ØMETROprimavera pinchar.son las tasas adimensionales de producci√≥n de MDE por parte de las c√©lulas tumorales viables ( Œ© V = Œ© P ‚à™ Œ© H ) y las c√©lulas endoteliales de la punta del brote, respectivamente. M√°s, Œª¬ØMETROdecadenciaes la tasa de decadencia (se supone que el MDE no se agota como resultado de la interacci√≥n con el ECM). Finalmente, 1 puntas de brotes es la funci√≥n caracter√≠stica de las puntas de brotes. En particular, 1 puntas de brotes son las funciones caracter√≠sticas de las puntas de brotes 
+
+El tumor interact√∫a con el microambiente en respuesta a los nutrientes suministrados por la vasculatura preexistente y la neovasculatura, como se ilustra en la ecuaci√≥n 1. Este proceso implica la remodelaci√≥n de la matriz extracelular (ECM) localmente a trav√©s de la secreci√≥n de macromol√©culas tanto de matriz de degrado (MDE) como de ECM y una respuesta heterog√©nea a la presi√≥n y los gradientes de adhesi√≥n de la ECM. Para que las c√©lulas tumorales se muevan a trav√©s de la matriz porosa, deben superar la adhesi√≥n de la matriz celular. Sin embargo, en los experimentos, se observa que la velocidad de migraci√≥n m√°xima depende del nivel de expresi√≥n de las integrinas y, por lo tanto, se predice una dependencia no mon√≥tona de la velocidad de migraci√≥n celular sobre la expresi√≥n de integrinas y los gradientes de adhesi√≥n en la ECM. Aunque no modelamos la expresi√≥n de integrinas directamente, consideramos este efecto haciendo que el coeficiente de haptotaxis sea una funci√≥n no mon√≥tona de E.
+
+COPIA Y PEGA\\
+A medida que se desacelera el crecimiento del tumor, la degradaci√≥n de la ECM se vuelve m√°s pronunciada. En realidad, esto provoca una competencia entre dos efectos: el movimiento inducido por la presi√≥n, que se vuelve m√°s efectivo ya que la movilidad aumenta cuando la ECM disminuye, y la haptotaxis que tiende a inhibir el crecimiento del tumor hacia la ECM menos densa fuera del tumor (recuerde que la haptotaxis induce movimiento ascendente en gradientes de ECM). Adem√°s, el MDE tambi√©n degrada los vasos preexistentes, lo que da como resultado una reducci√≥n en el suministro de ox√≠geno. Como resultado de la haptotaxis y la reducci√≥n del suministro de ox√≠geno, el tumor en realidad se contrae ligeramente despu√©s de alcanzar un radio m√°ximo de aproximadamente 0,64 mm, verFig. 3.
+
+\begin{definition}
+La ecuacion que describe las interaciones entre las celulas tumorales y las celulas endoteliales en la degradacion de la matriz es:
+\begin{center}
+$\frac{dC_m(c,t)}{dt}=D_m\nabla^2C_m+\mu_T TC(c,t) + \mu_E EC(c,t) - \lambda C_m $
+\end{center}
+donde $C_f$ son concentracion de MDE. Los terminos $TC(c,t)$ y $EC(c,t)$ representan una celula tumoral y una celula endotelial ubicada en una posicion de nodo $(i,j,k)$. Sus valores son 1 si una celda esta presente o 0 si no lo esta. $D_m$ es el coeficiente de difusion MDE y $\delta$, $\mu_T$, $\mu_E$
+\end{definition}
+
+\subsubsection{Operador de Laplace}
+
+\subsection{Difusion de nutrientes}
+Durante la fase prevascular de la carcinog√©nesis, el tumor a√∫n no ha desarrollado su propia vasculatura, por lo que los nutrientes deben ser transportados desde los vasos sangu√≠neos circundantes hasta el tumor. Los productos de desecho metab√≥licos de las c√©lulas cancerosas tambi√©n se difunden en el tejido y son eliminados cuando llegan a un vaso sangu√≠neo. El metabolismo de las c√©lulas cancerosas incluye una variedad de sustancias qu√≠micas necesarias para el mantenimiento y la divisi√≥n celular, pero se sabe que las concentraciones de ox√≠geno y glucosa limitan el crecimiento del tumor. Por lo tanto, en el modelo, incorporaremos estos dos campos, as√≠ como un campo para la concentraci√≥n de iones de hidr√≥geno. Una simplificaci√≥n adicional de los campos qu√≠micos es que no consideramos la descomposici√≥n de los nutrientes e incluimos la producci√≥n de ox√≠geno y glucosa en las condiciones de contorno aplicando condiciones de contorno de Dirichlet con funciones constantes. Estas condiciones l√≠mite pretenden imitar una situaci√≥n en la que el tejido est√° rodeado de vasos sangu√≠neos, con concentraciones constantes de nutrientes e iones de hidr√≥geno, que suministran nutrientes al tumor y eliminan los iones de hidr√≥geno del tejido. Esto da a las ecuaciones que describen los campos una forma simple, similar a las de los modelos de Patel et al. (2001) y Ferreira et al. (2002). La evoluci√≥n temporal de los campos de ox√≠geno (2), glucosa (3) e iones de hidr√≥geno (4) se rige por el siguiente conjunto de ecuaciones diferenciales parciales.\\
+CAMBIAR EL SIGUIENTE TEXTO QUE ES COPIA Y PEGA\\
+Como se describi√≥ anteriormente, las transiciones entre diferentes fenotipos (p. ej., c√©lulas tumorales proliferativas, hip√≥xicas y necr√≥ticas, y c√©lulas endoteliales de punta, tallo y falange) dependen de las concentraciones de nutrientes y VEGF disponibles en el microambiente, œÉ y [VEGF], respectivamente. La dispersi√≥n de estas dos concentraciones se modela a escala de tejido, ya que se consideran campos heterog√©neos que pueden difundirse libremente por todo el dominio. 
+
+\subsubsection{Concentracion de Oxigeno}
+El ox√≠geno presente en el entorno microsc√≥pico del tumor es suministrado a trav√©s de los vasos sangu√≠neos preexistentes. Esto ocurre en un contexto donde se desarrolla un tumor en un tejido que est√° rodeado por vasos sangu√≠neos. Para rastrear los campos de concentraci√≥n de ox√≠geno, cada punto de la cuadr√≠cula tiene la concentraci√≥n de cada campo en ese punto en el espacio. Los campos de concentraci√≥n son gobernados por ecuaciones diferenciales parciales que explican c√≥mo se producen, consumen, degradan y se difunden las sustancias qu√≠micas.
+
+COPIA Y PEGA\\
+El ox√≠geno se difunde solo una distancia corta (aproximadamente 0,2 mm) desde el vaso principal, como se puede observar en la figura. Sin embargo, la vasculatura preexistente (que produce una concentraci√≥n de ox√≠geno de fondo de aproximadamente 0,4) proporciona suficiente ox√≠geno para que el tumor crezca. 
+
+Se consideraron cinco materiales en el ambiente (OxÌgeno, Glucosa, TGF?, VEGF y TNF?). La concentraciÛn (C) de cada material se identifica dentro de cada uno de los puntos de la cuadrÌcula ambiental. El medio ambiente difunde el material mediante la ecuaciÛn de difusiÛn de PDE en funciÛn de su fuente (S), absorciÛn (U) y desperdicio (W). En este modelo, la funciÛn de las cÈlulas endoteliales es la producciÛn de oxÌgeno, glucosa (que es consumida por las cÈlulas cancerosas/sanas) y el consumo (o absorciÛn) de VEGF. La funciÛn de las cÈlulas cancerosas/sanas es la producciÛn de VEGF (que es consumido por las cÈlulas endoteliales), TGF? y TNF? (que se consume a escala mesoscÛpica seg˙n las ecuaciones del ApÈndice S1 y el ApÈndice S2 ).
+
+\begin{definition}
+Se define la funcion $S_{oxy}(c,t)$ como la fuente de oxygeno y satisface la siguiente ecuacion:
+\begin{center}
+$S_{oxy}(c,t)=
+\displaystyle \left\{
+\begin{array}{lclcl}
+2\pi * R(c,t) * Pe_{oxy}*(\rho_{oxy}(c,t)-C_{oxy}(c,t)\\
+\end{array}
+\right.$
+\end{center}
+\end{definition}
+
+\begin{definition}
+Se define la funcion $R(c,t)$ como el valor del radio del vaso y cumple:
+\begin{center}
+$R(c,t)=
+\displaystyle \left\{
+\begin{array}{lclcl}
+r_{cap} & si & el & capilar  pasa  a  traves  de  la  celula  c\\\
+0 & si & no & pasa  nigun  vaso  a  traves  de  la  celula  c\\
+\end{array}
+\right.$
+\end{center}
+\end{definition}
+
+\begin{definition}
+Se define la funcion $\rho_{oxy}(c,t)$ como el valor del radio del vaso y cumple:
+\begin{center}
+$\rho_{oxy}(c,t)=
+\displaystyle \left\{
+\begin{array}{lclcl}
+c_{oxy}^{cap} & si & el & capilar\_pasa  a  traves  de  la  celula  c\\
+0 & si & no & pasa  nigun  vaso  a  traves  de  la  celula  c\\
+\end{array}
+\right.$
+\end{center}
+\end{definition}
+
+\begin{definition}
+Se define la funcion $U_{oxy}(c,t)$ como la absorcion de oxygeno de las celulas del automata y satisface la siguiente ecuacion:
+\begin{center}
+$U_{oxy}(c,t)=
+\displaystyle \left\{
+\begin{array}{lclcl}
+\zeta_{oxy}(c,t) * C_{oxy}(c,t)\\
+\end{array}
+\right.$
+\end{center}
+\end{definition}
+
+\begin{definition}
+Se define la funcion $\zeta_{oxy}(c,t)$ como la absorcion de oxygeno de cada tipo de celula del automata y satisface la siguiente ecuacion:
+\begin{center}
+$\zeta_{oxy}(c,t)=
+\displaystyle \left\{
+\begin{array}{lclcl}
+\beta & si & s(c,t)=4 \\
+\\
+\frac{\beta}{2} & si & s(c,t)=7\\
+\\
+\frac{\beta}{6} & si & s(c,t)=5\\
+\\
+\frac{\beta}{8} & si & s(c,t)=6\\
+\\
+\alpha_n & si & s(c,t)=0 \vee  s(c,t)=1 \vee  s(c,t)=2\\
+\\
+0 & si & s(c,t)=11\\
+\end{array}
+\right.$
+\end{center}
+\end{definition}
+
+\begin{definition}
+Se define la funcion $\Delta C_{oxy}(c,t)$ que satisface la siguiente ecuacion:
+\begin{center}
+$\Delta C_{oxy}(c,t)=
+\displaystyle \left\{
+\begin{array}{lclcl}
+(\sum\limits_{\forall c'\in N(c)}^{26} C_{oxy}(c',t)) - 26 * C_{oxy}(c,t)\\
+\end{array}
+\right.$
+\end{center}
+\end{definition}
+
+
+\begin{definition}
+Teniendo en cuenta las definiciones anteriores se describe la ecuacion de concentracion de oxigeno $C_{oxy}(c,t)$ en la siguiente expresion:
+\begin{center}
+$C_{oxy}(c,t+1) = C_{oxy}(c,t) + \frac{D_{oxy} * \Delta t}{\Delta S^2}(\Delta C_{oxy}(c,t))-U_{oxy}(c,t)+S_{oxy}(c,t)$
+\end{center}
+donde $D_{oxy}$ es el coeficiente de difusion de oxygeno; $\Delta t$ el tiempo y $\Delta S$ el tamanno del espacio regular.
+\end{definition}
+
+
+
+
+\subsection{Funci\'on de Vecindad}
+La funci\'on de vecindad en un aut√≥mata celular define el conjunto de celdas que se consideran adyacentes a una celda dada, as√≠ como su posici√≥n relativa en relaci√≥n con ella. Este concepto es fundamental en la din√°mica de los aut√≥matas celulares, ya que cada celda en un aut√≥mata celular interact√∫a con sus vecinos en cada paso de tiempo para determinar su nuevo estado, es decir:\\
+\begin{definition}
+Sea $N=(n_1,n_2,...,n_m)$ un vector de vecindad $d$-dimensional. Para cualquier $n \in Z_d$ denotamos\\
+\begin{center}
+$N(n)=(n+n_1,n+n_2,...,n+n_m)$,
+\end{center}
+y para cualquier $K\in Z_d$ denotamos\\
+\begin{center}
+$N(K)={n+n_i|n\in K y i =1,2,...,m}$.
+\end{center}
+\end{definition}
+donde $N(n)$ es la secuencia ordenada de los vecinos de la celda n, mientras que $N(K)$ es el conjunto desordenado de vecinos de las celdas en $K$.\\
+Para representar las vecindades a menudo se utilizan las vecindades de Von Neumann y Moore. En nuestro automata utilizaremos la vecindad de Moore.\\
+
+La vecindad de Moore en un aut\'omata celular de tres dimensiones se extiende a las celdas que rodean a una celda central en un enrejado c\'ubico tridimensional. En comparaci\'on con la vecindad de Moore bidimensional, que abarca las ocho celdas que rodean a una celda central en un enrejado cuadrado, la vecindad de Moore en 3d incluye las 26 celdas que rodean a una celda central.\\
+En t\'erminos mas t\'ecnicos, si consideramos a la celda central como \\
+$(x, y, z)$, en la vecindad se incluir\'ia a todas las celdas \\
+$(i, j, k)$ tal que $-1 <= i, j, k<=1 y (i, j, k) \neq (0, 0, 0)$.
+\begin{definition}
+Sea $M_r^3$ todos los
+\begin{center}
+$(k_1,k_2,...,k_d) \in Z^d$ donde $|k_i|<=r$ para todo $i=1,2,..,d$
+\end{center}
+de vecindad de radio-r.
+\end{definition}
+Contiene ${(2r + 1)}^ d $ elementos.
+
+PONER FOTO DE LA VECINDAD DE MOORE
+
+Izquierda: Division Celular - La celula canceri≠gena A esta fi≠sicamente conectada con la celula normal B. En el siguiente instante de tiempo, la celula A se divide, dando lugar a la celula canceri≠gena que toma la posicion de B, desplazandola.
+
+Centro: Migracion - La celula canceri≠gena A adquiere una mutacion que le proporciona movilidad y la capacidad de migrar a traves del tejido circundante, lo que le permite ocupar la posicion de la celula normal B. En el siguiente instante de tiempo, A se mueve de su posicion, migra hacia B y desplaza a esta ultima, ocupando entonces la posicion de A
+
+Derecha: Contaminacion - La celula cancerigena A esta conectda a la celula normal B. En el siguiente instante de tiempo, la celula A contamina a la celula B, dando lugar a que la celula B cambie su comprtamiento y se convierta en una celula tumoral.
+
+\begin{definition}
+El conjunto de celula $L$ se define a partir del conjunto de puntos del espacio tridimensional como se muestra a continuacion:
+\begin{center}
+$L = E^3$
+\end{center}
+\end{definition}
+
+
+
+
+\subsection{Conjunto de Estados}
+El conjunto de estados es una parte fundamental de un aut√≥mata celular, ya que determina la complejidad y la capacidad de generar patrones complejos del mismo. Adem√°s, el conjunto de estados tambi√©n puede influir en la din√°mica del aut√≥mata, ya que las reglas de transici√≥n que determinan c√≥mo cambia el estado de cada c√©lula en cada paso de tiempo pueden depender del conjunto de estados.
+El conjunto de estados se refiere al n√∫mero de posibles estados que puede tener cada c√©lula en el espacio regular. Este conjunto de estados puede ser finito o infinito, y cada estado puede ser representado de diferentes maneras, como n√∫meros, colores o s√≠mbolos.
+Se conoce que el cerebro es el organo mas grande y complejo del cuerpo humano. En este se encuentra diferenten variedades de celulas y estructuras. 
+Las c√©lulas cerebrales son el principal componente del cerebro. Estas c√©lulas, que incluyen neuronas, glia y c√©lulas endocrinas, trabajan juntas para transmitir informaci√≥n a trav√©s de una red de conexiones neuronales. Las neuronas son las c√©lulas que transmiten informaci√≥n a trav√©s de se√±ales el√©ctricas y qu√≠micas, mientras que las c√©lulas de la gl√≠a proporcionan soporte a las neuronas y ayudan a mantener el entorno adecuado para su funcionamiento.
+Adem√°s de las c√©lulas cerebrales, el cerebro tambi√©n contiene vasos sangu√≠neos, que transportan sangre y nutrientes a las c√©lulas cerebrales y recogen los desechos metab√≥licos. Los vasos sangu√≠neos del cerebro son esenciales para la salud cerebral, ya que no solo suministran sangre al cerebro, sino que tambi√©n pueden afectar la funci√≥n cerebral y la salud general.
+Los vasos sanguineos estan compuestos por celulas endoteliales. Las c√©lulas endoteliales son una l√≠nea de defensa clave en nuestro cuerpo. Son las c√©lulas que recubren los vasos sangu√≠neos y proporcionan una barrera f√≠sica entre la sangre y los tejidos circundantes.
+Teniendo en cuenta lo anterior podemos definir que un punto p que pertenece al espacio regular puede tener uno de los siguientes estados en un instante de tiempo t.
+\begin{definition}
+Sea un punto $p \in E^3$ y un instante de tiempo t del automata. Se define entonces la funcion $s(p,t)$ que devuelve el estado del punto p en el instante de tiempo t:\\
+\begin{center}
+$s:E^3 x N -> Epsilon$,\\
+$s(p,t)=e_i$
+\end{center}
+donde $e_i$ es una estado cualquiera del conjunto de estados Epsilon, es decir, $e_i \in Epsilon,$ para todo $i\in {0,...,|Epsilon|}$
+\end{definition}
+
+\begin{itemize}
+\item $s(p, t)= 0$ : El punto p representa una c\'elula madre en la matrix extracelular en un instante de tiempo t.
+\item $s(p, t)= 1$ : El punto p representan una c\'elula astrocito en la matrix extracelular en un instante de tiempo t.
+\item $s(p, t)= 2$ : El punto p representa una c\'elula neuronal en la matrix extracelular en un instante de tiempo t.
+
+\item $s(p, t)= 3$ : El punto p representa una c\'elula tumoral madre en la matrix extracelular en un instante de tiempo t.
+\item $s(p, t)= 4$ : El punto p representa una c\'elula tumoral proliferativa en la matrix extracelular en un instante de tiempo t.
+\item $s(p, t)= 5$ : El punto p representa una c\'elula tumoral inactiva en la matrix extracelular en un instante de tiempo t.
+\item $s(p, t)= 6$ : El punto p representa una c\'elula tumoral necr\'otica en la matrix extracelular en un instante de tiempo t.
+\item $s(p, t)= 7$ : El punto p representa una c\'elula tumoral migratoria en la matrix extracelular en un instante de tiempo t.
+
+\item $s(p, t)= 8$ : El punto p representa una c\'elula endotelial en la matrix extracelular en un instante de tiempo t.
+\item $s(p, t)= 9$ : El punto p representa un vaso sangu\'ineo en un instante de tiempo t.
+\item $s(p, t)= 10$ : El punto p representa un vaso sangu\'ineo tumoral en un instante de tiempo t.
+\item $s(p,t) = 11$ : El punto p representa una celda vacia en la matrix extracelular en un instante de tiempo t.
+
+\end{itemize}
+
+\subsection{Funci\'on de Transici\'on}
+La funci\'on de transici\'on en un aut√ß√≥mata celular es una regla que determina c\'omo cambia el estado de una c\'elula en funci\'on del estado de sus vecinos en el paso de tiempo siguiente. Esta funci\'on es esencial para el funcionamiento de un aut\'omata celular, ya que define la l\'ogica y las reglas que rigen c\'omo evoluciona el sistema a lo largo del tiempo 2.
+En un aut\'omata celular, cada c\'elula en la cuadr\'icula tiene un estado asignado en un paso de tiempo dado. En el paso de tiempo siguiente, la funci\'on de transici\'on se aplica a cada c\'elula y a sus vecinos para determinar el nuevo estado de la c\'elula. La funci\'on de transici\'on toma como argumentos los valores de la c\'elula en cuesti\'on y los valores de sus vecinos, y regresa el nuevo valor que la c\'elula tendr\'a en la siguiente etapa de tiempo 2.
+Por ejemplo, en el famoso aut\'omata celular conocido como "Juego de la Vida", la funci\'on de transici\'on para una c\'elula viva es la siguiente: si tiene menos de dos vecinos vivos, o m\'as de tres vecinos vivos, la c\'elula muere. Si tiene exactamente tres vecinos vivos, la c\'elula se convierte en viva. Esta funci\'on de transici\'on es aplicada a cada c\'elula en la cuadr\'icula en cada paso de tiempo, lo que resulta en un patr\'on de c\'elulas vivas y muertas que evoluciona a lo largo del tiempo.
+En un aut√≥mata celular, la configuraci√≥n global y la configuraci√≥n local son dos conceptos que se utilizan para describir el estado del sistema en un momento dado.
+
+\begin{definition}
+Una configuracion global del automata S(n) es un vector que contiene los valores de estado de todas las celulas del conjunto de puntos en el espacio P en el instante de tiempo t:\\
+$S(t) = (s(v_1,t), s(v_2,t), ..., s(v_{|P|}, t)),$
+$S(n) = (s(v_i, t)_{v_i \in P})$
+\end{definition}
+
+\begin{definition}
+Sea $d$ un entero positivo. Un espacio celular $d$-dimensional se llama $Z_d$. Los elementos de $Z_d$ son celulas. Sea $S$ un conjunto de estados finito. Los elementos de $S$ se llaman estados. Una configuracion de un automata celular $d$-dimensional con un conjunto de estados $S$ es una funcion:\\
+$c:Z_d -> S$
+que asigna un estado a cada celda. El estado de la celdad $n \in Z_d$ es $c(n)$.
+\end{definition}
+El conjunto de todas las configuraciones es $S_{Z_d}$
+
+\begin{definition}
+Un vector de vecindad $d$-dimensional(de tama\~no m) es una tupla:
+$N=(n_1, n_2, ..., n_m)$
+donde cada $n \in Z_d$ y $n_i \neq n_j$ para todo $i\neq j$. Los elementos $n_i$ especifican las ubicaciones reltivas de los vecinos de cada celda: La celda $n \in Z_d$ tiene m vecinos $n + n_i$ para $i=1,2,..., m$.
+\end{definition}
+
+\begin{definition}
+La regla de actualizacion local de un AC don el conjunto de estados S y el tama\~no m de vecindad es una funcion:\\
+$f: S_m -> S$
+que especifica el nuevo estadod de cada celda en funcion de los estados antiguos de sus vecinos. Si los vecinos de una celda tienen los estados $s_1, s_2, ..., s_m$ entonces el nuevo estado de la celda es $f(s_1, s_2, ..., s_m)$
+\end{definition}
+En los automata celulares, todas las celulas utilizan la misma regla y la regla se aplica en todas las celulas simultaneamente. Esto provoca un cambio global en la configuracion: La configuracion c es cambiadaa por la configuracion c' para todo $n \in Z_d$\\
+$c'(n) = f[c(n+ n_1), c(n + n_2), ..., c(n + n_m)]$
+\begin{definition}
+Funcion de transicion global: La transformacion de $c-> c'$ es una funcion:\\
+$G: S_{Z_d} -> S_{Z_d}$
+La funcion $G$ es el principal objeto de estudio. 
+\end{definition}
+
+Normalmente, la funcion $G$ se itera, es decir, se aplica repetidamente, lo que produce una evolucion en el tiempo\\
+$c -> G(c) -> G^2(c) -> G^3(c) ->...$
+del sistema.
+c es la configuracion inicial de la evolucion, y la sequencia \\
+$orb(c) = c, G(c), G^2(c), G^3(c), ...$
+es la orbita de c
+
+\begin{definition}
+Una configuracion local del automata $S(v,n)$ es un vector que contiene los valores de estado de un subconjunto ordenada de celulas de conjunto del conjunto $V(G)$ en el instante de tiempo n.
+\begin{center}
+$S(v,n) = (s(v,n),s(w_1,n),...,s(w_{|N(v)|,n}))$
+\end{center}
+\end{definition}
+
+\begin{definition}
+La funcion $R(S(c,t))$ que recibe una configuracion local S(v,n) centrada en un vertice fical $v$ en el instante de tiempo t y devuelve el estado del vertice $v$ en el siguiente instante de tiempo $t+1$ se denomina funcion de transicion local.
+\begin{center}
+$R:\varepsilon^{|N| -> \varepsilon}$
+\end{center}
+\begin{center}
+$R(S(v,n))
+\displaystyle \left\{
+\begin{array}{lclcl}
+e_1 & con & probabilidad & p(S(v,n) -> e_1) \\
+e_2 & con & probabilidad & p(S(v,n) -> e_2) \\
+:       ...\\
+.\\
+e_{|\varepsilon|} & con & probabilidad & p(S(v,n) -> e_{|\varepsilon|}) \\
+\end{array}
+\right.$
+\end{center}
+donde $e_i \in E$, $i \in {1,2,...,|\varepsilon|}$, $S(v,n) \in \varepsilon^{|N|}$ y $p(S(v,n) -> e_i)$ es una probabilidad de transicion que expresa la posibilidad de llegar al estado elemental $e_i$ a partir de la configuracion local $S(v,n)$. Esta probabilidad de transicion satisface las siguientes condiciones:
+\begin{center}
+$p:\varepsilon^{|N|}x \varepsilon -> [0,1]$,
+\end{center}
+\end{definition}
+
+\subsection{Reglas de la conservacion de las celulas normales}
+Las reglas iniciales estan vinculadas al comportamiento de las celulas normales dentro del conjunto de estados del automata. Segun la hipotesis V sobre la invariancia de las celulas normales y celulas tumorales necroticas, estas permanecen inalteradas en el tiempo. Esto significa que, a menos que exista la presencia de celulas canceri≠genas en las inmediaciones de alguna celula normal, las celulas normales del automata mantienen el estado inicial asignado al modelo antes de su ejecucion. . Segun la hipotesis IX sobre el proceso de crecimiento se establece que una posicion ocupada por una celula tumoral necrotica permanece ocupada por esta los restantes instantes de tiempo.
+
+****ESTO HAY QUE CAMBIARLO PARA QUE NO SEA IGUAL A LA TESIS DE DARIEN****
+\begin{definition}
+La funcion ${N_{\varepsilon'}}^t(S(p,t))$, que recibe una configuracion local $S(p,t)$ en el instante de tiempo t centrada en una celula p, devuelve la cantidad de celulas presentes en la vecindad de dicha configuracion local cuyos estados esten contenido en el subconjunto de estados $\varepsilon'={e_1,e_2,...,e_{|\varepsilon'|}} subconjunto de E$
+\begin{center}
+${N_{\varepsilon'}}^t(S(p,t))=$ AQUI HAY QUE PONER LA SUMATORIA DE TODOS LOS VECINOS
+\end{center}
+\end{definition}
+
+\begin{definition}
+La funcion $B(s(w,t),e)$ devuelve el valor 1 si la celula w posee el estado e, 0 en caso contrario. Formalmente se define como:
+\begin{center}
+$B(s(w,t),e)=$
+$1 si s(w,t)=e$
+$0$ en caso contrario
+\end{center}
+\end{definition}
+
+\begin{definition}
+Sea la funcion $N(c)$, que recibe una celula c del espacio regular del automata. Esta devuelve la cantidad de vecinos que tiene la celula segun su posicion, es decir:
+\begin{center}
+FUNCION DEL NUMERO DE VECINOS DE UNA CELULA C
+\end{center}
+\end{definition}
+
+En el caso que el conjunto $\varepsilon'$ aparezca en el subindice de la funcion ${N_\varepsilon'}^t(S(p,t))$ representado por un solo estado se asume que $\varepsilon'$ contiene a ese unico estado. Finalmente, la funcion de transicion local se define a continuacion:
+\begin{center}
+AQUI PONER LA FUNCION DE LA TRANSICION LOCAL PARA EL CASO CELULA NORMALES
+\end{center}
+Las reglas iniciales se refieren a la dinamica de las celulas normales y necroticas en el conjunto de estados del automata. Segun la hipotesis V, las celulas normales permanecen inalteradas a lo largo del tiempo, a menos que estan en presencia de celulas canceri≠genas que puedan desplazarlas. En este caso, estas c√©lulas normales mantendran su estado inicial asignado en el momento de la simulacion. Por otro lado, una celula tumoral necrotica mantendra su estado indefinidamente, como se indica en la condicion $s(p, t) = 5$. 
+
+\subsection{Reglas del crecimiento tumoral}
+Las reglas que se describen en esta seccion estan relacionadas con el comportamiento de las celulas canceri≠genas que forman una masa tumoral. Este comportamiento se determina a partir de un conjunto de suposiciones que definen la naturaleza macroscopica del tumor, asi≠ como las interacciones entre las celulas canceri≠genas y las celulas normales del tejido.
+
+De acuerdo con las hipotesis I y II, el desarrollo tumoral se divide en etapas avascular y vascular, cada una de las cuales manifiesta comportamientos caracteri≠sticos relacionados con la expresion de las mutaciones representativas del cancer.
+El crecimiento de un tumor solido se describe en dos fases principales: la fase avascular y la fase vascular.
+
+En la fase avascular, el tumor crece de manera lenta y lineal, sin la capacidad de formar una red vascular propia. Este tipo de tumor es peque√±o y limitado en tama√±o, con un di√°metro que no supera los 1 mm. Durante esta etapa, las c√©lulas tumorales crecen en nodos pequennos y claramente visibles, pero no se conectan con la red vascular del hu√©sped 1.
+
+En contraste, la fase vascular del tumor se caracteriza por la aparicion de una red vascular propia. Este tipo de tumor crece rapidamente despues de la vascularizacion, expandiendose a un tamanno mucho mayor dentro de un corto peri≠odo de tiempo. Una vez que las celulas tumorales se conectan con la red vascular del huesped, pueden crecer muy rapidamente para inundar el espacio circundante 1.
+
+Es importante destacar que la transicion de la fase avascular a la fase vascular es un indicador de la progresion del tumor, y puede ser un factor importante en la determinacion del pronostico del paciente. Ademas, la fase vascular del tumor puede estar asociada con enfermedades de coagulacion sangui≠nea graves, lo que hace que el diagnostico correcto sea cri≠tico 5.
+El glioblastoma multiforme (GBM) es un tipo de tumor cerebral agresivo que se desarrolla a partir de una celula cerebral llamada celula glial. Este tumor se caracteriza por su crecimiento rapido y su capacidad para infiltrar los tejidos circundantes, lo que puede causar una variedad de s√≠ntomas neuropsiquiatricos 1.
+
+En la etapa inicial, el GBM es un tumor avascular, lo que significa que no tiene una red vascular propia. En esta etapa, el tumor crece de manera lenta y lineal, y se limita a un area pequenna. A medida que el tumor crece, puede comenzar a invadir el tejido circundante, lo que puede llevar a la formacion de una masa salida 1.
+
+A medida que el tumor crece, puede comenzar a formar una red vascular propia, lo que se conoce como la etapa vascular del tumor. En esta etapa, el tumor puede crecer rapidamente y expandirse a un tamanno mucho mayor. La formacion de una red vascular propia permite al tumor crecer mas rapidamente y expandirse a un tamanno mucho mayor 1.\\
+El entorno microscopico y macroscopico del GBM es un factor importante en su progresion. El entorno microscopico del tumor, conocido como el microambiente tumoral (TME), consiste en distintos componentes celulares, incluidas celulas inmunitarias, y no celulares dentro y alrededor del tumor. El TME puede influir en la evolucion tumoral, afectando la evolucion del tumor y, en consecuencia, los resultados del paciente 3.\\
+
+QUIZAS UNA TABLA DE COMPARACION ENTRE LA ETAPA AVASCULAR Y VASCULAR
+A LO MEJOR IGUAL QUE DARIEN PONER EL CICLIO DE VIDA DEL CANCER
+HABLAR DEL CRECIMIENTO LOGISTICO
+
+En esta seccion, se detalla el procedimiento que se sigue para establecer las reglas que reproducen el crecimiento de un tumor en ambas etapas. El cambio entre las etapas avascular y vascular en un tumor ocurre cuando la poblacion celular alcanza cierto punto o cuando el factor de crecimiento endotelial supera un umbral debido a la falta de oxigeno en el tumor.\\ 
+
+CAMBIAR LOS SIGUIENTES TEXTOS QUE SON LITERAL COPIA Y PEGA\\
+
+Como se ha mencionado previamente, la vascularizaci√≥n de un tumor es un factor distintivo en su desarrollo, ya que la difusi√≥n de nutrientes limita el crecimiento del tumor a un cierto l√≠mite. Es el suministro de nutrientes nuevo que proviene de la neovasculatura la que permite que el tumor contin√∫e su crecimiento m√°s all√° de dicho li≠mite.\\
+De acuerdo con la hipotesis VIII sobre el desarrollo tumoral en funcion de la poblacion, el modelo asume que la dinamica de un tumor sigue la funcion de crecimiento logi≠stico de Verhulst [36], que se presenta a continuacion:
+\begin{center}
+ECUACION DE VERHULST
+\end{center}
+La poblacion cambia con el tiempo, y este cambio esta influenciado por un factor de crecimiento (r), la poblacion actual (P) y un valor (K) que representa la capacidad de carga del entorno, es decir, la cantidad maxima de individuos que el entorno puede soportar.\\
+La angiogenesis puede entenderse como un aumento en la capacidad de carga del entorno (K) o como un incremento en la tasa de proliferaci√≥n celular debido a que la neovasculatura proporciona un metodo de suministro m√°s eficiente que la difusi√≥n de nutrientes. Por lo tanto, la dinamica global del crecimiento se describe con dos expresiones: una para la etapa avascular y otra para la etapa vascular, ambas con sus parametros especi≠ficos. Como resultado del an√°lisis anterior, se propone la siguiente hipotesis\\
+HIPOTESIS: Se asume que la neovasculatura que crece en el
+interior de un tumor producto de la angiogenesis produce un aumento en la capacidad de carga del entorno y en el ritmo de proliferacion del propio tumor.\\
+Segun las reglas sobre la conservacion del estado de las celulas normales del automata (3.23), estas c√©lulas no cambian de estado a menos que estan en presencia de celulas cancer√≠genas de algun tumor. Esto implica que la regla del crecimiento tumoral puede definirse a partir de esta condicion, es decir, las celulas normales tienen una probabilidad de ser desplazadas de su posicion si se encuentran cerca de una o varias c√©lulas canceri≠genas pertenecientes a uno o varios tumores, o en terminos de la funcion Nn3(S(v,n))>0. Por lo tanto, las reglas se definen de la siguiente manera:\\
+
+\begin{center}
+FUNCION DE TRANSICION LOCAL PARA LAS CELULAS NORMALES QUE TIENEN EN SU VECINDAD A CELULAS CANCERIGENAS
+\end{center}
+
+donde $C(S(p,t)\in {i,4})$ con $i\in {0,1,2}$ son variables aleatorias con la siguiente distribucion de probabilidad:
+
+\begin{center}
+PROBABILIDAD DE QUE UNA CELULA NORMAL SE CONVIERTA EN CANCERIGENA
+\end{center}
+
+MODIFICAR EL SIGUIENTE TEXTO:
+Dado que un tumor siempre se expande hacia posiciones adyacentes ocupadas por celulas normales, podemos asumir que la masa tumoral tiene una forma compacta donde cada celula canceri≠gena tiene en su vecindario a otras celulas canceri≠genas, de acuerdo con lo expresado en la hip√≥tesis X sobre la adhesi√≥n celular. Esta probabilidad de transicion, segun la concepcion clasica de un automata celular, debe definirse de manera que solo utilice la informacion de la configuracion local para estimar el valor resultante. En el contexto de este modelo, es necesario que la probabilidad incorpore la informacion relacionada con el modelo de crecimiento log√≠stico.
+
+\subsubsection{Proceso de inferencia de la regla}
+LO QUE HABLA DARIEN AQUI NO NOS APORTA NADA A NUESTRO CASO
+Basandose en las hipotesis VIII y XIV sobre el desarrollo tumoral en funcion de la poblacion y la interpretacion de la neovasculatura, se puede inferir que el crecimiento de la poblacion tumoral se describe mediante dos expresiones correspondientes a las etapas avascular y vascular, cada una con sus propios valores del ritmo de crecimiento r y capacidad de carga K. Se puede concluir que ambas etapas tambien tienen valores propios de poblacion inicial P0, donde la poblacion inicial de la etapa vascular Pv0 se corresponde con la capacidad de carga del entorno durante la etapa avascular Ka, es decir, Ka = Pv0. De manera similar, se pueden definir a priori valores de probabilidad m√°ximos œÅmax para cada una de estas etapas. Finalmente, las probabilidades de transicion, con t = n‚àÜt, quedar√≠an como:
+\begin{center}
+EXPRESION DE VERHULST PARA CUANDO EL TUMOR ESTA EN ETAPA AVASCULAR Y VASCULAR
+\end{center}
+AQUI VAMOS HABLAR ACERCA DE LA CONCENTRACION DE LAS SUSTANCIAS, OXYGENO VEGF...
+
+
+\subsubsection{Regla del surgimiento de celulas madres tumorales}
+Al incio de la simulacion se encuentra una sola celula tumoral en una posicion aleatoria en el espacio. Esta celula tumoral es de tipo celula madre. La celula tumoral a traves del proceso de quimiotaxis atrae las celulas madres a su alrededor en un radio predefinido. Estas celulas madres al acercarse  a la celula tumoral se convierten en celulas proliferativas
+Emision de la sustancia: La celula tumoral madre emite una sustancia
+quimica en su entorno. Esta sustancia actua como un se\~nal que atrae a
+las celulas madre cercanas.
+Movilidad de las celulas madre: Las celulas madre cercanas comienzan a
+moverse hacia la celula tumoral madre en respuesta a la se\~nal quimica.
+Conversion en celulas proliferativas: Una vez que las celulas madre llegan
+a un punto aleatorio cercano a la celula tumoral madre, se convierten en
+celulas proliferativas. Esto permite que la celula tumoral madre continue
+expandiendose y proliferando.
+
+Como ya se conoce las celulas madres son aquellas celulas que tienen la capacidad de diferenciarse en diversos tipo de celulas especializadas.
+
+El proceso de quimiotaxis en estas celulas es un fenÛmeno que se dirige en respuesta a un gradiente quÌmico extracelular. Este fenÛmeno es esencial en el desarrollo de enfermedades como el c·ncer, donde las cÈlulas tumorales pueden moverse tanto de manera aleatoria como dirigida. En el caso del glioblastoma multiforme, una cÈlula madre tumoral puede atraer a las cÈlulas madre a su radio a travÈs de este proceso de quimiotaxis 2.
+
+El proceso de quimiotaxis en las cÈlulas tumorales se compone de tres pasos principales: detecciÛn quÌmica, polarizaciÛn y locomociÛn. En primer lugar, las senales intracelulares polarizadas conducen a la polimerizaciÛn asimÈtrica de la actina, resultando en la extensiÛn de la membrana celular en la direcciÛn del movimiento. Esto crea una protuberancia en la punta de la cÈlula. Luego, la cÈlula se adhiere a la superficie en la que se est· moviendo a travÈs de la adhesiÛn mediada por integrinas, y finalmente se separa de la superficie y se contrae el borde trasero de la cÈlula 2.
+
+Una vez que las cÈlulas madre est·n a un radio de una cÈlula madre tumoral, se acercan debido al proceso de quimiotaxis. Este fenÛmeno es mediado por una serie de factores que pueden ser mutados en el c·ncer, lo que sugiere un papel potencialmente importante de la quimiotaxis en el c·ncer 2.
+
+Una vez que las cÈlulas madre est·n cerca de la cÈlula madre tumoral, comienzan a proliferar cÈlulas tumorales. Este fenÛmeno es mediado por una serie de factores que pueden ser mutados en el c·ncer, lo que sugiere un papel potencialmente importante de la quimiotaxis en el c·ncer 2.
+
+Por tanto la regla de surgimiento de celulas tumorales quedaria de la siguiente manera:
+\begin{center}
+AQUI VA LA PRIMERA REGLA DE TRANSICION LOCAL
+\end{center}
+
+$s(c,t) = R(s(c,t))$
+$\displaystyle \left\{ {n \in N \atop r \neq 1 } \right.$
+
+$\displaystyle \left\{
+\begin{array}{lclcl}
+n \in N \\
+n \in N \\
+n \in N \\
+\end{array}
+\right.$
+
+\subsubsection{Proliferaci\'on}
+
+Para que una c\'elula en el modelo se divida, debe estar en un estado de proliferaci\'on. Adem\'as, la c\'elula debe haber alcanzado la edad de proliferaci\'on para poder dividirse. Si se cumplen estas condiciones, la c\'elula
+intenta dividirse y coloca una c\'elula hija al azar en una celda vaci≠a en la matriz extracelular.Esta celda debe tener una densidad menor que un valor m\'inimo preestablecido para permitir la proliferaci\'on de la c\'elula en uno de los 26 elementos vecinos del aut\'omata. \\
+
+$d_{ECM} < minDensity_{ECM}$\\
+
+Si ninguno de los 26 elementos vecinos est\'a vac\'io, la divisi\'on celular falla y la c\'elula queda inactiva. Dado que las c\'elulas cancerosas crecen r\'apidamente, es plausible suponer que la mayor parte de la energ\'ia metabolizada por la c\'elula se utiliza para la divisi\'on celular. Bas\'andonos en esta suposici\'on, conectamos la edad de proliferaci\'on con el metabolismo de las c\'elulas y modelamos la proliferaci\'on celular de la siguiente manera:\\
+La edad de proliferaci\'on es seleccionada aleatoriamente de una distribuci\'on normal. Esto se puede representar con la f\'ormula:\\
+
+$N (A_p, A_p / 2)$,\\
+
+donde $Ap$ es la edad de proliferaci\'on base. Esta distribuci\'on normal se utiliza para modelar la variaci\'on en la edad de proliferaci\'on entre c\'elulas id\'enticas. La distribuci\'on normal se caracteriza por dos par\'ametros: \\
+la media (Ap en este caso) y \\
+la desviaci\'on est\'andar (Ap/2 en este caso). \\
+La media es el valor que se espera que obtenga la mayor\'ia de las veces, y la desviaci√≥n est\'andar es una medida de cu\'anto se dispersan los valores alrededor de la media. Esto significa que la mayor\'ia de las c\'elulas tendr\'an una edad de proliferaci\'on cerca de la media ($Ap$), pero algunas c\'elulas pueden tener edades de proliferaci\'on m\'as altas o m\'as bajas debido a la dispersi\'on alrededor de la media.
+Con cada actualizaci\'on de la c\'elula, se incrementa un contador interno Xp utilizando una variable aleatoria que puede tomar valores entre 1 y 5.\\
+Cuando una c\'elula alcanza su edad de proliferaci\'on (es decir, cuando su contador interno Xp supera a Ap), la c\'elula se divide para formar una nueva c\'elula. Esta divisi\'on celular es un proceso que requiere energ\'ia, por lo que se supone que una c\'elula con una edad de proliferaci\'on mas corta (es decir, una c\'elula que alcanza su edad de proliferaci\'on m\'as r\'apidamente) tendr\'a un metabolismo m\'as alto. \cite{9}\\
+AQUI VA UNA FOTO DE COMO OCURRE LA PROLIFERACION
+
+ESTA DEFINICION NO VA AQUI
+\begin{definition}
+Sea la funcion $C_o^t(S(p,t))$, que recibe una configuracion local $S(p,t)$ en el instante de tiempo t centrada en una celula p, devuelve la concentracion de oxigeno de esta celula
+\begin{center}
+ECUACION DE DIFUSION DE LA CONCENTRACION DE OXIGENO
+\end{center}
+\end{definition}
+
+La funcion de transicion local queda de la siguiente manera:
+\begin{center}
+$s(c, t+1) = R(s(c,t))= 4$   si  $s(c,t)=4$ $\wedge$ $C_o(s(c,t))\geq\theta_{hip}$
+\end{center}
+
+\subsection{Regla del surgimiento de celulas hipoxicas}
+Las cÈlulas hipÛxicas en una simulaciÛn del crecimiento de un tumor a travÈs de un autÛmata celular se refieren a las cÈlulas que est·n en condiciones de hipoxia, es decir, que no est·n recibiendo suficiente oxÌgeno. La hipoxia es un estado de baja concentraciÛn de oxÌgeno en los tejidos y puede ser causada por una variedad de factores, incluyendo la obstrucciÛn de los vasos sanguÌneos, la inflamaciÛn, o la falta de producciÛn de nuevos vasos sanguÌneos.
+
+En un autÛmata celular, las cÈlulas hipÛxicas pueden ser representadas como un estado especÌfico de las cÈlulas. Por ejemplo, podrÌas tener un estado 'hipÛxico' en tu autÛmata celular, y las cÈlulas que entran en este estado podrÌan ser representadas con un color o un sÌmbolo especÌfico en la visualizaciÛn del autÛmata.
+
+Las cÈlulas hipÛxicas pueden tener un papel importante en la simulaciÛn del crecimiento de un tumor. Por ejemplo, podrÌan influir en la formaciÛn de nuevos vasos sanguÌneos, que son esenciales para el suministro de nutrientes y oxÌgeno a las cÈlulas del tumor. Adem·s, las cÈlulas hipÛxicas pueden ser m·s susceptibles a la apoptosis (muerte celular programada), lo que podrÌa afectar el crecimiento del tumor.
+
+La hipoxia es un fenotipo de una cÈlula cancerosa en el que la cÈlula se ve privada de un suministro adecuado de oxÌgeno. La disminuciÛn de la disponibilidad de oxÌgeno (hipoxia) induce a las cÈlulas cancerosas a producir una cantidad significativamente mayor de VEGF. Las cÈlulas cancerosas entran en hipoxia cuando los niveles de oxÌgeno caen por debajo de un umbral especÌfico y entrar·n en necrosis si permanecen en ese nivel durante un perÌodo prolongado. 
+
+COPIA Y PEGA
+Cuando una cÈlula tumoral satisface la condiciÛn de supervivencia pero no hay espacio vecino para que prolifere, quedar· inactiva. 
+
+\begin{definition}
+Sea la funcion $N_t(c)$, que recibe una celula del automata celular, la cantidad total de vecinos que tiene esta celula.
+\begin{center}
+$N_t = \sum\limits_{1}^{26}$
+\end{center}
+\end{definition}
+
+Funcion de transicion local de una celula proliferativa a una celula hipoxica queda de la siguiente manera:
+
+\begin{center}
+$s(c, t+1) = R(s(c,t)) =
+\displaystyle \left\{
+\begin{array}{lclcl}
+6 & si & s(c,t)=4 & \wedge & \theta_{nec} \leq C_o(s(c,t))<\theta_{hip} \\
+6 & si & s(c,t)=8 & \wedge & N_4^t(s(c,t)) + N_5^t(s(c,t)) + N_6^t(s(c,t))+ N_7^t(s(c,t)) = N_t(c) \\
+\end{array}
+\right.$
+\end{center}
+
+
+funcionde transicion local, aqui es para que una celula cambia de estado proliferativo a estado hipoxico
+
+\subsubsection{Concentracion del factor de crecimiento endotelial}
+Las celulas endoteliales se ven como reemplazos del flujo sangui≠neo, ya que son las encargadas de proporcionar nutrientes. Para prevenir la entrega de nutrientes por parte de las celulas endoteliales que estan en vasos separados del vaso principal, solo las celulas endoteliales que estan en bucles anastomaticos, como se menciona en Antecedentes biologicos, "entregan" nutrientes. Los nutrientes son consumidos por las celulas tumorales, excepto por las celulas no viables, es decir, las celulas moribundas y necroticas. Cuando el nivel de nutrientes local cae por debajo del umbral œÉ H, las celulas tumorales se vuelven hipoxicas y liberan VEGF para desencadenar el crecimiento de nuevos vasos sangui≠neos. Durante este proceso, se consume VEGF, disminuyendo la concentracion disponible en el ambiente. Con estos supuestos, las concentraciones de nutrientes y VEGF, ( œÉ ( x , t )) y ([ VEGF ]( x , t )), respectivamente, se rigen por las siguientes ecuaciones de reaccion-difusion:
+
+\begin{definition}
+Se define la funcion $S_{VEGF}(c,t)$ como la fuente del factor de crecimiento angiogenico y satisface la siguiente ecuacion:
+\begin{center}
+$S_{VEGF}(c,t)=
+\zeta_{VEGF}(c,t)$
+\end{center}
+\end{definition}
+
+\begin{definition}
+Se define la funcion $U_{VEGF}(c,t)$ como la absorcion de oxygeno de las celulas del automata y satisface la siguiente ecuacion:
+\begin{center}
+$U_{VEGF}(c,t)=
+2\pi * R(c,t) * Pe_{VEGF}*C_{VEGF}(c,t)$
+\end{center}
+\end{definition}
+
+\begin{definition}
+Se define la funcion $\zeta_{VEGF}(c,t)$ como la absorcion de oxygeno de cada tipo de celula del automata y satisface la siguiente ecuacion:
+\begin{center}
+$\zeta_{VEGF}(c,t)=
+\displaystyle \left\{
+\begin{array}{lclcl}
+\phi & si & s(c,t)=6 \\
+\\
+\frac{\phi}{2} & si & s(c,t)=5\\
+\\
+\frac{\phi}{6} & si & s(c,t)=7\\
+\\
+\frac{\phi}{8} & si & s(c,t)=4\\
+\\
+0 & e.o.c\\
+\end{array}
+\right.$
+\end{center}
+\end{definition}
+
+\begin{definition}
+Se define la funcion $W_{VEGF}(c,t)$ como el desperdicio del factor de crecimiento de las celulas del automata y satisface la siguiente ecuacion:
+\begin{center}
+$W_{VEGF}(c,t)=
+w_{VEGF}*C_{VEGF}(c,t)$
+\end{center}
+donde $w_{VEGF}$ es el desperdicio predefinido de una celula
+\end{definition}
+
+\begin{definition}
+Se define la funcion $\Delta C_{VEGF}(c,t)$ que satisface la siguiente ecuacion:
+\begin{center}
+$\Delta C_{VEGF}(c,t)=
+(\sum\limits_{\forall c'\in N(c)}^{26} C_{VEGF}(c',t)) - 26 * C_{VEGF}(c,t)$
+\end{center}
+\end{definition}
+
+
+\begin{definition}
+Teniendo en cuenta las definiciones anteriores se describe la ecuacion de concentracion del factor de crecimiento $C_{VEGF}(c,t)$ en la siguiente expresion:
+\begin{center}
+$C_{VEGF}(c,t+1) = C_{VEGF}(c,t) + \frac{D_{VEGF} * \Delta t}{\Delta S^2}(\Delta C_{VEGF}(c,t))-U_{VEGF}(c,t)+S_{VEGF}(c,t)-W_{VEGF}(c,t)$
+\end{center}
+donde $D_{VEGF}$ es el coeficiente de difusion de oxygeno; $\Delta t$ el tiempo y $\Delta S$ el tamanno del espacio regular.
+\end{definition}
+
+
+\subsection{Regla del surgimiento de celulas necroticas}
+Las cÈlulas necrÛticas en una simulaciÛn del crecimiento de un tumor a travÈs de un autÛmata celular se refieren a las cÈlulas que han muerto o se han descompuesto. En un contexto de crecimiento tumoral, las cÈlulas necrÛticas pueden surgir de varias formas, como el estrÈs metabÛlico, la inhibiciÛn de la seÒalizaciÛn de crecimiento, o la apoptosis (muerte celular programada).
+
+En un autÛmata celular, las cÈlulas necrÛticas pueden ser representadas como un estado especÌfico de las cÈlulas. Por ejemplo, podrÌas tener un estado 'muerta' o 'necrÛtica' en tu autÛmata celular, y las cÈlulas que entran en este estado podrÌan ser representadas con un color o un sÌmbolo especÌfico en la visualizaciÛn del autÛmata.
+
+Las cÈlulas necrÛticas pueden tener un papel importante en la simulaciÛn del crecimiento de un tumor. Por ejemplo, podrÌan influir en la formaciÛn de nuevos vasos sanguÌneos, que son esenciales para el suministro de nutrientes y oxÌgeno a las cÈlulas del tumor. Adem·s, las cÈlulas necrÛticas pueden liberar sustancias quÌmicas que pueden afectar la respuesta inmune y la inflamaciÛn, que son factores clave en el crecimiento y la progresiÛn del tumor.
+
+La muerte celular puede manifestarse de dos formas distintas en el modelo. Si una cÈlula intenta utilizar m·s oxÌgeno o glucosa de la que est· disponible en el punto de la red donde se ubica, morir· de inaniciÛn (necrosis). El otro mecanismo es por apoptosis, que ocurre si el nodo de apoptosis de la red recibe la respuesta m·s potente.
+
+La necrosis es una forma de daÒo en las cÈlulas cancerosas que lleva a la muerte temprana de las cÈlulas del tejido vivo debido a la autÛlisis. Por el contrario, la apoptosis es una muerte celular programada y dirigida de forma natural. El ˙nico efecto de este fenotipo ser· la ocupaciÛn de un punto de la cuadrÌcula y, por lo tanto, otras cÈlulas no pueden ingresar en este punto de la cuadrÌcula. Al ocurrir necrosis, la cÈlula necrÛtica no solo permanece en el entorno de simulaciÛn sino que tambiÈn se mantiene inmutable ante cualquier cambio. 4 5.
+
+COPIA Y PEGA
+Cuando la concentraciÛn de oxÌgeno local en el sitio del tumor es menor que el umbral de supervivencia celular ?surv , la cÈlula tumoral se marca como una cÈlula necrÛtica y no ser· revisada en el siguiente paso.
+
+La funcion de transicion local queda de la siguiente manera:
+\begin{center}
+$s(c, t+1) = R(s(c,t))= 6$   si  $s(c,t)=5$ $\wedge$ $C_o(s(c,t))\leq\theta_{nec}$
+\end{center}
+
+\subsection{Regla del surgimiento de celulas migratorias}
+El conjunto de reglas presentadas en esta seccion describen el comportamiento de las celulas canceri≠genas migratorias, desde su origen hasta su movimiento a traves de la matriz extracelular del tejido que las soporta. En la seccion 2.7 se describieron los cambios que debe experimentar una celula canceri≠gena tumoral para transformarse en una celula migratoria, que incluyen la perdida de la capacidad de adhesion celular y modificaciones en la matriz de interaccion intercelular. El movimiento es posible gracias a los cambios en la matriz de interaccion que provocan la expresion de protei≠nas involucradas en el control de la movilidad y la supresion de reguladores de la migracion. En esta seccion se definen las reglas que se relacionan con el surgimiento de estas celulas para definir en secciones posteriores el proceso de migracion y metastasis.\\
+COPIA Y PEGA\\
+En el presente modelo se considera que una c¬¥elula tumoral al llevar a cabo su divisi¬¥on tiene la posibilidad de generar un descendiente que presente las mutaciones relacionadas con la migraci¬¥on, y de acuerdo a la localizacion.\\
+
+Para definir la regla que reproduce el surgimiento de celulas migratorias en la frontera del tumor, procedemos siguiendo las ideas adoptadas en la concepcion de las reglas anteriores: definir el criterio de seleccion en base al estado de la configuracion local y la probabilidad de transicion en base a la informacion del modelo continuo. Segun la primera situacion, la descendencia de una celula canceri≠gena tiene la probabilidad de expresar un comportamiento migratorio si pertenece a la frontera de un tumor en un estado avanzado de su desarrollo.\\
+HABLAR PORQUE SURGE LA MIGRACION CELULAR
+
+La funcion de transicion local queda de la siguiente manera:
+\begin{center}
+$s(c, t+1) = R(s(c,t))= A_8(S(c,t))$   si  $s(c,t)=4$ $\wedge$ $N_10^t(c,t)>5$
+\end{center}
+\subsubsection{Reglas de la migracion}
+En el contexto de nuestro modelo, es crucial reproducir la migracion de celulas canceri≠genas con cierto grado de flexibilidad y rangos de movimiento variables. En este sentido, la idea de algunos investigadores [18, 20] ha sido definir vecindades de interaccion con un radio de accion mayor o parametros del modelo que indiquen la capacidad de movilidad de las celulas.
+
+Con este proposito, se conceptualiza un parametro para el procedimiento de actualizacion ¬µmig N que se corresponde con el rango maximo del movimiento. Una celula migratoria puede ser seleccionada para su actualizacion un numero de veces potencialmente igual al valor de ¬µmig. La incorporacion de este parametro y del conjunto de actualizacion CAmig(G) al algoritmo mostrado en 5 posibilita la reproduccion de forma mas realista del movimiento de las celulas canceri≠genas.
+
+Los movimientos variables son posibles gracias a la configuracion de vecindad utilizada mediante la posibilidad de que una celula migratoria avance a una celda del automata mas distante
+
+ALGORITMOS DE ACTUALIZACION DEL AUTOMATA CELULAR TENIENDO EN CUENTA LAS CELULAS MIGRATORIAS
+
+La celula canceri≠gena utiliza tres elementos distintivos para llevar a cabo su desplazamiento a traves de la matriz extracelular hasta penetrar el sistema circulatorio. Estos elementos son esenciales ya que todos cumplen una funcion especi≠fica en la migracion. El primer de estos elementos es que una celula migratoria avanza a traves de la matriz extracelular gracias a un proceso de degradacion que consiste en la disminucion de la densidad o rigidez de este medio, posibilitando su ocupacion posterior. Este proceso ha sido estudiado por varios autores con anterioridad [20, 39, 40] y se verifica que constituye el mecanismo que posibilita el movimiento de las celulas migratorias.\\
+Sin embargo, la direcci√≥n del movimiento se determina a trav√©s de la variaci√≥n de la concentraci√≥n de los nutrientes del entorno. Las c√©lulas cancer√≠genas tienden a desplazarse aumentando la distancia a la masa tumoral de la que se desprendieron, ya que esta consume la mayor√≠a de los nutrientes del entorno circundante y avanza en la direcci√≥n de donde provienen los nutrientes de la difusi√≥n [20, 41]. Finalmente, la capacidad de la c√©lula cancer√≠gena para sortear los distintos obst√°culos que se presentan a lo largo del trayecto est√° dada por los distintos modos de migraci√≥n que presentan. Su estrategia consiste en poder alternar entre estos modos de forma tal que cada uno sirve para enfrentarse a una situaci√≥n concreta.\\
+
+ALGORITMO PARA ACTUALIZAR LAS CELULAS MIGRATORIAS
+
+El conjunto de reglas presentado aqu√≠ utiliza una implementaci√≥n conocida en la literatura [6], que se conoce como intercambio de estados. En un modelo de actualizaci√≥n secuencial que representa el movimiento de part√≠culas, es com√∫n que al efectuarse un desplazamiento los estados de la c√©lula origen y destino se intercambien mediante una actualizaci√≥n simult√°nea de las dos c√©lulas involucradas.
+
+De esta manera, la posici√≥n origen quedar√≠a ocupada por la c√©lula destino del movimiento y la posici√≥n destino quedar√≠a ocupada por la c√©lula que se desplaz√≥. Una c√©lula migratoria que haya sido elegida para su actualizaci√≥n puede encontrarse en tres situaciones distintas: que en su vecindad inmediata no existan posiciones que puedan ser elegidas como destino de su movimiento, lo que significa que est√° inm√≥vil, o que en su vecindad inmediata existan posibles destinos de su movimiento.
+
+EXTENSION DE LA FUNCION DE TRANSICIN LOCAL
+
+Si la c√©lula v est√° inm√≥vil, su estado final corresponde al valor que toma la variable aleatoria Œ∂4(¬µ(v, n)). Si este valor es 2, se asume que la existencia de la c√©lula migratoria v ha terminado y la posici√≥n que dej√≥ es ocupada por el estroma. Si el valor es 4, la c√©lula migratoria v contin√∫a existiendo pero permanece inm√≥vil. La capacidad de supervivencia de la c√©lula migratoria v est√° determinada por la probabilidad de transici√≥n 1 ‚àí œÅ4(¬µ(v, n) ‚Üí 2), de ah√≠ que œÅ4(¬µ(v, n) ‚Üí 2) se corresponda con la probabilidad de muerte celular. Si la c√©lula v tiene posibilidades de realizar un desplazamiento, la posici√≥n que ocupaba v tomar√° el valor 2 del conjunto de estados correspondiente con el estroma como resultado del intercambio de estados. Cuando se aplica la regla del desplazamiento, el estado de la c√©lula destino w se actualiza simult√°neamente como se muestra a continuaci√≥n:
+\begin{center}
+EXPRESION DE LA ACTUALIZACION DEL ESTADO DE MIGRACION
+\end{center}
+El proceso de selecci√≥n de la posici√≥n de destino comienza evaluando la funci√≥n (3.78) en la c√©lula v en el momento actual, lo que resulta en un conjunto de posibles destinos de la forma Dmig(v, n) = {w1, w2, ..., wm}, donde m = |Dmig(v, n)|. Seg√∫n la hip√≥tesis XX sobre el sesgo direccional de la migraci√≥n, la direcci√≥n del movimiento se determina bas√°ndose en los vectores de concentraci√≥n de nutrientes del conjunto B. Entre la c√©lula migratoria v y cada una de las c√©lulas destino del conjunto Dmig(v, n) se forman vectores de desplazamiento, y para cada uno de estos vectores se estima la probabilidad de que la c√©lula v lo seleccione como la direcci√≥n final del movimiento. Esta probabilidad se determina como la m√°xima similitud coseno alternativa entre cada vector de direcci√≥n y los vectores de concentraci√≥n de nutrientes. Estamos en condiciones de definir la funci√≥n para la selecci√≥n de la posici√≥n de destino:
+
+
+La funcion de transicion local queda de la siguiente manera:
+\begin{center}
+$s(c, t+1) = R(s(c,t))= 7$   si  $s(c,t)=7$ $\wedge$ $N_10^t(c,t)>1$ $\wedge$ $C_o(c,t)$ $\geq$ $\theta_hip$
+\end{center}
+
+Cuando cambia el estado de una celula normal a una celula cancerigena?
+
+Cuando cambia el estado de una celula cancerigena?
+
+Las sustancias como el ox√≠geno, la degradaci√≥n extracelular y el factor de crecimiento endotelial son fundamentales para la simulaci√≥n del crecimiento de un tumor a trav√©s de un aut√≥mata celular debido a su papel crucial en el entorno celular y en el proceso de crecimiento y desarrollo celular.
+El ox√≠geno es un componente esencial de la c√©lula, ya que es necesario para la respiraci√≥n celular y para la producci√≥n de energ√≠a. En un tumor, el alto nivel de actividad metab√≥lica y la alta tasa de proliferaci√≥n celular pueden llevar a un aumento en la demanda de ox√≠geno, lo que puede influir en la formaci√≥n y crecimiento del tumor 1.
+La degradaci√≥n extracelular se refiere a los procesos qu√≠micos que descomponen las c√©lulas y los tejidos. Durante el crecimiento de un tumor, los niveles de degradaci√≥n extracelular pueden aumentar debido a la muerte celular y a la reparaci√≥n de tejidos. Estos cambios pueden afectar a las c√©lulas tumorales y a su entorno, lo que puede influir en el crecimiento y desarrollo del tumor 2.
+
+\subsubsection{Coopcion de vasos}
+Las pseudoempalizadas estan fisiopatologicamente vinculadas con la hiperplasia microvascular adyacente, la cual puede expresar altos niveles de reguladores angiogenicos e inducir angiogenesis tumoral. Ademas, la "cooptacion" de redes de vasos preexistentes es un factor importante en la progresion del glioma. Holash et al [ 6 ] mostraron que los gliomas C6 mas pequennos, solo una semana despues de la implantacion, estaban bien vascularizados por cooptacion de vasos sangu√≠neos preexistentes. Experimentos adicionales [ 7 - 9 ] mostraron que cuando se implantaba una pequenna cantidad de celulas tumorales en tejido sano, lograban cooptar y migrar a lo largo de los vasos del huesped, produciendo muchas sustancias qui≠micas, como factores de crecimiento endotelial vascular (VEGF), Ang -1, Ang-2, para alterar el microambiente alrededor de los vasos del huesped. Estos pueden inducir cambios inmaduros en la vasculatura del tejido del huesped, incluyendo la dilatacion de los vasos, el incremento de la permeabilidad capilar y la tortuosidad. Con el crecimiento del tumor, las celulas cancerosas migran a lo largo de los vasos sangui≠neos, comprimiendolos y desestabilizandolos, lo que resulta en la regresion de los vasos y una disminucion de la perfusion sangui≠nea. 
+
+\subsubsection{Flujo Sanguineo}
+En los ˙ltimos aÒos, se han desarrollado varios modelos numÈricos para el estudio del flujo sanguÌneo cerebral en una red vascular cerebral humana anatÛmicamente precisa. Sin embargo, estos modelos generalmente se diseÒaron para analizar la perfusiÛn sanguÌnea en el cerebro en condiciones fisiolÛgicas normales, sin tener en cuenta el efecto combinado del flujo de lÌquido intersticial y el flujo transvascular a travÈs de la red capilar. El modelo hemodin·mico en este estudio se basa en nuestro trabajo anterior sobre el modelado acoplado del flujo sanguÌneo intravascular con el flujo de lÌquido intersticial. En resumen, la ecuaciÛn b·sica para el flujo sanguÌneo intravascular es la concentraciÛn del flujo y el flujo incompresible en cada nodo. Se utilizaron la ley de Poiseuille, la ley de Darcy y la ley de Starling para regular la resistencia al flujo intravaso, el flujo intersticial y el flujo transvaso, respectivamente. La viscosidad de la sangre es funciÛn del di·metro de los vasos, el hematocrito local y la viscosidad del plasma. Adem·s, la distensibilidad de los vasos y el esfuerzo cortante de la pared se correlacionan con la remodelaciÛn y el colapso de los vasos, lo que se explicar· en detalle en la siguiente secciÛn. \cite{10}
+
+\begin{definition}
+Sea $Q_v$ el caudal vascular sin fuga de liquido. Siguiendo la Ley de Darcy, $Q_v$ cumple con la siguiente ecuacion
+\begin{center}
+$Q_v=\frac{\pi R^4 \Delta P_v}{8\mu \Delta l}$
+\end{center}
+donde $\Delta l$ y $R$ son la logitud y radio medios del segmento del vaso. $P_v$ es la presion intravascular.
+\end{definition}
+
+\begin{definition}
+Sea $Q_t$ el caudal transvascular. Siguiendo la Ley de Darcy, $Q_t$ cumple con la siguiente ecuacion
+\begin{center}
+$Q_t=2\pi R \Delta l L_p(P_v-P_i-\sigma_T(\pi_v-\pi_i))$
+\end{center}
+donde $L_p$ es la permeabilidad hidraulica de la pared del vaso, $P_i$ es la presion intersticial, $\sigma_T$ es el coeficiente de reflecion osmotica promedio para las proteinas plasmaticas; $\pi_v$ y $\pi_i$ son la presion osmotica coloide del plasma y del liquido intersticial, respectivamente.
+\end{definition}
+
+\begin{definition}
+Sea $Q$ el caudal de cada segmento del recipiente
+\begin{center}
+$Q=Q_v-Q_t$
+\end{center}
+donde $Q$ tiene un valor cero en cada nodo de la red del recipiente debido al supuesto de conservacion del flujo y flujo incomprensible.
+\end{definition}
+
+
+La investigaciÛn tanto experimental como clÌnica ha demostrado que el di·metro de los microvasos se expande en respuesta a los factores de crecimiento. Dˆme y sus colegas [10] descubrieron que una sola cÈlula tumoral puede provocar cambios dr·sticos en la vasculatura del tejido del huÈsped en un modelo de ratÛn de angiogÈnesis glomeruloide. En nuestro modelo, consideramos que la dilataciÛn de los vasos es el primer indicador de que un vaso preexistente se convierte en un vaso inmaduro. Sin embargo, la dilataciÛn y la compresiÛn de los vasos son fenÛmenos interconectados en nuestro modelo, como se ilustra en la Figura 4. En resumen, una alta concentraciÛn de VEGF local provocar· que un segmento de vaso dentro del tumor se dilate, lo que provocar· un aumento en la permeabilidad de la pared del vaso y una disminuciÛn en la presiÛn de colapso del vaso. De esta manera, el vaso puede comprimirse debido al aumento de la presiÛn intersticial. Un vaso con un di·metro alterado influir· en la tensiÛn de corte de la pared local (WSS). Suponemos que un segmento de embarcaciÛn colapsar· si el WSS local es demasiado bajo durante un perÌodo prolongado.
+
+COPIA Y PEGA 
+Un segmento de vaso dentro del tumor que tiene una concentraciÛn de VEGF mayor que un umbral ? VEGF aumentar· su radio R con una velocidad de 0,40 ?m/h, que se detendr· cuando el radio del vaso alcance el valor m·ximo de R max = 10 ?m. Al mismo tiempo, la permeabilidad de la pared del vaso L p aumenta en un vaso de dilataciÛn y satisface
+
+\begin{definition}
+Sea $L_p$ la permeabilidad hidraulica de la pared del vaso. En cada segmento del vaso, teniendo en cuenta la dilatacion del radio de este, se cumple:
+\begin{center}
+$L_p
+\displaystyle \left\{
+\begin{array}{lclcl}
+L_P^T(\frac{R}{R_{max}}), & vaso & inmaduro\\
+\\
+L_P^N, & vaso & maduro\\
+\end{array}
+\right.$
+\end{center}
+donde $L_P^N$ es el valor inicial de $L_P$, es decir el valor de la permebilidad del vaso en un tejido normal; $L_P^T$ es el valor maximo de $L_P$ segun los experimentos del valor de la permeabilidad de los vasos en un microvaso tumoral.
+\end{definition}
+
+El valor de presiÛn que provocar· el colapso de un vaso se denomina Pc, que refleja la capacidad de un segmento de vaso para mantenerse estructuralmente intacto bajo la diferencia de presiÛn transpared. En este estudio, los valores iniciales de Pc se establecieron para cada buque de acuerdo con el orden de Strahler del segmento de buques en la red de buques preexistente. El buque con mayor di·metro tiene un Pc inicial m·s alto. Cuando las cÈlulas de glioma incrustadas alteran el microambiente local, la Ang-2 se regula positivamente en los buques cooptados, lo que provoca la desestabilizaciÛn de la pared del buque, es decir, el desprendimiento de pericitos del tubo endotelial [6]. Dado que la concentraciÛn de Ang-2 y la densidad de pericitos no est·n incluidas en este modelo, suponemos que Pc disminuye al aumentar la permeabilidad de la pared vascular Lp en el buque inmaduro.
+
+\begin{definition}
+Sea $P_c$ la presion de colapso de un segmento
+\begin{center}
+$P_c=P_c^{min}\frac{L_P^T}{L_P}$
+\end{center}
+donde $P_c^{min}$ es la presion de colapso mas pequenna que puede tener un segmento de vaso inmaduro.
+\end{definition}
+
+COPIA Y PEGA \\
+Para un vaso preexistente, una vez que se produce la dilataciÛn del vaso, el segmento del vaso se trata como un vaso inmaduro con L p aumentada y P c disminuida . En la simulaciÛn, la distensibilidad de la pared del vaso se define por el radio que cambia bajo la influencia de las presiones intravascular e intersticial y la presiÛn de colapso seg˙n la ecuaciÛn empÌrica de Netti et al [ 51 ].
+
+\begin{definition}
+La distensibilidad de la pared del vaso se define por el radio que cambia bajo la influencia de las presiones intravascular e intersticial y la presion de colapso segun la ecuacion empirica de Netti \cite{10}:
+\begin{center}
+$R
+\displaystyle \left\{
+\begin{array}{lclcl}
+R_0(\frac{P_v-P_i+P_c}{E})^b, & vaso & inmaduro\\
+\\
+R_0, & vaso & maduro\\
+\end{array}
+\right.$
+\end{center}
+donde $R_0$ es el radio de origen del capilar; $b$ es el exponente de cumplimiento; $E$ es el coeficiente de cumplimiento
+\end{definition}
+
+COPIA Y PEGA\\
+Seg˙n las ecuaciones anteriores, cuando el segmento del vaso se vuelve inmaduro, L p aumentar·, lo que provocar· una menor P c y, en consecuencia, Pi aumentar· ; ambos cambios pueden provocar la compresiÛn del vaso. Un recipiente comprimido, por otro lado, inducir· una mayor resistencia al flujo y un flujo menor, lo que luego disminuir· el nivel de tensiÛn cortante de la pared (WSS) del recipiente. El colapso del vaso se producir· seg˙n los criterios WSS (como se describe a continuaciÛn) o una reducciÛn significativa de R.
+
+Como se definiÛ en nuestro trabajo anterior y el de otros, ese vaso colapsar· debido a un largo perÌodo de bajo estado de WSS en el que la apoptosis de EC domina el proceso de colapso [ 28 - 30 ]. WSS se utiliza para estimar este tipo de regresiÛn de vasos.
+
+\begin{definition}
+ El WSS de un segmento vascular se puede calcular como:
+\begin{center}
+$wss=\frac{\Delta P_vR}{2\Delta l}$
+\end{center}
+\end{definition}
+
+Suponemos que un recipiente en circulaciÛn, que est· rodeado por los TC, colapsar· con una probabilidad predefinida si el valor de WSS en el recipiente es <1/2f 0 , donde f 0 es el valor medio de WSS en los recipientes de orden 3 de Strahler. en todo el modelo. Se supone que la probabilidad es proporcional a la duraciÛn del WSS bajo en el barco, i . es decir , cuanto m·s tiempo experimente el buque el WSS bajo, m·s probable ser· que colapse si se cumple el criterio.
+
+\subsubsection{Angiogenesis}
+La angiogÈnesis se refiere a la formaciÛn de nuevos capilares sanguÌneos a partir de vasos preexistentes, un paso esencial en el crecimiento y la met·stasis del c·ncer. La tumorigÈnesis es un ejemplo perfecto de un fenÛmeno de patrÛn de tejido emergente que depende de muchos tipos de cÈlulas, tanto de comportamiento celular normal como anormal. Los modelos de angiogÈnesis se dividen en tres categorÌas: modelos de crecimiento de la vasculatura sin tumores u otras cÈlulas tisulares, modelos de crecimiento de la vasculatura solo con cÈlulas tumorales y modelos de crecimiento de la vasculatura con cÈlulas tumorales y de tejido sano. Las vasculaturas del sistema proporcionan a las cÈlulas (agentes) los materiales (oxÌgeno, glucosa, TGF? y TNF?) que necesitan para sobrevivir. Una vez vascularizado, el c·ncer tiene acceso a una enorme fuente de nutrientes y se produce un r·pido crecimiento. Por otro lado, VEGF estimula el crecimiento de un nuevo suministro de sangre desde la vasculatura del huÈsped mediante angiogÈnesis. En esta secciÛn, presentamos un modelo de angiogÈnesis y crecimiento de tumores vasculares. 
+
+\subsubsection{Reglas del surgimiento de las celulas endoteliales}
+Rama\\
+Las cÈlulas endoteliales que guÌan los brotes vasculares son llamadas cÈlulas de la punta endotelial. Estas cÈlulas de la punta toman la decisiÛn sobre la rama del vaso, por lo tanto, definen la ruta en la que el nuevo brote crecer·.
+En nuestro modelo, las cÈlulas de punta dan vida a dos nuevas crÌas en dos lugares vacÌos de la cuadrÌcula en el vecindario de Moore de su madre de acuerdo con las Ecuaciones 1 y 2. 
+
+Expansion:\\
+Las cÈlulas de la punta son las cÈlulas fundamentales de los brotes; dirigen a las siguientes cÈlulas endoteliales (cÈlulas de tallo) y detectan su entorno en busca de indicaciones de orientaciÛn. A medida que las cÈlulas de la punta abandonan el vaso sanguÌneo existente, las cÈlulas del tallo contin˙an para brotar. A medida que la cÈlula de la punta se mueve adelante, se forma una nueva cÈlula del tallo detr·s de ella.
+
+Brote\\
+Las cÈlulas de la punta son las cÈlulas principales de los brotes; dirigen a las siguientes cÈlulas endoteliales (cÈlulas de tallo) y detectan su entorno en busca de indicaciones de orientaciÛn. A medida que las cÈlulas de la punta abandonan el vaso sanguÌneo existente, las cÈlulas del tallo contin˙an para brotar. A medida que la cÈlula de la punta se mueve adelante, se forma una nueva cÈlula del tallo detr·s de ella.
+\subsubsection{Densidad de la celulas endoteliales}
+\begin{definition}
+
+\begin{center}
+ECUACION DE DENSIDAD DE LAS ENDOTELIALES
+\end{center}
+\end{definition}
+\subsubsection{Reglas del surgimiento de la neovasculatura}
+
+
+\begin{thebibliography}{9}
+{\small
+\bibitem{1}
+Kaja Urba≈Ñska, Justyna Soko≈Çowska, Maciej Szmidt, and Pawe≈Ç Sysa \textit{Glioblastoma multiforme ‚Äì an overview} 2014; 18(5): 307‚Äì312.
+\textit{doi: 10.5114/wo.2014.40559}.
+
+\bibitem{2}
+Maria-Del-Mar Inda, Rudy Bonavia, Joan Seoane \textit{Glioblastoma multiforme: a look inside its heterogeneous nature} 2014 Jan 27;6(1):226-39.
+\textit{doi: 10.3390/cancers6010226}.
+
+\bibitem{3}
+Ricardo G√≥mez-Oliva1, Samuel Dom√≠nguez-Garc√≠a1, Livia Carrascal2, \textit{Evolution of Experimental Models in the Study of Glioblastoma: Toward Finding Efficient Treatments} 2014 Volume 10 - 2020.
+\textit{https://doi.org/10.3389/fonc.2020.614295}.
+
+\bibitem{4}
+A. Tejera-Vaquerizo, J. Ca\~nueto, A. Toll, J. Santos-Juanes, A. Jaka \textit{Estimated Effect of COVID-19 Lockdown on Skin Tumor Size and Survival: An Exponential Growth Modele} 2020 Oct; 111(8): 629‚Äì638.
+\textit{doi: 10.1016/j.ad.2020.05.001}.
+
+\bibitem{5}
+Alejandro Guerra Gonz√°lez, Eduardo Silva, Sheyla Montero \textit{Met\'astasis: un hito para el conocimiento, un reto para la ciencia} Ciudad de la Habana ene.-mar. 2020.
+
+\bibitem{6}
+Mar\'ia Rosa Dur\'an \textit{An\'alisis de modelos matem\'aticos de crecimiento tumoral} Espa\~na 2016.
+
+\bibitem{7}
+Ibrahim M. Chamseddine and Katarzyna A. Rejniak \textit{Hybrid modeling frameworks of tumor development and treatment} 2020 Jan-Feb; 12(1): e1461. .
+\textit{doi: 10.1002/wsbm.1461}.
+
+\bibitem{8}
+Subramanian, S., Gholami, A. \& Biros, G \textit{Simulation of glioblastoma growth using a 3D multispecies tumor model with mass effect} J. Math. Biol. 79, 941‚Äì967 (2019). .
+\textit{https://doi.org/10.1007/s00285-019-01383-y}.
+
+\bibitem{9}
+P. Gerlee and A.R.A. Anderson \textit{An Evolutionary Hybrid Cellular Automaton Model of Solid Tumour Growth} J Theor Biol. 2007 Jun 21; 246(4): 583‚Äì603.
+\textit{doi: 10.1016/j.jtbi.2007.01.027}.
+
+\bibitem{10}
+Yan Cai, Jie Wu, Zhiyong Li, and Quan Long \textit{Mathematical Modelling of a Brain Tumour Initiation and Early Development: A Coupled Model of Glioblastoma Growth, Pre-Existing Vessel Co-Option, Angiogenesis and Blood Perfusion} 2016 Mar 2.
+\textit{doi: 10.1371/journal.pone.0150296}.
+
+}
+\end{thebibliography}
+
+\end{document}

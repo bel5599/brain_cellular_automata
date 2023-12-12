@@ -209,6 +209,8 @@ namespace AutomataCelularLogic
 
             consumption_rate = new double[] { 2 * r_c, 5 * r_c, 10 * r_c };
 
+            strahler_order_dict = new Dictionary<StrahlerOrder, Tuple<int, int, double>>();
+
             FillOutTheStrahlerOrderDictionary();
 
             DiscretizeTheOxygenDiffusionCoefficient();

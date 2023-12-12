@@ -44,6 +44,8 @@ namespace AutomataCelularLogic
             this.astrocytes_count = astrocytes_count;
             this.neuron_count = neuron_count;
 
+            AmountNormalCells();
+
             InicializarListas();
             StartCellularLifeInTheBrain();
 
@@ -151,6 +153,8 @@ namespace AutomataCelularLogic
                 {
                     c.child_left = c.child_right = null;
 
+                    marks.Add(new_pos);
+
                     edge_order_dict.Add(new Tuple<Pos, Pos>(pos, new_pos), StrahlerOrder.StrahlerOrder_1);
                     return c;
                 }
@@ -177,7 +181,21 @@ namespace AutomataCelularLogic
                         return c;
                 }
             }
-            return null;
+            else
+            {
+                marks.Add(pos);
+                return null;
+            }
+        }
+
+        public void AmountNormalCells()
+        {
+            int count =(int)((world.GetLength(0) * world.GetLength(1) * world.GetLength(2)) * 0.05);
+            int count_1 = count / 3;
+
+            stem_cells_count = count_1;
+            astrocytes_count = count_1;
+            neuron_count = count_1;
         }
 
         public void CreateCells()
@@ -214,16 +232,16 @@ namespace AutomataCelularLogic
         }
         
 
-        public void CreateBloodVesselsTreeNoRecursivo(Pos pos, int depth, int max_depth, List<Pos> marks, List<Pos> pos_list)
-        {
-            Children actual = new Children(pos);
+        //public void CreateBloodVesselsTreeNoRecursivo(Pos pos, int depth, int max_depth, List<Pos> marks, List<Pos> pos_list)
+        //{
+        //    Children actual = new Children(pos);
 
-            while(depth < max_depth)
-            {
-                Pos new_pos = RandomAdjPos(pos, marks);
+        //    while(depth < max_depth)
+        //    {
+        //        Pos new_pos = RandomAdjPos(pos, marks);
 
-            }
-        }
+        //    }
+        //}
 
         public void Edges()
         {
@@ -260,6 +278,7 @@ namespace AutomataCelularLogic
         {
             foreach (Pos existingPoint in points)
             {
+                //aqui hay que poner la distancia euclidiana
                 double distance = Math.Sqrt(Math.Pow(point.X - existingPoint.X, 2) + Math.Pow(point.Y - existingPoint.Y, 2) + Math.Pow(point.Z - existingPoint.Z, 2));
                 if (distance < radius)
                     return true;
