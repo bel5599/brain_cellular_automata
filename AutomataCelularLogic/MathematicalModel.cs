@@ -495,9 +495,9 @@ namespace AutomataCelularLogic
                             //double t1 = dt * (dif_conc_disc * oxygen_delta[i, j, k] * oxigen_conc_disc - metabolic_rate[cell_state][1]);
                             //double tt = oxygen_matrix[i, j, k] + t1;
                             //oxygen_matrix[i, j, k] += t1;
-                            //CellState behavior = space[i, j, k].behavior_state;
-                            //if (behavior == CellState.MigratoryTumorCell || behavior == CellState.QuiescentTumorCell || behavior == CellState.ProliferativeTumoralCell || behavior == CellState.TumoralStemCell)
-                            //Console.WriteLine("Valor de Laplace: {0} y la concentracion: {1}", oxygen_delta[i, j, k], conc);
+                            CellState behavior = space[i, j, k].behavior_state;
+                            if (behavior == CellState.MigratoryTumorCell || behavior == CellState.QuiescentTumorCell || behavior == CellState.ProliferativeTumoralCell || behavior == CellState.TumoralStemCell)
+                                Console.WriteLine("Valor de Laplace: {0} y la concentracion: {1}", oxygen_delta[i, j, k], conc);
                         }
                     }
                 }
@@ -597,7 +597,7 @@ namespace AutomataCelularLogic
                             double d = density_matrix[i, j, k];
                             density_matrix[i, j, k] += time * (-rate_of_degradation_of_ECM_by_MDE * d * mde[i, j, k] + rate_of_production_of_ECM_by_tumour_cells * (1 - d));
 
-                            //Console.WriteLine("Densidad anterior: {0} Densidad en la casilla actual: {1}", d, density_matrix[i, j, k]);
+                            Console.WriteLine("Densidad anterior: {0} Densidad en la casilla actual: {1}", d, density_matrix[i, j, k]);
                         }
                     }
                 }
@@ -631,7 +631,7 @@ namespace AutomataCelularLogic
                                 mde[i, j, k] += time * (diffusion_coefficient_MDE * mde_delta[i, j, k] * value + prod_rate_of_MDE_by_tumour_cells *
                                                         (1 - value) - natural_decay_of_MDE * value);
 
-                                //Console.WriteLine("Valor de Laplace: {0}, rate de prod: {1} y decay: {2}. Valor total actual: {3}", mde_delta[i, j, k], prod_rate_of_MDE_by_tumour_cells, natural_decay_of_MDE, mde[i, j, k]);
+                                Console.WriteLine("Valor de Laplace: {0}, rate de prod: {1} y decay: {2}. Valor total actual: {3}", mde_delta[i, j, k], prod_rate_of_MDE_by_tumour_cells, natural_decay_of_MDE, mde[i, j, k]);
                             }
                         }
                     }
@@ -656,7 +656,7 @@ namespace AutomataCelularLogic
                             double d = density_matrix[i, j, k];
                             density_matrix[i, j, k] += time * (-degrad_coeff_ECM * mde[i, j, k] * density_matrix[i, j, k]);
 
-                            //Console.WriteLine("Densidad anterior: {0} Densidad en la casilla actual: {1}", d, density_matrix[i, j, k]);
+                            Console.WriteLine("Densidad anterior: {0} Densidad en la casilla actual: {1}", d, density_matrix[i, j, k]);
                         }
 
                     }
@@ -683,8 +683,8 @@ namespace AutomataCelularLogic
 
                             mde[i, j, k] += time * (diffusion_coefficient_MDE_2 * mde_delta[i, j, k] * mde[i, j, k] + prod_rate_of_MDE_by_tumour_cells_2 *
                                             prod - natural_decay_of_MDE_2 * mde[i, j, k]);
-                            //if(behavior == CellState.MigratoryTumorCell || behavior == CellState.ProliferativeTumoralCell || behavior == CellState.QuiescentTumorCell)
-                            //    Console.WriteLine("Valor de Laplace: {0}. Valor total actual: {1}", mde_delta[i, j, k], mde[i, j, k]);
+                            if (behavior == CellState.MigratoryTumorCell || behavior == CellState.ProliferativeTumoralCell || behavior == CellState.QuiescentTumorCell)
+                                Console.WriteLine("Valor de Laplace: {0}. Valor total actual: {1}", mde_delta[i, j, k], mde[i, j, k]);
                         }
 
                     }
@@ -783,7 +783,7 @@ namespace AutomataCelularLogic
                         //if(vegf_conc_matrix[i, j, k] != 0)
                         //    Console.WriteLine("VEGF anterior: {0} VEGF act: {1} Delta:{2} Uptake: {3} Source: {4} Waste: {5}", conc, vegf_conc_matrix[i, j, k], delta, uptake, source, waste);
 
-                        //Console.WriteLine("Behavior: {0} VEGF: {1}",cell.behavior_state, vegf_conc_matrix[i,j,k]);
+                        Console.WriteLine("Behavior: {0} VEGF: {1}", cell.behavior_state, vegf_conc_matrix[i, j, k]);
                     }
                 }
             }

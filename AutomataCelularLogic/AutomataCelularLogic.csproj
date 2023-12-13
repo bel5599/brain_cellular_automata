@@ -73,6 +73,7 @@
     <Compile Include="EnvironmentLogic.cs" />
     <Compile Include="ExperimentalResultsGraph.cs" />
     <Compile Include="MathematicalModel.cs" />
+    <Compile Include="NetworkHistory.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Pos.cs" />
     <Compile Include="Probability.cs" />

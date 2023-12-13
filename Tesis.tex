@@ -148,7 +148,7 @@ $d_E(p, q) = \sqrt[2]{(p_x - q_x)^2 + (p_y - q_y)^2}$.
 \begin{definition}
 Sea $n_1, n_2$ nodos de un arbol binario. Se define segmento de vasos sanguineos si se cumple que $n_1$ es padre de $n_2$ o $n_2$ padre de $n_1$
 \begin{center}
-ECUACION DE SEGMENTO 
+$V_s(c_1,c_2)=$
 \end{center}
 \end{definition}
 
@@ -308,6 +308,7 @@ La ecuacion que describe las interaciones entre las celulas tumorales y las celu
 \begin{center}
 $\frac{dC_m(c,t)}{dt}= - \delta C_m(c,t) C_f(c,t)$
 \end{center}
+donde $\delta$ es el valor de densidad constante de una celula
 \end{definition}
 
 \subsection{Degradacion de la matriz}
@@ -328,10 +329,8 @@ La ecuacion que describe las interaciones entre las celulas tumorales y las celu
 \begin{center}
 $\frac{dC_m(c,t)}{dt}=D_m\nabla^2C_m+\mu_T TC(c,t) + \mu_E EC(c,t) - \lambda C_m $
 \end{center}
-donde $C_f$ son concentracion de MDE. Los terminos $TC(c,t)$ y $EC(c,t)$ representan una celula tumoral y una celula endotelial ubicada en una posicion de nodo $(i,j,k)$. Sus valores son 1 si una celda esta presente o 0 si no lo esta. $D_m$ es el coeficiente de difusion MDE y $\delta$, $\mu_T$, $\mu_E$
+Los terminos $TC(c,t)$ y $EC(c,t)$ representan una celula tumoral y una celula endotelial ubicada en una posicion de nodo $(i,j,k)$. Sus valores son 1 si una celda esta presente o 0 si no lo esta. $D_m$ es el coeficiente de difusion MDE y $\mu_T$, $\mu_E$, son el valor de degradacion constante de una celula tumoral y endotelial respectivamente.
 \end{definition}
-
-\subsubsection{Operador de Laplace}
 
 \subsection{Difusion de nutrientes}
 Durante la fase prevascular de la carcinog√©nesis, el tumor a√∫n no ha desarrollado su propia vasculatura, por lo que los nutrientes deben ser transportados desde los vasos sangu√≠neos circundantes hasta el tumor. Los productos de desecho metab√≥licos de las c√©lulas cancerosas tambi√©n se difunden en el tejido y son eliminados cuando llegan a un vaso sangu√≠neo. El metabolismo de las c√©lulas cancerosas incluye una variedad de sustancias qu√≠micas necesarias para el mantenimiento y la divisi√≥n celular, pero se sabe que las concentraciones de ox√≠geno y glucosa limitan el crecimiento del tumor. Por lo tanto, en el modelo, incorporaremos estos dos campos, as√≠ como un campo para la concentraci√≥n de iones de hidr√≥geno. Una simplificaci√≥n adicional de los campos qu√≠micos es que no consideramos la descomposici√≥n de los nutrientes e incluimos la producci√≥n de ox√≠geno y glucosa en las condiciones de contorno aplicando condiciones de contorno de Dirichlet con funciones constantes. Estas condiciones l√≠mite pretenden imitar una situaci√≥n en la que el tejido est√° rodeado de vasos sangu√≠neos, con concentraciones constantes de nutrientes e iones de hidr√≥geno, que suministran nutrientes al tumor y eliminan los iones de hidr√≥geno del tejido. Esto da a las ecuaciones que describen los campos una forma simple, similar a las de los modelos de Patel et al. (2001) y Ferreira et al. (2002). La evoluci√≥n temporal de los campos de ox√≠geno (2), glucosa (3) e iones de hidr√≥geno (4) se rige por el siguiente conjunto de ecuaciones diferenciales parciales.\\
@@ -484,8 +483,6 @@ El conjunto de celula $L$ se define a partir del conjunto de puntos del espacio 
 $L = E^3$
 \end{center}
 \end{definition}
-
-
 
 
 \subsection{Conjunto de Estados}
@@ -660,8 +657,10 @@ CAMBIAR LOS SIGUIENTES TEXTOS QUE SON LITERAL COPIA Y PEGA\\
 Como se ha mencionado previamente, la vascularizaci√≥n de un tumor es un factor distintivo en su desarrollo, ya que la difusi√≥n de nutrientes limita el crecimiento del tumor a un cierto l√≠mite. Es el suministro de nutrientes nuevo que proviene de la neovasculatura la que permite que el tumor contin√∫e su crecimiento m√°s all√° de dicho li≠mite.\\
 De acuerdo con la hipotesis VIII sobre el desarrollo tumoral en funcion de la poblacion, el modelo asume que la dinamica de un tumor sigue la funcion de crecimiento logi≠stico de Verhulst [36], que se presenta a continuacion:
 \begin{center}
-ECUACION DE VERHULST
+$\frac{dP}{dt}=rP(1-\frac{P}{K})$,
 \end{center}
+cuando $t=0$, $P(t=0)=P_0$.\\
+
 La poblacion cambia con el tiempo, y este cambio esta influenciado por un factor de crecimiento (r), la poblacion actual (P) y un valor (K) que representa la capacidad de carga del entorno, es decir, la cantidad maxima de individuos que el entorno puede soportar.\\
 La angiogenesis puede entenderse como un aumento en la capacidad de carga del entorno (K) o como un incremento en la tasa de proliferaci√≥n celular debido a que la neovasculatura proporciona un metodo de suministro m√°s eficiente que la difusi√≥n de nutrientes. Por lo tanto, la dinamica global del crecimiento se describe con dos expresiones: una para la etapa avascular y otra para la etapa vascular, ambas con sus parametros especi≠ficos. Como resultado del an√°lisis anterior, se propone la siguiente hipotesis\\
 HIPOTESIS: Se asume que la neovasculatura que crece en el
@@ -669,17 +668,44 @@ interior de un tumor producto de la angiogenesis produce un aumento en la capaci
 Segun las reglas sobre la conservacion del estado de las celulas normales del automata (3.23), estas c√©lulas no cambian de estado a menos que estan en presencia de celulas cancer√≠genas de algun tumor. Esto implica que la regla del crecimiento tumoral puede definirse a partir de esta condicion, es decir, las celulas normales tienen una probabilidad de ser desplazadas de su posicion si se encuentran cerca de una o varias c√©lulas canceri≠genas pertenecientes a uno o varios tumores, o en terminos de la funcion Nn3(S(v,n))>0. Por lo tanto, las reglas se definen de la siguiente manera:\\
 
 \begin{center}
-FUNCION DE TRANSICION LOCAL PARA LAS CELULAS NORMALES QUE TIENEN EN SU VECINDAD A CELULAS CANCERIGENAS
+$s(c,t+1)=R(S(c,t))=
+\displaystyle \left\{
+\begin{array}{lclcl}
+V_a(S(c,t)) & si & s(c,t) = 1 \wedge N_4^t(S(c,t))>0\\
+V_a(S(c,t)) & si & s(c,t) = 2 \wedge N_4^t(S(c,t))>0 \\
+\end{array}
+\right.$
 \end{center}
 
-donde $C(S(p,t)\in {i,4})$ con $i\in {0,1,2}$ son variables aleatorias con la siguiente distribucion de probabilidad:
+donde $V_a(S(p,t)\in {i,4})$ con $i\in {1,2}$ son variables aleatorias con la siguiente distribucion de probabilidad:
 
 \begin{center}
-PROBABILIDAD DE QUE UNA CELULA NORMAL SE CONVIERTA EN CANCERIGENA
+$P(V_a(S(c,t))=i)=1-\rho(S(c,t)\rightarrow 4)$\\
+$P(V_a(S(c,t))=4)=\rho(S(c,t)\rightarrow 4)$
 \end{center}
 
+\begin{definition}
+
+\begin{center}
+
+\end{center}
+
+\end{definition}
+
+COPIA Y PEGA \\
+De las expresiones anteriores se infiere que la probabilidad de que una celula normal sea desplazada por una celula cancerIgena tiene el valor correspondiente con la evaluacion de la probabilidad de transicion $\rho(S(c,t)\rightarrow 4)$, mientras que la probabilidad de que permanezca en el estado original es $1-\rho(S(c,t)\rightarrow 4)$.
+
 MODIFICAR EL SIGUIENTE TEXTO:
-Dado que un tumor siempre se expande hacia posiciones adyacentes ocupadas por celulas normales, podemos asumir que la masa tumoral tiene una forma compacta donde cada celula canceri≠gena tiene en su vecindario a otras celulas canceri≠genas, de acuerdo con lo expresado en la hip√≥tesis X sobre la adhesi√≥n celular. Esta probabilidad de transicion, segun la concepcion clasica de un automata celular, debe definirse de manera que solo utilice la informacion de la configuracion local para estimar el valor resultante. En el contexto de este modelo, es necesario que la probabilidad incorpore la informacion relacionada con el modelo de crecimiento log√≠stico.
+Dado que un tumor siempre se expande hacia posiciones adyacentes ocupadas por celulas normales, podemos asumir que la masa tumoral tiene una forma compacta donde cada celula canceri≠gena tiene en su vecindario a otras celulas canceri≠genas, de acuerdo con lo expresado en la hipotesis X sobre la adhesion celular. Esta probabilidad de transicion, segun la concepcion clasica de un automata celular, debe definirse de manera que solo utilice la informacion de la configuracion local para estimar el valor resultante. En el contexto de este modelo, es necesario que la probabilidad incorpore la informacion relacionada con el modelo de crecimiento logi≠stico.
+
+Se reedefine la ecuacion de difusion de la degradacion de la matriz teniendo en cuenta la existencia de celulas tumorales
+\begin{definition}
+Ecuacion de degradacion de la matriz es:
+\begin{center}
+$\frac{dC_m(c,t)}{dt}=D_m\nabla^2C_m+\mu_T TC(c,t) - \lambda C_m $
+\end{center}
+Los terminos $TC(c,t)$ representa una celula tumoral ubicada en una posicion de nodo $(i,j,k)$. Sus valores son 1 si una celda esta presente o 0 si no lo esta. $D_m$ es el coeficiente de difusion MDE y $\mu_T$, es el valor de degradacion constante de una celula tumoral.
+\end{definition}
 
 \subsubsection{Proceso de inferencia de la regla}
 LO QUE HABLA DARIEN AQUI NO NOS APORTA NADA A NUESTRO CASO
@@ -731,22 +757,44 @@ n \in N \\
 \subsubsection{Proliferaci\'on}
 
 Para que una c\'elula en el modelo se divida, debe estar en un estado de proliferaci\'on. Adem\'as, la c\'elula debe haber alcanzado la edad de proliferaci\'on para poder dividirse. Si se cumplen estas condiciones, la c\'elula
-intenta dividirse y coloca una c\'elula hija al azar en una celda vaci≠a en la matriz extracelular.Esta celda debe tener una densidad menor que un valor m\'inimo preestablecido para permitir la proliferaci\'on de la c\'elula en uno de los 26 elementos vecinos del aut\'omata. \\
+intenta dividirse y coloca una c\'elula hija al azar en una celda vaci≠a en la matriz extracelular.Esta celda debe tener una densidad menor que un valor m\'inimo preestablecido para permitir la proliferaci\'on de la c\'elula en uno de los 26 elementos vecinos del aut\'omata.\\
+Teniendo en cuenta lo anterior se establece la siguiente definicion:\\
 
-$d_{ECM} < minDensity_{ECM}$\\
+\begin{definition}
+Sea la funcion $D_{min}(c,t)$ que recibe una celula c en un tiempo t y devuelve la menor densidad en la vecindad de la celula:
+\begin{center}
+$D_{min}(c,t)=min[C_f(c_1,t),C_f(c_2,t),...,C_f(c_{26},t)]$\\
+$d_{ECM} < minDensity_{ECM}$
+\end{center}
+\end{definition}
+
 
 Si ninguno de los 26 elementos vecinos est\'a vac\'io, la divisi\'on celular falla y la c\'elula queda inactiva. Dado que las c\'elulas cancerosas crecen r\'apidamente, es plausible suponer que la mayor parte de la energ\'ia metabolizada por la c\'elula se utiliza para la divisi\'on celular. Bas\'andonos en esta suposici\'on, conectamos la edad de proliferaci\'on con el metabolismo de las c\'elulas y modelamos la proliferaci\'on celular de la siguiente manera:\\
 La edad de proliferaci\'on es seleccionada aleatoriamente de una distribuci\'on normal. Esto se puede representar con la f\'ormula:\\
 
-$N (A_p, A_p / 2)$,\\
+\begin{center}
+$N (A_p, A_p / 2)$
+\end{center}
+
 
 donde $Ap$ es la edad de proliferaci\'on base. Esta distribuci\'on normal se utiliza para modelar la variaci\'on en la edad de proliferaci\'on entre c\'elulas id\'enticas. La distribuci\'on normal se caracteriza por dos par\'ametros: \\
 la media (Ap en este caso) y \\
 la desviaci\'on est\'andar (Ap/2 en este caso). \\
 La media es el valor que se espera que obtenga la mayor\'ia de las veces, y la desviaci√≥n est\'andar es una medida de cu\'anto se dispersan los valores alrededor de la media. Esto significa que la mayor\'ia de las c\'elulas tendr\'an una edad de proliferaci\'on cerca de la media ($Ap$), pero algunas c\'elulas pueden tener edades de proliferaci\'on m\'as altas o m\'as bajas debido a la dispersi\'on alrededor de la media.
+
+\begin{definition}
+Se define $Ap(c,t)$ como la edad de proliferacion de la celula $c$ en un tiempo $t$
+\end{definition}
+
 Con cada actualizaci\'on de la c\'elula, se incrementa un contador interno Xp utilizando una variable aleatoria que puede tomar valores entre 1 y 5.\\
 Cuando una c\'elula alcanza su edad de proliferaci\'on (es decir, cuando su contador interno Xp supera a Ap), la c\'elula se divide para formar una nueva c\'elula. Esta divisi\'on celular es un proceso que requiere energ\'ia, por lo que se supone que una c\'elula con una edad de proliferaci\'on mas corta (es decir, una c\'elula que alcanza su edad de proliferaci\'on m\'as r\'apidamente) tendr\'a un metabolismo m\'as alto. \cite{9}\\
 AQUI VA UNA FOTO DE COMO OCURRE LA PROLIFERACION
+
+La regla que se aplica para que una celula proliferativa realice la mitosis es la siguiente:\\
+Sea $c'$ una celula en una vecindad de $c$. Se cumple que la celula $c$ puede realizar la mitosis en la celula $c'$ si:\\
+\begin{center}
+$s(c',t)=4$ si $D_{min}(c,t)<minDensity_{ECM}$ $\wedge$ $Ap(c,t)\geq 16$
+\end{center}
 
 ESTA DEFINICION NO VA AQUI
 \begin{definition}
@@ -877,7 +925,7 @@ Cuando la concentraciÛn de oxÌgeno local en el sitio del tumor es menor que el u
 
 La funcion de transicion local queda de la siguiente manera:
 \begin{center}
-$s(c, t+1) = R(s(c,t))= 6$   si  $s(c,t)=5$ $\wedge$ $C_o(s(c,t))\leq\theta_{nec}$
+$s(c, t+1) = R(s(c,t))= 6$   si  [$s(c,t)=5$ $\wedge$ $C_o(s(c,t))\leq\theta_{nec}$]
 \end{center}
 
 \subsection{Regla del surgimiento de celulas migratorias}
@@ -890,7 +938,7 @@ HABLAR PORQUE SURGE LA MIGRACION CELULAR
 
 La funcion de transicion local queda de la siguiente manera:
 \begin{center}
-$s(c, t+1) = R(s(c,t))= A_8(S(c,t))$   si  $s(c,t)=4$ $\wedge$ $N_10^t(c,t)>5$
+$s(c, t+1) = R(s(c,t))= A_8(S(c,t))$   si  [$s(c,t)=4$ $\wedge$ $N_10^t(c,t)>5$]
 \end{center}
 \subsubsection{Reglas de la migracion}
 En el contexto de nuestro modelo, es crucial reproducir la migracion de celulas canceri≠genas con cierto grado de flexibilidad y rangos de movimiento variables. En este sentido, la idea de algunos investigadores [18, 20] ha sido definir vecindades de interaccion con un radio de accion mayor o parametros del modelo que indiquen la capacidad de movilidad de las celulas.
@@ -912,25 +960,47 @@ De esta manera, la posici√≥n origen quedar√≠a ocupada por la c√©lula destino del
 
 EXTENSION DE LA FUNCION DE TRANSICIN LOCAL
 
-Si la c√©lula v est√° inm√≥vil, su estado final corresponde al valor que toma la variable aleatoria Œ∂4(¬µ(v, n)). Si este valor es 2, se asume que la existencia de la c√©lula migratoria v ha terminado y la posici√≥n que dej√≥ es ocupada por el estroma. Si el valor es 4, la c√©lula migratoria v contin√∫a existiendo pero permanece inm√≥vil. La capacidad de supervivencia de la c√©lula migratoria v est√° determinada por la probabilidad de transici√≥n 1 ‚àí œÅ4(¬µ(v, n) ‚Üí 2), de ah√≠ que œÅ4(¬µ(v, n) ‚Üí 2) se corresponda con la probabilidad de muerte celular. Si la c√©lula v tiene posibilidades de realizar un desplazamiento, la posici√≥n que ocupaba v tomar√° el valor 2 del conjunto de estados correspondiente con el estroma como resultado del intercambio de estados. Cuando se aplica la regla del desplazamiento, el estado de la c√©lula destino w se actualiza simult√°neamente como se muestra a continuaci√≥n:
+Si la celula v esta inmovil, su estado final corresponde al valor que toma la variable aleatoria. Si este valor es 2, se asume que la existencia de la celula migratoria v ha terminado y la posicion que deja es ocupada por el estroma. Si el valor es 4, la celula migratoria v continua existiendo pero permanece inmovil. La capacidad de supervivencia de la celula migratoria v est√° determinada por la probabilidad de transicion , de ahi≠ que se corresponda con la probabilidad de muerte celular. Si la celula v tiene posibilidades de realizar un desplazamiento, la posicion que ocupaba v tomara el valor 2 del conjunto de estados correspondiente con el estroma como resultado del intercambio de estados. Cuando se aplica la regla del desplazamiento, el estado de la celula destino w se actualiza simultaneamente como se muestra a continuacion:
 \begin{center}
 EXPRESION DE LA ACTUALIZACION DEL ESTADO DE MIGRACION
 \end{center}
-El proceso de selecci√≥n de la posici√≥n de destino comienza evaluando la funci√≥n (3.78) en la c√©lula v en el momento actual, lo que resulta en un conjunto de posibles destinos de la forma Dmig(v, n) = {w1, w2, ..., wm}, donde m = |Dmig(v, n)|. Seg√∫n la hip√≥tesis XX sobre el sesgo direccional de la migraci√≥n, la direcci√≥n del movimiento se determina bas√°ndose en los vectores de concentraci√≥n de nutrientes del conjunto B. Entre la c√©lula migratoria v y cada una de las c√©lulas destino del conjunto Dmig(v, n) se forman vectores de desplazamiento, y para cada uno de estos vectores se estima la probabilidad de que la c√©lula v lo seleccione como la direcci√≥n final del movimiento. Esta probabilidad se determina como la m√°xima similitud coseno alternativa entre cada vector de direcci√≥n y los vectores de concentraci√≥n de nutrientes. Estamos en condiciones de definir la funci√≥n para la selecci√≥n de la posici√≥n de destino:
+El proceso de seleccion de la posicion de destino comienza evaluando la funcion (3.78) en la celula v en el momento actual, lo que resulta en un conjunto de posibles destinos de la forma Dmig(v, n) = {w1, w2, ..., wm}, donde m = |Dmig(v, n)|. Segun la hipotesis XX sobre el sesgo direccional de la migracion, la direccion del movimiento se determina basandose en los vectores de concentracion de nutrientes del conjunto B. Entre la celula migratoria v y cada una de las celulas destino del conjunto Dmig(v, n) se forman vectores de desplazamiento, y para cada uno de estos vectores se estima la probabilidad de que la celula v lo seleccione como la direccion final del movimiento. Esta probabilidad se determina como la maxima similitud coseno alternativa entre cada vector de direccion y los vectores de concentracion de nutrientes. Estamos en condiciones de definir la funcion para la seleccion de la posicion de destino:
 
 
 La funcion de transicion local queda de la siguiente manera:
 \begin{center}
-$s(c, t+1) = R(s(c,t))= 7$   si  $s(c,t)=7$ $\wedge$ $N_10^t(c,t)>1$ $\wedge$ $C_o(c,t)$ $\geq$ $\theta_hip$
+$s(c, t+1) = R(s(c,t))= 7$   si  $[s(c,t)=7$ $\wedge$ $N_10^t(c,t)>1$ $\wedge$ $C_o(c,t)$ $\geq$ $\theta_hip]$
 \end{center}
+\begin{definition}
+Regla de migracion tanto como para la migracion de las celulas tumorales, como para la migracion de las celulas endoteliales.
+A la hora de elegir la proxima celda para migrar se realiza un proceso de selecion teniendo en cuenta el nivel de oxigeno o la quimiotaxis en cuanto a las celulas endoteliales con respecto al VEGF:
+\begin{center}
+$\vee_{nutrient}[MaxC_{nutrient}(c,t)-C_{nutrient}'(c,t)>3\sigma_{nutrient}(c,t)]=true$
+\end{center}
+donde $\vee$ es el operador or,\\
+$MaxC_{nutrient}(c,t)=$ concentracion maxima de nutrientes entre todos los vecinos de Moore de la posicion candidata $p(x,y,z)$\\
+$C_{nutrient}'(c,t)=$ concentracion promedio de nutrientes para la posicion candidata entre todos sus vecinos de Moore.\\
+$\sigma_{nutrient}(c,t)=$ desviacion estandar de la concentracion de nutrientes para la posicion candidata entre todos sus vecinos.
+\end{definition}
+
+Si el sitio candidato no tiene la condicion anterior o dos o mas canidadtos tienen la condicion anterior, todas las ubicaciones candidatas se clasificaran mediante la siguiente ecuacion y, segun su valor de Probabilidad de seleccion, se seleccionara una candidato al azar:\\
+\begin{definition}
+Probabilidad de seleccion
+\begin{center} 
+$ProbabilityOfSelection_{(x,y,z)}=\frac{Weight_{(x,y,z)}}{\sum\limits_{\forall (x',y',z')}^{26}Weight_{(x',y',z')}}$
+\end{center}
+donde:\\
+$Weight_{(x,y,z)}=\sum\limits_{nutrient}^{26}C_{nutrient}'(c,t)$, \\
+$C_{nutrient}'(c,t)=$ concentracion promedio de nutrientes para la posicion candidata entre todos sus vecinos de Moore.
+\end{definition}
 
 Cuando cambia el estado de una celula normal a una celula cancerigena?
 
 Cuando cambia el estado de una celula cancerigena?
 
-Las sustancias como el ox√≠geno, la degradaci√≥n extracelular y el factor de crecimiento endotelial son fundamentales para la simulaci√≥n del crecimiento de un tumor a trav√©s de un aut√≥mata celular debido a su papel crucial en el entorno celular y en el proceso de crecimiento y desarrollo celular.
-El ox√≠geno es un componente esencial de la c√©lula, ya que es necesario para la respiraci√≥n celular y para la producci√≥n de energ√≠a. En un tumor, el alto nivel de actividad metab√≥lica y la alta tasa de proliferaci√≥n celular pueden llevar a un aumento en la demanda de ox√≠geno, lo que puede influir en la formaci√≥n y crecimiento del tumor 1.
-La degradaci√≥n extracelular se refiere a los procesos qu√≠micos que descomponen las c√©lulas y los tejidos. Durante el crecimiento de un tumor, los niveles de degradaci√≥n extracelular pueden aumentar debido a la muerte celular y a la reparaci√≥n de tejidos. Estos cambios pueden afectar a las c√©lulas tumorales y a su entorno, lo que puede influir en el crecimiento y desarrollo del tumor 2.
+Las sustancias como el oxi≠geno, la degradacion extracelular y el factor de crecimiento endotelial son fundamentales para la simulacion del crecimiento de un tumor a traves de un automata celular debido a su papel crucial en el entorno celular y en el proceso de crecimiento y desarrollo celular.
+El oxi≠geno es un componente esencial de la celula, ya que es necesario para la respiracion celular y para la produccion de energi≠a. En un tumor, el alto nivel de actividad metabolica y la alta tasa de proliferacion celular pueden llevar a un aumento en la demanda de oxi≠geno, lo que puede influir en la formacion y crecimiento del tumor 1.
+La degradacion extracelular se refiere a los procesos qui≠micos que descomponen las celulas y los tejidos. Durante el crecimiento de un tumor, los niveles de degradacion extracelular pueden aumentar debido a la muerte celular y a la reparacion de tejidos. Estos cambios pueden afectar a las celulas tumorales y a su entorno, lo que puede influir en el crecimiento y desarrollo del tumor 2.
 
 \subsubsection{Coopcion de vasos}
 Las pseudoempalizadas estan fisiopatologicamente vinculadas con la hiperplasia microvascular adyacente, la cual puede expresar altos niveles de reguladores angiogenicos e inducir angiogenesis tumoral. Ademas, la "cooptacion" de redes de vasos preexistentes es un factor importante en la progresion del glioma. Holash et al [ 6 ] mostraron que los gliomas C6 mas pequennos, solo una semana despues de la implantacion, estaban bien vascularizados por cooptacion de vasos sangu√≠neos preexistentes. Experimentos adicionales [ 7 - 9 ] mostraron que cuando se implantaba una pequenna cantidad de celulas tumorales en tejido sano, lograban cooptar y migrar a lo largo de los vasos del huesped, produciendo muchas sustancias qui≠micas, como factores de crecimiento endotelial vascular (VEGF), Ang -1, Ang-2, para alterar el microambiente alrededor de los vasos del huesped. Estos pueden inducir cambios inmaduros en la vasculatura del tejido del huesped, incluyendo la dilatacion de los vasos, el incremento de la permeabilidad capilar y la tortuosidad. Con el crecimiento del tumor, las celulas cancerosas migran a lo largo de los vasos sangui≠neos, comprimiendolos y desestabilizandolos, lo que resulta en la regresion de los vasos y una disminucion de la perfusion sangui≠nea. 
@@ -988,7 +1058,7 @@ El valor de presiÛn que provocar· el colapso de un vaso se denomina Pc, que refl
 \begin{definition}
 Sea $P_c$ la presion de colapso de un segmento
 \begin{center}
-$P_c=P_c^{min}\frac{L_P^T}{L_P}$
+$P_c=P_c^{min}(\frac{L_P^T}{L_P})$
 \end{center}
 donde $P_c^{min}$ es la presion de colapso mas pequenna que puede tener un segmento de vaso inmaduro.
 \end{definition}
@@ -1025,6 +1095,30 @@ $wss=\frac{\Delta P_vR}{2\Delta l}$
 
 Suponemos que un recipiente en circulaciÛn, que est· rodeado por los TC, colapsar· con una probabilidad predefinida si el valor de WSS en el recipiente es <1/2f 0 , donde f 0 es el valor medio de WSS en los recipientes de orden 3 de Strahler. en todo el modelo. Se supone que la probabilidad es proporcional a la duraciÛn del WSS bajo en el barco, i . es decir , cuanto m·s tiempo experimente el buque el WSS bajo, m·s probable ser· que colapse si se cumple el criterio.
 
+Cuando el vaso colapsa, es decir que el valor de $wss<umbral$ el valor de del radio se reduce a 0 y muere el vaso.
+
+\begin{center}
+\includegraphics[scale=0.6]{img/cooptacion.jpg}\\[0.5cm]
+\end{center}
+
+
+Regla de transicion local para el aumento del radio en los segmentos de los vasos sanguineos:
+\begin{definition}
+Sea la funcion $MaxC_{vegf}(c,t)$, que recibe una celula $c$ en un tiempo $t$ y devuelve la concentracion maxima de de VEGF en la vecindad de $c$
+\begin{center}
+$MaxC_{VEGF}(c,t)(c,t)=max[C_{VEGF}(c_1,t),C_{VEGF}(c_2,t),...,C_{VEGF}(c_{26},t)]$
+\end{center}
+\end{definition}
+
+
+Cuando en la vecindad de un segmento de vaso la concentracion del factor de crecimiento endotelial supera un umbral, da lugar a la dilatacion del radio del segmento, es decir:
+\begin{definition}
+Sea $V_s(c1,c2)$, se dice que segmento del vaso es inmaduro si:
+\begin{center}
+$MaxC_{VEGF}(c_1,t)\geq \upsilon_{VEGF} \vee MaxC_{VEGF}(c_2,t)\geq \upsilon_{VEGF}$
+\end{center}
+\end{definition}
+
 \subsubsection{Angiogenesis}
 La angiogÈnesis se refiere a la formaciÛn de nuevos capilares sanguÌneos a partir de vasos preexistentes, un paso esencial en el crecimiento y la met·stasis del c·ncer. La tumorigÈnesis es un ejemplo perfecto de un fenÛmeno de patrÛn de tejido emergente que depende de muchos tipos de cÈlulas, tanto de comportamiento celular normal como anormal. Los modelos de angiogÈnesis se dividen en tres categorÌas: modelos de crecimiento de la vasculatura sin tumores u otras cÈlulas tisulares, modelos de crecimiento de la vasculatura solo con cÈlulas tumorales y modelos de crecimiento de la vasculatura con cÈlulas tumorales y de tejido sano. Las vasculaturas del sistema proporcionan a las cÈlulas (agentes) los materiales (oxÌgeno, glucosa, TGF? y TNF?) que necesitan para sobrevivir. Una vez vascularizado, el c·ncer tiene acceso a una enorme fuente de nutrientes y se produce un r·pido crecimiento. Por otro lado, VEGF estimula el crecimiento de un nuevo suministro de sangre desde la vasculatura del huÈsped mediante angiogÈnesis. En esta secciÛn, presentamos un modelo de angiogÈnesis y crecimiento de tumores vasculares. 
 
@@ -1040,18 +1134,80 @@ Brote\\
 Las cÈlulas de la punta son las cÈlulas principales de los brotes; dirigen a las siguientes cÈlulas endoteliales (cÈlulas de tallo) y detectan su entorno en busca de indicaciones de orientaciÛn. A medida que las cÈlulas de la punta abandonan el vaso sanguÌneo existente, las cÈlulas del tallo contin˙an para brotar. A medida que la cÈlula de la punta se mueve adelante, se forma una nueva cÈlula del tallo detr·s de ella.
 \subsubsection{Densidad de la celulas endoteliales}
 \begin{definition}
-
+ECUACION DE DENSIDAD de las celulas endoteliales
 \begin{center}
-ECUACION DE DENSIDAD DE LAS ENDOTELIALES
+$\frac{de}{dt}=D_e\nabla^2e-\nabla(\frac{\phi_c}{1+\sigma C_v}e\nabla C_v + \phi_h e\nabla C_f)$
+\end{center}
+donde:\\
+$e$-densidad de las celulas endoteliales,\\
+$D_e$ coeficiente de difusion,\\
+$\phi_c$ quimiotasis,\\
+$\phi_h$ haptotasis
+\end{definition}
+
+Se reedefine nuevamente la ecuacion de degradacion de la matriz teniendo en cuenta la existencia de las celulas endoteliales:
+\begin{definition}
+Ecuacion de la degradacion de la matriz es:
+\begin{center}
+$\frac{dC_m(c,t)}{dt}=D_m\nabla^2C_m+\mu_T TC(c,t) + \mu_E EC(c,t) - \lambda C_m $
+\end{center}
+Los terminos $TC(c,t)$ y $EC(c,t)$ representan una celula tumoral y una celula endotelial ubicada en una posicion de nodo $(i,j,k)$. Sus valores son 1 si una celda esta presente o 0 si no lo esta. $D_m$ es el coeficiente de difusion MDE y $\mu_T$, $\mu_E$, son el valor de degradacion constante de una celula tumoral y endotelial respectivamente.
+\end{definition}
+
+HIPOTESIS: La nueva vasculatura es la orden de Strahler 1.
+
+COPIA Y PEGA\\
+La angiogÈnesis es un proceso inducido por la apariciÛn de un estÌmulo, donde uno de los fundamentales es la hipoxia [9], pero tambiÈn puede ser inducido por estÌmulos metabÛlicos como la hipoglicemia y la acidosis [10]. Se conoce que en respuesta a un estÌmulo angiogÈnico, se producen eventos como la vasodilataciÛn local, el aumento de la permeabilidad vascular y la acumulaciÛn de fibrina extravascular [11].
+
+El proceso de angiogÈnesis asociado a los tumores ocurre en una serie de eventos, que se enumeran a continuaciÛn:\\
+
+1-Los tejidos daÒados o enfermos producen proteÌnas llamadas factores de crecimiento, que se difunden a travÈs de los tejidos hasta los vasos sanguÌneos cercanos.\\
+2-Estos factores de crecimiento se unen a sus receptores especÌficos localizados en las cÈlulas endoteliales (CE) de estos vasos sanguÌneos.\\
+3-Una vez establecida la uniÛn con sus receptores, la CE se activa. Se comienzan a enviar seÒales desde la superficie celular hasta el n˙cleo y la maquinaria de la CE comienza a producir nuevas molÈculas, incluyendo enzimas, entre las que se encuentran las MMP.\\
+4-Las enzimas disuelven y abren poros en la membrana basal que rodea al vaso sanguÌneo.\\
+5-Las CE comienzan a dividirse (proliferaciÛn) y migran fuera del vaso hacia el estÌmulo, a travÈs de los poros producidos en la membrana basal.\\
+6-En este punto del proceso, molÈculas especializadas llamadas molÈculas de adhesiÛn, sirven como puntos de contacto entre las cÈlulas y entre las cÈlulas y la matriz, que ayudan a mantener la organizaciÛn en esa migraciÛn.\\
+7-Las MMP se producen para disolver la matriz extracelular frente al vaso sanguÌneo en crecimiento. Seg˙n se va alargando el vaso, la matriz que lo rodea se remodela.\\
+8-Las CE se alargan y comienzan a adoptar la forma tubular de un vaso sanguÌneo.\\
+9-Los nuevos vasos individuales m·s cercanos se conectan para formar un lazo por el cual pueda circular la sangre.\\
+10-Finalmente el nuevo vaso sanguÌneo tubular formado, se estabiliza por la presencia de cÈlulas musculares lisas y pericitos, que le proporcionan un soporte estructural. Entonces comienza el flujo sanguÌneo [12].\\
+
+Esta cascada de eventos se divide en una fase de activaciÛn y una fase de resoluciÛn. En la fase de activaciÛn, que abarca la iniciaciÛn y la progresiÛn, ocurre la degradaciÛn de la membrana basal, la migraciÛn celular, la invasiÛn de la matriz extracelular, la proliferaciÛn de las CE y la formaciÛn del lumen en los capilares. La fase de resoluciÛn comprende la terminaciÛn y la maduraciÛn de los vasos y es en esta fase donde ocurre la inhibiciÛn de la proliferaciÛn de las CE, el cese de la migraciÛn celular, la reconstituciÛn de la membrana basal y la maduraciÛn de las uniones completas del endotelio [11].
+
+Como todo proceso biolÛgico, la angiogÈnesis involucra numerosos aspectos y componentes celulares y moleculares. Tomando en cuenta todas las consideraciones anteriores, este proceso depende de un control en las funciones de las CE, entre las que se encuentran la proliferaciÛn, la migraciÛn y las interacciones con la matriz extracelular [13].
+
+Usualmente la CE existe en la vasculatura como cÈlula inactiva regulando el flujo de sustancias nutritivas, de diversas molÈculas biolÛgicamente activas y de las propias cÈlulas sanguÌneas. Este papel de barrera de mantenimiento del endotelio se efect˙a a travÈs de la presencia de receptores anclados a la membrana para numerosas molÈculas, por ejemplo: los factores de crecimiento, metabolitos como el Ûxido nÌtrico y la serotonina; asÌ como tambiÈn a travÈs de proteÌnas de uniÛn especÌficas y molÈculas que gobiernan las interacciones entre las cÈlulas y entre estas y la matriz [14].
+
+La activaciÛn de la CE puede regularse, positiva o negativamente, por varias molÈculas, que incluyen factores de crecimiento y polipÈptidos de la familia de las citocinas, los cuales se sintetizan en cÈlulas normales o malignas [11]. Entre estas molÈculas se encuentran los reguladores positivos de la angiogÈnesis que mejor han sido caracterizados: el factor de crecimiento del endotelio vascular (VEGF) [15] y el factor de crecimiento b·sico de fibroblastos (bFGF) [16].
+
+El efecto de estos factores contrasta con el de otras citocinas, como por ejemplo: el factor de crecimiento transformante beta (TGF-?) [17] y el factor de necrosis tumoral alfa (TNF-?) [18]. Ambos son polipÈptidos que act˙an como factores pro-angiogÈnicos in vivo, sin embargo, no favorecen el crecimiento endotelial in vitro. Esto ha llevado a plantear la hipÛtesis de que estas citocinas inducen la angiogÈnesis indirectamente, a travÈs de la inducciÛn de reguladores positivos producidos por las cÈlulas del estroma, las cÈlulas inflamatorias atraÌdas quÌmicamente [19] y las propias cÈlulas tumorales. Se han descrito otras citocinas como reguladores de la angiogÈnesis in vivo, asÌ es el caso de la interleuquina-1 (IL-1) [20], el factor de crecimiento de hepatocitos (HGF) [21], el factor de cre
+\subsubsection{Reglas del surgimiento de la neovasculatura}
+Luego de migrar las celulas endoteliales, se forman los nuevos vasos sanguineos siguiendo la siguiente definicion
+
+\begin{definition}
+Sea el segmento de vaso sanguineo $V_s(c_1,c_2)$. Se define celula de punta endotelial $c_p$, aquella celula del segmento del vaso que cumple lo siguiente:
+\begin{center}
+
 \end{center}
 \end{definition}
-\subsubsection{Reglas del surgimiento de la neovasculatura}
 
+\begin{definition}
+Sea $M_t(V(c_1,c_2),t)$ una funcion que recibe un segmento $V(c_1,c_2)$ y devuelve el tiempo de maduracion de este en un tiempo t, es decir:
+\begin{center}
+$M_t(V(c_1,c_2),t)=$ AQUI HAY QUE PONER DE ALGUNA MANERA EL TIEMPO QUE HA PASADO DESDE LA ULTIMA VEZ QUE MADURO EL VASO
+\end{center}
+\end{definition}
+
+La regla que se aplica para que un segmento de vaso sanguineo prolifere es la siguiente:\\
+Sea $c_p$ una celula de punta endotelial de un segmento de vaso sanguineo $V_s(c_1,c_2)$ y sea $c'$ una celula en una vecindad de $c_p$. Se cumple que la celula $c_p$ puede realizar la mitosis en la celula $c'$ si:\\
+\begin{center}
+$s(c,t)=10$ si $s(c,t)=8 \wedge M_t(V(c_1,c_2),t)\geq \theta_M$
+\end{center}
 
 \begin{thebibliography}{9}
 {\small
 \bibitem{1}
-Kaja Urba≈Ñska, Justyna Soko≈Çowska, Maciej Szmidt, and Pawe≈Ç Sysa \textit{Glioblastoma multiforme ‚Äì an overview} 2014; 18(5): 307‚Äì312.
+Kaja Urba≈Ñska, Justyna Soko≈Çowska, Maciej Szmidt, and Pawe≈Ç Sysa \textit{Glioblastoma multiforme an overview} 2014; 18(5): 307‚Äì312.
 \textit{doi: 10.5114/wo.2014.40559}.
 
 \bibitem{2}
