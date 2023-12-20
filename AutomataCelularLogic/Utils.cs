@@ -96,6 +96,21 @@ namespace AutomataCelularLogic
 
         }
 
+        public static List<Pos> EmptyPositionsInARadius(Pos pos, List<Pos> marks, int limit_of_x, int radius)
+        {
+            List<Pos> empty_pos = new List<Pos>();
+
+            for (int i = 0; i < mov_3d.Count; i++)
+            {
+                int[] array = mov_3d[i];
+                Pos new_pos = new Pos(pos.X + (array[0]* radius), pos.Y + (array[1]* radius), pos.Z + (array[2]* radius));
+                //new_pos = ValidatingAPositionInAClosedSpace(new_pos, limit_of_x);
+                if (ValidPosition(new_pos) && !marks.Contains(new_pos))
+                    empty_pos.Add(new_pos);
+            }
+            return empty_pos;
+        }
+
         public static List<Pos> EmptyPositions(Pos pos, List<Pos> marks, int limit_of_x)
         {
             List<Pos> empty_pos = new List<Pos>();
@@ -149,6 +164,10 @@ namespace AutomataCelularLogic
             return min_pos;
         }
 
+        public static bool EquationOfTheLine(int x, int y, Pos pos, int m)
+        {
+            //return y - pos.Y = m*(x)
+        }
 
         public static Pos GetRandomPosition(int lower_limit_x, int upper_limit_x, int lower_limit_y, int upper_limit_y, int lower_limit_z, int upper_limit_z)
         {
@@ -201,7 +220,7 @@ namespace AutomataCelularLogic
 
         public static bool ValidPosition(Pos pos)
         {
-            return /*pos.X >= 0 && pos.X < EnvironmentLogic.limit_of_x &&*/ pos.Y >= 0 && pos.Y < EnvironmentLogic.limit_of_y && pos.Z >= 0 && pos.Z < EnvironmentLogic.limit_of_z;
+            return pos.X >= 0 && pos.X < EnvironmentLogic.limit_of_x && pos.Y >= 0 && pos.Y < EnvironmentLogic.limit_of_y && pos.Z >= 0 && pos.Z < EnvironmentLogic.limit_of_z;
         }
         public static bool ValidPosition(int x, int y, int z)
         {

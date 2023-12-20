@@ -7,9 +7,6 @@ C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug
 C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\MathNet.Numerics.xml
 C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\System.ValueTuple.xml
 C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\obj\Debug\AutomataCelularLogic.csproj.CopyComplete
-C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\AutomataCelularLogic.exe
-C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\obj\Debug\AutomataCelularLogic.exe
-C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\AutomataCelularLogic.exe.config
 C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\DynamicObj.dll
 C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\FSharp.Core.dll
 C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\Giraffe.ViewEngine.dll
@@ -35,3 +32,6 @@ C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug
 C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\tr\FSharp.Core.resources.dll
 C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\zh-Hans\FSharp.Core.resources.dll
 C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\zh-Hant\FSharp.Core.resources.dll
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\AutomataCelularLogic.exe.config
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\AutomataCelularLogic.exe
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\obj\Debug\AutomataCelularLogic.exe

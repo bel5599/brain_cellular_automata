@@ -22,9 +22,9 @@ namespace AutomataCelularLogic
         //VARIABLES QUE TIENE QUE VER CON EL ENTORNO
         public static int time = 0;
         public static int distance = 40;
-        public static int limit_of_x = 100;
-        public static int limit_of_y = 100;
-        public static int limit_of_z = 100;
+        public static int limit_of_x = 10;
+        public static int limit_of_y = 10;
+        public static int limit_of_z = 10;
 
         //VARIABLES QUE TIENE QUE VER CON LAS CELULAS
         public static List<Cell> tumor_cell_list = new List<Cell>(); //CAMBIARLE EL NOMBRE A LA LISTA
@@ -165,10 +165,36 @@ namespace AutomataCelularLogic
             //    }
             //}
 
+            //NetworkHistory.Save();
+
+            Cell[,,] world = new Cell[limit_of_x, limit_of_y, limit_of_z];
+            Pos pos1 = Utils.GetRandomPosition(0, limit_of_x, 0, limit_of_y, 0, limit_of_z);
+            Pos pos2 = Utils.GetRandomPosition(0, limit_of_x, 0, limit_of_y, 0, limit_of_z);
+
+            world[pos1.X, pos1.Y, pos1.Z] = new Cell(pos1, CellState.Astrocyte, CellLocationState.MatrixExtracelular);
+            world[pos2.X, pos2.Y, pos2.Z] = new Cell(pos2, CellState.Astrocyte, CellLocationState.MatrixExtracelular);
+
+            Console.WriteLine("{0} {1} {2}", pos1.X, pos1.Y, pos1.Z);
+            Console.WriteLine("{0} {1} {2}", pos2.X, pos2.Y, pos2.Z);
+
+            Pos medio = new Pos((pos1.X + pos2.X) / 2, (pos1.Y + pos2.Y) / 2, (pos1.Z + pos2.Z) / 2);
+
+            int count = 0;
+            while(count++ <50)
+            {
+                Pos newpos;
+                do
+                {
+                    newpos = Utils.GetRandomPosition(0, limit_of_x, 0, limit_of_y, 0, limit_of_z);
+                } 
+                while ((newpos.X < medio.X && newpos.X > medio.X) || (newpos.Y < medio.Y && newpos.Y > medio.Y));
+
+                Console.WriteLine("{0} {1} {2}", newpos.X, newpos.Y, newpos.Z);
+                world[newpos.X, newpos.Y, newpos.Z] = new Cell(newpos, CellState.Neuron, CellLocationState.MatrixExtracelular);
+            }
 
 
-
-            Simulation();
+            //Simulation();
 
             Console.ReadLine();
         }
@@ -225,59 +251,59 @@ namespace AutomataCelularLogic
             //PrintCells(ca.space, ca.model.oxygen_matrix, ca.model.density_matrix, ca.model.mde, ca.model.angiogenic_reg_conc_matrix);
 
             //Console.ReadLine();
-            int count = 0;
-            while (count++ < 500)
-            {
-                //    //Console.WriteLine("Estoy aqui");
-                //    //Console.ReadLine();
-                //    //    //    //foreach (var key_value in ca.next_stem_position)
-                //    //    //    //{
-                //    //    //    //    Pos pos = key_value.Key;
-                //    //    //    //    if (key_value.Key != null)
-                //    //    //    //    {
-                //    //    //    //        Console.WriteLine("Nuevo");
-                //    //    //    //        Console.WriteLine(pos.X);
-                //    //    //    //        Console.WriteLine(pos.Y);
-                //    //    //    //        Console.WriteLine(pos.Z);
-                //    //    //    //        Console.WriteLine();
-                //    //    //    //        if (key_value.Value != null)
-                //    //    //    //        {
-                //    //    //    //            Console.WriteLine(key_value.Value.X);
-                //    //    //    //            Console.WriteLine(key_value.Value.Y);
-                //    //    //    //            Console.WriteLine(key_value.Value.Z);
-                //    //    //    //        }
-                //    //    //    //    }
-                //    //    //    //}
+            //int count = 0;
+            //while (count++ < 500)
+            //{
+            //    //    //Console.WriteLine("Estoy aqui");
+            //    //    //Console.ReadLine();
+            //    //    //    //    //foreach (var key_value in ca.next_stem_position)
+            //    //    //    //    //{
+            //    //    //    //    //    Pos pos = key_value.Key;
+            //    //    //    //    //    if (key_value.Key != null)
+            //    //    //    //    //    {
+            //    //    //    //    //        Console.WriteLine("Nuevo");
+            //    //    //    //    //        Console.WriteLine(pos.X);
+            //    //    //    //    //        Console.WriteLine(pos.Y);
+            //    //    //    //    //        Console.WriteLine(pos.Z);
+            //    //    //    //    //        Console.WriteLine();
+            //    //    //    //    //        if (key_value.Value != null)
+            //    //    //    //    //        {
+            //    //    //    //    //            Console.WriteLine(key_value.Value.X);
+            //    //    //    //    //            Console.WriteLine(key_value.Value.Y);
+            //    //    //    //    //            Console.WriteLine(key_value.Value.Z);
+            //    //    //    //    //        }
+            //    //    //    //    //    }
+            //    //    //    //    //}
 
-                ca.Update();
-                //PrintMatrix(ca.model.oxygen_matrix, ca.space);
+            //    ca.Update();
+            //    //PrintMatrix(ca.model.oxygen_matrix, ca.space);
 
-                int total_count = 0;
+            //    int total_count = 0;
 
-                int prolif = 0;
-                int inactiva = 0;
-                int necrotica = 0;
-                int migratoria = 0;
+            //    int prolif = 0;
+            //    int inactiva = 0;
+            //    int necrotica = 0;
+            //    int migratoria = 0;
 
-                foreach (var item in ca.tumor.cell_list)
-                {
-                    CellState behavior = item.behavior_state;
-                    if (behavior == CellState.NecroticTumorCell)
-                        necrotica++;
-                    else if (behavior == CellState.MigratoryTumorCell)
-                        migratoria++;
-                    else if (behavior == CellState.ProliferativeTumoralCell)
-                        prolif++;
-                    else if (behavior == CellState.QuiescentTumorCell)
-                        inactiva++;
-                }
-                total_count = ca.tumor.cell_list.Count;
+            //    foreach (var item in ca.tumor.cell_list)
+            //    {
+            //        CellState behavior = item.behavior_state;
+            //        if (behavior == CellState.NecroticTumorCell)
+            //            necrotica++;
+            //        else if (behavior == CellState.MigratoryTumorCell)
+            //            migratoria++;
+            //        else if (behavior == CellState.ProliferativeTumoralCell)
+            //            prolif++;
+            //        else if (behavior == CellState.QuiescentTumorCell)
+            //            inactiva++;
+            //    }
+            //    total_count = ca.tumor.cell_list.Count;
 
-                Console.WriteLine("Tumorales: {0}, Verhuslt: {1} Proliferativas: {2} Inactivas: {3} Migratorias: {4} Necroticas: {5}", total_count, ca.tumor.new_cells_count,
-                                    prolif, inactiva, migratoria, necrotica);
+            //    Console.WriteLine("Tumorales: {0}, Verhuslt: {1} Proliferativas: {2} Inactivas: {3} Migratorias: {4} Necroticas: {5}", total_count, ca.tumor.new_cells_count,
+            //                        prolif, inactiva, migratoria, necrotica);
 
-                //PrintCells(ca.space, ca.model.oxygen_matrix, ca.model.density_matrix, ca.model.mde, ca.model.angiogenic_reg_conc_matrix);
-            }
+            //    //PrintCells(ca.space, ca.model.oxygen_matrix, ca.model.density_matrix, ca.model.mde, ca.model.angiogenic_reg_conc_matrix);
+            //}
 
 
 

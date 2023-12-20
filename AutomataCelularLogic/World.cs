@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace AutomataCelularLogic
 {
@@ -31,6 +32,10 @@ namespace AutomataCelularLogic
         private int stem_cells_count;
         private int astrocytes_count;
         private int neuron_count;
+
+        public List<Cell> stem_cell_list;
+        public List<Cell> astrocyte_list;
+        public List<Cell> neuron_list;
 
         public Dictionary<Pos, BloodVessel> pos_artery_dict;
         public Dictionary<Pos, Cell> pos_cell_dict;
@@ -61,14 +66,35 @@ namespace AutomataCelularLogic
             pos_children = new Dictionary<Pos, Children>();
 
             edges = new List<EdgeTree>();
+
+            astrocyte_list = new List<Cell>();
+            neuron_list = new List<Cell>();
+            stem_cell_list = new List<Cell>();
         }
         public void StartCellularLifeInTheBrain()
         {
+            Stopwatch crono = new Stopwatch();
+            crono.Start();
             CreateBloodVesselsTree(world.GetLength(0));
+            crono.Stop();
+            Console.WriteLine("CreateBloodVesselsTree: {0} segundos", crono.ElapsedMilliseconds/1000);
+
+            crono.Start();
             LocateTheBloodVesselsOnTheBoard();
+            crono.Stop();
+            Console.WriteLine("LocateTheBloodVesselsOnTheBoard: {0} segundos", crono.ElapsedMilliseconds/1000);
+
             StartTumoraCell();
+
+            crono.Start();
             CreateCells();
+            crono.Stop();
+            Console.WriteLine("CreateCells: {0} segundos", crono.ElapsedMilliseconds/1000);
+
+            crono.Start();
             RellenarHuecos();
+            crono.Stop();
+            Console.WriteLine("RellenarHuecos: {0} segundos", crono.ElapsedMilliseconds/1000);
         }
         public void StartTumoraCell()
         {
@@ -110,13 +136,59 @@ namespace AutomataCelularLogic
             Children root = new Children(root_pos);
             pos_children.Add(root_pos, root);
 
-            blood_vessels_tree = CreateBloodVesselsTree(root, root_pos, 0, 15, new List<Pos>(), tree);
+            blood_vessels_tree = CreateBloodVesselsTree(root, root_pos, 0, 5, new List<Pos>(), tree);
             blood_vessels = tree;
         }
+
+        public bool PointOnLine(Pos A, Pos B, Pos P)
+        {
+            // Calcula el vector director de la recta
+            double dx = B.X - A.X;
+            double dy = B.Y - A.Y;
+            double dz = B.Z - A.Z;
+
+            // Normaliza el vector director
+            double length = Math.Sqrt(dx * dx + dy * dy + dz * dz);
+            dx /= length;
+            dy /= length;
+            dz /= length;
+
+            // Calcula el vector desde A hasta P
+            double px = P.X - A.X;
+            double py = P.Y - A.Y;
+            double pz = P.Z - A.Z;
+
+            // Calcula el producto escalar de AP y el vector unitario de la recta
+            double projection = dx * px + dy * py + dz * pz;
+
+            // Calcula la distancia desde A hasta P
+            double distance = Math.Sqrt(px * px + py * py + pz * pz);
+
+            // Comprueba si P está en la recta
+            return Math.Abs(projection - distance) < 0.00001;
+        }
+
+        public Pos RandomPos(Pos pos, List<Pos> marks)
+        {
+            List<Pos> empty_pos = Utils.EmptyPositionsInARadius(pos, marks, world.GetLength(0), 15);
+            //for (int i = 0; i < empty_pos.Count; i++)
+            //{
+            //    Console.WriteLine(Utils.EuclideanDistance(pos, empty_pos[i]));
+            //}
+            if (empty_pos.Count > 0)
+                return empty_pos[Utils.rdm.Next(0, empty_pos.Count)];
+            return new Pos(-1, -1, -1);
+        }
+
+        
 
         public Pos RandomAdjPos(Pos pos, List<Pos> marks)
         {
             List<Pos> empty_pos = Utils.EmptyPositions(pos, marks, world.GetLength(0));
+            //for (int i = 0; i < empty_pos.Count; i++)
+            //{
+            //    Console.WriteLine(Utils.EuclideanDistance(pos, empty_pos[i]));
+            //}
             if(empty_pos.Count > 0)
                 return empty_pos[Utils.rdm.Next(0, empty_pos.Count)];
             return new Pos(-1,-1,-1);
@@ -124,7 +196,7 @@ namespace AutomataCelularLogic
 
         public Children CreateBloodVesselsTree(Children root, Pos pos, int depth, int max_depth, List<Pos> marks, List<Pos> pos_list)
         {
-            Pos new_pos = RandomAdjPos(pos, marks);
+            Pos new_pos = RandomPos(pos, marks);
             if (new_pos.X != -1 && new_pos.Y != -1 && new_pos.Z != -1)
             {
                 Children c = new Children(new_pos);
@@ -206,6 +278,35 @@ namespace AutomataCelularLogic
 
         }
 
+        public void CreateCellsByRadius(int radius)
+        {
+            foreach (var item in edge_order_dict)
+            {
+                Pos pos1 = item.Key.Item1;
+                Pos pos2 = item.Key.Item2;
+                Pos medio = new Pos((pos1.X + pos2.X) / 2, (pos1.Y + pos2.Y) / 2, (pos1.Z + pos2.Z) / 2);
+
+
+            }
+        }
+
+        public List<Pos> GeneratePoissonDiskPoints(int amount, int limit_of_x, int limit_of_y, int limit_of_z)
+        {
+            List<Pos> poissonDiskPoints = new List<Pos>();
+
+            for (int i = 0; i < amount; i++)
+            {
+                Pos point = Utils.GenerateRandomPoint(radius, limit_of_x, limit_of_y, limit_of_z);
+                while (IsTooClose(point, poissonDiskPoints) || pos_artery_dict.ContainsKey(point))
+                {
+                    point = Utils.GenerateRandomPoint(radius, world.GetLength(0), world.GetLength(1), world.GetLength(2));
+                }
+                poissonDiskPoints.Add(point);
+            }
+
+            return poissonDiskPoints;
+        }
+
         public void CreateCells(CellState cell_state, CellLocationState loca_state, List<Pos> random_positions)
         {
             foreach (Pos pos in random_positions)
@@ -213,6 +314,13 @@ namespace AutomataCelularLogic
                 Cell cell = new Cell(pos, cell_state, loca_state);
                 cell.proliferation_age = -1;
                 world[pos.X, pos.Y, pos.Z] = cell;
+
+                if (cell_state == CellState.Astrocyte)
+                    astrocyte_list.Add(cell);
+                else if (cell_state == CellState.Neuron)
+                    neuron_list.Add(cell);
+                else
+                    stem_cell_list.Add(cell);
             }
         }
 
