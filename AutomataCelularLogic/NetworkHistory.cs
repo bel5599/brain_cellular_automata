@@ -22,19 +22,12 @@ namespace AutomataCelularLogic
         //public static string _dataFolder = string.Empty;
         public static string _experimentID = string.Empty;
 
-        ////network settings
-        //private static int _gridSizeX = 750;
-        //private static int _gridSizeY = 375;
-        //private static int _gridDivision = 375;
-        //private static double _p = 1 * Math.Pow(10, -2);
-        //private static double _r = Math.Sqrt(2);
-        //private static bool _periodic = false;
 
         //VARIABLES DEL MODELO DEL AUTOMATA
         //public static int cell_proliferation;
-        public static int avascular_carrying_capacity = 10000;
+        public static int avascular_carrying_capacity = 6920;
         public static int vascular_carrying_capacity = 50000;
-        public static double growth_rate = 1.2 * Math.Pow(10, -2);
+        public static double growth_rate = 2.95 * Math.Pow(10, -2);
         public static int initial_population = 5;
 
         //VARIABLES QUE TIENE QUE VER CON EL ENTORNO
@@ -118,11 +111,17 @@ namespace AutomataCelularLogic
 
                 _generationsFiles = new List<string>();
 
+                string file = _experimentFolder + "\\" + "growth"+".generation ";
+                StreamWriter verluhst_growth = new StreamWriter(file);
+
                 for (int j = 0; j < 500; j++)
                 {
                     string generationFile = _experimentFolder + "\\" + j + ".generation";
                     _generationsFiles.Add(generationFile);
                     StreamWriter generationWriter = new StreamWriter(generationFile);
+
+                    verluhst_growth.WriteLine("Verhulst Growth");
+                    verluhst_growth.Write("{0},{1};", ca.tumor.time, ca.proliferation_cells.Count);
 
                     generationWriter.WriteLine("[Generation Data]");
                     generationWriter.WriteLine(_experimentID + ":" + j);
@@ -133,8 +132,13 @@ namespace AutomataCelularLogic
                     generationWriter.Write("[EOF]");
                     generationWriter.Close();
 
+                    
                     ca.Update();
                 }
+
+                verluhst_growth.Write("[EOF]");
+                verluhst_growth.Close();
+
 
             }
 
@@ -163,11 +167,14 @@ namespace AutomataCelularLogic
 
         public static void WriteInTheFile(StreamWriter streamWriter, CellularAutomaton ca)
         {
+
+            Console.WriteLine("Cantidad de celulas proliferativas: {0}", ca.proliferation_cells.Count);
+
             streamWriter.WriteLine(ca.tumor.time);
             streamWriter.WriteLine();
             streamWriter.WriteLine("Tumoral_Stem_Cell: {0}, {1}, {2}", ca.tumor.ini_cell.pos.X, ca.tumor.ini_cell.pos.Y, ca.tumor.ini_cell.pos.Z);
             streamWriter.WriteLine();
-            streamWriter.Write("Proliferatives: ");
+            streamWriter.Write(CellState.ProliferativeTumoralCell+": ");
             foreach (var item in ca.proliferation_cells)
             {
                 streamWriter.Write("{0},{1},{2},{3};", item.Key.pos.X, item.Key.pos.Y, item.Key.pos.Z, item.Key.proliferation_age);
@@ -177,34 +184,37 @@ namespace AutomataCelularLogic
             streamWriter.Write("Migratory: ");
             foreach (var item in ca.migratory_cells_actual)
             {
-                streamWriter.Write("{0},{1},{2},{3};", item.pos.X, item.pos.Y, item.pos.Z);
+                streamWriter.Write("{0},{1},{2};", item.Key.X, item.Key.Y, item.Key.Z);
             }
             streamWriter.WriteLine();
 
-            streamWriter.Write("Hipoxic: ");
-            foreach (var item in ca.quiescent_cell_list)
-            {
-                streamWriter.Write("{0},{1},{2},{3};", item.pos.X, item.pos.Y, item.pos.Z);
-            }
+            //streamWriter.Write("Hipoxic: ");
+            //foreach (var item in ca.quiescent_cell_list)
+            //{
+            //    streamWriter.Write("{0},{1},{2};", item.Key.X, item.Key.Y, item.Key.Z);
+            //}
+            //streamWriter.WriteLine();
+
+            //streamWriter.Write("Necrotic: ");
+            //foreach (var item in ca.necrotic_cell_list)
+            //{
+            //    streamWriter.Write("{0},{1},{2};", item.pos.X, item.pos.Y, item.pos.Z);
+            //}
+            //streamWriter.WriteLine();
+            WriteCells(CellState.MigratoryTumorCell, ca.migratory_cells_actual, streamWriter);
             streamWriter.WriteLine();
-
-            streamWriter.Write("Necrotic: ");
-            foreach (var item in ca.necrotic_cell_list)
-            {
-                streamWriter.Write("{0},{1},{2},{3};", item.pos.X, item.pos.Y, item.pos.Z);
-            }
+            WriteCells(CellState.QuiescentTumorCell, ca.quiescent_cell_list, streamWriter);
             streamWriter.WriteLine();
-
-           
-
+            WriteCells(CellState.NecroticTumorCell, ca.necrotic_cell_list, streamWriter);
+            streamWriter.WriteLine();
             WriteCells(CellState.StemCell, ca.stem_cell_list, streamWriter);
             streamWriter.WriteLine();
             WriteCells(CellState.Neuron, ca.neuron_list, streamWriter);
             streamWriter.WriteLine();
             WriteCells(CellState.Astrocyte, ca.astrocyte_list, streamWriter);
             streamWriter.WriteLine();
-            WriteCells(CellState.StemCell, ca.stem_cell_list, streamWriter);
-            streamWriter.WriteLine();
+            //WriteCells(CellState.StemCell, ca.stem_cell_list, streamWriter);
+            //streamWriter.WriteLine();
             WriteCells(CellState.EndothelialCell, ca.edothelial_cells, streamWriter);
             streamWriter.WriteLine();
 
@@ -230,6 +240,16 @@ namespace AutomataCelularLogic
             WriteConcentrationMatrix(streamWriter, "MDE_Matrix", ca.model.mde);
             WriteConcentrationMatrix(streamWriter, "VEGF_Matrix", ca.model.vegf_conc_matrix);
             WriteConcentrationMatrix(streamWriter, "EndoDensity_Matrix", ca.model.endo_density_matrix);
+        }
+
+        public static void WriteCells(CellState state, Dictionary<Pos,Cell> cell_list, StreamWriter streamWriter)
+        {
+            streamWriter.Write(state + ": ");
+            foreach (var item in cell_list)
+            {
+                streamWriter.Write("{0},{1},{2};", item.Key.X, item.Key.Y, item.Key.Z);
+            }
+            streamWriter.WriteLine();
         }
 
         public static void WriteCells(CellState state, List<Cell> cell_list, StreamWriter streamWriter)

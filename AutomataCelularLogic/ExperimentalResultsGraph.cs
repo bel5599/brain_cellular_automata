@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Plotly.NET;
+using ScottPlot;
+using LiveCharts;
+using LiveCharts.Wpf;
 
 namespace AutomataCelularLogic
 {
@@ -41,5 +44,40 @@ namespace AutomataCelularLogic
             //chart.Show();
         }
 
+        public static void HeatMap(List<Pos> positions)
+        {
+            //var points = new ChartValues<ScatterPoint>();
+            //foreach (var pos in positions)
+            //{
+            //    points.Add(new ScatterPoint(pos.X, pos.Y, pos.Z));
+            //}
+
+            //// Crear un mapa de calor
+            //var scatterSeries = new ScatterSeries
+            //{
+            //    Values = points,
+            //    MinPointShapeDiameter = 1,
+            //    MaxPointShapeDiameter = 5
+            //};
+
+            //CartesianChart cartesianChart = new CartesianChart
+            //{
+            //    Series = new SeriesCollection { scatterSeries },
+            //    Zoom = ZoomingOptions.Xy
+            //};
+
+            //// Agregar el gráfico a la ventana
+            //this.Content = cartesianChart;
+        }
+
+        public static void LogisticGrowth(double[] time, double[] cells)
+        {
+            var plt = new ScottPlot.Plot(600, 400);
+            plt.AddScatter(time, cells);
+            plt.Title("Crecimiento de un Glioblastoma Multiforme");
+            plt.XLabel("Tiempo");
+            plt.YLabel("Número de células");
+            plt.SaveFig("grafico.png");
+        }
     }
 }

@@ -35,3 +35,15 @@ C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug
 C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\AutomataCelularLogic.exe.config
 C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\AutomataCelularLogic.exe
 C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\obj\Debug\AutomataCelularLogic.exe
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\LiveCharts.dll
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\LiveCharts.Wpf.dll
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\ScottPlot.dll
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\ScottPlot.WPF.dll
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\System.Drawing.Common.dll
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\LiveCharts.pdb
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\LiveCharts.xml
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\LiveCharts.Wpf.pdb
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\LiveCharts.Wpf.xml
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\ScottPlot.xml
+C:\Users\Belsai\source\repos\AutomataCelularLogic\AutomataCelularLogic\bin\Debug\System.Numerics.Vectors.xml

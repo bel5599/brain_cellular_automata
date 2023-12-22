@@ -144,14 +144,14 @@ namespace AutomataCelularLogic
             }
             return empty_pos;
         }
-        public static Pos MinDistancePos(List<Cell> pos_list, Pos cell_pos)
+        public static Pos MinDistancePos(List<Cell> pos_list, Dictionary<Pos,Pos> existing_cells, Pos cell_pos)
         {
             int min = int.MaxValue;
             Pos min_pos = cell_pos;
             for (int i = 0; i < pos_list.Count; i++)
             {
                 if (pos_list[i].pos.X == cell_pos.X && pos_list[i].pos.Y == cell_pos.Y && pos_list[i].pos.Z == cell_pos.Z) return pos_list[i].pos;
-                else if(pos_list[i].behavior_state == CellState.nothing)
+                else if(pos_list[i].behavior_state == CellState.nothing && !existing_cells.ContainsKey(pos_list[i].pos))
                 {
                     int dist = EuclideanDistance(pos_list[i].pos, cell_pos);
                     if (dist < min)
@@ -164,10 +164,11 @@ namespace AutomataCelularLogic
             return min_pos;
         }
 
-        public static bool EquationOfTheLine(int x, int y, Pos pos, int m)
-        {
-            //return y - pos.Y = m*(x)
-        }
+        //public static bool EquationOfTheLine(int x, int y, Pos pos, int m)
+        //{
+        //    //return y - pos.Y = m*(x)
+
+        //}
 
         public static Pos GetRandomPosition(int lower_limit_x, int upper_limit_x, int lower_limit_y, int upper_limit_y, int lower_limit_z, int upper_limit_z)
         {
@@ -179,19 +180,19 @@ namespace AutomataCelularLogic
             return new Pos(x, y, z);
         }
 
-        public static Pos GenerateRandomPoint(double radius, int height, int width, int depth)
+        public static Pos GenerateRandomPoint(double radius, int ini_height, int height, int ini_width, int width, int ini_depth, int depth)
         {
             int x;
             int y;
             int z;
             do
-                x = (int)(rdm.Next(0, height/2) * radius * 2 - radius);
+                x = (int)(rdm.Next(ini_height, height/2) * radius * 2 - radius);
             while (x < 0);
             do
-                y = (int)(rdm.Next(0, width/2) * radius * 2 - radius);
+                y = (int)(rdm.Next(ini_width, width/2) * radius * 2 - radius);
             while (y < 0);
             do
-                z = (int)(rdm.Next(0, depth/2) * radius * 2 - radius);
+                z = (int)(rdm.Next(ini_depth, depth/2) * radius * 2 - radius);
             while (z < 0);
 
             return new Pos { X = x, Y = y, Z = z };

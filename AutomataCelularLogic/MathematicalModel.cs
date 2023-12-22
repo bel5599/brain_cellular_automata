@@ -545,7 +545,7 @@ namespace AutomataCelularLogic
                             //CellState behavior = cell.behavior_state;
                             //if (behavior == CellState.MigratoryTumorCell || behavior == CellState.QuiescentTumorCell || behavior == CellState.ProliferativeTumoralCell || behavior == CellState.TumoralStemCell)
                             //    Console.WriteLine("Oxygen Concentration: {0} y El metodo simple: {1}", actual, delta);
-                            //}
+                            
                         }
                     }
                 }
@@ -683,6 +683,7 @@ namespace AutomataCelularLogic
 
                             mde[i, j, k] += time * (diffusion_coefficient_MDE_2 * mde_delta[i, j, k] * mde[i, j, k] + prod_rate_of_MDE_by_tumour_cells_2 *
                                             prod - natural_decay_of_MDE_2 * mde[i, j, k]);
+
                             //if (behavior == CellState.MigratoryTumorCell || behavior == CellState.ProliferativeTumoralCell || behavior == CellState.QuiescentTumorCell)
                             //    Console.WriteLine("Valor de Laplace: {0}. Valor total actual: {1}", mde_delta[i, j, k], mde[i, j, k]);
                         }
@@ -783,7 +784,9 @@ namespace AutomataCelularLogic
                         //if(vegf_conc_matrix[i, j, k] != 0)
                         //    Console.WriteLine("VEGF anterior: {0} VEGF act: {1} Delta:{2} Uptake: {3} Source: {4} Waste: {5}", conc, vegf_conc_matrix[i, j, k], delta, uptake, source, waste);
 
-                        //Console.WriteLine("Behavior: {0} VEGF: {1}", cell.behavior_state, vegf_conc_matrix[i, j, k]);
+                        //double vegf = vegf_conc_matrix[i, j, k];
+                        //if (vegf > 1)
+                        //    Console.WriteLine("Behavior: {0} VEGF: {1}", cell.behavior_state, vegf);
                     }
                 }
             }
@@ -897,6 +900,9 @@ namespace AutomataCelularLogic
 
                             endo_density_matrix[i, j, k] += time * (diffusion_coeficient_endo * endo_delta_matrix[i, j, k] * endo_density_matrix[i, j, k] - ChemotactiMigration(cell.pos) * d *
                                                             angio_reg_conc_delta[i, j, k] + mde_delta[i, j, k] * hapt_of_EC_sprout_tip * d);
+
+                            //double density = endo_density_matrix[i, j, k];
+                            //Console.WriteLine("Endo_Density: {0}", density);
                         }
                     }
                 }

@@ -23,7 +23,9 @@ namespace AutomataCelularLogic
     public class Tumor
     {
         public Cell ini_cell;
-        public List<Cell> cell_list;
+        //public List<Cell> cell_list;
+        public Dictionary<Pos,Cell> cell_list;
+
         public List<Cell> migra_list;
         public VascularizationMechanism vasc_mecha;
         public TumosStage tumor_stage;
@@ -44,7 +46,7 @@ namespace AutomataCelularLogic
         public Tumor(Cell cell/*, int radio*/, int avascular_carrying_capacity, int vascular_carrying_capacity, double growth_rate, int initial_population)
         {
             ini_cell = cell;
-            cell_list = new List<Cell>();
+            cell_list = new Dictionary<Pos, Cell>();
             migra_list = new List<Cell>();
             tumor_stage = TumosStage.Avascular;
             vasc_mecha = VascularizationMechanism.InitialGrowth;

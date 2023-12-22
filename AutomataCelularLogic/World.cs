@@ -33,9 +33,12 @@ namespace AutomataCelularLogic
         private int astrocytes_count;
         private int neuron_count;
 
-        public List<Cell> stem_cell_list;
-        public List<Cell> astrocyte_list;
-        public List<Cell> neuron_list;
+        //public List<Cell> stem_cell_list;
+        public Dictionary<Pos, Cell> stem_cell_list;
+        //public List<Cell> astrocyte_list;
+        public Dictionary<Pos, Cell> astrocyte_list;
+        //public List<Cell> neuron_list;
+        public Dictionary<Pos, Cell> neuron_list;
 
         public Dictionary<Pos, BloodVessel> pos_artery_dict;
         public Dictionary<Pos, Cell> pos_cell_dict;
@@ -67,9 +70,9 @@ namespace AutomataCelularLogic
 
             edges = new List<EdgeTree>();
 
-            astrocyte_list = new List<Cell>();
-            neuron_list = new List<Cell>();
-            stem_cell_list = new List<Cell>();
+            astrocyte_list = new Dictionary<Pos, Cell>();
+            neuron_list = new Dictionary<Pos, Cell>();
+            stem_cell_list = new Dictionary<Pos, Cell>();
         }
         public void StartCellularLifeInTheBrain()
         {
@@ -136,7 +139,7 @@ namespace AutomataCelularLogic
             Children root = new Children(root_pos);
             pos_children.Add(root_pos, root);
 
-            blood_vessels_tree = CreateBloodVesselsTree(root, root_pos, 0, 5, new List<Pos>(), tree);
+            blood_vessels_tree = CreateBloodVesselsTree(root, root_pos, 0, 15, new List<Pos>(), tree);
             blood_vessels = tree;
         }
 
@@ -196,7 +199,7 @@ namespace AutomataCelularLogic
 
         public Children CreateBloodVesselsTree(Children root, Pos pos, int depth, int max_depth, List<Pos> marks, List<Pos> pos_list)
         {
-            Pos new_pos = RandomPos(pos, marks);
+            Pos new_pos = RandomAdjPos(pos, marks);
             if (new_pos.X != -1 && new_pos.Y != -1 && new_pos.Z != -1)
             {
                 Children c = new Children(new_pos);
@@ -262,10 +265,10 @@ namespace AutomataCelularLogic
 
         public void AmountNormalCells()
         {
-            int count =(int)((world.GetLength(0) * world.GetLength(1) * world.GetLength(2)) * 0.05);
+            int count =(int)((world.GetLength(0) * world.GetLength(1) * world.GetLength(2)) * 0.0005);
             int count_1 = count / 3;
 
-            stem_cells_count = count_1;
+            stem_cells_count = 20;
             astrocytes_count = count_1;
             neuron_count = count_1;
         }
@@ -280,26 +283,32 @@ namespace AutomataCelularLogic
 
         public void CreateCellsByRadius(int radius)
         {
+            int astrocytes_count_per_segment = astrocytes_count / edge_order_dict.Count;
+            int neuron_count_per_segment = neuron_count / edge_order_dict.Count;
             foreach (var item in edge_order_dict)
             {
                 Pos pos1 = item.Key.Item1;
                 Pos pos2 = item.Key.Item2;
-                Pos medio = new Pos((pos1.X + pos2.X) / 2, (pos1.Y + pos2.Y) / 2, (pos1.Z + pos2.Z) / 2);
+                //Pos medio = new Pos((pos1.X + pos2.X) / 2, (pos1.Y + pos2.Y) / 2, (pos1.Z + pos2.Z) / 2);
 
 
+                for (int i = 0; i < astrocytes_count_per_segment; i++)
+                {
+                    List<Pos> astrocyte = GeneratePoissonDiskPoints(astrocytes_count_per_segment, pos1.X,pos1.Y, pos1.Z,20,20,20);
+                }
             }
         }
 
-        public List<Pos> GeneratePoissonDiskPoints(int amount, int limit_of_x, int limit_of_y, int limit_of_z)
+        public List<Pos> GeneratePoissonDiskPoints(int amount, int ini_x, int limit_of_x, int ini_y, int limit_of_y, int ini_z, int limit_of_z)
         {
             List<Pos> poissonDiskPoints = new List<Pos>();
 
             for (int i = 0; i < amount; i++)
             {
-                Pos point = Utils.GenerateRandomPoint(radius, limit_of_x, limit_of_y, limit_of_z);
+                Pos point = Utils.GenerateRandomPoint(radius, ini_x, limit_of_x, ini_y, limit_of_y, ini_z, limit_of_z);
                 while (IsTooClose(point, poissonDiskPoints) || pos_artery_dict.ContainsKey(point))
                 {
-                    point = Utils.GenerateRandomPoint(radius, world.GetLength(0), world.GetLength(1), world.GetLength(2));
+                    point = Utils.GenerateRandomPoint(radius, ini_x, limit_of_x, ini_y, limit_of_y, ini_z, limit_of_z);
                 }
                 poissonDiskPoints.Add(point);
             }
@@ -316,11 +325,11 @@ namespace AutomataCelularLogic
                 world[pos.X, pos.Y, pos.Z] = cell;
 
                 if (cell_state == CellState.Astrocyte)
-                    astrocyte_list.Add(cell);
+                    astrocyte_list.Add(cell.pos, cell);
                 else if (cell_state == CellState.Neuron)
-                    neuron_list.Add(cell);
+                    neuron_list.Add(cell.pos, cell);
                 else
-                    stem_cell_list.Add(cell);
+                    stem_cell_list.Add(cell.pos, cell);
             }
         }
 
@@ -400,10 +409,10 @@ namespace AutomataCelularLogic
 
             for (int i = 0; i < amount; i++)
             {
-                Pos point = Utils.GenerateRandomPoint(radius, world.GetLength(0), world.GetLength(1), world.GetLength(2));
+                Pos point = Utils.GenerateRandomPoint(radius, 0, world.GetLength(0), 0, world.GetLength(1), 0, world.GetLength(2));
                 while (IsTooClose(point, poissonDiskPoints) || pos_artery_dict.ContainsKey(point))
                 {
-                    point = Utils.GenerateRandomPoint(radius, world.GetLength(0), world.GetLength(1), world.GetLength(2));
+                    point = Utils.GenerateRandomPoint(radius, 0, world.GetLength(0), 0, world.GetLength(1), 0, world.GetLength(2));
                 }
                 poissonDiskPoints.Add(point);
             }
