@@ -38,11 +38,11 @@ namespace AutomataCelularLogic
         {
             return x == -1;
         }
-        public override bool Equals(object obj)
-        {
-            if ((obj == null) || !this.GetType().Equals(obj.GetType())) return false;
-            Pos pos = (Pos)obj;
-            return x == pos.x && y == pos.y && z == pos.z;
-        }
+        //public override bool Equals(object obj)
+        //{
+        //    if ((obj == null) || !this.GetType().Equals(obj.GetType())) return false;
+        //    Pos pos = (Pos)obj;
+        //    return x == pos.x && y == pos.y && z == pos.z;
+        //}
     }
 }

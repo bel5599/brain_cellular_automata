@@ -4,12 +4,16 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - TumoralCellPrefab: {instanceID: 0}
+  - ProliferativeTumoralCellPrefab: {instanceID: 0}
+  - NecroticTumoralCellPrefab: {instanceID: 0}
+  - QuiescentTumorCellPrefab: {instanceID: 0}
   - StemCellPrefab: {instanceID: 0}
   - TumoralSpherePrefab: {instanceID: 0}
   - NeuronPrefab: {instanceID: 0}
   - AstrocytePrefab: {fileID: 5390118347573300508, guid: c60c00ba8c7605b4187f834facb09a99, type: 3}
   - ArteryPrefab: {fileID: 4226642942321990567, guid: 58680cc13f43b74428b38ee63a2556c3, type: 3}
+  - MigratoryPrefab: {fileID: 6178127963770562908, guid: fb7aed41550d6574f9d515ec89a8df82, type: 3}
+  - linePrefab: {fileID: 551299043835201507, guid: fc0b0ce9962459c499db0b30be31f135, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Plotly.NET;
-using ScottPlot;
-using LiveCharts;
-using LiveCharts.Wpf;
+//using Plotly.NET;
+//using ScottPlot;
+//using LiveCharts;
+//using LiveCharts.Wpf;
 
 namespace AutomataCelularLogic
 {
@@ -72,12 +72,12 @@ namespace AutomataCelularLogic
 
         public static void LogisticGrowth(double[] time, double[] cells)
         {
-            var plt = new ScottPlot.Plot(600, 400);
-            plt.AddScatter(time, cells);
-            plt.Title("Crecimiento de un Glioblastoma Multiforme");
-            plt.XLabel("Tiempo");
-            plt.YLabel("Número de células");
-            plt.SaveFig("grafico.png");
+            //var plt = new ScottPlot.Plot(600, 400);
+            //plt.AddScatter(time, cells);
+            //plt.Title("Crecimiento de un Glioblastoma Multiforme");
+            //plt.XLabel("Tiempo");
+            //plt.YLabel("Número de células");
+            //plt.SaveFig("grafico.png");
         }
     }
 }

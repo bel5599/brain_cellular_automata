@@ -57,6 +57,12 @@ namespace AutomataCelularLogic
             InicializarListas();
             StartCellularLifeInTheBrain();
 
+            foreach (var item in edge_order_dict)
+            {
+                if(item.Key.Item1.X == item.Key.Item2.X && item.Key.Item1.X == item.Key.Item2.Y && item.Key.Item1.Y == item.Key.Item2.Z)
+                    Console.WriteLine("Ambos son iguales");
+            }
+
             //Edges();
         }
 
@@ -133,13 +139,25 @@ namespace AutomataCelularLogic
         public void CreateBloodVesselsTree(int limit)
         {
             List<Pos> tree = new List<Pos>();
-            Pos root_pos = Utils.GetRandomPosition(0, limit, 0, limit, 0, limit);
+            Pos root_pos = Utils.GetRandomPosition(2,limit-2, 0, 1, 2, limit - 2);
+
+            List<Pos> marks = new List<Pos>();
+            Pos root_pos2 = new Pos(root_pos.X, root_pos.Y+1, root_pos.Z);
+
+            marks.Add(root_pos);
             tree.Add(root_pos);
+            tree.Add(root_pos2);
 
             Children root = new Children(root_pos);
+            Children root_2 = new Children(root_pos2);
             pos_children.Add(root_pos, root);
+            pos_children.Add(root_pos2, root_2);
 
-            blood_vessels_tree = CreateBloodVesselsTree(root, root_pos, 0, 15, new List<Pos>(), tree);
+            edge_order_dict.Add(new Tuple<Pos, Pos>(root_pos, root_pos2), StrahlerOrder.StrahlerOrder_3);
+
+            root.child_left = root_2;
+
+            blood_vessels_tree = CreateBloodVesselsTree(root_2, root_pos2, 0, 15, marks, tree);
             blood_vessels = tree;
         }
 
@@ -188,11 +206,15 @@ namespace AutomataCelularLogic
         public Pos RandomAdjPos(Pos pos, List<Pos> marks)
         {
             List<Pos> empty_pos = Utils.EmptyPositions(pos, marks, world.GetLength(0));
-            //for (int i = 0; i < empty_pos.Count; i++)
-            //{
-            //    Console.WriteLine(Utils.EuclideanDistance(pos, empty_pos[i]));
-            //}
-            if(empty_pos.Count > 0)
+            List<Pos> selection = new List<Pos>();
+            for (int i = 0; i < empty_pos.Count; i++)
+            {
+                if (empty_pos[i].Y > pos.Y)
+                    selection.Add(empty_pos[i]);
+            }
+            if(selection.Count > 0)
+                return selection[Utils.rdm.Next(0, selection.Count)];
+            else if (empty_pos.Count > 0)
                 return empty_pos[Utils.rdm.Next(0, empty_pos.Count)];
             return new Pos(-1,-1,-1);
         }
@@ -235,14 +257,23 @@ namespace AutomataCelularLogic
                 }
                 else
                 {
-                    if (depth != 0)
+                    double i = Utils.rdm.NextDouble();
+
+                    if (depth != 0 /*&& i >= 0.25*/)
                         edge_order_dict.Add(new Tuple<Pos, Pos>(pos, new_pos), StrahlerOrder.StrahlerOrder_2);
 
-                    int i = Utils.rdm.Next(0, 3);
 
-                    if (i == 0)
+                    //if (i >= 0  && i < 0.25 /*&& depth != 0 && depth != 1*/)
+                    //{
+                    //    c.child_left = c.child_right = null;
+                    //    marks.Add(new_pos);
+
+                    //    edge_order_dict.Add(new Tuple<Pos, Pos>(pos, new_pos), StrahlerOrder.StrahlerOrder_1);
+                    //    return c;
+                    //}
+                    if (i >= 0 && i< 0.33)
                         c.child_left = CreateBloodVesselsTree(root, c.pos, depth + 1, max_depth, marks, pos_list);
-                    else if (i == 1)
+                    else if (i >= 0.33 && i < 0.66)
                         c.child_right = CreateBloodVesselsTree(root, c.pos, depth + 1, max_depth, marks, pos_list);
                     else
                     {
@@ -265,7 +296,7 @@ namespace AutomataCelularLogic
 
         public void AmountNormalCells()
         {
-            int count =(int)((world.GetLength(0) * world.GetLength(1) * world.GetLength(2)) * 0.0005);
+            int count =(int)((world.GetLength(0) * world.GetLength(1) * world.GetLength(2)) * 0.05);
             int count_1 = count / 3;
 
             stem_cells_count = 20;

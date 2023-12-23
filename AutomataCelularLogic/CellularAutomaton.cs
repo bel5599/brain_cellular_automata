@@ -78,7 +78,7 @@ namespace AutomataCelularLogic
 
         #region BloodVessels
 
-        public Dictionary<Pos, BloodVessel> pos_artery_dict;
+        public Dictionary<Pos, BloodVessel> pos_vessel_dict;
 
         public List<Cell> closer_cells_to_vessels;
 
@@ -102,7 +102,7 @@ namespace AutomataCelularLogic
         public Dictionary<Pos, Cell> migratory_cells_actual;
 
 
-        public Dictionary<Pos, NeoBloodVessel> pos_neo_vessel_dict;
+        public Dictionary<Pos, BloodVessel> pos_neo_vessel_dict;
         public List<Cell> final_tip_of_vessel_list;
 
         //variables que estoy utilizando ahora
@@ -134,20 +134,24 @@ namespace AutomataCelularLogic
         List<BloodVesselSegment> new_vessel_segment_list;
         public List<BloodVesselSegment> neo_vessel_segment_list;
 
-        List<NeoBloodVessel> neo_blood_vessel_list;
+        List<BloodVessel> neo_blood_vessel_list;
 
-        Dictionary<BloodVessel, List<Cell>> growing_vessels;
+        public Dictionary<BloodVessel, List<Cell>> growing_vessels;
 
-        Dictionary<BloodVesselSegment, NeoBloodVessel> segment_neo_vessel_dict;
+        Dictionary<BloodVesselSegment, BloodVessel> segment_neo_vessel_dict;
+
+        Dictionary<BloodVessel, BloodVesselSegment> vessel_segment_dict;
 
         //List<Cell> new_endothelial_cells;
         Dictionary<Pos, Cell> new_endothelial_cells;
 
-        public List<Cell> edothelial_cells;
+        public Dictionary<Pos,Cell> endothelial_cells;
 
         Dictionary<Pos, Children> pos_children_dict = new Dictionary<Pos, Children>();
 
         List<Cell> new_vessel_cells;
+
+
         #endregion
 
 
@@ -177,7 +181,7 @@ namespace AutomataCelularLogic
             World world = new World(x, y, z, 1, stem_cells_count, astrocytes_count, neuron_count);
             edges = world.edges;
             pos_cell_dict = world.pos_cell_dict;
-            pos_artery_dict = world.pos_artery_dict;
+            pos_vessel_dict = world.pos_artery_dict;
             pos_children_dict = world.pos_children;
 
             astrocyte_list = world.astrocyte_list;
@@ -192,7 +196,8 @@ namespace AutomataCelularLogic
             UpdateNeighborhood();
             AleatorizarCelulas();
 
-            model = new MathematicalModel(space);
+            model = new MathematicalModel(space, world.edge_order_dict.Count);
+            
 
             BuildTheVesselSegments(world);
         }
@@ -216,7 +221,7 @@ namespace AutomataCelularLogic
             new_quiescent_cells = new Dictionary<Pos, Cell>();
             quiescent_cell_list = new Dictionary<Pos, Cell>();
 
-            pos_artery_dict = new Dictionary<Pos, BloodVessel>();
+            pos_vessel_dict = new Dictionary<Pos, BloodVessel>();
 
             vasos_en_crecimiento = new List<Tuple<Cell, Cell>>();
             vasos_en_crecimiento_dict = new Dictionary<Cell, Cell>();
@@ -231,7 +236,7 @@ namespace AutomataCelularLogic
             closer_cells_to_vessels = new List<Cell>();
 
             neo_blood_vessels = new List<Cell>();
-            pos_neo_vessel_dict = new Dictionary<Pos, NeoBloodVessel>();
+            pos_neo_vessel_dict = new Dictionary<Pos, BloodVessel>();
             final_tip_of_vessel_list = new List<Cell>();
 
             next_migratory_cells = new Dictionary<Pos, Cell>();
@@ -252,11 +257,13 @@ namespace AutomataCelularLogic
             growing_vessels = new Dictionary<BloodVessel, List<Cell>>();
             new_vessel_cells = new List<Cell>();
             new_endothelial_cells = new Dictionary<Pos, Cell>();
-            neo_blood_vessel_list = new List<NeoBloodVessel>();
-            segment_neo_vessel_dict = new Dictionary<BloodVesselSegment, NeoBloodVessel>();
+            neo_blood_vessel_list = new List<BloodVessel>();
+            segment_neo_vessel_dict = new Dictionary<BloodVesselSegment, BloodVessel>();
 
             necrotic_cell_list = new List<Cell>();
-            edothelial_cells = new List<Cell>();
+            endothelial_cells = new Dictionary<Pos, Cell>();
+
+            vessel_segment_dict = new Dictionary<BloodVessel, BloodVesselSegment>();
 
             time = new double[500];
             cell_count = new double[500];
@@ -264,20 +271,24 @@ namespace AutomataCelularLogic
 
         public void BuildTheVesselSegments(World world)
         {
+            
             foreach (var item in world.edge_order_dict)
             {
-                BloodVessel vessel1 = pos_artery_dict[item.Key.Item1];
-                BloodVessel vessel2 = pos_artery_dict[item.Key.Item2];
+                BloodVessel vessel1 = pos_vessel_dict[item.Key.Item1];
+                BloodVessel vessel2 = pos_vessel_dict[item.Key.Item2];
 
                 //int distance = Utils.EuclideanDistance(vessel1.pos, vessel2.pos);
                 //if (distance != 5)
                 //    Console.WriteLine("Pos1: {0} {1} {2} Pos2: {3} {4} {5} {6}",vessel1.pos.X, vessel1.pos.Y, vessel1.pos.Z, vessel2.pos.X, vessel2.pos.Y, vessel2.pos.Z, distance);
 
-                Tuple<int, int, double> diameter_length_pc = model.strahler_order_dict[item.Value];
-                int diameter = diameter_length_pc.Item1;
-                int length = diameter_length_pc.Item2;
+                Tuple<double, double, double> diameter_length_pc = model.strahler_order_dict[item.Value];
+                double diameter = diameter_length_pc.Item1;
+                double length = diameter_length_pc.Item2;
                 double pc = diameter_length_pc.Item3;
                 BloodVesselSegment segment = new BloodVesselSegment(vessel1, vessel2, item.Value, diameter, length, pc);
+                //vessel_segment_dict.Add(vessel1, segment);
+                //vessel_segment_dict.Add(vessel2, segment);
+
                 vessel_segment_list.Add(segment);
             }
         }
@@ -398,6 +409,15 @@ namespace AutomataCelularLogic
 
                  //= radius;
             }
+            foreach (var item in neo_vessel_segment_list)
+            {
+                item.hydraulic_permeability = model.CalculatePermeabilityOfTheVesselWall(item);
+                item.interstitial_pressure = model.CalculateInterstitialPressure(item, item.hydraulic_permeability);
+                item.pressure_collapse = model.CalculateCollapsePressure(item, item.hydraulic_permeability);
+                item.radius = model.CalculateRadius(item, item.interstitial_pressure, item.pressure_collapse);
+
+                //= radius;
+            }
             //UpdateLp();
             //UpdatePi();
             //UpdatePc();
@@ -407,6 +427,12 @@ namespace AutomataCelularLogic
         public void VEGFEnLosVasos()
         {
             foreach (var item in vessel_segment_list)
+            {
+                if (item.radio_clasf == RadioClassification.MatureVessel)
+                    VEGFEnLosVasos(item);
+            }
+
+            foreach (var item in neo_vessel_segment_list)
             {
                 if (item.radio_clasf == RadioClassification.MatureVessel)
                     VEGFEnLosVasos(item);
@@ -421,7 +447,7 @@ namespace AutomataCelularLogic
 
             foreach (var item in vegf)
             {
-                if (item >= 0.1)
+                if (item >= 0.1E-95 /*Utils.rdm.Next(0,2)==1*/)
                 {
                     immature_vessel.Add(segment);
                     segment.radio_clasf = RadioClassification.ImmatureVessel;
@@ -458,22 +484,24 @@ namespace AutomataCelularLogic
             {
                 if(item.order == StrahlerOrder.StrahlerOrder_1)
                 {
-                    //AGREGAR AQUI EL TIEMPO DE MADURACION
-                    if (pos_children_dict[item.blood_vessel1.pos].child_left == null && pos_children_dict[item.blood_vessel1.pos].child_left == null)
-                        GetPositionForEndothelialCellMigration(item.blood_vessel1);
-                    else
-                        GetPositionForEndothelialCellMigration(item.blood_vessel2);
+                    if ((item.blood_vessel1.maturation_time >= 18 && !growing_vessels.ContainsKey(item.blood_vessel1)) || (item.blood_vessel2.maturation_time >= 18 && !growing_vessels.ContainsKey(item.blood_vessel2)))
+                    {
+                        if (pos_children_dict[item.blood_vessel1.pos].child_left == null && pos_children_dict[item.blood_vessel1.pos].child_left == null)
+                            GetPositionForEndothelialCellMigration(item.blood_vessel1);
+                        else
+                            GetPositionForEndothelialCellMigration(item.blood_vessel2);
+                    }
                 }
             }
 
-            foreach (var item in segment_neo_vessel_dict)
-            {
-                if(item.Value.maturation_time < 18 && Utils.rdm.Next(0,2) == 1)
-                    GetPositionForEndothelialCellMigration(item.Value);
-            }
+            //foreach (var item in segment_neo_vessel_dict)
+            //{
+            //    if(item.Value.maturation_time < 18 && Utils.rdm.Next(0,2) == 1)
+            //        GetPositionForEndothelialCellMigration(item.Value);
+            //}
 
             //PORQUE REINICIO ESTO?
-            segment_neo_vessel_dict = new Dictionary<BloodVesselSegment, NeoBloodVessel>();
+           // segment_neo_vessel_dict = new Dictionary<BloodVesselSegment, NeoBloodVessel>();
         }
 
         public void GetPositionForEndothelialCellMigration(BloodVessel vessel)
@@ -485,22 +513,27 @@ namespace AutomataCelularLogic
 
             for (int i = 0; i < tnf_list.Count; i++)
             {
-                if (tnf_list[i] >= 0.1)
+                if (tnf_list[i] >= 0.1E-95 /*Utils.rdm.Next(0,2)==1*/)
                     selection_cells.Add(empty_cells[i]);
             }
 
             if (selection_cells.Count > 0)
             {
-                if(selection_cells.Count == 1)
+                if(selection_cells.Count == 1 && !new_endothelial_cells.ContainsKey(selection_cells[0].pos) && !growing_vessels.ContainsKey(vessel))
                 {
                     growing_vessels.Add(vessel, new List<Cell>() { selection_cells[0]});
                     new_endothelial_cells.Add(selection_cells[0].pos, selection_cells[0]);
+
+                    Console.WriteLine("Endotelial Pos: {0} {1} {2}", selection_cells[0].pos.X, selection_cells[0].pos.Y, selection_cells[0].pos.Z);
                 }
-                else
+                else if(selection_cells.Count > 1 && !new_endothelial_cells.ContainsKey(selection_cells[0].pos) && !new_endothelial_cells.ContainsKey(selection_cells[1].pos) && !growing_vessels.ContainsKey(vessel))
                 {
                     growing_vessels.Add(vessel, new List<Cell>() { selection_cells[0], selection_cells[1] });
                     new_endothelial_cells.Add(selection_cells[0].pos, selection_cells[0]);
                     new_endothelial_cells.Add(selection_cells[1].pos, selection_cells[1]);
+
+                    Console.WriteLine("Endotelial Pos: {0} {1} {2}", selection_cells[0].pos.X, selection_cells[0].pos.Y, selection_cells[0].pos.Z);
+                    Console.WriteLine("Endotelial Pos: {0} {1} {2}", selection_cells[1].pos.X, selection_cells[1].pos.Y, selection_cells[1].pos.Z);
                 }
             }
 
@@ -511,18 +544,26 @@ namespace AutomataCelularLogic
 
         public void VesselGrowth()
         {
+            //SE REALIZA LA CREACION SI EXISTE LA CELULA ENDOTELIAL EN ESA POSICION
             foreach (var item in growing_vessels)
             {
                 //si se tiene la edad de maduracion y se cumple una variable aleatoria en 1 entonces
                 if (item.Key.maturation_time >= 18 && Utils.rdm.Next(0, 2) == 1)
                 {
-                    if (item.Value.Count == 2)
+                    if (item.Value.Count == 2 && endothelial_cells.ContainsKey(item.Value[0].pos) && endothelial_cells.ContainsKey(item.Value[1].pos))
                     {
                         new_vessel_cells.Add(item.Value[0]);
                         new_vessel_cells.Add(item.Value[1]);
+
+                        item.Key.maturation_time = 0;
                     }
-                    else
+                    else if (endothelial_cells.ContainsKey(item.Value[0].pos))
+                    {
                         new_vessel_cells.Add(item.Value[0]);
+                        item.Key.maturation_time = 0;
+                    }
+                    
+                    
                 }
 
             }
@@ -530,38 +571,74 @@ namespace AutomataCelularLogic
 
         public void UpdateNewNeoVesselsSegment()
         {
+            List<BloodVessel> remove_vessel = new List<BloodVessel>();
             foreach (var item in growing_vessels)
             {
-                if(item.Key.maturation_time >= 18 && item.Value.Count == 2)
+                if (item.Value.Count == 2 && pos_neo_vessel_dict.ContainsKey(item.Value[0].pos) && pos_neo_vessel_dict.ContainsKey(item.Value[1].pos))
                 {
                     //aqui los bordes son los que estan en la lista del value
-                    var vessel1 = (NeoBloodVessel)item.Value[0];
-                    var vessel2 = (NeoBloodVessel)item.Value[1];
+                    var vessel1 = /*(BloodVessel)*/item.Value[0] as BloodVessel;
+                    var vessel2 = /*(BloodVessel)*/item.Value[1] as BloodVessel;
 
-                    if(vessel1 is NeoBloodVessel)
+                    if (vessel1 is BloodVessel)
                     {
-                        var diameter_length_pc = model.strahler_order_dict[StrahlerOrder.StrahlerOrder_1];
-                        BloodVesselSegment segment = new BloodVesselSegment(item.Key, vessel1, StrahlerOrder.StrahlerOrder_1, diameter_length_pc.Item1, diameter_length_pc.Item2, diameter_length_pc.Item3);
-                        segment_neo_vessel_dict.Add(segment, vessel1);
-                        neo_vessel_segment_list.Add(segment);
+                        CreateNeoSegment(vessel1, item.Key);
+                        //NO ENTIENDO PORQUE DOS LISTAS
                     }
-                    if(vessel2 is NeoBloodVessel)
+                    if (vessel2 is BloodVessel)
                     {
-                        var diameter_length_pc = model.strahler_order_dict[StrahlerOrder.StrahlerOrder_1];
-                        BloodVesselSegment segment = new BloodVesselSegment(item.Key, vessel2, StrahlerOrder.StrahlerOrder_1, diameter_length_pc.Item1, diameter_length_pc.Item2, diameter_length_pc.Item3);
-                        segment_neo_vessel_dict.Add(segment, vessel2);
-                        neo_vessel_segment_list.Add(segment);
+                        CreateNeoSegment(vessel2, item.Key);
                     }
+                    remove_vessel.Add(item.Key);
+
+                    foreach (var segment in vessel_segment_list)
+                    {
+                        if(segment.blood_vessel1 == item.Key || segment.blood_vessel2 == item.Key)
+                            segment.order = StrahlerOrder.StrahlerOrder_2;
+                    }
+                    
+                    //vessel_segment_dict[item.Key].order = StrahlerOrder.StrahlerOrder_2;
+                }
+                else if (item.Value.Count == 1 && pos_neo_vessel_dict.ContainsKey(item.Value[0].pos))
+                {
+                    var vessel1 = item.Value[0] as BloodVessel;
+                    if (vessel1 is BloodVessel)
+                    {
+                        CreateNeoSegment(vessel1, item.Key);
+                        //NO ENTIENDO PORQUE DOS LISTAS
+                    }
+                    remove_vessel.Add(item.Key);
+
+                    foreach (var segment in vessel_segment_list)
+                    {
+                        if (segment.blood_vessel1 == item.Key || segment.blood_vessel2 == item.Key)
+                            segment.order = StrahlerOrder.StrahlerOrder_2;
+                    }
+
+                    //vessel_segment_dict[item.Key].order = StrahlerOrder.StrahlerOrder_2;
                 }
             }
+
+            foreach (var item in remove_vessel)
+            {
+                growing_vessels.Remove(item);
+            }
+        }
+
+        private void CreateNeoSegment(BloodVessel neovessel, BloodVessel vessel)
+        {
+            var diameter_length_pc = model.strahler_order_dict[StrahlerOrder.StrahlerOrder_1];
+            BloodVesselSegment segment = new BloodVesselSegment(vessel, neovessel, StrahlerOrder.StrahlerOrder_1, diameter_length_pc.Item1, diameter_length_pc.Item2, diameter_length_pc.Item3);
+            segment_neo_vessel_dict.Add(segment, neovessel);
+            neo_vessel_segment_list.Add(segment);
         }
 
         public void UpdateMaturationTime()
         {
-            foreach (var item in neo_blood_vessel_list)
-            {
-                item.maturation_time += 1;
-            }
+            //foreach (var item in neo_blood_vessel_list)
+            //{
+            //    item.maturation_time += 1;
+            //}
             foreach (var item in immature_vessel)
             {
                 if(item.order == StrahlerOrder.StrahlerOrder_1)
@@ -600,7 +677,7 @@ namespace AutomataCelularLogic
                 {
                     int distance_min = int.MaxValue;
                     Cell artery = null;
-                    foreach (var item2 in pos_artery_dict)
+                    foreach (var item2 in pos_vessel_dict)
                     {
                         if (!vasos_cooptados.Contains(item2.Value))
                         {
@@ -608,7 +685,7 @@ namespace AutomataCelularLogic
                             if (distance < distance_min)
                             {
                                 distance_min = distance;
-                                artery = pos_artery_dict[item2.Key];
+                                artery = pos_vessel_dict[item2.Key];
                             }
                         }
                     }
@@ -633,13 +710,13 @@ namespace AutomataCelularLogic
         private void CellMutation()
         {
             List<Cell> migra_list = new List<Cell>();
-            int total_amount = (int)((proliferation_cells.Count * 0.25)/100);
+            //int total_amount = (int)((proliferation_cells.Count * 1.0)/100);
 
             foreach (var item in proliferation_cells.Keys)
             {
                 if(item.behavior_state == CellState.ProliferativeTumoralCell)
                 {
-                    if(Utils.rdm.NextDouble() < prob_migra && (migra_list.Count < total_amount) && (Utils.EmptyPositions(item.neighborhood).Count > 5))
+                    if(Utils.rdm.NextDouble() <= prob_migra /*&& (migra_list.Count < total_amount)*/ && (Utils.EmptyPositions(item.neighborhood).Count > 5))
                     {
                         migra_list.Add(item);
                         
@@ -760,7 +837,7 @@ namespace AutomataCelularLogic
                 {
 
                     Cell cell = SelectionOfCellsToMigrate(item.Value, model.oxygen_matrix);
-                    if (cell != null)
+                    if (cell != null && !next_migratory_cells.ContainsKey(cell.pos))
                         next_migratory_cells.Add(cell.pos, cell);
                 }
             }
@@ -820,6 +897,7 @@ namespace AutomataCelularLogic
         {
             List<double> conc = NutrientConcentrationValues(Utils.EmptyPositions(cell.neighborhood), nutrien_conc);
 
+            if (conc.Count == 0) return 0;
             return conc.Average();
         }
 
@@ -861,7 +939,7 @@ namespace AutomataCelularLogic
         public void CooptionVessels()
         {
             //List<Cell> vasos_cooptados_temp = new List<Cell>();
-            foreach (var item in pos_artery_dict.Values)
+            foreach (var item in pos_vessel_dict.Values)
             {
                 int count = 0;
                 foreach (var cell in item.neighborhood)
@@ -895,21 +973,30 @@ namespace AutomataCelularLogic
 
         #region NewAngiogenesis
 
+        //public void NewAngiogenesis()
+        //{
+        //    if(neo_blood_vessels.Count == 0)
+        //    {
+        //        foreach (Cell cell in pos_artery_dict.Values)
+        //        {
+        //            if (cell.neighborhood == null || cell.neighborhood.Count == 0)
+        //                Console.WriteLine("Hell {0}", cell.neighborhood);
+
+        //            if (!first_vessel_close_tumoral_cell_dict.ContainsKey(cell))
+        //                first_vessel_close_tumoral_cell_dict.Add(cell, CancerCellClosestToTheVessel(cell));
+        //        }
+        //    }
+        //    //else
+        //    ArteriesNearTheTumor();
+        //}
+
         public void NewAngiogenesis()
         {
-            if(neo_blood_vessels.Count == 0)
-            {
-                foreach (Cell cell in pos_artery_dict.Values)
-                {
-                    if (cell.neighborhood == null || cell.neighborhood.Count == 0)
-                        Console.WriteLine("Hell {0}", cell.neighborhood);
+            VEGFEnLosVasos();
 
-                    if (!first_vessel_close_tumoral_cell_dict.ContainsKey(cell))
-                        first_vessel_close_tumoral_cell_dict.Add(cell, CancerCellClosestToTheVessel(cell));
-                }
-            }
-            //else
-            ArteriesNearTheTumor();
+            EndothelialCellMigration();
+
+            VesselGrowth();
         }
 
         //////////////////ESTE METODO NO DEBE IR AQUI///////////////////
@@ -940,7 +1027,7 @@ namespace AutomataCelularLogic
             //HAY QUE TRABAJAR AQUI
             if (neo_blood_vessels.Count == 0)
             {
-                foreach (Cell cell in pos_artery_dict.Values)
+                foreach (Cell cell in pos_vessel_dict.Values)
                 {
                     if (cell.neighborhood == null || cell.neighborhood.Count == 0)
                         Console.WriteLine("Hell {0}", cell.neighborhood);
@@ -1094,7 +1181,7 @@ namespace AutomataCelularLogic
             List<Cell> cells = BuscarPosicionesAlBordeDelTumor();
 
             List<Cell> blood_vessels = new List<Cell>();
-            blood_vessels.AddRange(pos_artery_dict.Values);
+            blood_vessels.AddRange(pos_vessel_dict.Values);
             //blood_vessels.AddRange(pos_arteriole_dict.Values);
             //blood_vessels.AddRange(pos_capillary_dict.Values);
 
@@ -1265,10 +1352,14 @@ namespace AutomataCelularLogic
             Stopwatch crono = new Stopwatch();
 
             //Aspectos relacionados con el tumor
-            tumor.time++;
-            tumor.VerhulstEquation();
 
-            
+
+            if (tumor.cell_list.Count == tumor.new_cells_count)
+            {
+                tumor.time++;
+                tumor.VerhulstEquation();
+            }
+
 
             crono.Start();
             model.UpdateOxygen(space, tumor.time);
@@ -1283,32 +1374,12 @@ namespace AutomataCelularLogic
             Console.WriteLine("Concentration: {0} segundos", crono.ElapsedMilliseconds / 1000);
 
             crono.Start();
-            UpdateImmatureVesselSegmentRadius();
+            
 
 
             //Variables relacionadas con las celulas proliferativas
             UpdateProliferationAgeCounter();
 
-
-            //CooptionVessels();
-
-
-            if(tumoral_angiogenic_factor > 0.5)
-            {
-                if(tumor.tumor_stage == TumosStage.Avascular)
-                {
-                    tumor.vasc_mecha = VascularizationMechanism.Angiogenesis;
-                    tumor.tumor_stage = TumosStage.Vascular;
-                }
-                //Angiogenesis();
-                UpdateMigratoryCells();
-
-                NewAngiogenesis();
-            }
-            //if(tumor.vasc_mecha == VascularizationMechanism.Angiogenesis)
-            //{
-            //    Angiogenesis();
-            //}
 
             //ObtainCellsPositionsToDivide();
 
@@ -1316,18 +1387,31 @@ namespace AutomataCelularLogic
 
             SearchCloserStemPosition();
 
+            if(new_endothelial_cells.Count>0)
+            {
+                foreach (var item in new_endothelial_cells)
+                {
+                    Console.WriteLine("ENDO {0} {1} {2} {3}",space[item.Key.X, item.Key.Y, item.Key.Z].behavior_state,  item.Key.X, item.Key.Y, item.Key.Z);
+                }
+            }
+
             crono.Stop();
             Console.WriteLine("Antes del update: {0} segundos", crono.ElapsedMilliseconds / 1000);
 
             crono.Start();
 
-            foreach (Cell cell in random_space)
+            //foreach (Cell cell in random_space)
+            //{
+                
+            //}
+            for (int i = 0; i < random_space.Length; i++)
             {
+                Cell cell = random_space[i];
                 if (cell.behavior_state != CellState.nothing || (next_old_stem_position.ContainsKey(cell.pos) || next_migratory_cells.ContainsKey(cell.pos) || new_tumoral_cells.ContainsKey(cell.pos)))
                 {
                     //Stopwatch crono1 = new Stopwatch();
                     //crono1.Start();
-                    UpdateState(cell);
+                    UpdateState(cell, i);
                     //crono1.Stop();
                     //Console.WriteLine("Update Cell: {0} segundos", crono1.ElapsedMilliseconds / 1000);
                 }
@@ -1346,21 +1430,34 @@ namespace AutomataCelularLogic
             //Metodos que actualizan la lista actual y vacian la lista que representa el estado en el siguiente estado
             UpdateNextStemPositionDict();
 
-            UpdateBloodVessels();
+
+            #region Nueva Organizacion
+            UpdateImmatureVesselSegmentRadius();
+            UpdateMaturationTime();
+            UpdateBloodFlow();
+            WSS();
+
+            #endregion
+
+            if (tumoral_angiogenic_factor > 0.5)
+            {
+                if (tumor.tumor_stage == TumosStage.Avascular)
+                {
+                    tumor.vasc_mecha = VascularizationMechanism.Angiogenesis;
+                    tumor.tumor_stage = TumosStage.Vascular;
+                }
+                //Angiogenesis();
+                UpdateMigratoryCells();
+
+                NewAngiogenesis();
+            }
+
+            UpdateNewNeoVesselsSegment();
+
+            //UpdateBloodVessels();
 
             UpdateNewMigratoryCells();
 
-            VEGFEnLosVasos();
-
-            UpdateBloodFlow();
-
-            WSS();
-
-            UpdateMaturationTime();
-
-            VesselGrowth();
-
-            UpdateNewNeoVesselsSegment();
 
             crono.Stop();
             Console.WriteLine("Restantes metodos: {0} segundos", crono.ElapsedMilliseconds / 1000);
@@ -1372,12 +1469,13 @@ namespace AutomataCelularLogic
             }
 
             Console.WriteLine("tiempo {0} ", tumor.time);
+            Console.WriteLine("Crecimiento {0}", tumor.new_cells_count);
             //Console.WriteLine("cantidad de celulas tumorales {0}", tumor.cell_list.Count);
             //Console.WriteLine("cantidad de celulas que da la ecuacion de verhuslt {0}", tumor.new_cells_count);
             Console.WriteLine();
 
-            time[tumor.time] = tumor.time;
-            cell_count[tumor.time] = tumor.cell_list.Count;
+            //time[tumor.time] = tumor.time;
+            //cell_count[tumor.time] = tumor.cell_list.Count;
         }
 
         private void UpdateBloodVessels()
@@ -1450,11 +1548,33 @@ namespace AutomataCelularLogic
         }
 
         #region UPDATE BEHAVIOR CELLS
-        public void UpdateState(Cell cell)
+        public void UpdateState(Cell cell, int pos)
         {
-            //UpdateCellWithNoOxigen(cell);
+            //foreach (var item in new_endothelial_cells.Values)
+            //{
+            //    if (item == cell)
+            //    {
 
-            int tumoral_cells_count = cell.TumoralCellCount();
+            //    }
+            //    int x = item.pos.X;
+            //    int y = item.pos.Y;
+            //    int z = item.pos.Z;
+
+            //    int x1 = cell.pos.X;
+            //    int y1 = cell.pos.Y;
+            //    int z1 = cell.pos.Z;
+
+            //    if (x == x1 && y == y1 && z == z1)
+            //    {
+            //        if (new_endothelial_cells.ContainsKey(cell.pos) && endothelial_cells[cell.pos] == cell)
+            //        {
+
+            //        }
+            //    }
+            //}
+                //UpdateCellWithNoOxigen(cell);
+
+                int tumoral_cells_count = cell.TumoralCellCount();
 
             if (cell.behavior_state == CellState.Astrocyte || cell.behavior_state == CellState.Neuron)
                 UpdateAstrocyteOrNeuronCell(cell);
@@ -1469,7 +1589,26 @@ namespace AutomataCelularLogic
             else if (cell.behavior_state == CellState.nothing && cell.loca_state == CellLocationState.MatrixExtracelular)
                 UpdateEmptyCell(cell);
             else if (cell.behavior_state == CellState.EndothelialCell)
-                UpdateEndothelialCell(cell);
+                UpdateEndothelialCell(cell, pos);
+
+            //if(new_endothelial_cells. == cell.pos)
+            //{
+                
+            //}
+            
+
+                
+                //if(item.X == cell.pos.X && item.Y == cell.pos.Y && item.Z == cell.pos.Z)
+                //{
+                //    if(new_endothelial_cells.ContainsKey(cell.pos))
+                //    {
+
+                //    }
+                //}
+            //if (new_endothelial_cells.ContainsKey(cell.pos))
+            //{
+
+            //}
         }
 
         
@@ -1621,6 +1760,9 @@ namespace AutomataCelularLogic
 
         public void UpdateEmptyCell(Cell cell)
         {
+
+
+
             if (next_old_stem_position.ContainsKey(cell.pos))
             {
                 //if (empty_cells.Contains(cell))
@@ -1632,6 +1774,17 @@ namespace AutomataCelularLogic
                 stem_cell_list.Add(cell.pos, cell);
 
                 stem_cell_list.Remove(next_old_stem_position[cell.pos]);
+            }
+            else if (new_endothelial_cells.ContainsKey(cell.pos))
+            {
+                new_endothelial_cells.Remove(cell.pos);
+
+                cell.behavior_state = CellState.EndothelialCell;
+                model.endo_density_matrix[cell.pos.X, cell.pos.Y, cell.pos.Z] = model.initial_density_endo;
+
+                //No se si deba agregarlo al tumor
+                endothelial_cells.Add(cell.pos, cell);
+                pos_cell_dict.Add(cell.pos, cell);
             }
             else if (next_migratory_cells.ContainsKey(cell.pos))
             {
@@ -1659,33 +1812,34 @@ namespace AutomataCelularLogic
                 proliferation_cells.Add(cell, new int[] { 0, 0 });
 
             }
-            else if (neo_blood_vessels.Contains(cell))
-            {
-                cell = new NeoBloodVessel(cell.pos, CellState.nothing, CellLocationState.GlialBasalLamina);
-                cell.neighborhood = Utils.GetMooreNeighbours3D(cell.pos, space);
-                pos_neo_vessel_dict.Add(cell.pos, (NeoBloodVessel)cell);
-            }
-            else if (new_endothelial_cells.ContainsKey(cell.pos))
-            {
-                new_endothelial_cells.Remove(cell.pos);
-
-                cell.behavior_state = CellState.EndothelialCell;
-                model.endo_density_matrix[cell.pos.X, cell.pos.Y, cell.pos.Z] = model.initial_density_endo;
-
-                //No se si deba agregarlo al tumor
-                edothelial_cells.Add(cell);
-                pos_cell_dict.Add(cell.pos, cell);
-            }
+            //else if (neo_blood_vessels.Contains(cell))
+            //{
+            //    cell = new BloodVessel(cell.pos, CellState.nothing, CellLocationState.GlialBasalLamina);
+            //    cell.neighborhood = Utils.GetMooreNeighbours3D(cell.pos, space);
+            //    pos_neo_vessel_dict.Add(cell.pos, (BloodVessel)cell);
+            //}
+            
         }
 
-        public void UpdateEndothelialCell(Cell cell)
+        public void UpdateEndothelialCell(Cell cell, int pos)
         {
             if(new_vessel_cells.Contains(cell))
             {
-                cell = new NeoBloodVessel(cell.pos, CellState.nothing, CellLocationState.GlialBasalLamina);
-                //hay que eliminar la celula endotelial de la lista de celulas endoteliales
+                endothelial_cells.Remove(cell.pos);
+                new_vessel_cells.Remove(cell);
+                pos_cell_dict.Remove(cell.pos);
+
+                cell.behavior_state = CellState.nothing;
+                cell.loca_state = CellLocationState.GlialBasalLamina;
+                cell = new BloodVessel(cell.pos, CellState.nothing, CellLocationState.GlialBasalLamina);
+                cell.neighborhood = Utils.GetMooreNeighbours3D(cell.pos, space);
+                space[cell.pos.X, cell.pos.Y, cell.pos.Z] = cell;
+                random_space[pos]= cell;
+
                 //hay que adicionar los nuevos vasos a la lista de nuevos vasos
-                neo_blood_vessel_list.Add((NeoBloodVessel)cell);
+                neo_blood_vessel_list.Add((BloodVessel)cell);
+                pos_neo_vessel_dict.Add(cell.pos, (BloodVessel)cell);
+
             }
         }
 

@@ -71,13 +71,13 @@ namespace AutomataCelularLogic
         }
     }
 
-    public class NeoBloodVessel : BloodVessel
-    {
-        public NeoBloodVessel(Pos pos, CellState behavior_state, CellLocationState loca_state) : base(pos, behavior_state, loca_state)
-        {
+    //public class NeoBloodVessel : BloodVessel
+    //{
+    //    public NeoBloodVessel(Pos pos, CellState behavior_state, CellLocationState loca_state) : base(pos, behavior_state, loca_state)
+    //    {
             
-        }
-    }
+    //    }
+    //}
 
     //public class Arteriole : Cell
     //{

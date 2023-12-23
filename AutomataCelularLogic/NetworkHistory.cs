@@ -25,17 +25,17 @@ namespace AutomataCelularLogic
 
         //VARIABLES DEL MODELO DEL AUTOMATA
         //public static int cell_proliferation;
-        public static int avascular_carrying_capacity = 6920;
-        public static int vascular_carrying_capacity = 50000;
+        public static int avascular_carrying_capacity = 6900;
+        public static int vascular_carrying_capacity = 15000;
         public static double growth_rate = 2.95 * Math.Pow(10, -2);
         public static int initial_population = 5;
 
         //VARIABLES QUE TIENE QUE VER CON EL ENTORNO
         //public static int time = 0;
         public static int distance = 40;
-        public static int limit_of_x = 100;
-        public static int limit_of_y = 100;
-        public static int limit_of_z = 100;
+        public static int limit_of_x = 25;
+        public static int limit_of_y = 25;
+        public static int limit_of_z = 25;
 
         //VARIABLES QUE TIENE QUE VER CON LAS CELULAS
         public static List<Cell> tumor_cell_list = new List<Cell>(); //CAMBIARLE EL NOMBRE A LA LISTA
@@ -215,7 +215,7 @@ namespace AutomataCelularLogic
             streamWriter.WriteLine();
             //WriteCells(CellState.StemCell, ca.stem_cell_list, streamWriter);
             //streamWriter.WriteLine();
-            WriteCells(CellState.EndothelialCell, ca.edothelial_cells, streamWriter);
+            WriteCells(CellState.EndothelialCell, ca.endothelial_cells, streamWriter);
             streamWriter.WriteLine();
 
             streamWriter.WriteLine("BloodVessels: ");

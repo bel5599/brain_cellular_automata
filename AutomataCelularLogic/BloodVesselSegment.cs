@@ -32,7 +32,7 @@ namespace AutomataCelularLogic
 
         public StrahlerOrder order;
 
-        public BloodVesselSegment(BloodVessel blood_vessel1, BloodVessel blood_vessel2, StrahlerOrder order, int mean_diameter, int mean_length, double pressure_collapse)
+        public BloodVesselSegment(BloodVessel blood_vessel1, BloodVessel blood_vessel2, StrahlerOrder order, double mean_diameter, double mean_length, double pressure_collapse)
         {
             this.blood_vessel1 = blood_vessel1;
             this.blood_vessel2 = blood_vessel2;

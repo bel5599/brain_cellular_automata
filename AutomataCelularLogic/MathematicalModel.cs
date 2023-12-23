@@ -149,9 +149,11 @@ namespace AutomataCelularLogic
         #endregion
 
         #region PARAMETROS RELACIONADOS CON EL FLUJO DE SANGRE EN LOS VASOS SANGUINEOS
-        public Dictionary<StrahlerOrder, Tuple<int, int, double>> strahler_order_dict;
+        public Dictionary<StrahlerOrder, Tuple<double, double, double>> strahler_order_dict;
 
         public double intravascular_pressure = 3.5;//Pv mmHg
+
+        public double intravascular_pressure_per_segment = 0;
 
         public double tumoral_hydraulic_permeability = 2.8 * Math.Pow(10, -7);//LpT cm/mmHg s
         public double normal_hydraulic_permeability = 0.36 * Math.Pow(10, -7);//LpN cm/mmHg s
@@ -178,7 +180,7 @@ namespace AutomataCelularLogic
 
 
 
-        public MathematicalModel(Cell[,,] space)
+        public MathematicalModel(Cell[,,] space, int vessel_segment_count)
         {
             this.space = space;
             c_n = 0.15 * c_0;
@@ -189,6 +191,8 @@ namespace AutomataCelularLogic
             dz = 1.0;
 
             dt = 0;
+
+            intravascular_pressure_per_segment = intravascular_pressure / vessel_segment_count;
 
             oxygen_matrix = new double[space.GetLength(0), space.GetLength(1), space.GetLength(2)];
             oxygen_discret_matrix = new double[space.GetLength(0), space.GetLength(1), space.GetLength(2)];
@@ -206,12 +210,12 @@ namespace AutomataCelularLogic
             endo_delta_matrix = new double[space.GetLength(0), space.GetLength(1), space.GetLength(2)];
 
             vegf_conc_matrix = new double[space.GetLength(0), space.GetLength(1), space.GetLength(2)];
-
             consumption_rate = new double[] { 2 * r_c, 5 * r_c, 10 * r_c };
 
-            strahler_order_dict = new Dictionary<StrahlerOrder, Tuple<int, int, double>>();
 
-            FillOutTheStrahlerOrderDictionary();
+            strahler_order_dict = new Dictionary<StrahlerOrder, Tuple<double, double, double>>();
+
+            FillOutTheStrahlerOrderDictionary(vessel_segment_count);
 
             DiscretizeTheOxygenDiffusionCoefficient();
             DiscretizeOxygenConsumptionRate();
@@ -229,13 +233,14 @@ namespace AutomataCelularLogic
 
             InitializeOxygenConcentrationMatrix();
             InitializeDensityMatrix();
+
         }
 
-        public void FillOutTheStrahlerOrderDictionary()
+        public void FillOutTheStrahlerOrderDictionary(int vessel_segment_count)
         {
-            strahler_order_dict.Add(StrahlerOrder.StrahlerOrder_1, new Tuple<int, int, double>(8, 80, 1.0));
-            strahler_order_dict.Add(StrahlerOrder.StrahlerOrder_2, new Tuple<int, int, double>(12, 200, 1.5));
-            strahler_order_dict.Add(StrahlerOrder.StrahlerOrder_3, new Tuple<int, int, double>(16, 320, 2.0));
+            strahler_order_dict.Add(StrahlerOrder.StrahlerOrder_1, new Tuple<double, double, double>(8, 80/*/ vessel_segment_count*/, 1.0));
+            strahler_order_dict.Add(StrahlerOrder.StrahlerOrder_2, new Tuple<double, double, double>(12, 200/*/ vessel_segment_count*/, 1.5));
+            strahler_order_dict.Add(StrahlerOrder.StrahlerOrder_3, new Tuple<double, double, double>(16, 320/*/ vessel_segment_count*/, 2.0));
         }
 
 
@@ -837,8 +842,8 @@ namespace AutomataCelularLogic
 
         public double CalculateInterstitialPressure(BloodVesselSegment segment, double lp)
         {
-            double s = 2 * Math.PI * segment.mean_length;
-            double qt = CalculateVascularFlowRateWithoutFluidLeakage(segment.radius, intravascular_pressure, segment.mean_length, 1);
+            double s = (2 * Math.PI * segment.mean_length);
+            double qt = CalculateVascularFlowRateWithoutFluidLeakage(segment.radius, intravascular_pressure_per_segment, segment.mean_length, 1);
             return intravascular_pressure - (qt/(lp * s)) - sigmaT * ( pi_v - pi_i);
         }
 
@@ -891,7 +896,7 @@ namespace AutomataCelularLogic
                     for (int k = 0; k < space.GetLength(2); k++)
                     {
 
-                        if (space[i, j, k] is BloodVessel || space[i, j, k] is NeoBloodVessel)
+                        if (space[i, j, k] is BloodVessel /*|| space[i, j, k] is NeoBloodVessel*/)
                         {
                             Cell cell = space[i, j, k];
                             double d = endo_density_matrix[i, j, k];

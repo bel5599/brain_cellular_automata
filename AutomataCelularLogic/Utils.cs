@@ -21,7 +21,7 @@ namespace AutomataCelularLogic
             {
                 int[] array= mov_3d[i];
                 Pos new_pos = new Pos(pos.X + array[0], pos.Y + array[1], pos.Z + array[2]);
-                new_pos = ValidatingAPositionInAClosedSpace(new_pos, grid.GetLength(0));
+                //new_pos = ValidatingAPositionInAClosedSpace(new_pos, grid.GetLength(0));
 
                 if (ValidPosition(new_pos.X, new_pos.Y, new_pos.Z))
                     neighbours.Add(grid[new_pos.X, new_pos.Y, new_pos.Z]);
@@ -119,7 +119,7 @@ namespace AutomataCelularLogic
             {
                 int[] array = mov_3d[i];
                 Pos new_pos = new Pos(pos.X + array[0], pos.Y + array[1], pos.Z + array[2]);
-                new_pos = ValidatingAPositionInAClosedSpace(new_pos, limit_of_x);
+                //new_pos = ValidatingAPositionInAClosedSpace(new_pos, limit_of_x);
                 if (ValidPosition(new_pos) && !marks.Contains(new_pos))
                     empty_pos.Add(new_pos);
             }
@@ -226,7 +226,7 @@ namespace AutomataCelularLogic
         public static bool ValidPosition(int x, int y, int z)
         {
             //return /*x >= 0 && x < EnvironmentLogic.limit_of_x &&*/ y >= 0 && y < 10 && z >= 0 && z < 10;
-            return /*x >= 0 && x < EnvironmentLogic.limit_of_x &&*/ y >= 0 && y < EnvironmentLogic.limit_of_y && z >= 0 && z < EnvironmentLogic.limit_of_z;
+            return x >= 0 && x < EnvironmentLogic.limit_of_x && y >= 0 && y < EnvironmentLogic.limit_of_y && z >= 0 && z < EnvironmentLogic.limit_of_z;
         }
 
         //public static void FormationOfSpheres()

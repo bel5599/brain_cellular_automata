@@ -14,17 +14,17 @@ namespace AutomataCelularLogic
 
         //VARIABLES DEL MODELO DEL AUTOMATA
         //public static int cell_proliferation;
-        public static int avascular_carrying_capacity = 6920;
-        public static int vascular_carrying_capacity = 50000;
+        public static int avascular_carrying_capacity = 6900;//6900;
+        public static int vascular_carrying_capacity = 15000;//50000;
         public static double growth_rate = 2.95 * Math.Pow(10, -2);
         public static int initial_population = 5;
 
         //VARIABLES QUE TIENE QUE VER CON EL ENTORNO
         public static int time = 0;
         public static int distance = 40;
-        public static int limit_of_x = 100;
-        public static int limit_of_y = 100;
-        public static int limit_of_z = 100;
+        public static int limit_of_x = 40;
+        public static int limit_of_y = 40;
+        public static int limit_of_z = 40;
 
         //VARIABLES QUE TIENE QUE VER CON LAS CELULAS
         public static List<Cell> tumor_cell_list = new List<Cell>(); //CAMBIARLE EL NOMBRE A LA LISTA
@@ -251,59 +251,59 @@ namespace AutomataCelularLogic
             //PrintCells(ca.space, ca.model.oxygen_matrix, ca.model.density_matrix, ca.model.mde, ca.model.angiogenic_reg_conc_matrix);
 
             //Console.ReadLine();
-            int count = 0;
-            while (count++ < 500)
-            {
-                //    //Console.WriteLine("Estoy aqui");
-                //    //Console.ReadLine();
-                //    //    //    //foreach (var key_value in ca.next_stem_position)
-                //    //    //    //{
-                //    //    //    //    Pos pos = key_value.Key;
-                //    //    //    //    if (key_value.Key != null)
-                //    //    //    //    {
-                //    //    //    //        Console.WriteLine("Nuevo");
-                //    //    //    //        Console.WriteLine(pos.X);
-                //    //    //    //        Console.WriteLine(pos.Y);
-                //    //    //    //        Console.WriteLine(pos.Z);
-                //    //    //    //        Console.WriteLine();
-                //    //    //    //        if (key_value.Value != null)
-                //    //    //    //        {
-                //    //    //    //            Console.WriteLine(key_value.Value.X);
-                //    //    //    //            Console.WriteLine(key_value.Value.Y);
-                //    //    //    //            Console.WriteLine(key_value.Value.Z);
-                //    //    //    //        }
-                //    //    //    //    }
-                //    //    //    //}
+            //int count = 0;
+            //while (count++ < 500)
+            //{
+            //    //    //Console.WriteLine("Estoy aqui");
+            //    //    //Console.ReadLine();
+            //    //    //    //    //foreach (var key_value in ca.next_stem_position)
+            //    //    //    //    //{
+            //    //    //    //    //    Pos pos = key_value.Key;
+            //    //    //    //    //    if (key_value.Key != null)
+            //    //    //    //    //    {
+            //    //    //    //    //        Console.WriteLine("Nuevo");
+            //    //    //    //    //        Console.WriteLine(pos.X);
+            //    //    //    //    //        Console.WriteLine(pos.Y);
+            //    //    //    //    //        Console.WriteLine(pos.Z);
+            //    //    //    //    //        Console.WriteLine();
+            //    //    //    //    //        if (key_value.Value != null)
+            //    //    //    //    //        {
+            //    //    //    //    //            Console.WriteLine(key_value.Value.X);
+            //    //    //    //    //            Console.WriteLine(key_value.Value.Y);
+            //    //    //    //    //            Console.WriteLine(key_value.Value.Z);
+            //    //    //    //    //        }
+            //    //    //    //    //    }
+            //    //    //    //    //}
 
-                ca.Update();
-                //PrintMatrix(ca.model.oxygen_matrix, ca.space);
+            //    ca.Update();
+            //    //PrintMatrix(ca.model.oxygen_matrix, ca.space);
 
-                int total_count = 0;
+            //    int total_count = 0;
 
-                int prolif = 0;
-                int inactiva = 0;
-                int necrotica = 0;
-                int migratoria = 0;
+            //    int prolif = 0;
+            //    int inactiva = 0;
+            //    int necrotica = 0;
+            //    int migratoria = 0;
 
-                foreach (var item in ca.tumor.cell_list)
-                {
-                    CellState behavior = item.Value.behavior_state;
-                    if (behavior == CellState.NecroticTumorCell)
-                        necrotica++;
-                    else if (behavior == CellState.MigratoryTumorCell)
-                        migratoria++;
-                    else if (behavior == CellState.ProliferativeTumoralCell)
-                        prolif++;
-                    else if (behavior == CellState.QuiescentTumorCell)
-                        inactiva++;
-                }
-                total_count = ca.tumor.cell_list.Count;
+            //    foreach (var item in ca.tumor.cell_list)
+            //    {
+            //        CellState behavior = item.Value.behavior_state;
+            //        if (behavior == CellState.NecroticTumorCell)
+            //            necrotica++;
+            //        else if (behavior == CellState.MigratoryTumorCell)
+            //            migratoria++;
+            //        else if (behavior == CellState.ProliferativeTumoralCell)
+            //            prolif++;
+            //        else if (behavior == CellState.QuiescentTumorCell)
+            //            inactiva++;
+            //    }
+            //    total_count = ca.tumor.cell_list.Count;
 
-                Console.WriteLine("Tumorales: {0}, Verhuslt: {1} Proliferativas: {2} Inactivas: {3} Migratorias: {4} Necroticas: {5}", total_count, ca.tumor.new_cells_count,
-                                    prolif, inactiva, migratoria, necrotica);
+            //    Console.WriteLine("Tumorales: {0}, Verhuslt: {1} Proliferativas: {2} Inactivas: {3} Migratorias: {4} Necroticas: {5}", total_count, ca.tumor.new_cells_count,
+            //                        prolif, inactiva, migratoria, necrotica);
 
-                //PrintCells(ca.space, ca.model.oxygen_matrix, ca.model.density_matrix, ca.model.mde, ca.model.angiogenic_reg_conc_matrix);
-            }
+            //    //PrintCells(ca.space, ca.model.oxygen_matrix, ca.model.density_matrix, ca.model.mde, ca.model.angiogenic_reg_conc_matrix);
+            //}
 
 
 
