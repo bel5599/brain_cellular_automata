@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using Plotly.NET;
-//using ScottPlot;
-//using LiveCharts;
-//using LiveCharts.Wpf;
+using Plotly.NET;
+using ScottPlot;
+using LiveCharts;
+using LiveCharts.Wpf;
+using LiveCharts.Defaults;
 
 namespace AutomataCelularLogic
 {
@@ -43,6 +44,7 @@ namespace AutomataCelularLogic
             //var chart = Chart.Plot(trace);
             //chart.Show();
         }
+
 
         public static void HeatMap(List<Pos> positions)
         {

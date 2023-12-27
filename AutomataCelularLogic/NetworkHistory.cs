@@ -33,9 +33,9 @@ namespace AutomataCelularLogic
         //VARIABLES QUE TIENE QUE VER CON EL ENTORNO
         //public static int time = 0;
         public static int distance = 40;
-        public static int limit_of_x = 25;
-        public static int limit_of_y = 25;
-        public static int limit_of_z = 25;
+        public static int limit_of_x = 40;
+        public static int limit_of_y = 40;
+        public static int limit_of_z = 40;
 
         //VARIABLES QUE TIENE QUE VER CON LAS CELULAS
         public static List<Cell> tumor_cell_list = new List<Cell>(); //CAMBIARLE EL NOMBRE A LA LISTA

@@ -111,7 +111,7 @@ namespace AutomataCelularLogic
             return empty_pos;
         }
 
-        public static List<Pos> EmptyPositions(Pos pos, List<Pos> marks, int limit_of_x)
+        public static List<Pos> EmptyPositions(Pos pos, List<Pos> marks)
         {
             List<Pos> empty_pos = new List<Pos>();
 
@@ -178,6 +178,44 @@ namespace AutomataCelularLogic
             int z = rdm.Next(lower_limit_z, upper_limit_z);
 
             return new Pos(x, y, z);
+        }
+
+        public static Pos GetRandomPositionTree(int lower_limit_x, int upper_limit_x, int lower_limit_y, int upper_limit_y, int lower_limit_z, int upper_limit_z)
+        {
+            //Random rdm = new Random();
+            int x = GetIntValue(lower_limit_x, upper_limit_x);
+            int y = GetIntValue(lower_limit_y, upper_limit_y);
+            int z = GetIntValue(lower_limit_z, upper_limit_z);
+
+            return new Pos(x, y, z);
+        }
+
+        public static int GetIntValue(int min, int max)
+        {
+            if (min == max) return min;
+
+            double d = Math.Abs(max - min) + 1;
+            double interval = 1d / d;
+            double myRandom = rdm.NextDouble();
+
+            var numbers = new List<int>();
+            for (int i = min; i <= max; i++) numbers.Add(i);
+
+            double a, b;
+            for (int i = 1; i <= d; i++)
+            {
+                a = (i - 1) * interval;
+                b = i * interval;
+
+                if (myRandom.Belongs(a, b)) return numbers[i - 1];
+            }
+
+            return 0;
+        }
+
+        public static bool Belongs(this double n, double min, double max)
+        {
+            return n >= min && n <= max;
         }
 
         public static Pos GenerateRandomPoint(double radius, int ini_height, int height, int ini_width, int width, int ini_depth, int depth)

@@ -35,12 +35,6 @@ public class Environment : MonoBehaviour
 
     int actual_count = 0;
 
-    //int PositionScale = 6;
-    //int PositionScale = 5;
-
-    //float scale_factor_1 = 100f;
-    //float scale_factor_2 = 50;
-    //float scale_factor_3 = 25f;
 
     public float PositionScale = 1;
 
@@ -107,29 +101,13 @@ public class Environment : MonoBehaviour
 
 
         Debug.Log("Termine de rellenar");
-        ////creacion de los transform de las celulas madres, astrocitos y neuronas
-        //CreateCellTransform(EnvironmentLogic.stem_cell_list, StemCellPrefab, stem_cell_dict);
-        //CreateCellTransform(EnvironmentLogic.astrocyte_cell_list, AstrocytePrefab, astrocyte_list);
-        //CreateCellTransform(EnvironmentLogic.neuron_cell_list, NeuronPrefab, neuron_list);
-
-        ////estos son los metodos que se utilizan para buscar la posicion cercana a la celula tumoral
-        //// y los vasos sanguineos respectivamente
-        //EnvironmentLogic.GetCellsThatSenseTheTumorSubstance();
-        //EnvironmentLogic.PathFromCellsToTumorCell();
-        //EnvironmentLogic.MoveAstrocyteToVessels();
-
-        ////aqui se agregan los transform de las nuevas celulas madres
-        //UpdateTumorCellTransforms();
-        //UpdateAstrocyteTransforms();
     }
 
-    
+
 
     void Update()
     {
-        //if (actual_count < count)
-        //{
-            secondsCounter += Time.deltaTime;
+        secondsCounter += Time.deltaTime;
         if (secondsCounter >= secondsToCount)
         {
             Debug.Log("Estoy aqui");
@@ -151,53 +129,12 @@ public class Environment : MonoBehaviour
             UpdateCellTransformsDict();
             UpdateVessels();
 
-            //script = GetComponent<FrameRateCounter>();
-
-            ////script.Update();
-
-            //if (script != null)
-            //{
-                script.UpdateCanvas(EnvironmentLogic.ca);
-            //}
-
-            //UpdateBloodVessels();
+            script.UpdateCanvas(EnvironmentLogic.ca);
         }
-        actual_count++;
-        //}
-
-            //if (!is_over)
-            //{
-            //    //en estos metodos se realiza el movimiento de las celulas a sus respectivas posiciones
-            //    MoveCellsToTumor();
-            //    MoveAstrocyteToVessel();
-            //}
-
-            //is_over = true;
-            //if(!VerificarMovCell(tumoral_cell_dict) || !VerificarMovCell(astrocyte_list))
-            //    is_over = false;
-
-            //if (is_over)
-            //{
-            //    if (!is_over_conver)
-            //    {
-            //        EnvironmentLogic.StemCellConvertToTumoralCell();
-            //        EnvironmentLogic.UpdateAstrocytePosition();
-            //        is_over_conver = true;
-            //    }
-            //    EnvironmentLogic.UpdateActions();
-            //    UpdateTransforms();
-
-            //    EnvironmentLogic.ExecuteActions();
-
-            //    EnvironmentLogic.UpdateTumorState();
-
-            //    //    SphereDraw();
-
-            //    //    CellDraw();
-            //}
 
 
-        }
+
+    }
 
     void InitializeLists()
     {
@@ -222,192 +159,6 @@ public class Environment : MonoBehaviour
     }
 
     #region metodos_que_no_se_utilizan_ahora
-    //void VerificarMovCell(Dictionary<Cell, Transform> cell_transf_dict)
-    //{
-    //    foreach (var item in cell_transf_dict)
-    //    {
-    //        Pos pos1 = null;
-
-    //        if (item.Key.des_pos != null)
-    //            pos1 = item.Key.des_pos;
-    //        else
-    //            pos1 = item.Key.pos;
-
-    //        var pos2 = item.Value.localPosition;
-
-    //        if (pos1.X != pos2.x || pos1.Y != pos2.y || pos1.Z != pos2.z)
-    //            return false;
-    //    }
-    //    return true;
-    //}
-
-    //void CreateArteryTransform()
-    //{
-    //    foreach (Artery artery in EnvironmentLogic.artery_list)
-    //    {
-    //        //Debug.Log(artery.pos.X);
-    //        //Debug.Log(artery.pos.Y);
-    //        //Debug.Log(artery.pos.Z);
-    //        //Debug.Log("finito");
-    //        Transform artery_transform = Instantiate(ArteryPrefab);
-    //        artery_transform.localPosition = new Vector3(artery.pos1.X, artery.pos1.Y, artery.pos1.Z);
-    //        artery_transform.localRotation = Quaternion.Euler(0, 0, 90);
-    //        artery_list.Add(artery, artery_transform);
-    //    }
-    //}
-
-    //void CreateCellTransform(List<Cell> cell_list, Transform prefab, Dictionary<Cell, Transform> cell_transform_dict)
-    //{
-    //    foreach (Cell cell in cell_list)
-    //    {
-    //        Transform stemCell = Instantiate(prefab);
-    //        stemCell.localPosition = new Vector3(cell.pos.X, cell.pos.Y, cell.pos.Z);
-    //        cell_transform_dict.Add(cell, stemCell);
-    //    }
-    //}
-
-    //void UpdateTumorCellTransforms()
-    //{
-    //    foreach (Cell cell in EnvironmentLogic.tumor.cell_list)
-    //    {
-    //        if (stem_cell_dict.ContainsKey(cell))
-    //            tumoral_cell_dict.Add(cell, stem_cell_dict[cell]);
-    //        else
-    //        {
-    //            Transform t = Instantiate(TumoralCellPrefab);
-    //            t.localPosition = new Vector3(cell.pos.X, cell.pos.Y, cell.pos.Z);
-    //            tumoral_cell_dict.Add(cell, t);
-    //        }
-    //    }
-    //}
-
-    //void UpdateAstrocyteTransforms()
-    //{
-    //    foreach (Cell cell in EnvironmentLogic.astrocyte_cell_list)
-    //    {
-    //        if (astrocyte_list.ContainsKey(cell))
-    //            astrocyte_list.Add(cell, astrocyte_list[cell]);
-    //        else
-    //        {
-    //            Transform t = Instantiate(AstrocytePrefab);
-    //            t.localPosition = new Vector3(cell.pos.X, cell.pos.Y, cell.pos.Z);
-    //            astrocyte_list.Add(cell, t);
-    //        }
-    //    }
-    //}
-
-    //void MoveCellsToTumor()
-    //{
-    //    float step = speed * Time.deltaTime;
-    //    //tumoralCell.position = Vector3.MoveTowards(tumoralCell.position, new Vector3(30, 21, 5), step);
-    //    foreach (var key_value in tumoral_cell_dict)
-    //    {
-    //        //Debug.Log(key_value);
-
-    //        Pos pos = key_value.Key.des_pos;
-
-    //        //Debug.Log(pos);
-    //        key_value.Value.position = Vector3.MoveTowards(key_value.Value.position, new Vector3(pos.X, pos.Y, pos.Z), step);
-    //    }
-    //}
-
-    //void MoveAstrocyteToVessel()
-    //{
-    //    Debug.Log("Estoy aqui");
-    //    float step = speed * Time.deltaTime;
-    //    //tumoralCell.position = Vector3.MoveTowards(tumoralCell.position, new Vector3(30, 21, 5), step);
-
-    //    Debug.Log(astrocyte_list.Count);
-    //    foreach (var key_value in astrocyte_list)
-    //    {
-    //        if (key_value.Key.des_pos != null)
-    //        {
-    //            //Debug.Log(key_value);
-
-    //            Pos pos = key_value.Key.des_pos;
-
-    //            //Debug.Log(pos);
-    //            Debug.Log(key_value.Value);
-    //            key_value.Value.position = Vector3.MoveTowards(key_value.Value.position, new Vector3(pos.X, pos.Y, pos.Z), step);
-    //        }
-    //    }
-    //}
-
-    ////void UpdateTransform()
-    ////{
-    ////    foreach (Cell cell in EnvironmentLogic.tumor.cell_list)
-    ////    {
-    ////        if(!tumoral_cell_dict.ContainsKey(cell))
-    ////        {
-    ////            Transform t = Instantiate(TumoralCellPrefab);
-    ////            t.localPosition = new Vector3(cell.pos.X, cell.pos.Y, cell.pos.Z);
-    ////            tumoral_cell_dict.Add(cell, t);
-    ////        }
-    ////        if (cell.actual_action == Contaminate)
-    ////        {
-
-
-    ////            Pos pos = cell.actual_division.pos;
-    ////            Cell cell_temp = cell.actual_division.cell;
-    ////            Cell cell_temp2 = cell.actual_division.cont_cell;
-    ////        }
-    ////        else if(cell.actual_action == Division)
-    ////        {
-    ////            Pos pos = cell.actual_division.pos;
-    ////            Cell cell_temp = cell.actual_division.cell;
-
-    ////            if (tumoral_cell_dict.ContainsKey())
-    ////        }
-    ////        else if(cell.actual_action == Nothing)
-    ////        {
-
-    ////        }
-    ////    }
-    ////}
-
-    //void CellDraw()
-    //{
-    //    Debug.Log("Estoy en Cell Draw");
-    //    Debug.Log(EnvironmentLogic.cells_without_sphere.Count);
-    //    Debug.Log(tumoral_cell_dict.Count);
-    //    foreach (Cell cell in EnvironmentLogic.cells_without_sphere)
-    //    {
-    //        if (!tumoral_cell_dict.ContainsKey(cell))
-    //        {
-    //            Transform t = Instantiate(StemCellPrefab);
-    //            t.localPosition = new Vector3(cell.pos.X, cell.pos.Y, cell.pos.Z);
-    //            tumoral_cell_dict.Add(cell, t);
-    //        }
-    //    }
-    //}
-
-    ////void SphereDraw()
-    ////{
-    ////    Utils.CellMove();
-
-    ////    if (EnvironmentLogic.sphere_cell_dict.Count > 0)
-    ////    {
-    ////        Debug.Log("Estoy aqui");
-    ////        Debug.Log(EnvironmentLogic.sphere_cell_dict.Count);
-
-    ////        foreach (Cell cell in EnvironmentLogic.sphere_cell_dict.Keys)
-    ////        {
-    ////            Sphere sphere = EnvironmentLogic.sphere_cell_dict[cell];
-    ////            if (!sphere_list.ContainsKey(sphere))
-    ////            {
-    ////                Transform t = Instantiate(TumoralSpherePrefab);
-    ////                t.localPosition = new Vector3(cell.pos.X, cell.pos.Y, cell.pos.Z);
-    ////                t.localScale = new Vector3(sphere.radio, sphere.radio, sphere.radio);
-    ////                sphere_list.Add(sphere, t);
-    ////            }
-    ////            else
-    ////                sphere_list[sphere].localScale = new Vector3(sphere.radio, sphere.radio, sphere.radio);
-
-    ////            Destroy_Transform(sphere.cell_list, cell);
-    ////            //AQUI ES DONDE DEBERIA ACTUALIZAR EL RADIO DE LA ESFERA
-    ////        }
-    ////    }
-    ////}
     #endregion
 
 
@@ -513,102 +264,9 @@ public class Environment : MonoBehaviour
 
     }
 
-    //void Rellenar()
-    //{
-    //    Dictionary<Pos, Cell> pos_cell_dict = EnvironmentLogic.ca.pos_cell_dict;
-    //    foreach (var key_value in pos_cell_dict)
-    //    {
-    //        if (key_value.Value.behavior_state == CellState.ProliferativeTumoralCell)
-    //        {
-    //            Transform stemCell = Instantiate(ProliferativeTumoralCellPrefab);
-    //            stemCell.localPosition = new Vector3(key_value.Key.X * PositionScale, key_value.Key.Y * PositionScale, key_value.Key.Z * PositionScale);
-    //            stemCell.position =
-    //            proliferative_dict.Add(key_value.Value, stemCell);
-    //        }
-    //        else if (key_value.Value.behavior_state == CellState.StemCell)
-    //        {
-    //            Transform stemCell = Instantiate(StemCellPrefab);
-    //            stemCell.localPosition = new Vector3(key_value.Key.X * PositionScale, key_value.Key.Y * PositionScale, key_value.Key.Z * PositionScale);
-    //            stem_cell_dict.Add(key_value.Value, stemCell);
-    //        }
-    //        else if (key_value.Value.behavior_state == CellState.Astrocyte)
-    //        {
-    //            Transform astrocyte_cell = Instantiate(AstrocytePrefab);
-    //            astrocyte_cell.localPosition = new Vector3(key_value.Key.X * PositionScale, key_value.Key.Y * PositionScale, key_value.Key.Z * PositionScale);
-    //            astrocyte_dict.Add(key_value.Value, astrocyte_cell);
-    //        }
-    //        else if (key_value.Value.behavior_state == CellState.Neuron)
-    //        {
-    //            Transform neuron = Instantiate(NeuronPrefab);
-    //            neuron.localPosition = new Vector3(key_value.Key.X * PositionScale, key_value.Key.Y * PositionScale, key_value.Key.Z * PositionScale);
-    //            neuron_dict.Add(key_value.Value, neuron);
-    //        }
-    //        else if (key_value.Value.behavior_state == CellState.NecroticTumorCell)
-    //        {
-    //            Transform necrotic = Instantiate(NecroticTumoralCellPrefab);
-    //            necrotic.localPosition = new Vector3(key_value.Key.X * PositionScale, key_value.Key.Y * PositionScale, key_value.Key.Z * PositionScale);
-    //            necrotic_cell_dict.Add(key_value.Value, necrotic);
-    //        }
-    //        else if (key_value.Value.behavior_state == CellState.QuiescentTumorCell)
-    //        {
-    //            Transform quiescent = Instantiate(QuiescentTumorCellPrefab);
-    //            quiescent.localPosition = new Vector3(key_value.Key.X * PositionScale, key_value.Key.Y * PositionScale, key_value.Key.Z * PositionScale);
-    //            quiescent_cell_dict.Add(key_value.Value, quiescent);
-    //        }
-    //        else if (key_value.Value.behavior_state == CellState.MigratoryTumorCell)
-    //        {
-    //            Transform migratory = Instantiate(MigratoryPrefab);
-    //            migratory.localPosition = new Vector3(key_value.Key.X * PositionScale, key_value.Key.Y * PositionScale, key_value.Key.Z * PositionScale);
-    //            migratory_dict.Add(key_value.Value, migratory);
-    //        }
-    //    }
-
-
-    //}
 
     Dictionary<Pos, List< Vector3>> ajuste;
 
-    //public List<Tuple<Cell, GameObject>> Artery_dict { get => artery_dict; set => artery_dict = value; }
-
-    //void Rellenar()
-    //{
-    //    Dictionary<Pos, Cell> pos_cell_dict = EnvironmentLogic.ca.pos_cell_dict;
-    //    foreach (var key_value in pos_cell_dict)
-    //    {
-    //        if (key_value.Value.behavior_state == CellState.StemCell)
-    //        {
-    //            Transform stemCell = Instantiate(StemCellPrefab);
-    //            stemCell.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
-    //            stem_cell_dict.Add(key_value.Value, stemCell);
-    //        }
-    //        else if (key_value.Value.behavior_state == CellState.Astrocyte)
-    //        {
-    //            Transform astrocyte_cell = Instantiate(AstrocytePrefab);
-    //            astrocyte_cell.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
-    //            astrocyte_dict.Add(key_value.Value, astrocyte_cell);
-    //        }
-    //        else if (key_value.Value.behavior_state == CellState.Neuron)
-    //        {
-    //            Transform neuron = Instantiate(NeuronPrefab);
-    //            neuron.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
-    //            neuron_dict.Add(key_value.Value, neuron);
-    //        }
-    //        else if(key_value.Value.behavior_state == CellState.NecroticTumorCell)
-    //        {
-    //            Transform necrotic = Instantiate(NecroticTumoralCellPrefab);
-    //            necrotic.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
-    //            necrotic_cell_dict.Add(key_value.Value, necrotic);
-    //        }
-    //        else if(key_value.Value.behavior_state == CellState.QuiescentTumorCell)
-    //        {
-    //            Transform quiescent = Instantiate(QuiescentTumorCellPrefab);
-    //            quiescent.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
-    //            quiescent_cell_dict.Add(key_value.Value, quiescent);
-    //        }
-    //    }
-
-
-    //}
 
     void UpdateVessels()
     {
@@ -643,232 +301,32 @@ public class Environment : MonoBehaviour
     {
         ajuste = new Dictionary<Pos, List<Vector3>>();
         //int i = 0;
-        float scale = 10f;
         foreach (var item in EnvironmentLogic.ca.vessel_segment_list)
         {
-            
-            //if (item.order == StrahlerOrder.StrahlerOrder_1)
-            //    scale = scale_factor_1;
-            //else if (item.order == StrahlerOrder.StrahlerOrder_1)
-            //    scale = scale_factor_2;
-            //else
-            //    scale = scale_factor_3;
-
-            //if (item.blood_vessel1.pos.Z == 0)
-                //scale = 1;
-
             var vessel = Instantiate(ArteryPrefab);
             var artery1 = item.blood_vessel1;
             vessel.transform.localPosition = new Vector3(artery1.pos.X, artery1.pos.Y, artery1.pos.Z);
             vessel.transform.position = vessel.transform.localPosition * PositionScale;
-                //if (ajuste.ContainsKey(artery1.pos))
-                //    ajuste[artery1.pos].Add(vessel.transform.position);
-                //else
-                //    ajuste.Add(artery1.pos, new List<Vector3>() { vessel.transform.position });
-            //    vessel.transform.position = new Vector3(artery1.pos.X * scale, artery1.pos.Y * scale, artery1.pos.Z * scale);
-            //    if (ajuste.ContainsKey(artery1.pos))
-            //        ajuste[artery1.pos].Add(vessel.transform.position);
-            //    else
-            //        ajuste.Add(artery1.pos, new List<Vector3>() { vessel.transform.position });
-            //}
-
-            //artery_dict.Add(artery1, vessel);
-            //Artery_dict.Add(new Tuple<AutomataCelularLogic.BloodVessel, GameObject>(artery1, vessel));
 
             var vessel2 = Instantiate(ArteryPrefab);
             var artery2 = item.blood_vessel2;
             vessel2.transform.localPosition = new Vector3(artery2.pos.X, artery2.pos.Y, artery2.pos.Z);
             vessel2.transform.position = vessel2.transform.localPosition * PositionScale;
-            //vessel2.transform.position = new Vector3(artery2.pos.X * scale, artery2.pos.Y * scale, artery2.pos.Z * scale);
-            //if (ajuste.ContainsKey(artery2.pos))
-            //    ajuste[artery2.pos].Add(vessel2.transform.position);
-            //else
-            //    ajuste.Add(artery2.pos, new List<Vector3>() { vessel2.transform.position });
-
-            //artery_dict.Add(artery2, vessel2);
-            //artery_dict.Add(new Tuple<AutomataCelularLogic.BloodVessel, GameObject>(artery2, vessel2));
 
             var vaso1 = Instantiate(VasoPrefb);
-            vaso1.transform.localScale = new Vector3(0.3f, vaso1.transform.localScale.y, 0.3f);
             var script = vaso1.GetComponent<CylinderController>();
             script.point1 = vessel;
-            script.point1.transform.localScale *= 0.3f;
             script.point2 = vessel2;
-            script.point2.transform.localScale *= 0.3f;
+
+            //Scale to better look
+            vaso1.transform.localScale = new Vector3(0.2f, vaso1.transform.localScale.y, 0.2f);
+            script.point1.transform.localScale *= 0.2f;
+            script.point2.transform.localScale *= 0.2f;
+
 
         }
     }
 
-    //    foreach (var item in EnvironmentLogic.ca.vessel_segment_list)
-    //    {
-    //        Transform vessel = Instantiate(CamaraPrefab);
-    //        BloodVessel script = vessel.GetComponent<BloodVessel>();
-    //        script.pos1 = artery_dict[item.blood_vessel1];
-    //        script.pos2 = artery_dict[item.blood_vessel2];
-
-    //        Pos pos1 = item.blood_vessel1.pos;
-    //        Pos pos2 = item.blood_vessel2.pos;
-    //        Debug.Log("*******************************");
-    //        Debug.Log(item.blood_vessel1.pos.X + " " + item.blood_vessel1.pos.Y + " " + item.blood_vessel1.pos.Z);
-    //        Debug.Log(item.blood_vessel2.pos.X + " " + item.blood_vessel2.pos.Y + " " + item.blood_vessel2.pos.Z);
-    //        Debug.Log(Math.Sqrt(Math.Pow(pos1.X - pos2.X, 2) + Math.Pow(pos1.Y - pos2.Y, 2) + Math.Pow(pos1.Z - pos2.Z, 2)));
-    //        Debug.Log("*******************************");
-
-    //        script.line = vessel.GetComponent<LineRenderer>();
-    //        script.Start();
-    //        script.Update();
-    //        //BloodVessel vessel = new BloodVessel();
-    //        //vessel.pos1 = artery_dict[item.]
-    //        //lineRenderer.SetPosition(i, new Vector3(item.pos1.X, item.pos1.Y, item.pos1.Z));
-    //        //i++;
-    //        //lineRenderer.SetPosition(i, new Vector3(item.pos2.X, item.pos2.Y, item.pos2.Z));
-    //        //i++;
-    //    }
-    //}
-
-    //void BloodVesselsLine()
-    //{
-    //    //lineRenderer = Instantiate(linePrefab);
-
-    //    //AnimationCurve curve = new AnimationCurve();
-    //    //curve.AddKey(0, 0);
-    //    //curve.AddKey(.1f, .5f);
-    //    //curve.AddKey(.9f, .5f);
-    //    //curve.AddKey(1, 0);
-    //    //lineRenderer.widthCurve = curve;
-
-    //    //lineRenderer.positionCount = EnvironmentLogic.ca.pos_artery_dict.Count;
-
-    //    //int i = 0;
-
-    //    foreach (var item in EnvironmentLogic.ca.vessel_segment_list)
-    //    {
-    //        Transform vessel = Instantiate(CamaraPrefab);
-    //        BloodVessel script = vessel.GetComponent<BloodVessel>();
-    //        script.pos1 = artery_dict[item.blood_vessel1];
-    //        script.pos2 = artery_dict[item.blood_vessel2];
-
-    //        Pos pos1 = item.blood_vessel1.pos;
-    //        Pos pos2 = item.blood_vessel2.pos;
-    //        Debug.Log("*******************************");
-    //        Debug.Log(item.blood_vessel1.pos.X+ " " +item.blood_vessel1.pos.Y+ " "+ item.blood_vessel1.pos.Z);
-    //        Debug.Log(item.blood_vessel2.pos.X + " " + item.blood_vessel2.pos.Y + " " + item.blood_vessel2.pos.Z);
-    //        Debug.Log(Math.Sqrt(Math.Pow(pos1.X - pos2.X, 2) + Math.Pow(pos1.Y - pos2.Y, 2) + Math.Pow(pos1.Z - pos2.Z, 2)));
-    //        Debug.Log("*******************************");
-
-    //        script.line = vessel.GetComponent<LineRenderer>();
-    //        script.Start();
-    //        script.Update();
-    //        //BloodVessel vessel = new BloodVessel();
-    //        //vessel.pos1 = artery_dict[item.]
-    //        //lineRenderer.SetPosition(i, new Vector3(item.pos1.X, item.pos1.Y, item.pos1.Z));
-    //        //i++;
-    //        //lineRenderer.SetPosition(i, new Vector3(item.pos2.X, item.pos2.Y, item.pos2.Z));
-    //        //i++;
-    //    }
-    //}
-
-    void Mixto()
-    {
-        ////foreach (var item in EnvironmentLogic.ca.vessel_segment_list)
-        ////{
-        //var tem = EnvironmentLogic.ca.vessel_segment_list[0];
-        //Transform vessel = Instantiate(CamaraPrefab);
-        //BloodVessel script = vessel.GetComponent<BloodVessel>();
-
-        ////var artery1 = EnvironmentLogic.ca.pos_artery_dict[tem.blood_vessel];
-        //var artery1 = tem.blood_vessel1;
-        //Transform artery = Instantiate(ArteryPrefab);
-        //artery.localPosition = new Vector3(artery1.pos.X, artery1.pos.Y, artery1.pos.Z);
-        //artery_dict.Add(artery1, artery);
-
-        //var artery2 = tem.blood_vessel2;
-        //Transform artery_2 = Instantiate(ArteryPrefab);
-        //artery_2.localPosition = new Vector3(artery2.pos.X, artery2.pos.Y, artery2.pos.Z);
-        //artery_dict.Add(artery2, artery_2);
-
-        //script.pos1 = artery;
-        //script.pos2 = artery_2;
-
-        //script.Start();
-        //script.Update();
-
-        //script.line = vessel.GetComponent<LineRenderer>();
-
-        //}
-    }
-
-    void UpdateBloodVessels()
-    {
-        //Dictionary<Pos, BloodVessel> pos_artery_dict = EnvironmentLogic.ca.pos_artery_dict;
-        //foreach (var key_value in EnvironmentLogic.ca.pos_artery_dict)
-        //{
-        //    if (!artery_dict.ContainsKey(key_value.Value))
-        //    {
-        //        Transform artery = Instantiate(ArteryPrefab);
-        //        artery.localPosition = new Vector3(key_value.Key.X*scale_factor, key_value.Key.Y* scale_factor, key_value.Key.Z* scale_factor);
-        //        artery_dict.Add(key_value.Value, artery);
-        //    }
-        //}
-
-        //Dictionary<Pos, Arteriole> pos_arteriole_dict = EnvironmentLogic.ca.pos_arteriole_dict;
-        //foreach (var key_value in pos_arteriole_dict)
-        //{
-        //    if (!arteriole_dict.ContainsKey(key_value.Value))
-        //    {
-        //        Transform arteriole = Instantiate(ArteriolePrefab);
-        //        arteriole.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
-        //        arteriole_dict.Add(key_value.Value, arteriole);
-        //    }
-        //}
-
-        //Dictionary<Pos, Capillary> pos_capillary_dict = EnvironmentLogic.ca.pos_capillary_dict;
-        //foreach (var key_value in pos_capillary_dict)
-        //{
-        //    if (!capillary_dict.ContainsKey(key_value.Value))
-        //    {
-        //        Transform capillary = Instantiate(CapillaryPrefab);
-        //        capillary.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
-        //        capillary_dict.Add(key_value.Value, capillary);
-        //    }
-        //}
-    }
-
-    //void UpdateBloodVessels()
-    //{
-    //    //Dictionary<Pos, BloodVessel> pos_artery_dict = EnvironmentLogic.ca.pos_artery_dict;
-    //    foreach (var key_value in EnvironmentLogic.ca.pos_artery_dict)
-    //    {
-    //        if (!artery_dict.ContainsKey(key_value.Value))
-    //        {
-    //            Transform artery = Instantiate(ArteryPrefab);
-    //            artery.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
-    //            artery_dict.Add(key_value.Value, artery);
-    //        }
-    //    }
-
-    //    //Dictionary<Pos, Arteriole> pos_arteriole_dict = EnvironmentLogic.ca.pos_arteriole_dict;
-    //    //foreach (var key_value in pos_arteriole_dict)
-    //    //{
-    //    //    if (!arteriole_dict.ContainsKey(key_value.Value))
-    //    //    {
-    //    //        Transform arteriole = Instantiate(ArteriolePrefab);
-    //    //        arteriole.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
-    //    //        arteriole_dict.Add(key_value.Value, arteriole);
-    //    //    }
-    //    //}
-
-    //    //Dictionary<Pos, Capillary> pos_capillary_dict = EnvironmentLogic.ca.pos_capillary_dict;
-    //    //foreach (var key_value in pos_capillary_dict)
-    //    //{
-    //    //    if (!capillary_dict.ContainsKey(key_value.Value))
-    //    //    {
-    //    //        Transform capillary = Instantiate(CapillaryPrefab);
-    //    //        capillary.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
-    //    //        capillary_dict.Add(key_value.Value, capillary);
-    //    //    }
-    //    //}
-    //}
 
     void UpdatePosCellDict(Dictionary<Cell, Transform> cell_dict)
     {

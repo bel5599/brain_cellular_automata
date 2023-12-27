@@ -20,6 +20,10 @@ namespace AutomataCelularLogic
         public List<Pos> blood_vessels;
         public Dictionary<Pos, Children> pos_children;
 
+        List<Pos> marks;
+
+        public Dictionary<Pos, BloodVessel> vessel_tails;
+
         public Cell tumor_stem_cell;
 
         public List<EdgeTree> edges;
@@ -74,6 +78,10 @@ namespace AutomataCelularLogic
             edge_order_dict = new Dictionary<Tuple<Pos, Pos>, StrahlerOrder>();
             pos_children = new Dictionary<Pos, Children>();
 
+            vessel_tails = new Dictionary<Pos, BloodVessel>();
+            blood_vessels = new List<Pos>();
+            marks = new List<Pos>();
+
             edges = new List<EdgeTree>();
 
             astrocyte_list = new Dictionary<Pos, Cell>();
@@ -84,7 +92,11 @@ namespace AutomataCelularLogic
         {
             Stopwatch crono = new Stopwatch();
             crono.Start();
-            CreateBloodVesselsTree(world.GetLength(0));
+            for (int i = 0; i < TreeCount; i++)
+            {
+                CreateVasosSanguineos(marks);
+            }
+            //CreateBloodVesselsTree(world.GetLength(0));
             crono.Stop();
             Console.WriteLine("CreateBloodVesselsTree: {0} segundos", crono.ElapsedMilliseconds/1000);
 
@@ -131,6 +143,8 @@ namespace AutomataCelularLogic
                 {
                     BloodVessel blood_vessel = new BloodVessel(pos, CellState.nothing, CellLocationState.GlialBasalLamina);
                     pos_artery_dict.Add(pos, blood_vessel);
+                    if(vessel_tails.ContainsKey(pos))
+                        vessel_tails[pos] = blood_vessel;
                     world[pos.X, pos.Y, pos.Z] = blood_vessel;
                 }
             }
@@ -139,7 +153,7 @@ namespace AutomataCelularLogic
         public void CreateBloodVesselsTree(int limit)
         {
             List<Pos> tree = new List<Pos>();
-            Pos root_pos = Utils.GetRandomPosition(2,limit-2, 0, 1, 2, limit - 2);
+            Pos root_pos = Utils.GetRandomPositionTree(2,limit-2, 0, 1, 2, limit - 2);
 
             List<Pos> marks = new List<Pos>();
             Pos root_pos2 = new Pos(root_pos.X, root_pos.Y+1, root_pos.Z);
@@ -160,6 +174,130 @@ namespace AutomataCelularLogic
             blood_vessels_tree = CreateBloodVesselsTree(root_2, root_pos2, 0, 15, marks, tree);
             blood_vessels = tree;
         }
+
+        #region Better Implementation
+
+        public int MaxChildCount = 3;
+        public int MaxStepSize = 1;
+        public int TreeCount = 3;
+        public int max_depth = 35;
+
+        private void CreateVasosSanguineos(List<Pos> marks)
+        {
+            //List<Pos> marks = new List<Pos>();
+
+            //Get the base point for the tree
+            Pos basePoint;
+            do
+            {
+                basePoint = Utils.GetRandomPositionTree(2, world.GetLength(0) - 1, 0, 1, 2, world.GetLength(2) - 1);
+            }
+            while (marks.Contains(basePoint));
+
+            marks.Add(basePoint);
+
+            //Creating the tail
+            var size = Utils.GetIntValue(1, MaxStepSize);
+            var validPositions = GetValidPositions(basePoint, size, marks);
+
+            int selectedPos = 0;
+            Pos p2;
+            if (validPositions.Count > 0)
+            {
+                selectedPos = Utils.GetIntValue(0, validPositions.Count - 1);
+                p2 = validPositions[selectedPos];
+                marks.Add(validPositions[selectedPos]);
+                AddBloodVessel(basePoint, p2, StrahlerOrder.StrahlerOrder_3);
+                ExpandTree(p2, MaxChildCount, MaxStepSize, 0, max_depth, marks);
+            }
+        }
+
+        public void AddBloodVessel(Pos p1, Pos p2, StrahlerOrder order)
+        {
+            blood_vessels.Add(p1);
+            blood_vessels.Add(p2);
+            edge_order_dict.Add(new Tuple<Pos, Pos>(p1, p2), order);
+            if (order == StrahlerOrder.StrahlerOrder_1)
+                vessel_tails.Add(p2, null);
+        }
+
+        private void ExpandTree(Pos basePoint, int MaxChildsCount, int maxStepSize, int depth, int max_depth, List<Pos> marks)
+        {
+
+            var validPositions = GetValidPositions(basePoint, maxStepSize, marks);
+            var childsCount = Utils.GetIntValue(1, MaxChildsCount);
+
+            int selectedPos = 0;
+            Pos p2;
+
+
+            if (validPositions.Count > 0)
+            {
+                for (int i = 0; i < childsCount && validPositions.Count > 0; i++)
+                {
+                    selectedPos = Utils.GetIntValue(0, validPositions.Count - 1);
+                    p2 = validPositions[selectedPos];
+                    
+                    marks.Add(validPositions[selectedPos]);
+                    validPositions.RemoveAt(selectedPos);
+
+                    if ((p2.Y + maxStepSize) >= Utils.GetIntValue(world.GetLength(1) / 4, world.GetLength(1) / 2) /*&& Utils.GetIntValue(0,1) == 1*//*(p2.Y + maxStepSize) >= Utils.GetIntValue(world.GetLength(1)/4, world.GetLength(1) / 2)*/)
+                        AddBloodVessel(basePoint, p2, StrahlerOrder.StrahlerOrder_1);
+                    else
+                    {
+                        AddBloodVessel(basePoint, p2, StrahlerOrder.StrahlerOrder_2);
+                        ExpandTree(p2, MaxChildsCount, maxStepSize, depth + 1, max_depth, marks);
+                    }
+                    
+                }
+            }
+        }
+        private List<Pos> GetValidPositions(Pos basePoint, int size, List<Pos> marks)
+        {
+            var positions = new List<Pos>();
+
+            int x1, y1, z1;
+
+            if (basePoint.Y + size < world.GetLength(1))
+            {
+
+                //Positive
+                for (int x = 0; x <= size && basePoint.X + x < world.GetLength(0); x++)
+                    for (int z = 0; z <= size && basePoint.Z + z < world.GetLength(2); z++)
+                    {
+                        x1 = (int)basePoint.X + x;
+                        y1 = (int)basePoint.Y + size;
+                        z1 = (int)basePoint.Z + z;
+
+                        Pos pos = new Pos(x1, y1, z1);
+
+                        if (!marks.Contains(pos))
+                            positions.Add(pos);
+                        //if (!matrix[x1, y1, z1].Checked)
+                        //    positions.Add(matrix[x1, y1, z1]);
+                    }
+
+                //Negative
+                for (int x = -1; x >= -size && basePoint.X + x >= 0; x--)
+                    for (int z = 0; z >= -size && basePoint.Z + z >= 0; z--)
+                    {
+                        x1 = (int)basePoint.X + x;
+                        y1 = (int)basePoint.Y + size;
+                        z1 = (int)basePoint.Z + z;
+
+                        Pos pos = new Pos(x1, y1, z1);
+
+                        if (!marks.Contains(pos))
+                            positions.Add(pos);
+                        //if (!matrix[x1, y1, z1].Checked)
+                        //    positions.Add(matrix[x1, y1, z1]);
+                    }
+
+            }
+
+            return positions;
+        }
+        #endregion
 
         public bool PointOnLine(Pos A, Pos B, Pos P)
         {
@@ -205,7 +343,7 @@ namespace AutomataCelularLogic
 
         public Pos RandomAdjPos(Pos pos, List<Pos> marks)
         {
-            List<Pos> empty_pos = Utils.EmptyPositions(pos, marks, world.GetLength(0));
+            List<Pos> empty_pos = Utils.EmptyPositions(pos, marks/*, world.GetLength(0)*/);
             List<Pos> selection = new List<Pos>();
             for (int i = 0; i < empty_pos.Count; i++)
             {

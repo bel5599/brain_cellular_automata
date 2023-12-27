@@ -93,6 +93,7 @@ namespace AutomataCelularLogic
         double degrad_coeff_ECM = 1.3 * Math.Pow(10, 2);
 
         double prod_rate_of_MDE_by_tumour_cells_2 = 1.7 * Math.Pow(10, -18);
+        double prod_rate_of_MDE_by_EC = 0.3 * Math.Pow(10, -18);
         double diffusion_coefficient_MDE_2 = Math.Pow(10, -9);
         double natural_decay_of_MDE_2 = 1.7 * Math.Pow(10, -8);
 
@@ -135,12 +136,17 @@ namespace AutomataCelularLogic
         public double[,,] endo_density_matrix;
         public double[,,] endo_delta_matrix;
 
-        double diffusion_coeficient_endo = 3.5 * Math.Pow(10, -4);
-        double chemo_of_EC_sprout_tip = 0.38;
-        double decrease_in_chemo_sensitivity = 0.6;
-        double hapt_of_EC_sprout_tip = 0.16;
+        //double diffusion_coeficient_endo = 3.5 * Math.Pow(10, -4);
+        //double chemo_of_EC_sprout_tip = 0.38;
+        //double decrease_in_chemo_sensitivity = 0.6;
+        //double hapt_of_EC_sprout_tip = 0.16;
 
         public double initial_density_endo = 2.0 * Math.Pow(10, -9);
+
+        double diffusion_coeficient_endo = Math.Pow(10, -9);
+        double ec_chemotaxis_coefficient = 2.6 * Math.Pow(10, 3);//phi_c
+        double average_osmotic_reflection = 0.82;//sigma_T
+        double ec_haptotaxis_coefficient = Math.Pow(10, 3);//phi_h
 
         //double diffusion_coeficient_endo = Math.Pow(10, -9);
         //double chemo_of_EC_sprout_tip = 2.6 * Math.Pow(10, 3);
@@ -170,7 +176,7 @@ namespace AutomataCelularLogic
         public double b = 0.1;
         public double max_radius = 10;//um
 
-        public double wss = 1 / 2 * 2.0;
+        public double wss = 0.1E-08 ;
         #endregion
 
 
@@ -421,97 +427,19 @@ namespace AutomataCelularLogic
             return hematocrit_on_neo_network / normal_hematocrit_value - hematocrit_min;
         }
 
-        public double ChemotactiMigration(Pos pos)
-        {
-            double taf = angiogenic_reg_conc_matrix[pos.X, pos.Y, pos.Z];
-            return chemo_of_EC_sprout_tip / (1 + decrease_in_chemo_sensitivity * taf);
-        }
+        //public double ChemotactiMigration(Pos pos)
+        //{
+        //    double taf = angiogenic_reg_conc_matrix[pos.X, pos.Y, pos.Z];
+        //    return chemo_of_EC_sprout_tip / (1 + decrease_in_chemo_sensitivity * taf);
+        //}
 
+        
 
+        
 
         #region Oxygen
 
-        public void UpdateOxygenConcentration2(Cell[,,] space, int time)
-        {
-            oxygen_delta = Laplacian3D(oxygen_matrix, dx, dy, dz);
-            int tumoral_cells = 0;
-            double pree_vessels_amount = OxygenPreExistingBloodVessels() / tumoral_cells;
-            double neo_vessels_amount = OxygenNeoBloodVessels() / tumoral_cells;
-
-            //TENGO QUE TENER LA CANTIDAD DE CELULAS TUMORALES
-            for (int i = 0; i < space.GetLength(0); i++)
-            {
-                for (int j = 0; j < space.GetLength(1); j++)
-                {
-                    for (int k = 0; k < space.GetLength(2); k++)
-                    {
-                        CellState cell_state = space[i, j, k].behavior_state;
-                        if (cell_state == CellState.ProliferativeTumoralCell || cell_state == CellState.QuiescentTumorCell || cell_state == CellState.MigratoryTumorCell)
-                        {
-
-                            double termino = time * (diffussion_coeficient_oxygen * oxygen_delta[i, j, k] * oxygen_matrix[i, j, k] - metabolic_rate[cell_state][0] +
-                                            pree_vessels_amount + neo_vessels_amount);
-                            double conc = oxygen_matrix[i, j, k] + (termino);
-                            oxygen_matrix[i, j, k] += termino;
-
-                        }
-                    }
-                }
-            }
-        }
-
-        //ESTE METODO ESTA MAL, DESDE EL INICIO LA CONCENTRACION DE OXYGENO DA MENOR DE 0
-        public void UpdateOxygenConcentration(Cell[,,] space, int time)
-        {
-            this.space = space;
-            //DiscretizeTime(time);
-            oxygen_delta = Laplacian3D(oxygen_matrix, 0.1, 0.1, 0.1);
-            dt = time;
-            //dt = t_disc;
-
-            for (int i = 0; i < space.GetLength(0); i++)
-            {
-                for (int j = 0; j < space.GetLength(1); j++)
-                {
-                    for (int k = 0; k < space.GetLength(2); k++)
-                    {
-                        CellState cell_state = space[i, j, k].behavior_state;
-                        //if (cell_state != CellState.ProliferativeTumoralCell && cell_state != CellState.QuiescentTumorCell && cell_state != CellState.MigratoryTumorCell /*&& cell_state != CellState.TumoralStemCell*/)
-                        //{
-                        //    oxygen_matrix[i, j, k] = boundary_conditions[0];
-                        //}
-                        if (k == 0 || k == (oxygen_matrix.GetLength(2) - 1) || j == 0 || j == (oxygen_matrix.GetLength(1) - 1))
-                        {
-                            oxygen_matrix[i, j, k] = 0.28;
-                        }
-                        else if(cell_state == CellState.ProliferativeTumoralCell || cell_state == CellState.QuiescentTumorCell || cell_state == CellState.MigratoryTumorCell)
-                        {
-
-                            //oxygen_matrix[i, j, k] += dt * (difussion_coeficient_oxygen * delta_oxygen[i, j, k] + metabolic_rate[CellState.TumoralCell][0]);
-
-                            //oxygen_matrix[i, j, k] += dt * (difussion_coeficient_oxygen * delta_oxygen[i, j, k] - k * delta_oxygen[i, j, k] * v[i, j, k]);
-
-                            double termino = time * (diffussion_coeficient_oxygen * oxygen_delta[i, j, k] * oxygen_matrix[i, j, k] - metabolic_rate[cell_state][0]);
-                            double conc = oxygen_matrix[i, j, k] + (termino);
-                            oxygen_matrix[i, j, k] += termino;
-
-                            //DiscretizeOxigenConcentration(oxygen_discret_matrix[i, j, k]);
-
-                            //double t1 = dt * (dif_conc_disc * oxygen_delta[i, j, k] * oxigen_conc_disc - metabolic_rate[cell_state][1]);
-                            //double tt = oxygen_matrix[i, j, k] + t1;
-                            //oxygen_matrix[i, j, k] += t1;
-                            //CellState behavior = space[i, j, k].behavior_state;
-                            //if (behavior == CellState.MigratoryTumorCell || behavior == CellState.QuiescentTumorCell || behavior == CellState.ProliferativeTumoralCell || behavior == CellState.TumoralStemCell)
-                            //    Console.WriteLine("Valor de Laplace: {0} y la concentracion: {1}", oxygen_delta[i, j, k], conc);
-                        }
-                    }
-                }
-            }
-
-            //oxygen_matrix = DirichletBoundaryConditions(oxygen_matrix);
-        }
-
-        public void UpdateOxygen(Cell[,,] space, int time)
+        public void UpdateOxygen(Cell[,,] space, int time, Dictionary<BloodVessel, List<BloodVesselSegment>> vessel_segment_dict)
         {
             double[,,] copy_oxygen = new double[space.GetLength(0), space.GetLength(1), space.GetLength(2)];
             Array.Copy(oxygen_matrix, copy_oxygen, copy_oxygen.Length);
@@ -534,13 +462,9 @@ namespace AutomataCelularLogic
                             double conc = oxygen_matrix[i, j, k];
                             Cell cell = space[i, j, k];
 
-                            //if (cell.behavior_state == CellState.nothing)
-                            //    oxygen_matrix[i, j, k] = 0;
-                            //else
-                            //{
                             double delta = DeltaVEGFConcentration(cell, conc, copy_oxygen);
                             oxygen_matrix[i, j, k] += delta_t * (diffusion_coeficient_oxygen / Math.Pow(delta_S, 2) * delta - UptakeOxygen(cell)
-                                                                    + SourceOxygen(cell, conc));
+                                                                    + SourceOxygen(cell, conc, vessel_segment_dict));
                             //oxygen_matrix[i, j, k] = Math.Round(oxygen_matrix[i, j, k], 4);
 
                             double actual = oxygen_matrix[i, j, k];
@@ -577,73 +501,20 @@ namespace AutomataCelularLogic
             }
         }
 
-        private double SourceOxygen(Cell cell, double conc)
+        private double SourceOxygen(Cell cell, double conc, Dictionary<BloodVessel, List<BloodVesselSegment>> vessel_segment_dict)
         {
+            //BUSCAR EL RADIO SEGUN EL SEGMENTO AL QUE PERTENECE
             if (cell is BloodVessel)
-                return (2 * Math.PI * arteriole_radius * p_e_oxygen * (c_art_oxygen - conc)) / delta_S;
+            {
+                var segment = vessel_segment_dict[cell as BloodVessel][0];
+                return (2 * Math.PI * segment.radius * p_e_oxygen * (c_art_oxygen - conc)) / delta_S;
+            }
             return 0;
         }
         #endregion
 
         #region ECM-MDE
-        public void UpdateECMDensity(Cell[,,] space, int time)
-        {
-            //double rate_of_prod = rate_of_production_of_ECM_by_tumour_cells/tumor.cell_list.Count;
-            this.space = space;
-            for (int i = 0; i < space.GetLength(0); i++)
-            {
-                for (int j = 0; j < space.GetLength(1); j++)
-                {
-                    for (int k = 0; k < space.GetLength(2); k++)
-                    {
-                        CellState cell_state = space[i, j, k].behavior_state;
-                        if (cell_state == CellState.ProliferativeTumoralCell || cell_state == CellState.QuiescentTumorCell || cell_state == CellState.MigratoryTumorCell /*|| cell_state == CellState.TumoralStemCell*/)
-                        {
-                            double d = density_matrix[i, j, k];
-                            density_matrix[i, j, k] += time * (-rate_of_degradation_of_ECM_by_MDE * d * mde[i, j, k] + rate_of_production_of_ECM_by_tumour_cells * (1 - d));
-
-                            Console.WriteLine("Densidad anterior: {0} Densidad en la casilla actual: {1}", d, density_matrix[i, j, k]);
-                        }
-                    }
-                }
-            }
-        }
-
-        public void UpdateMDE(Cell[,,] space, int time, Tumor tumor)
-        {
-            this.space = space;
-            mde_delta = Laplacian3D(mde, dx, dy, dz);
-            double rate_of_prod = (100 * tumor.cell_list.Count) / prod_rate_of_MDE_by_tumour_cells;
-            double decay = (100 * tumor.cell_list.Count) / natural_decay_of_MDE;
-
-            for (int i = 0; i < space.GetLength(0); i++)
-            {
-                for (int j = 0; j < space.GetLength(1); j++)
-                {
-                    for (int k = 0; k < space.GetLength(2); k++)
-                    {
-                        //CONDICIONES DE CONTORNO
-                        if (k == 0 || k == (mde.GetLength(2) - 1) || j == 0 || j == (mde.GetLength(1) - 1))
-                        {
-                            mde[i, j, k] = 0;
-                        }
-                        else
-                        {
-                            CellState cell_state = space[i, j, k].behavior_state;
-                            if (cell_state == CellState.ProliferativeTumoralCell || cell_state == CellState.QuiescentTumorCell || cell_state == CellState.MigratoryTumorCell)
-                            {
-                                double value = mde[i, j, k];
-                                mde[i, j, k] += time * (diffusion_coefficient_MDE * mde_delta[i, j, k] * value + prod_rate_of_MDE_by_tumour_cells *
-                                                        (1 - value) - natural_decay_of_MDE * value);
-
-                                Console.WriteLine("Valor de Laplace: {0}, rate de prod: {1} y decay: {2}. Valor total actual: {3}", mde_delta[i, j, k], prod_rate_of_MDE_by_tumour_cells, natural_decay_of_MDE, mde[i, j, k]);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
+        
         public void UpdateECMDensity2(Cell[,,] space, int time)
         {
             this.space = space;
@@ -685,9 +556,13 @@ namespace AutomataCelularLogic
                         {
                             CellState behavior = space[i, j, k].behavior_state;
                             double prod = MDEProductionByTumoralCells(behavior);
+                            int is_EC = 0;
+
+                            if (space[i, j, k].behavior_state == CellState.EndothelialCell)
+                                is_EC = 1;
 
                             mde[i, j, k] += time * (diffusion_coefficient_MDE_2 * mde_delta[i, j, k] * mde[i, j, k] + prod_rate_of_MDE_by_tumour_cells_2 *
-                                            prod - natural_decay_of_MDE_2 * mde[i, j, k]);
+                                            prod * + prod_rate_of_MDE_by_EC * is_EC - natural_decay_of_MDE_2 * mde[i, j, k]);
 
                             //if (behavior == CellState.MigratoryTumorCell || behavior == CellState.ProliferativeTumoralCell || behavior == CellState.QuiescentTumorCell)
                             //    Console.WriteLine("Valor de Laplace: {0}. Valor total actual: {1}", mde_delta[i, j, k], mde[i, j, k]);
@@ -717,7 +592,6 @@ namespace AutomataCelularLogic
         #endregion
 
 
-
         public double[,,] NeumannBoundaryConditions(double[,,] mde_matrix)
         {
             for (int i = 0; i < mde_matrix.GetLength(0); i++)
@@ -735,36 +609,10 @@ namespace AutomataCelularLogic
             return mde_matrix;
         }
 
-        public void UpdateAngiogenicRegulatorConcentration(Cell[,,] space, int time)
-        {
-            this.space = space;
-            angio_reg_conc_delta = Laplacian3D(angiogenic_reg_conc_matrix, dx, dy, dz);
-
-            //Hay que calcular el volumen de las celulas hipoxicas
-
-            for (int i = 0; i < space.GetLength(0); i++)
-            {
-                for (int j = 0; j < space.GetLength(1); j++)
-                {
-                    for (int k = 0; k < space.GetLength(2); k++)
-                    {
-                        CellState cell_state = space[i, j, k].behavior_state;
-                        if (cell_state == CellState.QuiescentTumorCell)
-                        {
-                            double c = angiogenic_reg_conc_matrix[i, j, k];
-                            angiogenic_reg_conc_matrix[i, j, k] += time * (diffusion_coeficient_angio * angio_reg_conc_delta[i, j, k] + rate_of_TAF_prod_by_hypo_tum_cells *
-                                                                       (1 - c) - raye_of_natural_decay_of_TAF * c);
-                        }
-
-                        //angiogenic_reg_conc_matrix[i,j,k] += time * (diffusion_coeficient_angio * angio_reg_conc_delta[i, j, k] - natural_disintegration_rate * c +
-                        //                                Sc * hypoxic_cell_volume_fraction * (c_sat - c));
-                    }
-                }
-            }
-        }
+        
 
         #region VEGF
-        public void VEGF(Cell[,,] space, int time)
+        public void VEGF(Cell[,,] space, int time, Dictionary<BloodVessel, List<BloodVesselSegment>> vessel_segment_dict)
         {
             //falta poner laplacien 
             double[,,] copy_vegf = new double[space.GetLength(0), space.GetLength(1), space.GetLength(2)];
@@ -779,7 +627,7 @@ namespace AutomataCelularLogic
                         double conc = vegf_conc_matrix[i, j, k];
                         Cell cell = space[i, j, k];
                         double delta = DeltaVEGFConcentration(cell, conc, copy_vegf);
-                        double uptake = Uptake(cell, conc);
+                        double uptake = Uptake(cell, conc, vessel_segment_dict);
                         double source = Source(cell);
                         double waste = Waste(conc);
                         vegf_conc_matrix[i, j, k] += diffusion_coeficient_of_VEGF * 0.05 * delta - 0.05 * uptake + source - waste;
@@ -806,11 +654,14 @@ namespace AutomataCelularLogic
             return neighbors_sum.Sum() - 26 * conc;
         }
 
-        private double Uptake(Cell cell, double vegf_conc)
+        private double Uptake(Cell cell, double vegf_conc, Dictionary<BloodVessel, List<BloodVesselSegment>> vessel_segment_dict)
         {
             //double radius = 3 * 10;
             if (cell is BloodVessel)
-                return (2 * Math.PI * arteriole_radius * p_e * vegf_conc);
+            {
+                var segment = vessel_segment_dict[cell as BloodVessel][0];
+                return (2 * Math.PI * segment.radius * p_e * vegf_conc);
+            }
             return 0;
         }
 
@@ -842,9 +693,9 @@ namespace AutomataCelularLogic
 
         public double CalculateInterstitialPressure(BloodVesselSegment segment, double lp)
         {
-            double s = (2 * Math.PI * segment.mean_length);
+            double s = (2 * Math.PI * segment.radius * segment.mean_length);
             double qt = CalculateVascularFlowRateWithoutFluidLeakage(segment.radius, intravascular_pressure_per_segment, segment.mean_length, 1);
-            return intravascular_pressure - (qt/(lp * s)) - sigmaT * ( pi_v - pi_i);
+            return (intravascular_pressure - (qt/(lp * s)) - sigmaT * ( pi_v - pi_i));
         }
 
         public double CalculateVascularFlowRateWithoutFluidLeakage(double radius, double pv, double length, double mium)
@@ -866,7 +717,7 @@ namespace AutomataCelularLogic
 
         public double CalculateCollapsePressure(BloodVesselSegment segment, double lp)
         {
-            return 0.5 * segment.pressure_collapse * (tumoral_hydraulic_permeability /
+            return (0.5 * segment.pressure_collapse_min) * (tumoral_hydraulic_permeability /
                 lp);
         }
 
@@ -896,22 +747,35 @@ namespace AutomataCelularLogic
                     for (int k = 0; k < space.GetLength(2); k++)
                     {
 
-                        if (space[i, j, k] is BloodVessel /*|| space[i, j, k] is NeoBloodVessel*/)
+                        if (space[i, j, k].behavior_state == CellState.EndothelialCell/*|| space[i, j, k] is NeoBloodVessel*/)
                         {
                             Cell cell = space[i, j, k];
                             double d = endo_density_matrix[i, j, k];
-                            endo_density_matrix[i, j, k] += time * (diffusion_coeficient_endo * endo_delta_matrix[i, j, k] * endo_density_matrix[i, j, k] - ChemotactiMigration(cell.pos) * d *
-                                                            angio_reg_conc_delta[i, j, k] - mde_delta[i, j, k] * hapt_of_EC_sprout_tip * d);
+                            //endo_density_matrix[i, j, k] += time * (diffusion_coeficient_endo * endo_delta_matrix[i, j, k] * endo_density_matrix[i, j, k] - ChemotactiMigration(cell.pos) * d *
+                            //                                vegf_conc_matrix[i, j, k] - mde_delta[i, j, k] * hapt_of_EC_sprout_tip * d);
 
-                            endo_density_matrix[i, j, k] += time * (diffusion_coeficient_endo * endo_delta_matrix[i, j, k] * endo_density_matrix[i, j, k] - ChemotactiMigration(cell.pos) * d *
-                                                            angio_reg_conc_delta[i, j, k] + mde_delta[i, j, k] * hapt_of_EC_sprout_tip * d);
+                            //endo_density_matrix[i, j, k] += time * (diffusion_coeficient_endo * endo_delta_matrix[i, j, k] * endo_density_matrix[i, j, k] - ChemotactiMigration(cell.pos) * d *
+                            //                                vegf_conc_matrix[i, j, k] + mde_delta[i, j, k] * hapt_of_EC_sprout_tip * d);
 
+                            endo_delta_matrix[i, j, k] += time * (diffusion_coeficient_endo * endo_delta_matrix[i, j, k] * d - (ChemotactiMigration(vegf_conc_matrix[i, j, k], d) +EndoDensityHaptotaxis(d,mde[i,j,k])));
+                            
+                            
                             //double density = endo_density_matrix[i, j, k];
                             //Console.WriteLine("Endo_Density: {0}", density);
                         }
                     }
                 }
             }
+        }
+
+        public double ChemotactiMigration(double vegf_value, double endo_density)
+        {
+            return (ec_chemotaxis_coefficient / (1 + average_osmotic_reflection * vegf_value)) * (endo_density * vegf_value);
+        }
+
+        public double EndoDensityHaptotaxis(double endo_density, double mde_value)
+        {
+            return ec_haptotaxis_coefficient * endo_density * mde_value;
         }
 
         #endregion

@@ -19,6 +19,7 @@ namespace AutomataCelularLogic
         public double radius;//R
         public double mean_length;
         public double pressure_collapse;//Pc
+        public double pressure_collapse_min;//Pc_min
 
         public double intravascular_pressure;//Pv
         public double interstitial_pressure;//Pi
@@ -41,6 +42,7 @@ namespace AutomataCelularLogic
             this.radius = Math.Sqrt(mean_diameter);
             this.mean_length = mean_length;
             this.pressure_collapse = pressure_collapse;
+            this.pressure_collapse_min = pressure_collapse;
 
             radio_clasf = RadioClassification.MatureVessel;
             

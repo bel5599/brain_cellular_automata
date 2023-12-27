@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{528845C9-7870-421B-95BB-5DA5C6080346}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AutomataCelularLogic</RootNamespace>
     <AssemblyName>AutomataCelularLogic</AssemblyName>
@@ -43,8 +43,8 @@
     <Reference Include="Giraffe.ViewEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Giraffe.ViewEngine.1.4.0\lib\netstandard2.0\Giraffe.ViewEngine.dll</HintPath>
     </Reference>
-    <Reference Include="LiveCharts, Version=0.9.4.0, Culture=neutral, PublicKeyToken=c5935629d38af058, processorArchitecture=MSIL">
-      <HintPath>..\packages\LiveCharts.0.9.4\lib\net45\LiveCharts.dll</HintPath>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
     </Reference>
     <Reference Include="LiveCharts.Wpf, Version=0.9.4.0, Culture=neutral, PublicKeyToken=3b585c2a5f1a92c1, processorArchitecture=MSIL">
       <HintPath>..\packages\LiveCharts.Wpf.0.9.4\lib\net45\LiveCharts.Wpf.dll</HintPath>
