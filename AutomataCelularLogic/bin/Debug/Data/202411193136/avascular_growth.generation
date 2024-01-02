@@ -1,0 +1,229 @@
+time: 0
+growth: 0
+verhulst: 0
+
+time: 1
+growth: 1
+verhulst: 1
+
+time: 2
+growth: 2
+verhulst: 2
+
+time: 3
+growth: 3
+verhulst: 3
+
+time: 4
+growth: 4
+verhulst: 4
+
+time: 5
+growth: 5
+verhulst: 5
+
+time: 6
+growth: 7
+verhulst: 7
+
+time: 7
+growth: 9
+verhulst: 9
+
+time: 8
+growth: 12
+verhulst: 12
+
+time: 9
+growth: 16
+verhulst: 16
+
+time: 10
+growth: 22
+verhulst: 22
+
+time: 11
+growth: 30
+verhulst: 30
+
+time: 12
+growth: 41
+verhulst: 41
+
+time: 13
+growth: 58
+verhulst: 58
+
+time: 14
+growth: 83
+verhulst: 83
+
+time: 15
+growth: 120
+verhulst: 120
+
+time: 16
+growth: 177
+verhulst: 177
+
+time: 17
+growth: 264
+verhulst: 264
+
+time: 18
+growth: 400
+verhulst: 400
+
+time: 19
+growth: 481
+verhulst: 612
+
+time: 20
+growth: 550
+verhulst: 612
+
+time: 21
+growth: 612
+verhulst: 612
+
+time: 22
+growth: 747
+verhulst: 959
+
+time: 23
+growth: 877
+verhulst: 959
+
+time: 24
+growth: 959
+verhulst: 959
+
+time: 25
+growth: 1125
+verhulst: 1516
+
+time: 26
+growth: 1227
+verhulst: 1516
+
+time: 27
+growth: 1312
+verhulst: 1516
+
+time: 28
+growth: 1403
+verhulst: 1516
+
+time: 29
+growth: 1516
+verhulst: 1516
+
+time: 30
+growth: 1642
+verhulst: 2401
+
+time: 31
+growth: 1793
+verhulst: 2401
+
+time: 32
+growth: 1927
+verhulst: 2401
+
+time: 33
+growth: 2080
+verhulst: 2401
+
+time: 34
+growth: 2207
+verhulst: 2401
+
+time: 35
+growth: 2330
+verhulst: 2401
+
+time: 36
+growth: 2401
+verhulst: 2401
+
+time: 37
+growth: 2594
+verhulst: 3770
+
+time: 38
+growth: 2771
+verhulst: 3770
+
+time: 39
+growth: 2957
+verhulst: 3770
+
+time: 40
+growth: 3145
+verhulst: 3770
+
+time: 41
+growth: 3326
+verhulst: 3770
+
+time: 42
+growth: 3503
+verhulst: 3770
+
+time: 43
+growth: 3659
+verhulst: 3770
+
+time: 44
+growth: 3770
+verhulst: 3770
+
+time: 45
+growth: 4007
+verhulst: 5769
+
+time: 46
+growth: 4250
+verhulst: 5769
+
+time: 47
+growth: 4526
+verhulst: 5769
+
+time: 48
+growth: 4734
+verhulst: 5769
+
+time: 49
+growth: 4952
+verhulst: 5769
+
+time: 50
+growth: 5163
+verhulst: 5769
+
+time: 51
+growth: 5360
+verhulst: 5769
+
+time: 52
+growth: 5598
+verhulst: 5769
+
+time: 53
+growth: 5769
+verhulst: 5769
+
+time: 54
+growth: 6142
+verhulst: 8388
+
+time: 55
+growth: 6454
+verhulst: 8388
+
+time: 56
+growth: 6730
+verhulst: 8388
+
+[EOF]

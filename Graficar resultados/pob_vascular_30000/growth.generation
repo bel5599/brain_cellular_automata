@@ -1,0 +1,2001 @@
+time: 0
+growth: 0
+verhulst: 0
+
+time: 1
+growth: 0
+verhulst: 1
+
+time: 2
+growth: 0
+verhulst: 1
+
+time: 3
+growth: 0
+verhulst: 1
+
+time: 4
+growth: 0
+verhulst: 1
+
+time: 5
+growth: 0
+verhulst: 1
+
+time: 6
+growth: 0
+verhulst: 1
+
+time: 7
+growth: 1
+verhulst: 1
+
+time: 8
+growth: 1
+verhulst: 2
+
+time: 9
+growth: 1
+verhulst: 2
+
+time: 10
+growth: 1
+verhulst: 2
+
+time: 11
+growth: 1
+verhulst: 2
+
+time: 12
+growth: 1
+verhulst: 2
+
+time: 13
+growth: 2
+verhulst: 2
+
+time: 14
+growth: 3
+verhulst: 3
+
+time: 15
+growth: 4
+verhulst: 4
+
+time: 16
+growth: 5
+verhulst: 5
+
+time: 17
+growth: 6
+verhulst: 7
+
+time: 18
+growth: 7
+verhulst: 7
+
+time: 19
+growth: 8
+verhulst: 9
+
+time: 20
+growth: 9
+verhulst: 9
+
+time: 21
+growth: 11
+verhulst: 12
+
+time: 22
+growth: 12
+verhulst: 12
+
+time: 23
+growth: 15
+verhulst: 16
+
+time: 24
+growth: 16
+verhulst: 16
+
+time: 25
+growth: 20
+verhulst: 22
+
+time: 26
+growth: 22
+verhulst: 22
+
+time: 27
+growth: 27
+verhulst: 30
+
+time: 28
+growth: 30
+verhulst: 30
+
+time: 29
+growth: 32
+verhulst: 41
+
+time: 30
+growth: 36
+verhulst: 41
+
+time: 31
+growth: 38
+verhulst: 41
+
+time: 32
+growth: 41
+verhulst: 41
+
+time: 33
+growth: 47
+verhulst: 58
+
+time: 34
+growth: 54
+verhulst: 58
+
+time: 35
+growth: 58
+verhulst: 58
+
+time: 36
+growth: 65
+verhulst: 83
+
+time: 37
+growth: 67
+verhulst: 83
+
+time: 38
+growth: 73
+verhulst: 83
+
+time: 39
+growth: 79
+verhulst: 83
+
+time: 40
+growth: 83
+verhulst: 83
+
+time: 41
+growth: 95
+verhulst: 120
+
+time: 42
+growth: 107
+verhulst: 120
+
+time: 43
+growth: 117
+verhulst: 120
+
+time: 44
+growth: 120
+verhulst: 120
+
+time: 45
+growth: 138
+verhulst: 177
+
+time: 46
+growth: 149
+verhulst: 177
+
+time: 47
+growth: 161
+verhulst: 177
+
+time: 48
+growth: 177
+verhulst: 177
+
+time: 49
+growth: 197
+verhulst: 264
+
+time: 50
+growth: 219
+verhulst: 264
+
+time: 51
+growth: 238
+verhulst: 264
+
+time: 52
+growth: 252
+verhulst: 264
+
+time: 53
+growth: 264
+verhulst: 264
+
+time: 54
+growth: 304
+verhulst: 400
+
+time: 55
+growth: 328
+verhulst: 400
+
+time: 56
+growth: 342
+verhulst: 400
+
+time: 57
+growth: 365
+verhulst: 400
+
+time: 58
+growth: 393
+verhulst: 400
+
+time: 59
+growth: 400
+verhulst: 400
+
+time: 60
+growth: 458
+verhulst: 622
+
+time: 61
+growth: 477
+verhulst: 622
+
+time: 62
+growth: 513
+verhulst: 622
+
+time: 63
+growth: 526
+verhulst: 622
+
+time: 64
+growth: 564
+verhulst: 622
+
+time: 65
+growth: 611
+verhulst: 622
+
+time: 66
+growth: 622
+verhulst: 622
+
+time: 67
+growth: 677
+verhulst: 982
+
+time: 68
+growth: 723
+verhulst: 982
+
+time: 69
+growth: 774
+verhulst: 982
+
+time: 70
+growth: 806
+verhulst: 982
+
+time: 71
+growth: 855
+verhulst: 982
+
+time: 72
+growth: 911
+verhulst: 982
+
+time: 73
+growth: 958
+verhulst: 982
+
+time: 74
+growth: 982
+verhulst: 982
+
+time: 75
+growth: 1047
+verhulst: 1572
+
+time: 76
+growth: 1116
+verhulst: 1572
+
+time: 77
+growth: 1176
+verhulst: 1572
+
+time: 78
+growth: 1253
+verhulst: 1572
+
+time: 79
+growth: 1306
+verhulst: 1572
+
+time: 80
+growth: 1369
+verhulst: 1572
+
+time: 81
+growth: 1438
+verhulst: 1572
+
+time: 82
+growth: 1495
+verhulst: 1572
+
+time: 83
+growth: 1567
+verhulst: 1572
+
+time: 84
+growth: 1572
+verhulst: 1572
+
+time: 85
+growth: 1738
+verhulst: 2540
+
+time: 86
+growth: 1845
+verhulst: 2540
+
+time: 87
+growth: 1927
+verhulst: 2540
+
+time: 88
+growth: 2000
+verhulst: 2540
+
+time: 89
+growth: 2066
+verhulst: 2540
+
+time: 90
+growth: 2154
+verhulst: 2540
+
+time: 91
+growth: 2228
+verhulst: 2540
+
+time: 92
+growth: 2324
+verhulst: 2540
+
+time: 93
+growth: 2447
+verhulst: 2540
+
+time: 94
+growth: 2540
+verhulst: 2540
+
+time: 95
+growth: 2678
+verhulst: 4119
+
+time: 96
+growth: 2789
+verhulst: 4119
+
+time: 97
+growth: 2894
+verhulst: 4119
+
+time: 98
+growth: 2972
+verhulst: 4119
+
+time: 99
+growth: 3096
+verhulst: 4119
+
+time: 100
+growth: 3233
+verhulst: 4119
+
+time: 101
+growth: 3358
+verhulst: 4119
+
+time: 102
+growth: 3489
+verhulst: 4119
+
+time: 103
+growth: 3641
+verhulst: 4119
+
+time: 104
+growth: 3762
+verhulst: 4119
+
+time: 105
+growth: 3887
+verhulst: 4119
+
+time: 106
+growth: 4004
+verhulst: 4119
+
+time: 107
+growth: 4119
+verhulst: 4119
+
+time: 108
+growth: 4299
+verhulst: 6636
+
+time: 109
+growth: 4453
+verhulst: 6636
+
+time: 110
+growth: 4607
+verhulst: 6636
+
+time: 111
+growth: 4775
+verhulst: 6636
+
+time: 112
+growth: 4927
+verhulst: 6636
+
+time: 113
+growth: 5079
+verhulst: 6636
+
+time: 114
+growth: 5229
+verhulst: 6636
+
+time: 115
+growth: 5421
+verhulst: 6636
+
+time: 116
+growth: 5592
+verhulst: 6636
+
+time: 117
+growth: 5795
+verhulst: 6636
+
+time: 118
+growth: 5953
+verhulst: 6636
+
+time: 119
+growth: 6135
+verhulst: 6636
+
+time: 120
+growth: 6315
+verhulst: 6636
+
+time: 121
+growth: 6495
+verhulst: 6636
+
+time: 122
+growth: 6636
+verhulst: 6636
+
+time: 123
+growth: 6896
+verhulst: 10448
+
+time: 124
+growth: 7097
+verhulst: 10448
+
+time: 125
+growth: 7306
+verhulst: 10448
+
+time: 126
+growth: 7512
+verhulst: 10448
+
+time: 127
+growth: 7705
+verhulst: 10448
+
+time: 128
+growth: 7892
+verhulst: 10448
+
+time: 129
+growth: 8105
+verhulst: 10448
+
+time: 130
+growth: 8329
+verhulst: 10448
+
+time: 131
+growth: 8572
+verhulst: 10448
+
+time: 132
+growth: 8813
+verhulst: 10448
+
+time: 133
+growth: 9056
+verhulst: 10448
+
+time: 134
+growth: 9269
+verhulst: 10448
+
+time: 135
+growth: 9497
+verhulst: 10448
+
+time: 136
+growth: 9738
+verhulst: 10448
+
+time: 137
+growth: 9960
+verhulst: 10448
+
+time: 138
+growth: 10220
+verhulst: 10448
+
+time: 139
+growth: 10448
+verhulst: 10448
+
+time: 140
+growth: 10757
+verhulst: 15671
+
+time: 141
+growth: 10975
+verhulst: 15671
+
+time: 142
+growth: 11224
+verhulst: 15671
+
+time: 143
+growth: 11454
+verhulst: 15671
+
+time: 144
+growth: 11725
+verhulst: 15671
+
+time: 145
+growth: 12014
+verhulst: 15671
+
+time: 146
+growth: 12286
+verhulst: 15671
+
+time: 147
+growth: 12566
+verhulst: 15671
+
+time: 148
+growth: 12857
+verhulst: 15671
+
+time: 149
+growth: 13137
+verhulst: 15671
+
+time: 150
+growth: 13422
+verhulst: 15671
+
+time: 151
+growth: 13689
+verhulst: 15671
+
+time: 152
+growth: 13984
+verhulst: 15671
+
+time: 153
+growth: 14323
+verhulst: 15671
+
+time: 154
+growth: 14635
+verhulst: 15671
+
+time: 155
+growth: 14918
+verhulst: 15671
+
+time: 156
+growth: 15226
+verhulst: 15671
+
+time: 157
+growth: 15502
+verhulst: 15671
+
+time: 158
+growth: 15671
+verhulst: 15671
+
+time: 159
+growth: 16130
+verhulst: 21633
+
+time: 160
+growth: 16450
+verhulst: 21633
+
+time: 161
+growth: 16807
+verhulst: 21633
+
+time: 162
+growth: 17125
+verhulst: 21633
+
+time: 163
+growth: 17445
+verhulst: 21633
+
+time: 164
+growth: 17752
+verhulst: 21633
+
+time: 165
+growth: 18023
+verhulst: 21633
+
+time: 166
+growth: 18326
+verhulst: 21633
+
+time: 167
+growth: 18640
+verhulst: 21633
+
+time: 168
+growth: 18985
+verhulst: 21633
+
+time: 169
+growth: 19329
+verhulst: 21633
+
+time: 170
+growth: 19699
+verhulst: 21633
+
+time: 171
+growth: 20016
+verhulst: 21633
+
+time: 172
+growth: 20285
+verhulst: 21633
+
+time: 173
+growth: 20594
+verhulst: 21633
+
+time: 174
+growth: 20925
+verhulst: 21633
+
+time: 175
+growth: 21218
+verhulst: 21633
+
+time: 176
+growth: 21542
+verhulst: 21633
+
+time: 177
+growth: 21633
+verhulst: 21633
+
+time: 178
+growth: 22195
+verhulst: 26617
+
+time: 179
+growth: 22519
+verhulst: 26617
+
+time: 180
+growth: 22822
+verhulst: 26617
+
+time: 181
+growth: 23143
+verhulst: 26617
+
+time: 182
+growth: 23445
+verhulst: 26617
+
+time: 183
+growth: 23722
+verhulst: 26617
+
+time: 184
+growth: 24041
+verhulst: 26617
+
+time: 185
+growth: 24357
+verhulst: 26617
+
+time: 186
+growth: 24701
+verhulst: 26617
+
+time: 187
+growth: 25043
+verhulst: 26617
+
+time: 188
+growth: 25374
+verhulst: 26617
+
+time: 189
+growth: 25673
+verhulst: 26617
+
+time: 190
+growth: 25989
+verhulst: 26617
+
+time: 191
+growth: 26288
+verhulst: 26617
+
+time: 192
+growth: 26614
+verhulst: 26617
+
+time: 193
+growth: 26616
+verhulst: 26617
+
+time: 194
+growth: 26617
+verhulst: 26617
+
+time: 195
+growth: 27538
+verhulst: 29185
+
+time: 196
+growth: 27909
+verhulst: 29185
+
+time: 197
+growth: 28278
+verhulst: 29185
+
+time: 198
+growth: 28620
+verhulst: 29185
+
+time: 199
+growth: 28941
+verhulst: 29185
+
+time: 200
+growth: 29185
+verhulst: 29185
+
+time: 201
+growth: 29384
+verhulst: 29886
+
+time: 202
+growth: 29727
+verhulst: 29886
+
+time: 203
+growth: 29886
+verhulst: 29886
+
+time: 204
+growth: 29989
+verhulst: 29989
+
+time: 205
+growth: 29999
+verhulst: 29999
+
+time: 206
+growth: 30000
+verhulst: 30000
+
+time: 207
+growth: 30000
+verhulst: 30000
+
+time: 208
+growth: 30000
+verhulst: 30000
+
+time: 209
+growth: 30000
+verhulst: 30000
+
+time: 210
+growth: 30000
+verhulst: 30000
+
+time: 211
+growth: 30000
+verhulst: 30000
+
+time: 212
+growth: 30000
+verhulst: 30000
+
+time: 213
+growth: 30000
+verhulst: 30000
+
+time: 214
+growth: 30000
+verhulst: 30000
+
+time: 215
+growth: 30000
+verhulst: 30000
+
+time: 216
+growth: 30000
+verhulst: 30000
+
+time: 217
+growth: 30000
+verhulst: 30000
+
+time: 218
+growth: 30000
+verhulst: 30000
+
+time: 219
+growth: 30000
+verhulst: 30000
+
+time: 220
+growth: 30000
+verhulst: 30000
+
+time: 221
+growth: 30000
+verhulst: 30000
+
+time: 222
+growth: 30000
+verhulst: 30000
+
+time: 223
+growth: 30000
+verhulst: 30000
+
+time: 224
+growth: 30000
+verhulst: 30000
+
+time: 225
+growth: 30000
+verhulst: 30000
+
+time: 226
+growth: 30000
+verhulst: 30000
+
+time: 227
+growth: 30000
+verhulst: 30000
+
+time: 228
+growth: 30000
+verhulst: 30000
+
+time: 229
+growth: 30000
+verhulst: 30000
+
+time: 230
+growth: 30000
+verhulst: 30000
+
+time: 231
+growth: 30000
+verhulst: 30000
+
+time: 232
+growth: 30000
+verhulst: 30000
+
+time: 233
+growth: 30000
+verhulst: 30000
+
+time: 234
+growth: 30000
+verhulst: 30000
+
+time: 235
+growth: 30000
+verhulst: 30000
+
+time: 236
+growth: 30000
+verhulst: 30000
+
+time: 237
+growth: 30000
+verhulst: 30000
+
+time: 238
+growth: 30000
+verhulst: 30000
+
+time: 239
+growth: 30000
+verhulst: 30000
+
+time: 240
+growth: 30000
+verhulst: 30000
+
+time: 241
+growth: 30000
+verhulst: 30000
+
+time: 242
+growth: 30000
+verhulst: 30000
+
+time: 243
+growth: 30000
+verhulst: 30000
+
+time: 244
+growth: 30000
+verhulst: 30000
+
+time: 245
+growth: 30000
+verhulst: 30000
+
+time: 246
+growth: 30000
+verhulst: 30000
+
+time: 247
+growth: 30000
+verhulst: 30000
+
+time: 248
+growth: 30000
+verhulst: 30000
+
+time: 249
+growth: 30000
+verhulst: 30000
+
+time: 250
+growth: 30000
+verhulst: 30000
+
+time: 251
+growth: 30000
+verhulst: 30000
+
+time: 252
+growth: 30000
+verhulst: 30000
+
+time: 253
+growth: 30000
+verhulst: 30000
+
+time: 254
+growth: 30000
+verhulst: 30000
+
+time: 255
+growth: 30000
+verhulst: 30000
+
+time: 256
+growth: 30000
+verhulst: 30000
+
+time: 257
+growth: 30000
+verhulst: 30000
+
+time: 258
+growth: 30000
+verhulst: 30000
+
+time: 259
+growth: 30000
+verhulst: 30000
+
+time: 260
+growth: 30000
+verhulst: 30000
+
+time: 261
+growth: 30000
+verhulst: 30000
+
+time: 262
+growth: 30000
+verhulst: 30000
+
+time: 263
+growth: 30000
+verhulst: 30000
+
+time: 264
+growth: 30000
+verhulst: 30000
+
+time: 265
+growth: 30000
+verhulst: 30000
+
+time: 266
+growth: 30000
+verhulst: 30000
+
+time: 267
+growth: 30000
+verhulst: 30000
+
+time: 268
+growth: 30000
+verhulst: 30000
+
+time: 269
+growth: 30000
+verhulst: 30000
+
+time: 270
+growth: 30000
+verhulst: 30000
+
+time: 271
+growth: 30000
+verhulst: 30000
+
+time: 272
+growth: 30000
+verhulst: 30000
+
+time: 273
+growth: 30000
+verhulst: 30000
+
+time: 274
+growth: 30000
+verhulst: 30000
+
+time: 275
+growth: 30000
+verhulst: 30000
+
+time: 276
+growth: 30000
+verhulst: 30000
+
+time: 277
+growth: 30000
+verhulst: 30000
+
+time: 278
+growth: 30000
+verhulst: 30000
+
+time: 279
+growth: 30000
+verhulst: 30000
+
+time: 280
+growth: 30000
+verhulst: 30000
+
+time: 281
+growth: 30000
+verhulst: 30000
+
+time: 282
+growth: 30000
+verhulst: 30000
+
+time: 283
+growth: 30000
+verhulst: 30000
+
+time: 284
+growth: 30000
+verhulst: 30000
+
+time: 285
+growth: 30000
+verhulst: 30000
+
+time: 286
+growth: 30000
+verhulst: 30000
+
+time: 287
+growth: 30000
+verhulst: 30000
+
+time: 288
+growth: 30000
+verhulst: 30000
+
+time: 289
+growth: 30000
+verhulst: 30000
+
+time: 290
+growth: 30000
+verhulst: 30000
+
+time: 291
+growth: 30000
+verhulst: 30000
+
+time: 292
+growth: 30000
+verhulst: 30000
+
+time: 293
+growth: 30000
+verhulst: 30000
+
+time: 294
+growth: 30000
+verhulst: 30000
+
+time: 295
+growth: 30000
+verhulst: 30000
+
+time: 296
+growth: 30000
+verhulst: 30000
+
+time: 297
+growth: 30000
+verhulst: 30000
+
+time: 298
+growth: 30000
+verhulst: 30000
+
+time: 299
+growth: 30000
+verhulst: 30000
+
+time: 300
+growth: 30000
+verhulst: 30000
+
+time: 301
+growth: 30000
+verhulst: 30000
+
+time: 302
+growth: 30000
+verhulst: 30000
+
+time: 303
+growth: 30000
+verhulst: 30000
+
+time: 304
+growth: 30000
+verhulst: 30000
+
+time: 305
+growth: 30000
+verhulst: 30000
+
+time: 306
+growth: 30000
+verhulst: 30000
+
+time: 307
+growth: 30000
+verhulst: 30000
+
+time: 308
+growth: 30000
+verhulst: 30000
+
+time: 309
+growth: 30000
+verhulst: 30000
+
+time: 310
+growth: 30000
+verhulst: 30000
+
+time: 311
+growth: 30000
+verhulst: 30000
+
+time: 312
+growth: 30000
+verhulst: 30000
+
+time: 313
+growth: 30000
+verhulst: 30000
+
+time: 314
+growth: 30000
+verhulst: 30000
+
+time: 315
+growth: 30000
+verhulst: 30000
+
+time: 316
+growth: 30000
+verhulst: 30000
+
+time: 317
+growth: 30000
+verhulst: 30000
+
+time: 318
+growth: 30000
+verhulst: 30000
+
+time: 319
+growth: 30000
+verhulst: 30000
+
+time: 320
+growth: 30000
+verhulst: 30000
+
+time: 321
+growth: 30000
+verhulst: 30000
+
+time: 322
+growth: 30000
+verhulst: 30000
+
+time: 323
+growth: 30000
+verhulst: 30000
+
+time: 324
+growth: 30000
+verhulst: 30000
+
+time: 325
+growth: 30000
+verhulst: 30000
+
+time: 326
+growth: 30000
+verhulst: 30000
+
+time: 327
+growth: 30000
+verhulst: 30000
+
+time: 328
+growth: 30000
+verhulst: 30000
+
+time: 329
+growth: 30000
+verhulst: 30000
+
+time: 330
+growth: 30000
+verhulst: 30000
+
+time: 331
+growth: 30000
+verhulst: 30000
+
+time: 332
+growth: 30000
+verhulst: 30000
+
+time: 333
+growth: 30000
+verhulst: 30000
+
+time: 334
+growth: 30000
+verhulst: 30000
+
+time: 335
+growth: 30000
+verhulst: 30000
+
+time: 336
+growth: 30000
+verhulst: 30000
+
+time: 337
+growth: 30000
+verhulst: 30000
+
+time: 338
+growth: 30000
+verhulst: 30000
+
+time: 339
+growth: 30000
+verhulst: 30000
+
+time: 340
+growth: 30000
+verhulst: 30000
+
+time: 341
+growth: 30000
+verhulst: 30000
+
+time: 342
+growth: 30000
+verhulst: 30000
+
+time: 343
+growth: 30000
+verhulst: 30000
+
+time: 344
+growth: 30000
+verhulst: 30000
+
+time: 345
+growth: 30000
+verhulst: 30000
+
+time: 346
+growth: 30000
+verhulst: 30000
+
+time: 347
+growth: 30000
+verhulst: 30000
+
+time: 348
+growth: 30000
+verhulst: 30000
+
+time: 349
+growth: 30000
+verhulst: 30000
+
+time: 350
+growth: 30000
+verhulst: 30000
+
+time: 351
+growth: 30000
+verhulst: 30000
+
+time: 352
+growth: 30000
+verhulst: 30000
+
+time: 353
+growth: 30000
+verhulst: 30000
+
+time: 354
+growth: 30000
+verhulst: 30000
+
+time: 355
+growth: 30000
+verhulst: 30000
+
+time: 356
+growth: 30000
+verhulst: 30000
+
+time: 357
+growth: 30000
+verhulst: 30000
+
+time: 358
+growth: 30000
+verhulst: 30000
+
+time: 359
+growth: 30000
+verhulst: 30000
+
+time: 360
+growth: 30000
+verhulst: 30000
+
+time: 361
+growth: 30000
+verhulst: 30000
+
+time: 362
+growth: 30000
+verhulst: 30000
+
+time: 363
+growth: 30000
+verhulst: 30000
+
+time: 364
+growth: 30000
+verhulst: 30000
+
+time: 365
+growth: 30000
+verhulst: 30000
+
+time: 366
+growth: 30000
+verhulst: 30000
+
+time: 367
+growth: 30000
+verhulst: 30000
+
+time: 368
+growth: 30000
+verhulst: 30000
+
+time: 369
+growth: 30000
+verhulst: 30000
+
+time: 370
+growth: 30000
+verhulst: 30000
+
+time: 371
+growth: 30000
+verhulst: 30000
+
+time: 372
+growth: 30000
+verhulst: 30000
+
+time: 373
+growth: 30000
+verhulst: 30000
+
+time: 374
+growth: 30000
+verhulst: 30000
+
+time: 375
+growth: 30000
+verhulst: 30000
+
+time: 376
+growth: 30000
+verhulst: 30000
+
+time: 377
+growth: 30000
+verhulst: 30000
+
+time: 378
+growth: 30000
+verhulst: 30000
+
+time: 379
+growth: 30000
+verhulst: 30000
+
+time: 380
+growth: 30000
+verhulst: 30000
+
+time: 381
+growth: 30000
+verhulst: 30000
+
+time: 382
+growth: 30000
+verhulst: 30000
+
+time: 383
+growth: 30000
+verhulst: 30000
+
+time: 384
+growth: 30000
+verhulst: 30000
+
+time: 385
+growth: 30000
+verhulst: 30000
+
+time: 386
+growth: 30000
+verhulst: 30000
+
+time: 387
+growth: 30000
+verhulst: 30000
+
+time: 388
+growth: 30000
+verhulst: 30000
+
+time: 389
+growth: 30000
+verhulst: 30000
+
+time: 390
+growth: 30000
+verhulst: 30000
+
+time: 391
+growth: 30000
+verhulst: 30000
+
+time: 392
+growth: 30000
+verhulst: 30000
+
+time: 393
+growth: 30000
+verhulst: 30000
+
+time: 394
+growth: 30000
+verhulst: 30000
+
+time: 395
+growth: 30000
+verhulst: 30000
+
+time: 396
+growth: 30000
+verhulst: 30000
+
+time: 397
+growth: 30000
+verhulst: 30000
+
+time: 398
+growth: 30000
+verhulst: 30000
+
+time: 399
+growth: 30000
+verhulst: 30000
+
+time: 400
+growth: 30000
+verhulst: 30000
+
+time: 401
+growth: 30000
+verhulst: 30000
+
+time: 402
+growth: 30000
+verhulst: 30000
+
+time: 403
+growth: 30000
+verhulst: 30000
+
+time: 404
+growth: 30000
+verhulst: 30000
+
+time: 405
+growth: 30000
+verhulst: 30000
+
+time: 406
+growth: 30000
+verhulst: 30000
+
+time: 407
+growth: 30000
+verhulst: 30000
+
+time: 408
+growth: 30000
+verhulst: 30000
+
+time: 409
+growth: 30000
+verhulst: 30000
+
+time: 410
+growth: 30000
+verhulst: 30000
+
+time: 411
+growth: 30000
+verhulst: 30000
+
+time: 412
+growth: 30000
+verhulst: 30000
+
+time: 413
+growth: 30000
+verhulst: 30000
+
+time: 414
+growth: 30000
+verhulst: 30000
+
+time: 415
+growth: 30000
+verhulst: 30000
+
+time: 416
+growth: 30000
+verhulst: 30000
+
+time: 417
+growth: 30000
+verhulst: 30000
+
+time: 418
+growth: 30000
+verhulst: 30000
+
+time: 419
+growth: 30000
+verhulst: 30000
+
+time: 420
+growth: 30000
+verhulst: 30000
+
+time: 421
+growth: 30000
+verhulst: 30000
+
+time: 422
+growth: 30000
+verhulst: 30000
+
+time: 423
+growth: 30000
+verhulst: 30000
+
+time: 424
+growth: 30000
+verhulst: 30000
+
+time: 425
+growth: 30000
+verhulst: 30000
+
+time: 426
+growth: 30000
+verhulst: 30000
+
+time: 427
+growth: 30000
+verhulst: 30000
+
+time: 428
+growth: 30000
+verhulst: 30000
+
+time: 429
+growth: 30000
+verhulst: 30000
+
+time: 430
+growth: 30000
+verhulst: 30000
+
+time: 431
+growth: 30000
+verhulst: 30000
+
+time: 432
+growth: 30000
+verhulst: 30000
+
+time: 433
+growth: 30000
+verhulst: 30000
+
+time: 434
+growth: 30000
+verhulst: 30000
+
+time: 435
+growth: 30000
+verhulst: 30000
+
+time: 436
+growth: 30000
+verhulst: 30000
+
+time: 437
+growth: 30000
+verhulst: 30000
+
+time: 438
+growth: 30000
+verhulst: 30000
+
+time: 439
+growth: 30000
+verhulst: 30000
+
+time: 440
+growth: 30000
+verhulst: 30000
+
+time: 441
+growth: 30000
+verhulst: 30000
+
+time: 442
+growth: 30000
+verhulst: 30000
+
+time: 443
+growth: 30000
+verhulst: 30000
+
+time: 444
+growth: 30000
+verhulst: 30000
+
+time: 445
+growth: 30000
+verhulst: 30000
+
+time: 446
+growth: 30000
+verhulst: 30000
+
+time: 447
+growth: 30000
+verhulst: 30000
+
+time: 448
+growth: 30000
+verhulst: 30000
+
+time: 449
+growth: 30000
+verhulst: 30000
+
+time: 450
+growth: 30000
+verhulst: 30000
+
+time: 451
+growth: 30000
+verhulst: 30000
+
+time: 452
+growth: 30000
+verhulst: 30000
+
+time: 453
+growth: 30000
+verhulst: 30000
+
+time: 454
+growth: 30000
+verhulst: 30000
+
+time: 455
+growth: 30000
+verhulst: 30000
+
+time: 456
+growth: 30000
+verhulst: 30000
+
+time: 457
+growth: 30000
+verhulst: 30000
+
+time: 458
+growth: 30000
+verhulst: 30000
+
+time: 459
+growth: 30000
+verhulst: 30000
+
+time: 460
+growth: 30000
+verhulst: 30000
+
+time: 461
+growth: 30000
+verhulst: 30000
+
+time: 462
+growth: 30000
+verhulst: 30000
+
+time: 463
+growth: 30000
+verhulst: 30000
+
+time: 464
+growth: 30000
+verhulst: 30000
+
+time: 465
+growth: 30000
+verhulst: 30000
+
+time: 466
+growth: 30000
+verhulst: 30000
+
+time: 467
+growth: 30000
+verhulst: 30000
+
+time: 468
+growth: 30000
+verhulst: 30000
+
+time: 469
+growth: 30000
+verhulst: 30000
+
+time: 470
+growth: 30000
+verhulst: 30000
+
+time: 471
+growth: 30000
+verhulst: 30000
+
+time: 472
+growth: 30000
+verhulst: 30000
+
+time: 473
+growth: 30000
+verhulst: 30000
+
+time: 474
+growth: 30000
+verhulst: 30000
+
+time: 475
+growth: 30000
+verhulst: 30000
+
+time: 476
+growth: 30000
+verhulst: 30000
+
+time: 477
+growth: 30000
+verhulst: 30000
+
+time: 478
+growth: 30000
+verhulst: 30000
+
+time: 479
+growth: 30000
+verhulst: 30000
+
+time: 480
+growth: 30000
+verhulst: 30000
+
+time: 481
+growth: 30000
+verhulst: 30000
+
+time: 482
+growth: 30000
+verhulst: 30000
+
+time: 483
+growth: 30000
+verhulst: 30000
+
+time: 484
+growth: 30000
+verhulst: 30000
+
+time: 485
+growth: 30000
+verhulst: 30000
+
+time: 486
+growth: 30000
+verhulst: 30000
+
+time: 487
+growth: 30000
+verhulst: 30000
+
+time: 488
+growth: 30000
+verhulst: 30000
+
+time: 489
+growth: 30000
+verhulst: 30000
+
+time: 490
+growth: 30000
+verhulst: 30000
+
+time: 491
+growth: 30000
+verhulst: 30000
+
+time: 492
+growth: 30000
+verhulst: 30000
+
+time: 493
+growth: 30000
+verhulst: 30000
+
+time: 494
+growth: 30000
+verhulst: 30000
+
+time: 495
+growth: 30000
+verhulst: 30000
+
+time: 496
+growth: 30000
+verhulst: 30000
+
+time: 497
+growth: 30000
+verhulst: 30000
+
+time: 498
+growth: 30000
+verhulst: 30000
+
+time: 499
+growth: 30000
+verhulst: 30000
+
+[EOF]

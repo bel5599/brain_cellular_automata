@@ -506,8 +506,8 @@ namespace AutomataCelularLogic
             //BUSCAR EL RADIO SEGUN EL SEGMENTO AL QUE PERTENECE
             if (cell is BloodVessel)
             {
-                var segment = vessel_segment_dict[cell as BloodVessel][0];
-                return (2 * Math.PI * segment.radius * p_e_oxygen * (c_art_oxygen - conc)) / delta_S;
+                //var segment = vessel_segment_dict[cell as BloodVessel][0];
+                return (2 * Math.PI * strahler_order_dict[StrahlerOrder.StrahlerOrder_1].Item1 * p_e_oxygen * (c_art_oxygen - conc)) / delta_S;
             }
             return 0;
         }
@@ -659,8 +659,8 @@ namespace AutomataCelularLogic
             //double radius = 3 * 10;
             if (cell is BloodVessel)
             {
-                var segment = vessel_segment_dict[cell as BloodVessel][0];
-                return (2 * Math.PI * segment.radius * p_e * vegf_conc);
+                //var segment = vessel_segment_dict[cell as BloodVessel][0];
+                return (2 * Math.PI * strahler_order_dict[StrahlerOrder.StrahlerOrder_1].Item1 * p_e * vegf_conc);
             }
             return 0;
         }

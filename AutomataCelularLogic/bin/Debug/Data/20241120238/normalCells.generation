@@ -1,0 +1,353 @@
+time: 0
+neuron: 1066
+astrocyte: 1066
+stemcells: 1066
+
+time: 1
+neuron: 1066
+astrocyte: 1066
+stemcells: 1066
+
+time: 2
+neuron: 1066
+astrocyte: 1066
+stemcells: 1066
+
+time: 3
+neuron: 1066
+astrocyte: 1066
+stemcells: 1065
+
+time: 4
+neuron: 1066
+astrocyte: 1066
+stemcells: 1064
+
+time: 5
+neuron: 1066
+astrocyte: 1066
+stemcells: 1063
+
+time: 6
+neuron: 1066
+astrocyte: 1066
+stemcells: 1062
+
+time: 7
+neuron: 1066
+astrocyte: 1066
+stemcells: 1062
+
+time: 8
+neuron: 1066
+astrocyte: 1066
+stemcells: 1059
+
+time: 9
+neuron: 1066
+astrocyte: 1066
+stemcells: 1058
+
+time: 10
+neuron: 1066
+astrocyte: 1066
+stemcells: 1055
+
+time: 11
+neuron: 1066
+astrocyte: 1066
+stemcells: 1051
+
+time: 12
+neuron: 1066
+astrocyte: 1066
+stemcells: 1045
+
+time: 13
+neuron: 1066
+astrocyte: 1066
+stemcells: 1037
+
+time: 14
+neuron: 1064
+astrocyte: 1066
+stemcells: 1026
+
+time: 15
+neuron: 1062
+astrocyte: 1065
+stemcells: 1018
+
+time: 16
+neuron: 1061
+astrocyte: 1063
+stemcells: 986
+
+time: 17
+neuron: 1055
+astrocyte: 1060
+stemcells: 949
+
+time: 18
+neuron: 1047
+astrocyte: 1054
+stemcells: 884
+
+time: 19
+neuron: 1046
+astrocyte: 1053
+stemcells: 884
+
+time: 20
+neuron: 1043
+astrocyte: 1052
+stemcells: 847
+
+time: 21
+neuron: 1039
+astrocyte: 1050
+stemcells: 820
+
+time: 22
+neuron: 1034
+astrocyte: 1045
+stemcells: 802
+
+time: 23
+neuron: 1032
+astrocyte: 1045
+stemcells: 788
+
+time: 24
+neuron: 1027
+astrocyte: 1042
+stemcells: 766
+
+time: 25
+neuron: 1021
+astrocyte: 1040
+stemcells: 732
+
+time: 26
+neuron: 1015
+astrocyte: 1034
+stemcells: 705
+
+time: 27
+neuron: 1011
+astrocyte: 1031
+stemcells: 679
+
+time: 28
+neuron: 1010
+astrocyte: 1029
+stemcells: 670
+
+time: 29
+neuron: 1007
+astrocyte: 1028
+stemcells: 619
+
+time: 30
+neuron: 1004
+astrocyte: 1027
+stemcells: 600
+
+time: 31
+neuron: 1001
+astrocyte: 1024
+stemcells: 585
+
+time: 32
+neuron: 998
+astrocyte: 1016
+stemcells: 573
+
+time: 33
+neuron: 995
+astrocyte: 1015
+stemcells: 557
+
+time: 34
+neuron: 994
+astrocyte: 1014
+stemcells: 550
+
+time: 35
+neuron: 994
+astrocyte: 1010
+stemcells: 528
+
+time: 36
+neuron: 990
+astrocyte: 1006
+stemcells: 512
+
+time: 37
+neuron: 988
+astrocyte: 1005
+stemcells: 501
+
+time: 38
+neuron: 986
+astrocyte: 1004
+stemcells: 492
+
+time: 39
+neuron: 985
+astrocyte: 1002
+stemcells: 488
+
+time: 40
+neuron: 984
+astrocyte: 1000
+stemcells: 480
+
+time: 41
+neuron: 980
+astrocyte: 996
+stemcells: 476
+
+time: 42
+neuron: 975
+astrocyte: 993
+stemcells: 467
+
+time: 43
+neuron: 970
+astrocyte: 992
+stemcells: 465
+
+time: 44
+neuron: 969
+astrocyte: 989
+stemcells: 455
+
+time: 45
+neuron: 969
+astrocyte: 985
+stemcells: 451
+
+time: 46
+neuron: 966
+astrocyte: 985
+stemcells: 444
+
+time: 47
+neuron: 964
+astrocyte: 981
+stemcells: 437
+
+time: 48
+neuron: 956
+astrocyte: 981
+stemcells: 432
+
+time: 49
+neuron: 952
+astrocyte: 977
+stemcells: 422
+
+time: 50
+neuron: 948
+astrocyte: 975
+stemcells: 401
+
+time: 51
+neuron: 941
+astrocyte: 972
+stemcells: 389
+
+time: 52
+neuron: 937
+astrocyte: 972
+stemcells: 385
+
+time: 53
+neuron: 931
+astrocyte: 966
+stemcells: 379
+
+time: 54
+neuron: 927
+astrocyte: 963
+stemcells: 371
+
+time: 55
+neuron: 921
+astrocyte: 961
+stemcells: 363
+
+time: 56
+neuron: 918
+astrocyte: 958
+stemcells: 362
+
+time: 57
+neuron: 917
+astrocyte: 953
+stemcells: 357
+
+time: 58
+neuron: 914
+astrocyte: 948
+stemcells: 355
+
+time: 59
+neuron: 911
+astrocyte: 945
+stemcells: 353
+
+time: 60
+neuron: 907
+astrocyte: 938
+stemcells: 348
+
+time: 61
+neuron: 903
+astrocyte: 935
+stemcells: 347
+
+time: 62
+neuron: 898
+astrocyte: 931
+stemcells: 342
+
+time: 63
+neuron: 889
+astrocyte: 926
+stemcells: 331
+
+time: 64
+neuron: 888
+astrocyte: 914
+stemcells: 327
+
+time: 65
+neuron: 881
+astrocyte: 911
+stemcells: 320
+
+time: 66
+neuron: 876
+astrocyte: 908
+stemcells: 320
+
+time: 67
+neuron: 873
+astrocyte: 902
+stemcells: 317
+
+time: 68
+neuron: 868
+astrocyte: 900
+stemcells: 315
+
+time: 69
+neuron: 866
+astrocyte: 896
+stemcells: 315
+
+time: 70
+neuron: 863
+astr

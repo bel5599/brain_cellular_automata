@@ -125,6 +125,21 @@ namespace AutomataCelularLogic
             }
             return empty_pos;
         }
+
+        public static List<Cell> NormalCellCount(Pos pos, List<Cell> cell_list)
+        {
+            List<Cell> empty_pos = new List<Cell>();
+            foreach (var item in cell_list)
+            {
+                if (item.behavior_state == CellState.Neuron || item.behavior_state == CellState.Astrocyte)/* && */
+                {
+                    empty_pos.Add(item);
+                }
+
+            }
+            return empty_pos;
+        }
+
         public static List<Cell> EmptyPositions(List<Cell> cell_list, List<Cell> occupied_cells = null)
         {
             List<Cell> empty_pos = new List<Cell>();
@@ -193,6 +208,8 @@ namespace AutomataCelularLogic
         public static int GetIntValue(int min, int max)
         {
             if (min == max) return min;
+
+            if (max < min) return max;
 
             double d = Math.Abs(max - min) + 1;
             double interval = 1d / d;

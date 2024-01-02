@@ -1,0 +1,351 @@
+time: 0
+neuron: 1066
+astrocyte: 1066
+stemcells: 1066
+
+time: 1
+neuron: 1066
+astrocyte: 1066
+stemcells: 1065
+
+time: 2
+neuron: 1066
+astrocyte: 1066
+stemcells: 1064
+
+time: 3
+neuron: 1066
+astrocyte: 1066
+stemcells: 1063
+
+time: 4
+neuron: 1066
+astrocyte: 1066
+stemcells: 1063
+
+time: 5
+neuron: 1066
+astrocyte: 1066
+stemcells: 1063
+
+time: 6
+neuron: 1066
+astrocyte: 1066
+stemcells: 1063
+
+time: 7
+neuron: 1066
+astrocyte: 1066
+stemcells: 1061
+
+time: 8
+neuron: 1066
+astrocyte: 1066
+stemcells: 1060
+
+time: 9
+neuron: 1065
+astrocyte: 1066
+stemcells: 1059
+
+time: 10
+neuron: 1065
+astrocyte: 1066
+stemcells: 1057
+
+time: 11
+neuron: 1065
+astrocyte: 1066
+stemcells: 1054
+
+time: 12
+neuron: 1065
+astrocyte: 1066
+stemcells: 1051
+
+time: 13
+neuron: 1065
+astrocyte: 1066
+stemcells: 1046
+
+time: 14
+neuron: 1064
+astrocyte: 1066
+stemcells: 1038
+
+time: 15
+neuron: 1064
+astrocyte: 1065
+stemcells: 1032
+
+time: 16
+neuron: 1062
+astrocyte: 1063
+stemcells: 1014
+
+time: 17
+neuron: 1058
+astrocyte: 1062
+stemcells: 990
+
+time: 18
+neuron: 1048
+astrocyte: 1060
+stemcells: 949
+
+time: 19
+neuron: 1048
+astrocyte: 1060
+stemcells: 948
+
+time: 20
+neuron: 1046
+astrocyte: 1057
+stemcells: 888
+
+time: 21
+neuron: 1043
+astrocyte: 1057
+stemcells: 883
+
+time: 22
+neuron: 1036
+astrocyte: 1052
+stemcells: 845
+
+time: 23
+neuron: 1034
+astrocyte: 1050
+stemcells: 823
+
+time: 24
+neuron: 1032
+astrocyte: 1048
+stemcells: 817
+
+time: 25
+neuron: 1030
+astrocyte: 1046
+stemcells: 765
+
+time: 26
+neuron: 1026
+astrocyte: 1043
+stemcells: 750
+
+time: 27
+neuron: 1026
+astrocyte: 1038
+stemcells: 721
+
+time: 28
+neuron: 1024
+astrocyte: 1037
+stemcells: 720
+
+time: 29
+neuron: 1021
+astrocyte: 1034
+stemcells: 679
+
+time: 30
+neuron: 1020
+astrocyte: 1033
+stemcells: 660
+
+time: 31
+neuron: 1018
+astrocyte: 1030
+stemcells: 634
+
+time: 32
+neuron: 1018
+astrocyte: 1028
+stemcells: 618
+
+time: 33
+neuron: 1016
+astrocyte: 1026
+stemcells: 601
+
+time: 34
+neuron: 1013
+astrocyte: 1024
+stemcells: 594
+
+time: 35
+neuron: 1012
+astrocyte: 1024
+stemcells: 590
+
+time: 36
+neuron: 1008
+astrocyte: 1022
+stemcells: 575
+
+time: 37
+neuron: 1005
+astrocyte: 1022
+stemcells: 566
+
+time: 38
+neuron: 1005
+astrocyte: 1018
+stemcells: 560
+
+time: 39
+neuron: 1005
+astrocyte: 1018
+stemcells: 549
+
+time: 40
+neuron: 1003
+astrocyte: 1017
+stemcells: 540
+
+time: 41
+neuron: 1001
+astrocyte: 1017
+stemcells: 533
+
+time: 42
+neuron: 999
+astrocyte: 1016
+stemcells: 530
+
+time: 43
+neuron: 996
+astrocyte: 1013
+stemcells: 523
+
+time: 44
+neuron: 996
+astrocyte: 1012
+stemcells: 519
+
+time: 45
+neuron: 994
+astrocyte: 1011
+stemcells: 515
+
+time: 46
+neuron: 994
+astrocyte: 1010
+stemcells: 509
+
+time: 47
+neuron: 991
+astrocyte: 1008
+stemcells: 504
+
+time: 48
+neuron: 990
+astrocyte: 1007
+stemcells: 503
+
+time: 49
+neuron: 987
+astrocyte: 1007
+stemcells: 502
+
+time: 50
+neuron: 987
+astrocyte: 1007
+stemcells: 502
+
+time: 51
+neuron: 984
+astrocyte: 1006
+stemcells: 496
+
+time: 52
+neuron: 981
+astrocyte: 1005
+stemcells: 494
+
+time: 53
+neuron: 979
+astrocyte: 1003
+stemcells: 492
+
+time: 54
+neuron: 973
+astrocyte: 1002
+stemcells: 489
+
+time: 55
+neuron: 971
+astrocyte: 998
+stemcells: 488
+
+time: 56
+neuron: 970
+astrocyte: 994
+stemcells: 488
+
+time: 57
+neuron: 966
+astrocyte: 992
+stemcells: 486
+
+time: 58
+neuron: 964
+astrocyte: 991
+stemcells: 483
+
+time: 59
+neuron: 963
+astrocyte: 989
+stemcells: 481
+
+time: 60
+neuron: 961
+astrocyte: 987
+stemcells: 479
+
+time: 61
+neuron: 957
+astrocyte: 985
+stemcells: 475
+
+time: 62
+neuron: 955
+astrocyte: 983
+stemcells: 475
+
+time: 63
+neuron: 953
+astrocyte: 982
+stemcells: 474
+
+time: 64
+neuron: 949
+astrocyte: 978
+stemcells: 472
+
+time: 65
+neuron: 948
+astrocyte: 976
+stemcells: 469
+
+time: 66
+neuron: 945
+astrocyte: 976
+stemcells: 460
+
+time: 67
+neuron: 943
+astrocyte: 972
+stemcells: 446
+
+time: 68
+neuron: 941
+astrocyte: 971
+stemcells: 443
+
+time: 69
+neuron: 940
+astrocyte: 969
+stemcells: 436
+
+ti

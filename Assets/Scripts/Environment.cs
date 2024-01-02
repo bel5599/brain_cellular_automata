@@ -10,6 +10,8 @@ public class Environment : MonoBehaviour
     Transform ProliferativeTumoralCellPrefab, NecroticTumoralCellPrefab, QuiescentTumorCellPrefab, StemCellPrefab, TumoralSpherePrefab,
         NeuronPrefab, AstrocytePrefab, /*ArteryPrefab*/ /*ArteriolePrefab, CapillaryPrefab,*/ MigratoryPrefab/*, SegmentPrefab, CamaraPrefab*/, informationPrefab;
 
+    Transform primeroPrefab, segundoPrefab, terceroPrefab, cuartoPrefab;
+
     public GameObject VasoPrefb;
     public GameObject ArteryPrefab;
 
@@ -92,12 +94,14 @@ public class Environment : MonoBehaviour
             script.UpdateCanvas(EnvironmentLogic.ca);
         }
 
-        BloodVesselsLine();
-        Rellenar();
+        //BloodVesselsLine();
+        //Rellenar();
 
-        Debug.Log(migratory_dict.Count);
-        Debug.Log(necrotic_cell_dict.Count);
-        Debug.Log(tumoral_cell_dict);
+        //Debug.Log(migratory_dict.Count);
+        //Debug.Log(necrotic_cell_dict.Count);
+        //Debug.Log(tumoral_cell_dict);
+
+        OxygenConc();
 
 
         Debug.Log("Termine de rellenar");
@@ -114,26 +118,78 @@ public class Environment : MonoBehaviour
             secondsCounter = 0;
             EnvironmentLogic.ca.Update();
 
-            if (EnvironmentLogic.ca.tumoral_angiogenic_factor > 0.5)
-            {
-                Debug.Log("Ya deberian salir las celulas migratorias");
-            }
 
-            UpdatePosCellDict(neuron_dict);
-            UpdatePosCellDict(stem_cell_dict);
-            UpdatePosCellDict(tumoral_cell_dict);
-            UpdatePosCellDict(astrocyte_dict);
-            UpdatePosCellDict(proliferative_dict);
-            UpdatePosCellDict(migratory_dict);
+            OxygenConc();
 
-            UpdateCellTransformsDict();
-            UpdateVessels();
+            //UpdatePosCellDict(neuron_dict);
+            //UpdatePosCellDict(stem_cell_dict);
+            //UpdatePosCellDict(tumoral_cell_dict);
+            //UpdatePosCellDict(astrocyte_dict);
+            //UpdatePosCellDict(proliferative_dict);
+            //UpdatePosCellDict(migratory_dict);
+
+            //UpdateCellTransformsDict();
+            //UpdateVessels();
 
             script.UpdateCanvas(EnvironmentLogic.ca);
         }
 
 
 
+    }
+
+    void OxygenConc()
+    {
+        for (int i = 0; i < EnvironmentLogic.ca.model.oxygen_matrix.GetLength(0); i++)
+        {
+            for (int j = 0; j < EnvironmentLogic.ca.model.oxygen_matrix.GetLength(1); j++)
+            {
+                for (int k = 0; k < EnvironmentLogic.ca.model.oxygen_matrix.GetLength(2); k++)
+                {
+                    var item = EnvironmentLogic.ca.model.oxygen_matrix[i, j, k];
+                    if (item < 0.5 && item >= 0)
+                    {
+                        Transform oxy = Instantiate(primeroPrefab);
+                        oxy.localPosition = new Vector3(i, j, k);
+                    }
+                    else if (item < 1.175 && item >= 0.5)
+                    {
+                        Transform oxy = Instantiate(segundoPrefab);
+                        oxy.localPosition = new Vector3(i, j, k);
+                    }
+                    else if (item < 3.525 && item >= 1.175)
+                    {
+                        Transform oxy = Instantiate(terceroPrefab);
+                        oxy.localPosition = new Vector3(i, j, k);
+                    }
+                    else if (item >= 3.525)
+                    {
+                        Transform oxy = Instantiate(cuartoPrefab);
+                        oxy.localPosition = new Vector3(i, j, k);
+                    }
+                }
+            }
+        }
+        //foreach (var item in EnvironmentLogic.ca.model.oxygen_matrix)
+        //{
+        //    if(item < 0.5 && item > = 0)
+        //    {
+        //        Transform oxy = Instantiate(primeroPrefab);
+        //        stemCell.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
+        //    }
+        //    else if(item < 1.175 && item >=0.5)
+        //    {
+
+        //    }
+        //    else if(item < 3.525 && item >= 1.175)
+        //    {
+
+        //    }
+        //    else if(item >= 3.525)
+        //    {
+
+        //    }
+        //}
     }
 
     void InitializeLists()
@@ -373,6 +429,7 @@ public class Environment : MonoBehaviour
                 }
                 else if (behavior_state == CellState.MigratoryTumorCell)
                 {
+                    Debug.Log("Se instancio una celula migratoria");
                     Transform migratory = Instantiate(MigratoryPrefab);
                     migratory.localPosition = new Vector3(cell.pos.X * PositionScale, cell.pos.Y * PositionScale, cell.pos.Z * PositionScale);
                     migratory_dict.Add(cell, migratory);
@@ -414,6 +471,7 @@ public class Environment : MonoBehaviour
             }
             else if(item.Value.behavior_state == CellState.MigratoryTumorCell && !migratory_dict.ContainsKey(item.Value))
             {
+                Debug.Log("Se instancio una celula migratoria");
                 Transform migratory_cell = Instantiate(MigratoryPrefab);
                 migratory_cell.localPosition = new Vector3(item.Key.X * PositionScale, item.Key.Y * PositionScale, item.Key.Z * PositionScale);
                 migratory_dict.Add(item.Value, migratory_cell);

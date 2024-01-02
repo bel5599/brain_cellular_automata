@@ -177,9 +177,9 @@ namespace AutomataCelularLogic
 
         #region Better Implementation
 
-        public int MaxChildCount = 3;
+        public int MaxChildCount = 4;
         public int MaxStepSize = 1;
-        public int TreeCount = 3;
+        public int TreeCount = 1;
         public int max_depth = 35;
 
         private void CreateVasosSanguineos(List<Pos> marks)
@@ -208,7 +208,7 @@ namespace AutomataCelularLogic
                 p2 = validPositions[selectedPos];
                 marks.Add(validPositions[selectedPos]);
                 AddBloodVessel(basePoint, p2, StrahlerOrder.StrahlerOrder_3);
-                ExpandTree(p2, MaxChildCount, MaxStepSize, 0, max_depth, marks);
+                ExpandTree2(p2, basePoint, MaxChildCount, MaxStepSize, 0, max_depth, marks, true);
             }
         }
 
@@ -297,6 +297,141 @@ namespace AutomataCelularLogic
 
             return positions;
         }
+
+        #region OtraVersion
+        private bool ExpandTree2(Pos basePoint, Pos basePointFather, int MaxChildsCount, int maxStepSize, int depth, int max_depth, List<Pos> marks, bool root)
+        {
+
+            var validPositions = EmptyPositions2(basePoint, basePointFather, marks, root);
+            var childsCount = 0;
+            if (root)
+                childsCount = Math.Min(validPositions.Count, MaxChildsCount);
+            else
+                childsCount = Utils.GetIntValue(1, Math.Min(validPositions.Count, MaxChildsCount));
+
+            int selectedPos = 0;
+            Pos p2;
+
+
+            if (validPositions.Count > 0)
+            {
+                for (int i = 0; i < childsCount && validPositions.Count > 0; i++)
+                {
+                    selectedPos = Utils.GetIntValue(0, validPositions.Count - 1);
+                    p2 = validPositions[selectedPos];
+
+                    marks.Add(validPositions[selectedPos]);
+                    validPositions.RemoveAt(selectedPos);
+
+                    if ((p2.Y + maxStepSize) >= /*world.GetLength(1)*/ Utils.GetIntValue(world.GetLength(1) / 2, world.GetLength(1)) /*&& Utils.GetIntValue(0,1) == 1*//*(p2.Y + maxStepSize) >= Utils.GetIntValue(world.GetLength(1)/4, world.GetLength(1) / 2)*/)
+                        AddBloodVessel(basePoint, p2, StrahlerOrder.StrahlerOrder_1);
+                    else
+                    {
+                        
+                        bool is_order2 = ExpandTree2(p2, basePoint, MaxChildsCount, maxStepSize, depth + 1, max_depth, marks, false);
+                        if(is_order2)
+                            AddBloodVessel(basePoint, p2, StrahlerOrder.StrahlerOrder_2);
+                        else
+                            AddBloodVessel(basePoint, p2, StrahlerOrder.StrahlerOrder_1);
+                    }
+
+                }
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public static List<Pos> EmptyPositions2(Pos pos, Pos basePointFather, List<Pos> marks, bool root)
+        {
+            List<Pos> empty_pos = new List<Pos>();
+            int x1, y1, z1;
+
+            int count = 0;
+
+            for (int i = 0; i < Utils.mov_3d.Count; i++)
+            {
+                int[] array = Utils.mov_3d[i];
+                x1 = pos.X + array[0];
+                y1 = pos.Y + array[1];
+                z1 = pos.Z + array[2];
+
+                Pos new_pos = new Pos(x1, y1, z1);
+                if (Utils.ValidPosition(new_pos) && new_pos.Y >= pos.Y /*&& !marks.Contains(new_pos)*/)
+                {
+                    if (marks.Contains(new_pos))
+                        count++;
+                    else
+                    {
+                        if (root)
+                            empty_pos.Add(new_pos);
+                        else if (Utils.EuclideanDistance(new_pos, basePointFather) > 2)
+                            empty_pos.Add(new_pos);
+                    }
+                }
+            }
+            if (count > 2)
+                return new List<Pos>();
+            return empty_pos;
+        }
+        private List<Pos> GetValidPositions2(Pos basePoint, Pos basePointFather, int size, List<Pos> marks, bool root)
+        {
+            var positions = new List<Pos>();
+
+            int x1, y1, z1;
+
+            if (basePoint.Y + size < world.GetLength(1))
+            {
+
+                //Positive
+                for (int x = 0; x <= size && basePoint.X + x < world.GetLength(0); x++)
+                    for (int z = 0; z <= size && basePoint.Z + z < world.GetLength(2); z++)
+                    {
+                        x1 = (int)basePoint.X + x;
+                        y1 = (int)basePoint.Y + size;
+                        z1 = (int)basePoint.Z + z;
+
+                        Pos pos = new Pos(x1, y1, z1);
+
+                        if (!marks.Contains(pos))
+                        {
+                            if(root)
+                                positions.Add(pos);
+                            else if(Utils.EuclideanDistance(pos, basePointFather) > 2)
+                                positions.Add(pos);
+                        }
+                        //if (!matrix[x1, y1, z1].Checked)
+                        //    positions.Add(matrix[x1, y1, z1]);
+                    }
+
+                //Negative
+                for (int x = -1; x >= -size && basePoint.X + x >= 0; x--)
+                    for (int z = 0; z >= -size && basePoint.Z + z >= 0; z--)
+                    {
+                        x1 = (int)basePoint.X + x;
+                        y1 = (int)basePoint.Y + size;
+                        z1 = (int)basePoint.Z + z;
+
+                        Pos pos = new Pos(x1, y1, z1);
+
+                        //if (!marks.Contains(pos) && Utils.EuclideanDistance(pos, basePointFather) > 2)
+                        //    positions.Add(pos);
+                        if (!marks.Contains(pos))
+                        {
+                            if (root)
+                                positions.Add(pos);
+                            else if (Utils.EuclideanDistance(pos, basePointFather) > 2)
+                                positions.Add(pos);
+                        }
+                        //if (!matrix[x1, y1, z1].Checked)
+                        //    positions.Add(matrix[x1, y1, z1]);
+                    }
+
+            }
+
+            return positions;
+        }
+        #endregion
         #endregion
 
         public bool PointOnLine(Pos A, Pos B, Pos P)
@@ -437,7 +572,7 @@ namespace AutomataCelularLogic
             int count =(int)((world.GetLength(0) * world.GetLength(1) * world.GetLength(2)) * 0.05);
             int count_1 = count / 3;
 
-            stem_cells_count = 20;
+            stem_cells_count = count_1;
             astrocytes_count = count_1;
             neuron_count = count_1;
         }

@@ -1,0 +1,320 @@
+time: 0
+proliferatives: 0
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 1
+proliferatives: 1
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 2
+proliferatives: 2
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 3
+proliferatives: 3
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 4
+proliferatives: 4
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 5
+proliferatives: 5
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 6
+proliferatives: 7
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 7
+proliferatives: 9
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 8
+proliferatives: 12
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 9
+proliferatives: 16
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 10
+proliferatives: 22
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 11
+proliferatives: 30
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 12
+proliferatives: 41
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 13
+proliferatives: 58
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 14
+proliferatives: 83
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 15
+proliferatives: 120
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 16
+proliferatives: 177
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 17
+proliferatives: 263
+hypoxics: 1
+necrotics: 0
+migratorys: 0
+
+time: 18
+proliferatives: 394
+hypoxics: 2
+necrotics: 0
+migratorys: 0
+
+time: 19
+proliferatives: 393
+hypoxics: 7
+necrotics: 0
+migratorys: 0
+
+time: 20
+proliferatives: 489
+hypoxics: 16
+necrotics: 0
+migratorys: 0
+
+time: 21
+proliferatives: 578
+hypoxics: 34
+necrotics: 0
+migratorys: 0
+
+time: 22
+proliferatives: 649
+hypoxics: 73
+necrotics: 0
+migratorys: 1
+
+time: 23
+proliferatives: 701
+hypoxics: 128
+necrotics: 0
+migratorys: 2
+
+time: 24
+proliferatives: 791
+hypoxics: 167
+necrotics: 0
+migratorys: 3
+
+time: 25
+proliferatives: 902
+hypoxics: 240
+necrotics: 0
+migratorys: 4
+
+time: 26
+proliferatives: 980
+hypoxics: 320
+necrotics: 0
+migratorys: 6
+
+time: 27
+proliferatives: 1044
+hypoxics: 410
+necrotics: 0
+migratorys: 8
+
+time: 28
+proliferatives: 1009
+hypoxics: 505
+necrotics: 0
+migratorys: 10
+
+time: 29
+proliferatives: 1082
+hypoxics: 612
+necrotics: 0
+migratorys: 12
+
+time: 30
+proliferatives: 1180
+hypoxics: 662
+necrotics: 0
+migratorys: 14
+
+time: 31
+proliferatives: 1263
+hypoxics: 732
+necrotics: 0
+migratorys: 15
+
+time: 32
+proliferatives: 1250
+hypoxics: 884
+necrotics: 0
+migratorys: 16
+
+time: 33
+proliferatives: 1344
+hypoxics: 962
+necrotics: 0
+migratorys: 19
+
+time: 34
+proliferatives: 1313
+hypoxics: 1085
+necrotics: 0
+migratorys: 21
+
+time: 35
+proliferatives: 1417
+hypoxics: 1168
+necrotics: 0
+migratorys: 24
+
+time: 36
+proliferatives: 1443
+hypoxics: 1284
+necrotics: 0
+migratorys: 26
+
+time: 37
+proliferatives: 1457
+hypoxics: 1403
+necrotics: 0
+migratorys: 26
+
+time: 38
+proliferatives: 1480
+hypoxics: 1529
+necrotics: 0
+migratorys: 28
+
+time: 39
+proliferatives: 1503
+hypoxics: 1638
+necrotics: 0
+migratorys: 31
+
+time: 40
+proliferatives: 1574
+hypoxics: 1732
+necrotics: 0
+migratorys: 33
+
+time: 41
+proliferatives: 1649
+hypoxics: 1841
+necrotics: 0
+migratorys: 34
+
+time: 42
+proliferatives: 1694
+hypoxics: 1960
+necrotics: 0
+migratorys: 35
+
+time: 43
+proliferatives: 1649
+hypoxics: 2117
+necrotics: 0
+migratorys: 38
+
+time: 44
+proliferatives: 1727
+hypoxics: 2222
+necrotics: 0
+migratorys: 37
+
+time: 45
+proliferatives: 1718
+hypoxics: 2372
+necrotics: 0
+migratorys: 38
+
+time: 46
+proliferatives: 1767
+hypoxics: 2489
+necrotics: 0
+migratorys: 40
+
+time: 47
+proliferatives: 1823
+hypoxics: 2600
+necrotics: 0
+migratorys: 39
+
+time: 48
+proliferatives: 1909
+hypoxics: 2701
+necrotics: 0
+migratorys: 42
+
+time: 49
+proliferatives: 1989
+hypoxics: 2818
+necrotics: 0
+migratorys: 45
+
+time: 50
+proliferatives: 1999
+hypoxics: 3004
+necrotics: 0
+migratorys: 46
+
+time: 51
+proliferatives: 2040
+hypoxics: 3159
+necrotics: 0
+migratorys: 49
+
+time: 52
+proliferatives: 2089
+hypoxics: 3290
+necrotics: 0
+migratorys: 53
+
+time: 53
+proliferati

@@ -1,0 +1,354 @@
+time: 0
+neuron: 1066
+astrocyte: 1066
+stemcells: 20
+
+time: 1
+neuron: 1066
+astrocyte: 1066
+stemcells: 20
+
+time: 2
+neuron: 1066
+astrocyte: 1066
+stemcells: 20
+
+time: 3
+neuron: 1066
+astrocyte: 1066
+stemcells: 20
+
+time: 4
+neuron: 1066
+astrocyte: 1066
+stemcells: 20
+
+time: 5
+neuron: 1066
+astrocyte: 1066
+stemcells: 19
+
+time: 6
+neuron: 1066
+astrocyte: 1066
+stemcells: 19
+
+time: 7
+neuron: 1066
+astrocyte: 1066
+stemcells: 19
+
+time: 8
+neuron: 1066
+astrocyte: 1066
+stemcells: 19
+
+time: 9
+neuron: 1066
+astrocyte: 1066
+stemcells: 19
+
+time: 10
+neuron: 1066
+astrocyte: 1066
+stemcells: 19
+
+time: 11
+neuron: 1066
+astrocyte: 1066
+stemcells: 19
+
+time: 12
+neuron: 1066
+astrocyte: 1066
+stemcells: 19
+
+time: 13
+neuron: 1066
+astrocyte: 1066
+stemcells: 19
+
+time: 14
+neuron: 1066
+astrocyte: 1066
+stemcells: 19
+
+time: 15
+neuron: 1066
+astrocyte: 1066
+stemcells: 19
+
+time: 16
+neuron: 1066
+astrocyte: 1066
+stemcells: 18
+
+time: 17
+neuron: 1066
+astrocyte: 1066
+stemcells: 18
+
+time: 18
+neuron: 1066
+astrocyte: 1066
+stemcells: 18
+
+time: 19
+neuron: 1066
+astrocyte: 1066
+stemcells: 18
+
+time: 20
+neuron: 1066
+astrocyte: 1066
+stemcells: 18
+
+time: 21
+neuron: 1066
+astrocyte: 1066
+stemcells: 18
+
+time: 22
+neuron: 1066
+astrocyte: 1066
+stemcells: 18
+
+time: 23
+neuron: 1066
+astrocyte: 1066
+stemcells: 18
+
+time: 24
+neuron: 1065
+astrocyte: 1066
+stemcells: 18
+
+time: 25
+neuron: 1065
+astrocyte: 1066
+stemcells: 18
+
+time: 26
+neuron: 1065
+astrocyte: 1066
+stemcells: 18
+
+time: 27
+neuron: 1065
+astrocyte: 1066
+stemcells: 18
+
+time: 28
+neuron: 1065
+astrocyte: 1066
+stemcells: 18
+
+time: 29
+neuron: 1065
+astrocyte: 1066
+stemcells: 18
+
+time: 30
+neuron: 1065
+astrocyte: 1066
+stemcells: 18
+
+time: 31
+neuron: 1065
+astrocyte: 1066
+stemcells: 18
+
+time: 32
+neuron: 1065
+astrocyte: 1066
+stemcells: 18
+
+time: 33
+neuron: 1065
+astrocyte: 1066
+stemcells: 18
+
+time: 34
+neuron: 1065
+astrocyte: 1066
+stemcells: 18
+
+time: 35
+neuron: 1064
+astrocyte: 1066
+stemcells: 18
+
+time: 36
+neuron: 1064
+astrocyte: 1066
+stemcells: 18
+
+time: 37
+neuron: 1064
+astrocyte: 1066
+stemcells: 18
+
+time: 38
+neuron: 1063
+astrocyte: 1066
+stemcells: 18
+
+time: 39
+neuron: 1063
+astrocyte: 1065
+stemcells: 18
+
+time: 40
+neuron: 1063
+astrocyte: 1065
+stemcells: 18
+
+time: 41
+neuron: 1063
+astrocyte: 1065
+stemcells: 18
+
+time: 42
+neuron: 1063
+astrocyte: 1065
+stemcells: 18
+
+time: 43
+neuron: 1063
+astrocyte: 1065
+stemcells: 18
+
+time: 44
+neuron: 1063
+astrocyte: 1065
+stemcells: 18
+
+time: 45
+neuron: 1063
+astrocyte: 1065
+stemcells: 18
+
+time: 46
+neuron: 1063
+astrocyte: 1065
+stemcells: 18
+
+time: 47
+neuron: 1063
+astrocyte: 1064
+stemcells: 18
+
+time: 48
+neuron: 1063
+astrocyte: 1064
+stemcells: 18
+
+time: 49
+neuron: 1063
+astrocyte: 1064
+stemcells: 18
+
+time: 50
+neuron: 1063
+astrocyte: 1064
+stemcells: 18
+
+time: 51
+neuron: 1062
+astrocyte: 1064
+stemcells: 18
+
+time: 52
+neuron: 1060
+astrocyte: 1064
+stemcells: 18
+
+time: 53
+neuron: 1060
+astrocyte: 1063
+stemcells: 18
+
+time: 54
+neuron: 1060
+astrocyte: 1063
+stemcells: 18
+
+time: 55
+neuron: 1060
+astrocyte: 1063
+stemcells: 18
+
+time: 56
+neuron: 1060
+astrocyte: 1063
+stemcells: 17
+
+time: 57
+neuron: 1059
+astrocyte: 1063
+stemcells: 17
+
+time: 58
+neuron: 1059
+astrocyte: 1062
+stemcells: 17
+
+time: 59
+neuron: 1058
+astrocyte: 1062
+stemcells: 17
+
+time: 60
+neuron: 1057
+astrocyte: 1062
+stemcells: 16
+
+time: 61
+neuron: 1056
+astrocyte: 1062
+stemcells: 16
+
+time: 62
+neuron: 1056
+astrocyte: 1060
+stemcells: 16
+
+time: 63
+neuron: 1056
+astrocyte: 1060
+stemcells: 16
+
+time: 64
+neuron: 1055
+astrocyte: 1060
+stemcells: 16
+
+time: 65
+neuron: 1055
+astrocyte: 1058
+stemcells: 16
+
+time: 66
+neuron: 1055
+astrocyte: 1058
+stemcells: 16
+
+time: 67
+neuron: 1054
+astrocyte: 1057
+stemcells: 16
+
+time: 68
+neuron: 1054
+astrocyte: 1056
+stemcells: 16
+
+time: 69
+neuron: 1053
+astrocyte: 1056
+stemcells: 16
+
+time: 70
+neuron: 1052
+astrocyte: 1055
+stemc

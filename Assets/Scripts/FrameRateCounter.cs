@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using AutomataCelularLogic;
 
@@ -57,8 +57,8 @@ public class FrameRateCounter : MonoBehaviour
 		//	time, crecimiento, proliferatives_count, quiescent_count, migratory_count,necrotic_count, neuron_count, stem_count, neuron_count, astrocyte_count, endothelial_count,
 		//	vessel_count, neo_vessel
 		//);
-		string format = "Time:"+ time+ "\nVerhuslt Growth:" +crecimiento+ " \n Proliferative Cells(dark red sphere):" + proliferatives_count+ " \n Quiescent Cells(dark gray sphere):" +quiescent_count+ " \n Migratory Cells(purple sphere):" + migratory_count +
-			" \n Necrotic Cells(black sphere):" +necrotic_count+ "\n Neuron Cells(blue sphere): " +neuron_count+ " \n Stem Cells(red sphere): "+stem_count+" \n Astrocyte Cells(green sphere): "+ astrocyte_count+ " \n Endothelial Cells(pink sphere): "+endothelial_count+ " \n Blood Vessels: "+vessel_count+ " \n Neo Blood Vessels Cells: "+neo_vessel;
+		string format = "Time:"+ time+ "\nVerhuslt Growth:" +crecimiento+ " \n Proliferative Cells <color=#8B0000>■</color>:" + proliferatives_count+ " \n Quiescent Cells <color=\"yellow\">■</color>:" + quiescent_count+ " \n Migratory Cells <color=\"purple\">■</color>:" + migratory_count +
+			" \n Necrotic Cells <color=\"black\">■</color>:" + necrotic_count+ "\n Neuron Cells <color=\"blue\">■</color>: " + neuron_count+ " \n Stem Cells <color=\"orange\">■</color>: " + stem_count+ " \n Astrocyte Cells <color=#32CD32>■</color>: " + astrocyte_count+ " \n Endothelial Cells <color=#FFC0CB>■</color>: " + endothelial_count+ " \n Blood Vessels <color=\"red\">■</color>: " + vessel_count+ " \n Neo Blood Vessels Cells <color=#FF6347>■</color>: " + neo_vessel;
 		////display.Text(
 		//	"Time:{0:0} \n Verhuslt Growth: {1:0} \n Proliferative Cells: {2:0} \n Quiescent Cells{3:0} \n Migratory Cells: {4:0}", time, crecimiento, proliferatives_count, quiescent_count, migratory_count, necrotic_count);
 		//display.SetText(
