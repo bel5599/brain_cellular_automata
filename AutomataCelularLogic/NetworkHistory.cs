@@ -23,11 +23,11 @@ namespace AutomataCelularLogic
         public static string _experimentID = string.Empty;
 
 
-        //VARIABLES DEL MODELO DEL AUTOMATA
+        //VARIABLES DEL MODELO DEL AUTOMATAs
         //public static int cell_proliferation;
         public static int avascular_carrying_capacity = 6900;
-        public static int vascular_carrying_capacity = 15000;
-        public static double growth_rate = 2.95 * Math.Pow(10, -2);
+        public static int vascular_carrying_capacity = 20000;
+        public static double growth_rate = 2.95 * Math.Pow(10, -2);//2.95 * Math.Pow(10, -2);
         public static int initial_population = 5;
 
         //VARIABLES QUE TIENE QUE VER CON EL ENTORNO
@@ -136,7 +136,7 @@ namespace AutomataCelularLogic
                 StreamWriter bloodVessels = new StreamWriter(bloodVessels_file);
 
 
-                for (int j = 0; j < 500; j++)
+                for (int j = 0; j < 400; j++)
                 {
                     WriteTumorGrowth(ca, avascular_growth, vascular_growth, j);
                     WriteTumoralCells(ca, tumoralCells, j);
@@ -191,16 +191,18 @@ namespace AutomataCelularLogic
 
         public static void WriteTumorGrowth(CellularAutomaton ca, StreamWriter streamWriter1, StreamWriter streamWriter2, int time)
         {
-            if (ca.tumor.cell_list.Count < avascular_carrying_capacity)
+            if (ca.tumor.new_cells_count < avascular_carrying_capacity)
             {
-                streamWriter1.WriteLine("time: {0}", time);
+                streamWriter1.WriteLine("time: {0}", ca.tumor.time);
+                streamWriter1.WriteLine("time1: {0}", time);
                 streamWriter1.WriteLine("growth: {0}", ca.tumor.cell_list.Count);
                 streamWriter1.WriteLine("verhulst: {0}", ca.tumor.new_cells_count);
                 streamWriter1.WriteLine();
             }
             else
             {
-                streamWriter2.WriteLine("time: {0}", time);
+                streamWriter2.WriteLine("time: {0}", ca.tumor.time);
+                streamWriter2.WriteLine("time1: {0}", time);
                 streamWriter2.WriteLine("growth: {0}", ca.tumor.cell_list.Count);
                 streamWriter2.WriteLine("verhulst: {0}", ca.tumor.new_cells_count);
                 streamWriter2.WriteLine();
@@ -209,7 +211,7 @@ namespace AutomataCelularLogic
 
         public static void WriteTumoralCells(CellularAutomaton ca, StreamWriter streamWriter, int time)
         {
-            streamWriter.WriteLine("time: {0}", time);
+            streamWriter.WriteLine("time: {0}", ca.tumor.time);
             streamWriter.WriteLine("proliferatives: {0}", ca.proliferation_cells.Count);
             streamWriter.WriteLine("hypoxics: {0}", ca.quiescent_cell_list.Count);
             streamWriter.WriteLine("necrotics: {0}", ca.necrotic_cell_list.Count);
@@ -219,7 +221,7 @@ namespace AutomataCelularLogic
 
         public static void WriteNormalCells(CellularAutomaton ca, StreamWriter streamWriter, int time)
         {
-            streamWriter.WriteLine("time: {0}", time);
+            streamWriter.WriteLine("time: {0}", ca.tumor.time);
             streamWriter.WriteLine("neuron: {0}", ca.neuron_list.Count);
             streamWriter.WriteLine("astrocyte: {0}", ca.astrocyte_list.Count);
             streamWriter.WriteLine("stemcells: {0}", ca.stem_cell_list.Count);
@@ -228,7 +230,7 @@ namespace AutomataCelularLogic
 
         public static void WriteBloodVessels(CellularAutomaton ca, StreamWriter streamWriter, int time)
         {
-            streamWriter.WriteLine("time: {0}", time);
+            streamWriter.WriteLine("time: {0}", ca.tumor.time);
             streamWriter.WriteLine("bloodVessels: {0}", ca.pos_vessel_dict.Count);
             streamWriter.WriteLine("NeoBloodVessels: {0}", ca.pos_neo_vessel_dict.Count);
             streamWriter.WriteLine("Endothelial: {0}", ca.endothelial_cells.Count);

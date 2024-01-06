@@ -1,0 +1,3001 @@
+time: 0
+proliferatives: 0
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 1
+proliferatives: 1
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 2
+proliferatives: 2
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 3
+proliferatives: 3
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 4
+proliferatives: 4
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 5
+proliferatives: 5
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 6
+proliferatives: 6
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 7
+proliferatives: 7
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 8
+proliferatives: 9
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 9
+proliferatives: 11
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 10
+proliferatives: 14
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 11
+proliferatives: 18
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 12
+proliferatives: 23
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 13
+proliferatives: 30
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 14
+proliferatives: 39
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 15
+proliferatives: 51
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 16
+proliferatives: 68
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 17
+proliferatives: 92
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 18
+proliferatives: 126
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 19
+proliferatives: 174
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 20
+proliferatives: 243
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 21
+proliferatives: 342
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 22
+proliferatives: 486
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 23
+proliferatives: 695
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 24
+proliferatives: 996
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 25
+proliferatives: 1423
+hypoxics: 0
+necrotics: 0
+migratorys: 0
+
+time: 26
+proliferatives: 1845
+hypoxics: 1
+necrotics: 0
+migratorys: 0
+
+time: 27
+proliferatives: 2009
+hypoxics: 2
+necrotics: 0
+migratorys: 0
+
+time: 28
+proliferatives: 2233
+hypoxics: 6
+necrotics: 0
+migratorys: 0
+
+time: 29
+proliferatives: 2458
+hypoxics: 14
+necrotics: 0
+migratorys: 0
+
+time: 30
+proliferatives: 2683
+hypoxics: 37
+necrotics: 1
+migratorys: 0
+
+time: 31
+proliferatives: 2701
+hypoxics: 78
+necrotics: 2
+migratorys: 0
+
+time: 32
+proliferatives: 3069
+hypoxics: 137
+necrotics: 6
+migratorys: 0
+
+time: 33
+proliferatives: 3348
+hypoxics: 204
+necrotics: 12
+migratorys: 0
+
+time: 34
+proliferatives: 3396
+hypoxics: 292
+necrotics: 23
+migratorys: 0
+
+time: 35
+proliferatives: 3598
+hypoxics: 393
+necrotics: 41
+migratorys: 0
+
+time: 36
+proliferatives: 3769
+hypoxics: 489
+necrotics: 59
+migratorys: 0
+
+time: 37
+proliferatives: 3918
+hypoxics: 609
+necrotics: 70
+migratorys: 0
+
+time: 38
+proliferatives: 3889
+hypoxics: 727
+necrotics: 90
+migratorys: 0
+
+time: 39
+proliferatives: 4355
+hypoxics: 805
+necrotics: 107
+migratorys: 0
+
+time: 40
+proliferatives: 4569
+hypoxics: 918
+necrotics: 117
+migratorys: 0
+
+time: 41
+proliferatives: 5020
+hypoxics: 1014
+necrotics: 135
+migratorys: 0
+
+time: 42
+proliferatives: 4981
+hypoxics: 1127
+necrotics: 149
+migratorys: 0
+
+time: 43
+proliferatives: 5226
+hypoxics: 1241
+necrotics: 163
+migratorys: 0
+
+time: 44
+proliferatives: 5278
+hypoxics: 1347
+necrotics: 176
+migratorys: 0
+
+time: 45
+proliferatives: 5991
+hypoxics: 1447
+necrotics: 188
+migratorys: 13
+
+time: 46
+proliferatives: 6402
+hypoxics: 1570
+necrotics: 201
+migratorys: 27
+
+time: 47
+proliferatives: 6845
+hypoxics: 1707
+necrotics: 211
+migratorys: 43
+
+time: 48
+proliferatives: 7242
+hypoxics: 1844
+necrotics: 226
+migratorys: 60
+
+time: 49
+proliferatives: 7711
+hypoxics: 1978
+necrotics: 245
+migratorys: 75
+
+time: 50
+proliferatives: 8077
+hypoxics: 2125
+necrotics: 263
+migratorys: 92
+
+time: 51
+proliferatives: 8384
+hypoxics: 2301
+necrotics: 278
+migratorys: 110
+
+time: 52
+proliferatives: 8859
+hypoxics: 2477
+necrotics: 294
+migratorys: 126
+
+time: 53
+proliferatives: 8803
+hypoxics: 2664
+necrotics: 309
+migratorys: 146
+
+time: 54
+proliferatives: 9921
+hypoxics: 2874
+necrotics: 327
+migratorys: 165
+
+time: 55
+proliferatives: 10113
+hypoxics: 3129
+necrotics: 345
+migratorys: 172
+
+time: 56
+proliferatives: 10805
+hypoxics: 3348
+necrotics: 366
+migratorys: 187
+
+time: 57
+proliferatives: 10864
+hypoxics: 3612
+necrotics: 377
+migratorys: 202
+
+time: 58
+proliferatives: 10671
+hypoxics: 3885
+necrotics: 390
+migratorys: 212
+
+time: 59
+proliferatives: 10436
+hypoxics: 4128
+necrotics: 404
+migratorys: 223
+
+time: 60
+proliferatives: 10196
+hypoxics: 4361
+necrotics: 416
+migratorys: 234
+
+time: 61
+proliferatives: 9990
+hypoxics: 4557
+necrotics: 428
+migratorys: 244
+
+time: 62
+proliferatives: 9807
+hypoxics: 4736
+necrotics: 433
+migratorys: 260
+
+time: 63
+proliferatives: 9622
+hypoxics: 4914
+necrotics: 440
+migratorys: 270
+
+time: 64
+proliferatives: 9479
+hypoxics: 5048
+necrotics: 449
+migratorys: 274
+
+time: 65
+proliferatives: 9359
+hypoxics: 5159
+necrotics: 459
+migratorys: 270
+
+time: 66
+proliferatives: 9282
+hypoxics: 5230
+necrotics: 465
+migratorys: 283
+
+time: 67
+proliferatives: 9234
+hypoxics: 5275
+necrotics: 468
+migratorys: 285
+
+time: 68
+proliferatives: 9194
+hypoxics: 5312
+necrotics: 471
+migratorys: 291
+
+time: 69
+proliferatives: 9162
+hypoxics: 5341
+necrotics: 475
+migratorys: 299
+
+time: 70
+proliferatives: 9142
+hypoxics: 5356
+necrotics: 480
+migratorys: 293
+
+time: 71
+proliferatives: 9130
+hypoxics: 5366
+necrotics: 482
+migratorys: 309
+
+time: 72
+proliferatives: 9117
+hypoxics: 5379
+necrotics: 482
+migratorys: 310
+
+time: 73
+proliferatives: 9106
+hypoxics: 5390
+necrotics: 482
+migratorys: 318
+
+time: 74
+proliferatives: 9101
+hypoxics: 5395
+necrotics: 482
+migratorys: 322
+
+time: 75
+proliferatives: 9096
+hypoxics: 5400
+necrotics: 482
+migratorys: 318
+
+time: 76
+proliferatives: 9088
+hypoxics: 5408
+necrotics: 482
+migratorys: 320
+
+time: 77
+proliferatives: 9083
+hypoxics: 5411
+necrotics: 484
+migratorys: 327
+
+time: 78
+proliferatives: 9077
+hypoxics: 5417
+necrotics: 484
+migratorys: 329
+
+time: 79
+proliferatives: 9073
+hypoxics: 5421
+necrotics: 484
+migratorys: 338
+
+time: 80
+proliferatives: 9065
+hypoxics: 5429
+necrotics: 484
+migratorys: 339
+
+time: 81
+proliferatives: 9058
+hypoxics: 5435
+necrotics: 485
+migratorys: 345
+
+time: 82
+proliferatives: 9055
+hypoxics: 5438
+necrotics: 485
+migratorys: 350
+
+time: 83
+proliferatives: 9052
+hypoxics: 5441
+necrotics: 485
+migratorys: 352
+
+time: 84
+proliferatives: 9049
+hypoxics: 5444
+necrotics: 485
+migratorys: 355
+
+time: 85
+proliferatives: 9040
+hypoxics: 5453
+necrotics: 485
+migratorys: 361
+
+time: 86
+proliferatives: 9037
+hypoxics: 5456
+necrotics: 485
+migratorys: 363
+
+time: 87
+proliferatives: 9034
+hypoxics: 5459
+necrotics: 485
+migratorys: 359
+
+time: 88
+proliferatives: 9030
+hypoxics: 5462
+necrotics: 486
+migratorys: 366
+
+time: 89
+proliferatives: 9029
+hypoxics: 5463
+necrotics: 486
+migratorys: 370
+
+time: 90
+proliferatives: 9028
+hypoxics: 5464
+necrotics: 486
+migratorys: 372
+
+time: 91
+proliferatives: 9027
+hypoxics: 5465
+necrotics: 486
+migratorys: 379
+
+time: 92
+proliferatives: 9023
+hypoxics: 5469
+necrotics: 486
+migratorys: 384
+
+time: 93
+proliferatives: 9018
+hypoxics: 5473
+necrotics: 487
+migratorys: 375
+
+time: 94
+proliferatives: 9014
+hypoxics: 5477
+necrotics: 487
+migratorys: 380
+
+time: 95
+proliferatives: 9011
+hypoxics: 5480
+necrotics: 487
+migratorys: 388
+
+time: 96
+proliferatives: 9007
+hypoxics: 5483
+necrotics: 488
+migratorys: 398
+
+time: 97
+proliferatives: 9004
+hypoxics: 5486
+necrotics: 488
+migratorys: 397
+
+time: 98
+proliferatives: 9001
+hypoxics: 5488
+necrotics: 489
+migratorys: 391
+
+time: 99
+proliferatives: 8998
+hypoxics: 5491
+necrotics: 489
+migratorys: 401
+
+time: 100
+proliferatives: 8997
+hypoxics: 5492
+necrotics: 489
+migratorys: 400
+
+time: 101
+proliferatives: 8996
+hypoxics: 5493
+necrotics: 489
+migratorys: 408
+
+time: 102
+proliferatives: 8994
+hypoxics: 5495
+necrotics: 489
+migratorys: 406
+
+time: 103
+proliferatives: 8993
+hypoxics: 5495
+necrotics: 490
+migratorys: 403
+
+time: 104
+proliferatives: 8992
+hypoxics: 5496
+necrotics: 490
+migratorys: 408
+
+time: 105
+proliferatives: 8991
+hypoxics: 5497
+necrotics: 490
+migratorys: 406
+
+time: 106
+proliferatives: 8990
+hypoxics: 5498
+necrotics: 490
+migratorys: 397
+
+time: 107
+proliferatives: 8987
+hypoxics: 5501
+necrotics: 490
+migratorys: 403
+
+time: 108
+proliferatives: 8985
+hypoxics: 5503
+necrotics: 490
+migratorys: 409
+
+time: 109
+proliferatives: 8985
+hypoxics: 5503
+necrotics: 490
+migratorys: 416
+
+time: 110
+proliferatives: 8985
+hypoxics: 5503
+necrotics: 490
+migratorys: 423
+
+time: 111
+proliferatives: 8985
+hypoxics: 5503
+necrotics: 490
+migratorys: 422
+
+time: 112
+proliferatives: 8985
+hypoxics: 5503
+necrotics: 490
+migratorys: 416
+
+time: 113
+proliferatives: 8985
+hypoxics: 5503
+necrotics: 490
+migratorys: 416
+
+time: 114
+proliferatives: 8985
+hypoxics: 5503
+necrotics: 490
+migratorys: 416
+
+time: 115
+proliferatives: 8985
+hypoxics: 5503
+necrotics: 490
+migratorys: 424
+
+time: 116
+proliferatives: 8984
+hypoxics: 5504
+necrotics: 490
+migratorys: 424
+
+time: 117
+proliferatives: 8983
+hypoxics: 5505
+necrotics: 490
+migratorys: 423
+
+time: 118
+proliferatives: 8982
+hypoxics: 5505
+necrotics: 491
+migratorys: 427
+
+time: 119
+proliferatives: 8981
+hypoxics: 5506
+necrotics: 491
+migratorys: 424
+
+time: 120
+proliferatives: 8977
+hypoxics: 5510
+necrotics: 491
+migratorys: 429
+
+time: 121
+proliferatives: 8974
+hypoxics: 5513
+necrotics: 491
+migratorys: 422
+
+time: 122
+proliferatives: 8974
+hypoxics: 5512
+necrotics: 492
+migratorys: 422
+
+time: 123
+proliferatives: 8971
+hypoxics: 5515
+necrotics: 492
+migratorys: 424
+
+time: 124
+proliferatives: 8968
+hypoxics: 5516
+necrotics: 494
+migratorys: 422
+
+time: 125
+proliferatives: 8966
+hypoxics: 5518
+necrotics: 494
+migratorys: 428
+
+time: 126
+proliferatives: 8964
+hypoxics: 5519
+necrotics: 495
+migratorys: 433
+
+time: 127
+proliferatives: 8964
+hypoxics: 5518
+necrotics: 496
+migratorys: 437
+
+time: 128
+proliferatives: 8961
+hypoxics: 5521
+necrotics: 496
+migratorys: 438
+
+time: 129
+proliferatives: 8960
+hypoxics: 5522
+necrotics: 496
+migratorys: 442
+
+time: 130
+proliferatives: 8959
+hypoxics: 5523
+necrotics: 496
+migratorys: 446
+
+time: 131
+proliferatives: 8959
+hypoxics: 5523
+necrotics: 496
+migratorys: 438
+
+time: 132
+proliferatives: 8958
+hypoxics: 5524
+necrotics: 496
+migratorys: 439
+
+time: 133
+proliferatives: 8955
+hypoxics: 5527
+necrotics: 496
+migratorys: 437
+
+time: 134
+proliferatives: 8955
+hypoxics: 5527
+necrotics: 496
+migratorys: 439
+
+time: 135
+proliferatives: 8955
+hypoxics: 5527
+necrotics: 496
+migratorys: 440
+
+time: 136
+proliferatives: 8955
+hypoxics: 5527
+necrotics: 496
+migratorys: 438
+
+time: 137
+proliferatives: 8955
+hypoxics: 5527
+necrotics: 496
+migratorys: 438
+
+time: 138
+proliferatives: 8954
+hypoxics: 5528
+necrotics: 496
+migratorys: 435
+
+time: 139
+proliferatives: 8954
+hypoxics: 5528
+necrotics: 496
+migratorys: 436
+
+time: 140
+proliferatives: 8953
+hypoxics: 5529
+necrotics: 496
+migratorys: 438
+
+time: 141
+proliferatives: 8953
+hypoxics: 5529
+necrotics: 496
+migratorys: 443
+
+time: 142
+proliferatives: 8953
+hypoxics: 5529
+necrotics: 496
+migratorys: 445
+
+time: 143
+proliferatives: 8952
+hypoxics: 5530
+necrotics: 496
+migratorys: 450
+
+time: 144
+proliferatives: 8951
+hypoxics: 5531
+necrotics: 496
+migratorys: 450
+
+time: 145
+proliferatives: 8949
+hypoxics: 5533
+necrotics: 496
+migratorys: 442
+
+time: 146
+proliferatives: 8948
+hypoxics: 5534
+necrotics: 496
+migratorys: 447
+
+time: 147
+proliferatives: 8948
+hypoxics: 5534
+necrotics: 496
+migratorys: 447
+
+time: 148
+proliferatives: 8948
+hypoxics: 5534
+necrotics: 496
+migratorys: 452
+
+time: 149
+proliferatives: 8948
+hypoxics: 5534
+necrotics: 496
+migratorys: 445
+
+time: 150
+proliferatives: 8948
+hypoxics: 5534
+necrotics: 496
+migratorys: 445
+
+time: 151
+proliferatives: 8948
+hypoxics: 5534
+necrotics: 496
+migratorys: 443
+
+time: 152
+proliferatives: 8948
+hypoxics: 5534
+necrotics: 496
+migratorys: 445
+
+time: 153
+proliferatives: 8946
+hypoxics: 5536
+necrotics: 496
+migratorys: 449
+
+time: 154
+proliferatives: 8944
+hypoxics: 5538
+necrotics: 496
+migratorys: 449
+
+time: 155
+proliferatives: 8937
+hypoxics: 5545
+necrotics: 496
+migratorys: 443
+
+time: 156
+proliferatives: 8934
+hypoxics: 5548
+necrotics: 496
+migratorys: 435
+
+time: 157
+proliferatives: 8931
+hypoxics: 5551
+necrotics: 496
+migratorys: 439
+
+time: 158
+proliferatives: 8929
+hypoxics: 5553
+necrotics: 496
+migratorys: 439
+
+time: 159
+proliferatives: 8929
+hypoxics: 5553
+necrotics: 496
+migratorys: 433
+
+time: 160
+proliferatives: 8926
+hypoxics: 5556
+necrotics: 496
+migratorys: 432
+
+time: 161
+proliferatives: 8924
+hypoxics: 5558
+necrotics: 496
+migratorys: 429
+
+time: 162
+proliferatives: 8924
+hypoxics: 5558
+necrotics: 496
+migratorys: 431
+
+time: 163
+proliferatives: 8924
+hypoxics: 5558
+necrotics: 496
+migratorys: 430
+
+time: 164
+proliferatives: 8921
+hypoxics: 5561
+necrotics: 496
+migratorys: 431
+
+time: 165
+proliferatives: 8918
+hypoxics: 5564
+necrotics: 496
+migratorys: 430
+
+time: 166
+proliferatives: 8917
+hypoxics: 5565
+necrotics: 496
+migratorys: 426
+
+time: 167
+proliferatives: 8915
+hypoxics: 5567
+necrotics: 496
+migratorys: 426
+
+time: 168
+proliferatives: 8913
+hypoxics: 5569
+necrotics: 496
+migratorys: 433
+
+time: 169
+proliferatives: 8913
+hypoxics: 5569
+necrotics: 496
+migratorys: 433
+
+time: 170
+proliferatives: 8912
+hypoxics: 5570
+necrotics: 496
+migratorys: 434
+
+time: 171
+proliferatives: 8910
+hypoxics: 5572
+necrotics: 496
+migratorys: 432
+
+time: 172
+proliferatives: 8909
+hypoxics: 5573
+necrotics: 496
+migratorys: 432
+
+time: 173
+proliferatives: 8906
+hypoxics: 5576
+necrotics: 496
+migratorys: 440
+
+time: 174
+proliferatives: 8901
+hypoxics: 5581
+necrotics: 496
+migratorys: 437
+
+time: 175
+proliferatives: 8898
+hypoxics: 5584
+necrotics: 496
+migratorys: 424
+
+time: 176
+proliferatives: 8897
+hypoxics: 5585
+necrotics: 496
+migratorys: 425
+
+time: 177
+proliferatives: 8895
+hypoxics: 5587
+necrotics: 496
+migratorys: 425
+
+time: 178
+proliferatives: 8893
+hypoxics: 5589
+necrotics: 496
+migratorys: 428
+
+time: 179
+proliferatives: 8892
+hypoxics: 5590
+necrotics: 496
+migratorys: 426
+
+time: 180
+proliferatives: 8891
+hypoxics: 5591
+necrotics: 496
+migratorys: 426
+
+time: 181
+proliferatives: 8890
+hypoxics: 5592
+necrotics: 496
+migratorys: 421
+
+time: 182
+proliferatives: 8889
+hypoxics: 5593
+necrotics: 496
+migratorys: 423
+
+time: 183
+proliferatives: 8886
+hypoxics: 5596
+necrotics: 496
+migratorys: 429
+
+time: 184
+proliferatives: 8886
+hypoxics: 5596
+necrotics: 496
+migratorys: 436
+
+time: 185
+proliferatives: 8885
+hypoxics: 5597
+necrotics: 496
+migratorys: 437
+
+time: 186
+proliferatives: 8884
+hypoxics: 5598
+necrotics: 496
+migratorys: 438
+
+time: 187
+proliferatives: 8883
+hypoxics: 5599
+necrotics: 496
+migratorys: 438
+
+time: 188
+proliferatives: 8883
+hypoxics: 5599
+necrotics: 496
+migratorys: 437
+
+time: 189
+proliferatives: 8880
+hypoxics: 5602
+necrotics: 496
+migratorys: 439
+
+time: 190
+proliferatives: 8877
+hypoxics: 5605
+necrotics: 496
+migratorys: 440
+
+time: 191
+proliferatives: 8876
+hypoxics: 5606
+necrotics: 496
+migratorys: 432
+
+time: 192
+proliferatives: 8873
+hypoxics: 5609
+necrotics: 496
+migratorys: 435
+
+time: 193
+proliferatives: 8870
+hypoxics: 5612
+necrotics: 496
+migratorys: 438
+
+time: 194
+proliferatives: 8867
+hypoxics: 5615
+necrotics: 496
+migratorys: 435
+
+time: 195
+proliferatives: 8865
+hypoxics: 5617
+necrotics: 496
+migratorys: 431
+
+time: 196
+proliferatives: 8865
+hypoxics: 5617
+necrotics: 496
+migratorys: 437
+
+time: 197
+proliferatives: 8865
+hypoxics: 5617
+necrotics: 496
+migratorys: 439
+
+time: 198
+proliferatives: 8865
+hypoxics: 5617
+necrotics: 496
+migratorys: 439
+
+time: 199
+proliferatives: 8863
+hypoxics: 5619
+necrotics: 496
+migratorys: 438
+
+time: 200
+proliferatives: 8861
+hypoxics: 5621
+necrotics: 496
+migratorys: 438
+
+time: 201
+proliferatives: 8859
+hypoxics: 5623
+necrotics: 496
+migratorys: 437
+
+time: 202
+proliferatives: 8858
+hypoxics: 5624
+necrotics: 496
+migratorys: 432
+
+time: 203
+proliferatives: 8857
+hypoxics: 5625
+necrotics: 496
+migratorys: 437
+
+time: 204
+proliferatives: 8856
+hypoxics: 5626
+necrotics: 496
+migratorys: 437
+
+time: 205
+proliferatives: 8853
+hypoxics: 5629
+necrotics: 496
+migratorys: 436
+
+time: 206
+proliferatives: 8850
+hypoxics: 5631
+necrotics: 497
+migratorys: 433
+
+time: 207
+proliferatives: 8847
+hypoxics: 5634
+necrotics: 497
+migratorys: 436
+
+time: 208
+proliferatives: 8846
+hypoxics: 5635
+necrotics: 497
+migratorys: 429
+
+time: 209
+proliferatives: 8844
+hypoxics: 5637
+necrotics: 497
+migratorys: 427
+
+time: 210
+proliferatives: 8844
+hypoxics: 5637
+necrotics: 497
+migratorys: 430
+
+time: 211
+proliferatives: 8841
+hypoxics: 5640
+necrotics: 497
+migratorys: 435
+
+time: 212
+proliferatives: 8840
+hypoxics: 5641
+necrotics: 497
+migratorys: 430
+
+time: 213
+proliferatives: 8837
+hypoxics: 5644
+necrotics: 497
+migratorys: 427
+
+time: 214
+proliferatives: 8834
+hypoxics: 5647
+necrotics: 497
+migratorys: 423
+
+time: 215
+proliferatives: 8832
+hypoxics: 5649
+necrotics: 497
+migratorys: 423
+
+time: 216
+proliferatives: 8831
+hypoxics: 5650
+necrotics: 497
+migratorys: 421
+
+time: 217
+proliferatives: 8831
+hypoxics: 5650
+necrotics: 497
+migratorys: 422
+
+time: 218
+proliferatives: 8831
+hypoxics: 5650
+necrotics: 497
+migratorys: 422
+
+time: 219
+proliferatives: 8829
+hypoxics: 5652
+necrotics: 497
+migratorys: 429
+
+time: 220
+proliferatives: 8829
+hypoxics: 5652
+necrotics: 497
+migratorys: 424
+
+time: 221
+proliferatives: 8829
+hypoxics: 5652
+necrotics: 497
+migratorys: 420
+
+time: 222
+proliferatives: 8828
+hypoxics: 5653
+necrotics: 497
+migratorys: 427
+
+time: 223
+proliferatives: 8826
+hypoxics: 5655
+necrotics: 497
+migratorys: 428
+
+time: 224
+proliferatives: 8826
+hypoxics: 5653
+necrotics: 499
+migratorys: 428
+
+time: 225
+proliferatives: 8825
+hypoxics: 5654
+necrotics: 499
+migratorys: 421
+
+time: 226
+proliferatives: 8824
+hypoxics: 5655
+necrotics: 499
+migratorys: 426
+
+time: 227
+proliferatives: 8823
+hypoxics: 5656
+necrotics: 499
+migratorys: 432
+
+time: 228
+proliferatives: 8821
+hypoxics: 5658
+necrotics: 499
+migratorys: 421
+
+time: 229
+proliferatives: 8820
+hypoxics: 5659
+necrotics: 499
+migratorys: 418
+
+time: 230
+proliferatives: 8818
+hypoxics: 5661
+necrotics: 499
+migratorys: 418
+
+time: 231
+proliferatives: 8818
+hypoxics: 5661
+necrotics: 499
+migratorys: 421
+
+time: 232
+proliferatives: 8816
+hypoxics: 5663
+necrotics: 499
+migratorys: 421
+
+time: 233
+proliferatives: 8813
+hypoxics: 5666
+necrotics: 499
+migratorys: 429
+
+time: 234
+proliferatives: 8812
+hypoxics: 5667
+necrotics: 499
+migratorys: 428
+
+time: 235
+proliferatives: 8811
+hypoxics: 5668
+necrotics: 499
+migratorys: 431
+
+time: 236
+proliferatives: 8810
+hypoxics: 5669
+necrotics: 499
+migratorys: 431
+
+time: 237
+proliferatives: 8808
+hypoxics: 5671
+necrotics: 499
+migratorys: 430
+
+time: 238
+proliferatives: 8808
+hypoxics: 5671
+necrotics: 499
+migratorys: 431
+
+time: 239
+proliferatives: 8807
+hypoxics: 5672
+necrotics: 499
+migratorys: 436
+
+time: 240
+proliferatives: 8805
+hypoxics: 5674
+necrotics: 499
+migratorys: 431
+
+time: 241
+proliferatives: 8804
+hypoxics: 5675
+necrotics: 499
+migratorys: 432
+
+time: 242
+proliferatives: 8803
+hypoxics: 5675
+necrotics: 500
+migratorys: 429
+
+time: 243
+proliferatives: 8801
+hypoxics: 5677
+necrotics: 500
+migratorys: 432
+
+time: 244
+proliferatives: 8798
+hypoxics: 5680
+necrotics: 500
+migratorys: 433
+
+time: 245
+proliferatives: 8799
+hypoxics: 5680
+necrotics: 500
+migratorys: 440
+
+time: 246
+proliferatives: 8799
+hypoxics: 5680
+necrotics: 500
+migratorys: 432
+
+time: 247
+proliferatives: 8799
+hypoxics: 5680
+necrotics: 500
+migratorys: 437
+
+time: 248
+proliferatives: 8798
+hypoxics: 5681
+necrotics: 500
+migratorys: 437
+
+time: 249
+proliferatives: 8798
+hypoxics: 5681
+necrotics: 500
+migratorys: 437
+
+time: 250
+proliferatives: 8797
+hypoxics: 5682
+necrotics: 500
+migratorys: 444
+
+time: 251
+proliferatives: 8797
+hypoxics: 5682
+necrotics: 500
+migratorys: 450
+
+time: 252
+proliferatives: 8795
+hypoxics: 5684
+necrotics: 500
+migratorys: 447
+
+time: 253
+proliferatives: 8795
+hypoxics: 5684
+necrotics: 500
+migratorys: 443
+
+time: 254
+proliferatives: 8793
+hypoxics: 5686
+necrotics: 500
+migratorys: 440
+
+time: 255
+proliferatives: 8791
+hypoxics: 5687
+necrotics: 501
+migratorys: 438
+
+time: 256
+proliferatives: 8789
+hypoxics: 5689
+necrotics: 501
+migratorys: 445
+
+time: 257
+proliferatives: 8788
+hypoxics: 5690
+necrotics: 501
+migratorys: 445
+
+time: 258
+proliferatives: 8785
+hypoxics: 5693
+necrotics: 501
+migratorys: 436
+
+time: 259
+proliferatives: 8778
+hypoxics: 5700
+necrotics: 501
+migratorys: 435
+
+time: 260
+proliferatives: 8776
+hypoxics: 5702
+necrotics: 501
+migratorys: 432
+
+time: 261
+proliferatives: 8774
+hypoxics: 5704
+necrotics: 501
+migratorys: 436
+
+time: 262
+proliferatives: 8772
+hypoxics: 5706
+necrotics: 501
+migratorys: 434
+
+time: 263
+proliferatives: 8770
+hypoxics: 5708
+necrotics: 501
+migratorys: 437
+
+time: 264
+proliferatives: 8770
+hypoxics: 5707
+necrotics: 502
+migratorys: 433
+
+time: 265
+proliferatives: 8769
+hypoxics: 5708
+necrotics: 502
+migratorys: 441
+
+time: 266
+proliferatives: 8768
+hypoxics: 5708
+necrotics: 503
+migratorys: 436
+
+time: 267
+proliferatives: 8765
+hypoxics: 5711
+necrotics: 503
+migratorys: 432
+
+time: 268
+proliferatives: 8764
+hypoxics: 5712
+necrotics: 503
+migratorys: 430
+
+time: 269
+proliferatives: 8762
+hypoxics: 5714
+necrotics: 503
+migratorys: 435
+
+time: 270
+proliferatives: 8761
+hypoxics: 5715
+necrotics: 503
+migratorys: 437
+
+time: 271
+proliferatives: 8761
+hypoxics: 5715
+necrotics: 503
+migratorys: 436
+
+time: 272
+proliferatives: 8760
+hypoxics: 5716
+necrotics: 503
+migratorys: 437
+
+time: 273
+proliferatives: 8759
+hypoxics: 5717
+necrotics: 503
+migratorys: 436
+
+time: 274
+proliferatives: 8759
+hypoxics: 5717
+necrotics: 503
+migratorys: 439
+
+time: 275
+proliferatives: 8758
+hypoxics: 5718
+necrotics: 503
+migratorys: 434
+
+time: 276
+proliferatives: 8758
+hypoxics: 5718
+necrotics: 503
+migratorys: 438
+
+time: 277
+proliferatives: 8757
+hypoxics: 5719
+necrotics: 503
+migratorys: 441
+
+time: 278
+proliferatives: 8755
+hypoxics: 5721
+necrotics: 503
+migratorys: 441
+
+time: 279
+proliferatives: 8755
+hypoxics: 5721
+necrotics: 503
+migratorys: 439
+
+time: 280
+proliferatives: 8754
+hypoxics: 5723
+necrotics: 503
+migratorys: 437
+
+time: 281
+proliferatives: 8752
+hypoxics: 5724
+necrotics: 503
+migratorys: 433
+
+time: 282
+proliferatives: 8753
+hypoxics: 5724
+necrotics: 503
+migratorys: 433
+
+time: 283
+proliferatives: 8752
+hypoxics: 5724
+necrotics: 503
+migratorys: 428
+
+time: 284
+proliferatives: 8752
+hypoxics: 5724
+necrotics: 503
+migratorys: 425
+
+time: 285
+proliferatives: 8752
+hypoxics: 5724
+necrotics: 503
+migratorys: 423
+
+time: 286
+proliferatives: 8752
+hypoxics: 5724
+necrotics: 503
+migratorys: 431
+
+time: 287
+proliferatives: 8752
+hypoxics: 5728
+necrotics: 503
+migratorys: 430
+
+time: 288
+proliferatives: 8748
+hypoxics: 5731
+necrotics: 503
+migratorys: 426
+
+time: 289
+proliferatives: 8742
+hypoxics: 5734
+necrotics: 503
+migratorys: 425
+
+time: 290
+proliferatives: 8740
+hypoxics: 5736
+necrotics: 503
+migratorys: 425
+
+time: 291
+proliferatives: 8740
+hypoxics: 5737
+necrotics: 503
+migratorys: 428
+
+time: 292
+proliferatives: 8737
+hypoxics: 5739
+necrotics: 503
+migratorys: 426
+
+time: 293
+proliferatives: 8737
+hypoxics: 5739
+necrotics: 503
+migratorys: 428
+
+time: 294
+proliferatives: 8737
+hypoxics: 5742
+necrotics: 503
+migratorys: 421
+
+time: 295
+proliferatives: 8733
+hypoxics: 5743
+necrotics: 503
+migratorys: 423
+
+time: 296
+proliferatives: 8735
+hypoxics: 5743
+necrotics: 503
+migratorys: 428
+
+time: 297
+proliferatives: 8734
+hypoxics: 5743
+necrotics: 503
+migratorys: 423
+
+time: 298
+proliferatives: 8737
+hypoxics: 5746
+necrotics: 503
+migratorys: 413
+
+time: 299
+proliferatives: 8727
+hypoxics: 5749
+necrotics: 503
+migratorys: 421
+
+time: 300
+proliferatives: 8735
+hypoxics: 5750
+necrotics: 503
+migratorys: 413
+
+time: 301
+proliferatives: 8724
+hypoxics: 5752
+necrotics: 503
+migratorys: 416
+
+time: 302
+proliferatives: 8735
+hypoxics: 5752
+necrotics: 503
+migratorys: 410
+
+time: 303
+proliferatives: 8724
+hypoxics: 5752
+necrotics: 503
+migratorys: 414
+
+time: 304
+proliferatives: 8731
+hypoxics: 5753
+necrotics: 503
+migratorys: 412
+
+time: 305
+proliferatives: 8723
+hypoxics: 5753
+necrotics: 503
+migratorys: 415
+
+time: 306
+proliferatives: 8727
+hypoxics: 5754
+necrotics: 503
+migratorys: 417
+
+time: 307
+proliferatives: 8726
+hypoxics: 5753
+necrotics: 504
+migratorys: 416
+
+time: 308
+proliferatives: 8728
+hypoxics: 5753
+necrotics: 504
+migratorys: 416
+
+time: 309
+proliferatives: 8728
+hypoxics: 5753
+necrotics: 504
+migratorys: 415
+
+time: 310
+proliferatives: 8727
+hypoxics: 5754
+necrotics: 504
+migratorys: 403
+
+time: 311
+proliferatives: 8723
+hypoxics: 5754
+necrotics: 504
+migratorys: 409
+
+time: 312
+proliferatives: 8729
+hypoxics: 5755
+necrotics: 504
+migratorys: 403
+
+time: 313
+proliferatives: 8721
+hypoxics: 5756
+necrotics: 504
+migratorys: 408
+
+time: 314
+proliferatives: 8729
+hypoxics: 5756
+necrotics: 504
+migratorys: 400
+
+time: 315
+proliferatives: 8728
+hypoxics: 5756
+necrotics: 504
+migratorys: 401
+
+time: 316
+proliferatives: 8726
+hypoxics: 5757
+necrotics: 504
+migratorys: 398
+
+time: 317
+proliferatives: 8725
+hypoxics: 5757
+necrotics: 504
+migratorys: 400
+
+time: 318
+proliferatives: 8729
+hypoxics: 5758
+necrotics: 504
+migratorys: 394
+
+time: 319
+proliferatives: 8722
+hypoxics: 5757
+necrotics: 505
+migratorys: 404
+
+time: 320
+proliferatives: 8729
+hypoxics: 5757
+necrotics: 506
+migratorys: 392
+
+time: 321
+proliferatives: 8722
+hypoxics: 5756
+necrotics: 507
+migratorys: 398
+
+time: 322
+proliferatives: 8722
+hypoxics: 5757
+necrotics: 507
+migratorys: 398
+
+time: 323
+proliferatives: 8727
+hypoxics: 5756
+necrotics: 508
+migratorys: 393
+
+time: 324
+proliferatives: 8724
+hypoxics: 5756
+necrotics: 508
+migratorys: 394
+
+time: 325
+proliferatives: 8725
+hypoxics: 5756
+necrotics: 508
+migratorys: 394
+
+time: 326
+proliferatives: 8728
+hypoxics: 5757
+necrotics: 508
+migratorys: 390
+
+time: 327
+proliferatives: 8726
+hypoxics: 5756
+necrotics: 509
+migratorys: 385
+
+time: 328
+proliferatives: 8727
+hypoxics: 5756
+necrotics: 510
+migratorys: 382
+
+time: 329
+proliferatives: 8716
+hypoxics: 5755
+necrotics: 511
+migratorys: 393
+
+time: 330
+proliferatives: 8727
+hypoxics: 5756
+necrotics: 511
+migratorys: 387
+
+time: 331
+proliferatives: 8721
+hypoxics: 5755
+necrotics: 513
+migratorys: 390
+
+time: 332
+proliferatives: 8720
+hypoxics: 5753
+necrotics: 515
+migratorys: 391
+
+time: 333
+proliferatives: 8725
+hypoxics: 5752
+necrotics: 516
+migratorys: 387
+
+time: 334
+proliferatives: 8721
+hypoxics: 5753
+necrotics: 516
+migratorys: 388
+
+time: 335
+proliferatives: 8718
+hypoxics: 5752
+necrotics: 517
+migratorys: 390
+
+time: 336
+proliferatives: 8725
+hypoxics: 5752
+necrotics: 517
+migratorys: 390
+
+time: 337
+proliferatives: 8721
+hypoxics: 5754
+necrotics: 517
+migratorys: 390
+
+time: 338
+proliferatives: 8715
+hypoxics: 5752
+necrotics: 520
+migratorys: 393
+
+time: 339
+proliferatives: 8718
+hypoxics: 5752
+necrotics: 521
+migratorys: 390
+
+time: 340
+proliferatives: 8717
+hypoxics: 5751
+necrotics: 522
+migratorys: 391
+
+time: 341
+proliferatives: 8722
+hypoxics: 5751
+necrotics: 522
+migratorys: 388
+
+time: 342
+proliferatives: 8719
+hypoxics: 5751
+necrotics: 522
+migratorys: 389
+
+time: 343
+proliferatives: 8716
+hypoxics: 5752
+necrotics: 522
+migratorys: 386
+
+time: 344
+proliferatives: 8719
+hypoxics: 5751
+necrotics: 523
+migratorys: 387
+
+time: 345
+proliferatives: 8717
+hypoxics: 5751
+necrotics: 523
+migratorys: 385
+
+time: 346
+proliferatives: 8717
+hypoxics: 5751
+necrotics: 523
+migratorys: 387
+
+time: 347
+proliferatives: 8720
+hypoxics: 5751
+necrotics: 523
+migratorys: 383
+
+time: 348
+proliferatives: 8717
+hypoxics: 5750
+necrotics: 524
+migratorys: 384
+
+time: 349
+proliferatives: 8719
+hypoxics: 5750
+necrotics: 524
+migratorys: 384
+
+time: 350
+proliferatives: 8720
+hypoxics: 5750
+necrotics: 524
+migratorys: 382
+
+time: 351
+proliferatives: 8720
+hypoxics: 5750
+necrotics: 524
+migratorys: 381
+
+time: 352
+proliferatives: 8717
+hypoxics: 5749
+necrotics: 525
+migratorys: 384
+
+time: 353
+proliferatives: 8725
+hypoxics: 5749
+necrotics: 525
+migratorys: 379
+
+time: 354
+proliferatives: 8720
+hypoxics: 5749
+necrotics: 525
+migratorys: 380
+
+time: 355
+proliferatives: 8717
+hypoxics: 5749
+necrotics: 525
+migratorys: 381
+
+time: 356
+proliferatives: 8719
+hypoxics: 5749
+necrotics: 525
+migratorys: 385
+
+time: 357
+proliferatives: 8722
+hypoxics: 5749
+necrotics: 525
+migratorys: 382
+
+time: 358
+proliferatives: 8720
+hypoxics: 5749
+necrotics: 525
+migratorys: 380
+
+time: 359
+proliferatives: 8718
+hypoxics: 5749
+necrotics: 525
+migratorys: 380
+
+time: 360
+proliferatives: 8717
+hypoxics: 5750
+necrotics: 525
+migratorys: 386
+
+time: 361
+proliferatives: 8714
+hypoxics: 5750
+necrotics: 526
+migratorys: 392
+
+time: 362
+proliferatives: 8718
+hypoxics: 5749
+necrotics: 528
+migratorys: 388
+
+time: 363
+proliferatives: 8711
+hypoxics: 5748
+necrotics: 529
+migratorys: 390
+
+time: 364
+proliferatives: 8715
+hypoxics: 5751
+necrotics: 529
+migratorys: 388
+
+time: 365
+proliferatives: 8716
+hypoxics: 5749
+necrotics: 532
+migratorys: 384
+
+time: 366
+proliferatives: 8710
+hypoxics: 5748
+necrotics: 533
+migratorys: 387
+
+time: 367
+proliferatives: 8713
+hypoxics: 5748
+necrotics: 533
+migratorys: 381
+
+time: 368
+proliferatives: 8714
+hypoxics: 5747
+necrotics: 534
+migratorys: 376
+
+time: 369
+proliferatives: 8716
+hypoxics: 5746
+necrotics: 535
+migratorys: 367
+
+time: 370
+proliferatives: 8712
+hypoxics: 5744
+necrotics: 537
+migratorys: 370
+
+time: 371
+proliferatives: 8717
+hypoxics: 5744
+necrotics: 537
+migratorys: 370
+
+time: 372
+proliferatives: 8711
+hypoxics: 5744
+necrotics: 537
+migratorys: 373
+
+time: 373
+proliferatives: 8718
+hypoxics: 5744
+necrotics: 537
+migratorys: 369
+
+time: 374
+proliferatives: 8714
+hypoxics: 5743
+necrotics: 538
+migratorys: 368
+
+time: 375
+proliferatives: 8713
+hypoxics: 5743
+necrotics: 538
+migratorys: 369
+
+time: 376
+proliferatives: 8718
+hypoxics: 5743
+necrotics: 538
+migratorys: 365
+
+time: 377
+proliferatives: 8709
+hypoxics: 5742
+necrotics: 539
+migratorys: 368
+
+time: 378
+proliferatives: 8715
+hypoxics: 5741
+necrotics: 540
+migratorys: 369
+
+time: 379
+proliferatives: 8716
+hypoxics: 5741
+necrotics: 540
+migratorys: 367
+
+time: 380
+proliferatives: 8716
+hypoxics: 5741
+necrotics: 540
+migratorys: 367
+
+time: 381
+proliferatives: 8719
+hypoxics: 5741
+necrotics: 540
+migratorys: 363
+
+time: 382
+proliferatives: 8713
+hypoxics: 5741
+necrotics: 540
+migratorys: 365
+
+time: 383
+proliferatives: 8718
+hypoxics: 5741
+necrotics: 540
+migratorys: 364
+
+time: 384
+proliferatives: 8716
+hypoxics: 5741
+necrotics: 540
+migratorys: 360
+
+time: 385
+proliferatives: 8713
+hypoxics: 5739
+necrotics: 542
+migratorys: 364
+
+time: 386
+proliferatives: 8716
+hypoxics: 5739
+necrotics: 542
+migratorys: 361
+
+time: 387
+proliferatives: 8715
+hypoxics: 5738
+necrotics: 543
+migratorys: 360
+
+time: 388
+proliferatives: 8718
+hypoxics: 5736
+necrotics: 545
+migratorys: 355
+
+time: 389
+proliferatives: 8716
+hypoxics: 5735
+necrotics: 546
+migratorys: 354
+
+time: 390
+proliferatives: 8714
+hypoxics: 5735
+necrotics: 546
+migratorys: 358
+
+time: 391
+proliferatives: 8716
+hypoxics: 5735
+necrotics: 546
+migratorys: 355
+
+time: 392
+proliferatives: 8713
+hypoxics: 5735
+necrotics: 546
+migratorys: 358
+
+time: 393
+proliferatives: 8718
+hypoxics: 5735
+necrotics: 546
+migratorys: 356
+
+time: 394
+proliferatives: 8717
+hypoxics: 5735
+necrotics: 546
+migratorys: 353
+
+time: 395
+proliferatives: 8715
+hypoxics: 5734
+necrotics: 547
+migratorys: 354
+
+time: 396
+proliferatives: 8718
+hypoxics: 5734
+necrotics: 547
+migratorys: 352
+
+time: 397
+proliferatives: 8715
+hypoxics: 5734
+necrotics: 547
+migratorys: 352
+
+time: 398
+proliferatives: 8719
+hypoxics: 5734
+necrotics: 547
+migratorys: 347
+
+time: 399
+proliferatives: 8717
+hypoxics: 5732
+necrotics: 549
+migratorys: 349
+
+time: 400
+proliferatives: 8717
+hypoxics: 5732
+necrotics: 549
+migratorys: 348
+
+time: 401
+proliferatives: 8716
+hypoxics: 5732
+necrotics: 549
+migratorys: 348
+
+time: 402
+proliferatives: 8717
+hypoxics: 5733
+necrotics: 549
+migratorys: 346
+
+time: 403
+proliferatives: 8716
+hypoxics: 5732
+necrotics: 550
+migratorys: 345
+
+time: 404
+proliferatives: 8715
+hypoxics: 5733
+necrotics: 550
+migratorys: 346
+
+time: 405
+proliferatives: 8716
+hypoxics: 5732
+necrotics: 551
+migratorys: 343
+
+time: 406
+proliferatives: 8715
+hypoxics: 5733
+necrotics: 551
+migratorys: 342
+
+time: 407
+proliferatives: 8716
+hypoxics: 5731
+necrotics: 553
+migratorys: 341
+
+time: 408
+proliferatives: 8712
+hypoxics: 5732
+necrotics: 554
+migratorys: 343
+
+time: 409
+proliferatives: 8711
+hypoxics: 5731
+necrotics: 556
+migratorys: 344
+
+time: 410
+proliferatives: 8712
+hypoxics: 5729
+necrotics: 558
+migratorys: 343
+
+time: 411
+proliferatives: 8712
+hypoxics: 5729
+necrotics: 558
+migratorys: 344
+
+time: 412
+proliferatives: 8713
+hypoxics: 5729
+necrotics: 558
+migratorys: 343
+
+time: 413
+proliferatives: 8710
+hypoxics: 5729
+necrotics: 559
+migratorys: 341
+
+time: 414
+proliferatives: 8711
+hypoxics: 5727
+necrotics: 561
+migratorys: 338
+
+time: 415
+proliferatives: 8711
+hypoxics: 5726
+necrotics: 562
+migratorys: 339
+
+time: 416
+proliferatives: 8712
+hypoxics: 5726
+necrotics: 562
+migratorys: 337
+
+time: 417
+proliferatives: 8711
+hypoxics: 5726
+necrotics: 562
+migratorys: 337
+
+time: 418
+proliferatives: 8711
+hypoxics: 5726
+necrotics: 562
+migratorys: 337
+
+time: 419
+proliferatives: 8711
+hypoxics: 5726
+necrotics: 562
+migratorys: 336
+
+time: 420
+proliferatives: 8711
+hypoxics: 5726
+necrotics: 562
+migratorys: 336
+
+time: 421
+proliferatives: 8712
+hypoxics: 5726
+necrotics: 562
+migratorys: 335
+
+time: 422
+proliferatives: 8712
+hypoxics: 5726
+necrotics: 562
+migratorys: 333
+
+time: 423
+proliferatives: 8709
+hypoxics: 5725
+necrotics: 563
+migratorys: 336
+
+time: 424
+proliferatives: 8711
+hypoxics: 5724
+necrotics: 564
+migratorys: 335
+
+time: 425
+proliferatives: 8711
+hypoxics: 5724
+necrotics: 564
+migratorys: 332
+
+time: 426
+proliferatives: 8712
+hypoxics: 5722
+necrotics: 566
+migratorys: 330
+
+time: 427
+proliferatives: 8711
+hypoxics: 5721
+necrotics: 567
+migratorys: 330
+
+time: 428
+proliferatives: 8711
+hypoxics: 5721
+necrotics: 567
+migratorys: 330
+
+time: 429
+proliferatives: 8711
+hypoxics: 5721
+necrotics: 567
+migratorys: 330
+
+time: 430
+proliferatives: 8710
+hypoxics: 5721
+necrotics: 567
+migratorys: 331
+
+time: 431
+proliferatives: 8711
+hypoxics: 5722
+necrotics: 567
+migratorys: 331
+
+time: 432
+proliferatives: 8709
+hypoxics: 5721
+necrotics: 568
+migratorys: 332
+
+time: 433
+proliferatives: 8711
+hypoxics: 5720
+necrotics: 569
+migratorys: 332
+
+time: 434
+proliferatives: 8710
+hypoxics: 5720
+necrotics: 569
+migratorys: 329
+
+time: 435
+proliferatives: 8709
+hypoxics: 5718
+necrotics: 571
+migratorys: 330
+
+time: 436
+proliferatives: 8709
+hypoxics: 5718
+necrotics: 571
+migratorys: 329
+
+time: 437
+proliferatives: 8710
+hypoxics: 5718
+necrotics: 571
+migratorys: 329
+
+time: 438
+proliferatives: 8710
+hypoxics: 5718
+necrotics: 571
+migratorys: 329
+
+time: 439
+proliferatives: 8710
+hypoxics: 5718
+necrotics: 571
+migratorys: 326
+
+time: 440
+proliferatives: 8710
+hypoxics: 5718
+necrotics: 571
+migratorys: 326
+
+time: 441
+proliferatives: 8711
+hypoxics: 5718
+necrotics: 571
+migratorys: 323
+
+time: 442
+proliferatives: 8711
+hypoxics: 5718
+necrotics: 571
+migratorys: 321
+
+time: 443
+proliferatives: 8710
+hypoxics: 5718
+necrotics: 571
+migratorys: 322
+
+time: 444
+proliferatives: 8710
+hypoxics: 5718
+necrotics: 571
+migratorys: 323
+
+time: 445
+proliferatives: 8710
+hypoxics: 5716
+necrotics: 573
+migratorys: 323
+
+time: 446
+proliferatives: 8710
+hypoxics: 5716
+necrotics: 573
+migratorys: 324
+
+time: 447
+proliferatives: 8711
+hypoxics: 5716
+necrotics: 573
+migratorys: 323
+
+time: 448
+proliferatives: 8708
+hypoxics: 5717
+necrotics: 573
+migratorys: 323
+
+time: 449
+proliferatives: 8710
+hypoxics: 5716
+necrotics: 574
+migratorys: 322
+
+time: 450
+proliferatives: 8710
+hypoxics: 5715
+necrotics: 575
+migratorys: 322
+
+time: 451
+proliferatives: 8710
+hypoxics: 5715
+necrotics: 575
+migratorys: 320
+
+time: 452
+proliferatives: 8710
+hypoxics: 5714
+necrotics: 576
+migratorys: 319
+
+time: 453
+proliferatives: 8710
+hypoxics: 5714
+necrotics: 576
+migratorys: 318
+
+time: 454
+proliferatives: 8709
+hypoxics: 5714
+necrotics: 576
+migratorys: 319
+
+time: 455
+proliferatives: 8710
+hypoxics: 5713
+necrotics: 577
+migratorys: 318
+
+time: 456
+proliferatives: 8709
+hypoxics: 5713
+necrotics: 577
+migratorys: 319
+
+time: 457
+proliferatives: 8709
+hypoxics: 5713
+necrotics: 577
+migratorys: 319
+
+time: 458
+proliferatives: 8710
+hypoxics: 5713
+necrotics: 577
+migratorys: 319
+
+time: 459
+proliferatives: 8708
+hypoxics: 5713
+necrotics: 577
+migratorys: 318
+
+time: 460
+proliferatives: 8710
+hypoxics: 5713
+necrotics: 577
+migratorys: 316
+
+time: 461
+proliferatives: 8710
+hypoxics: 5713
+necrotics: 577
+migratorys: 315
+
+time: 462
+proliferatives: 8708
+hypoxics: 5712
+necrotics: 578
+migratorys: 317
+
+time: 463
+proliferatives: 8710
+hypoxics: 5711
+necrotics: 579
+migratorys: 316
+
+time: 464
+proliferatives: 8709
+hypoxics: 5711
+necrotics: 579
+migratorys: 317
+
+time: 465
+proliferatives: 8710
+hypoxics: 5711
+necrotics: 579
+migratorys: 316
+
+time: 466
+proliferatives: 8709
+hypoxics: 5711
+necrotics: 579
+migratorys: 315
+
+time: 467
+proliferatives: 8708
+hypoxics: 5712
+necrotics: 579
+migratorys: 314
+
+time: 468
+proliferatives: 8707
+hypoxics: 5708
+necrotics: 583
+migratorys: 316
+
+time: 469
+proliferatives: 8709
+hypoxics: 5708
+necrotics: 583
+migratorys: 314
+
+time: 470
+proliferatives: 8709
+hypoxics: 5706
+necrotics: 585
+migratorys: 310
+
+time: 471
+proliferatives: 8709
+hypoxics: 5705
+necrotics: 586
+migratorys: 310
+
+time: 472
+proliferatives: 8708
+hypoxics: 5704
+necrotics: 587
+migratorys: 311
+
+time: 473
+proliferatives: 8709
+hypoxics: 5704
+necrotics: 587
+migratorys: 310
+
+time: 474
+proliferatives: 8709
+hypoxics: 5704
+necrotics: 587
+migratorys: 309
+
+time: 475
+proliferatives: 8709
+hypoxics: 5703
+necrotics: 588
+migratorys: 309
+
+time: 476
+proliferatives: 8709
+hypoxics: 5703
+necrotics: 588
+migratorys: 308
+
+time: 477
+proliferatives: 8709
+hypoxics: 5703
+necrotics: 588
+migratorys: 308
+
+time: 478
+proliferatives: 8708
+hypoxics: 5703
+necrotics: 588
+migratorys: 309
+
+time: 479
+proliferatives: 8709
+hypoxics: 5702
+necrotics: 589
+migratorys: 309
+
+time: 480
+proliferatives: 8707
+hypoxics: 5702
+necrotics: 589
+migratorys: 311
+
+time: 481
+proliferatives: 8709
+hypoxics: 5701
+necrotics: 590
+migratorys: 309
+
+time: 482
+proliferatives: 8709
+hypoxics: 5701
+necrotics: 590
+migratorys: 309
+
+time: 483
+proliferatives: 8709
+hypoxics: 5701
+necrotics: 590
+migratorys: 309
+
+time: 484
+proliferatives: 8709
+hypoxics: 5701
+necrotics: 590
+migratorys: 309
+
+time: 485
+proliferatives: 8708
+hypoxics: 5701
+necrotics: 590
+migratorys: 310
+
+time: 486
+proliferatives: 8708
+hypoxics: 5700
+necrotics: 591
+migratorys: 310
+
+time: 487
+proliferatives: 8708
+hypoxics: 5700
+necrotics: 591
+migratorys: 309
+
+time: 488
+proliferatives: 8709
+hypoxics: 5700
+necrotics: 591
+migratorys: 306
+
+time: 489
+proliferatives: 8709
+hypoxics: 5698
+necrotics: 593
+migratorys: 306
+
+time: 490
+proliferatives: 8708
+hypoxics: 5698
+necrotics: 593
+migratorys: 307
+
+time: 491
+proliferatives: 8709
+hypoxics: 5697
+necrotics: 594
+migratorys: 307
+
+time: 492
+proliferatives: 8707
+hypoxics: 5697
+necrotics: 594
+migratorys: 309
+
+time: 493
+proliferatives: 8709
+hypoxics: 5696
+necrotics: 595
+migratorys: 307
+
+time: 494
+proliferatives: 8709
+hypoxics: 5696
+necrotics: 595
+migratorys: 307
+
+time: 495
+proliferatives: 8709
+hypoxics: 5696
+necrotics: 595
+migratorys: 307
+
+time: 496
+proliferatives: 8709
+hypoxics: 5696
+necrotics: 595
+migratorys: 306
+
+time: 497
+proliferatives: 8709
+hypoxics: 5696
+necrotics: 595
+migratorys: 306
+
+time: 498
+proliferatives: 8708
+hypoxics: 5697
+necrotics: 595
+migratorys: 306
+
+time: 499
+proliferatives: 8708
+hypoxics: 5696
+necrotics: 596
+migratorys: 305
+
+[EOF]

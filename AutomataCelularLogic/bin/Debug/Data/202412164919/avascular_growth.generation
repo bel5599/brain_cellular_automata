@@ -1,0 +1,181 @@
+time: 0
+growth: 0
+verhulst: 0
+
+time: 1
+growth: 1
+verhulst: 1
+
+time: 2
+growth: 2
+verhulst: 2
+
+time: 3
+growth: 3
+verhulst: 3
+
+time: 4
+growth: 4
+verhulst: 4
+
+time: 5
+growth: 5
+verhulst: 5
+
+time: 6
+growth: 6
+verhulst: 6
+
+time: 7
+growth: 7
+verhulst: 7
+
+time: 8
+growth: 9
+verhulst: 9
+
+time: 9
+growth: 11
+verhulst: 11
+
+time: 10
+growth: 14
+verhulst: 14
+
+time: 11
+growth: 18
+verhulst: 18
+
+time: 12
+growth: 23
+verhulst: 23
+
+time: 13
+growth: 30
+verhulst: 30
+
+time: 14
+growth: 39
+verhulst: 39
+
+time: 15
+growth: 51
+verhulst: 51
+
+time: 16
+growth: 68
+verhulst: 68
+
+time: 17
+growth: 92
+verhulst: 92
+
+time: 18
+growth: 126
+verhulst: 126
+
+time: 19
+growth: 174
+verhulst: 174
+
+time: 20
+growth: 243
+verhulst: 243
+
+time: 21
+growth: 342
+verhulst: 342
+
+time: 22
+growth: 486
+verhulst: 486
+
+time: 23
+growth: 695
+verhulst: 695
+
+time: 24
+growth: 996
+verhulst: 996
+
+time: 25
+growth: 1423
+verhulst: 1423
+
+time: 26
+growth: 1846
+verhulst: 2011
+
+time: 27
+growth: 2011
+verhulst: 2011
+
+time: 28
+growth: 2239
+verhulst: 2781
+
+time: 29
+growth: 2472
+verhulst: 2781
+
+time: 30
+growth: 2721
+verhulst: 2781
+
+time: 31
+growth: 2781
+verhulst: 2781
+
+time: 32
+growth: 3212
+verhulst: 3711
+
+time: 33
+growth: 3564
+verhulst: 3711
+
+time: 34
+growth: 3711
+verhulst: 3711
+
+time: 35
+growth: 4032
+verhulst: 4706
+
+time: 36
+growth: 4317
+verhulst: 4706
+
+time: 37
+growth: 4597
+verhulst: 4706
+
+time: 38
+growth: 4706
+verhulst: 4706
+
+time: 39
+growth: 5267
+verhulst: 5604
+
+time: 40
+growth: 5604
+verhulst: 5604
+
+time: 41
+growth: 6169
+verhulst: 6257
+
+time: 42
+growth: 6257
+verhulst: 6257
+
+time: 43
+growth: 6630
+verhulst: 6630
+
+time: 44
+growth: 6801
+verhulst: 6801
+
+[EOF]

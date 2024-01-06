@@ -1,0 +1,206 @@
+time: 0
+time1: 0
+growth: 0
+verhulst: 0
+
+time: 1
+time1: 1
+growth: 1
+verhulst: 1
+
+time: 2
+time1: 2
+growth: 2
+verhulst: 2
+
+time: 3
+time1: 3
+growth: 3
+verhulst: 3
+
+time: 4
+time1: 4
+growth: 4
+verhulst: 4
+
+time: 5
+time1: 5
+growth: 5
+verhulst: 5
+
+time: 6
+time1: 6
+growth: 7
+verhulst: 7
+
+time: 7
+time1: 7
+growth: 9
+verhulst: 9
+
+time: 8
+time1: 8
+growth: 12
+verhulst: 12
+
+time: 9
+time1: 9
+growth: 16
+verhulst: 16
+
+time: 10
+time1: 10
+growth: 22
+verhulst: 22
+
+time: 11
+time1: 11
+growth: 30
+verhulst: 30
+
+time: 12
+time1: 12
+growth: 41
+verhulst: 41
+
+time: 13
+time1: 13
+growth: 58
+verhulst: 58
+
+time: 14
+time1: 14
+growth: 83
+verhulst: 83
+
+time: 15
+time1: 15
+growth: 120
+verhulst: 120
+
+time: 16
+time1: 16
+growth: 177
+verhulst: 177
+
+time: 17
+time1: 17
+growth: 264
+verhulst: 264
+
+time: 18
+time1: 18
+growth: 400
+verhulst: 400
+
+time: 19
+time1: 19
+growth: 612
+verhulst: 612
+
+time: 20
+time1: 20
+growth: 942
+verhulst: 942
+
+time: 21
+time1: 21
+growth: 1447
+verhulst: 1447
+
+time: 22
+time1: 22
+growth: 1756
+verhulst: 2190
+
+time: 22
+time1: 23
+growth: 1958
+verhulst: 2190
+
+time: 22
+time1: 24
+growth: 2143
+verhulst: 2190
+
+time: 22
+time1: 25
+growth: 2190
+verhulst: 2190
+
+time: 23
+time1: 26
+growth: 2520
+verhulst: 3205
+
+time: 23
+time1: 27
+growth: 2825
+verhulst: 3205
+
+time: 23
+time1: 28
+growth: 3173
+verhulst: 3205
+
+time: 23
+time1: 29
+growth: 3205
+verhulst: 3205
+
+time: 24
+time1: 30
+growth: 3798
+verhulst: 4421
+
+time: 24
+time1: 31
+growth: 4065
+verhulst: 4421
+
+time: 24
+time1: 32
+growth: 4286
+verhulst: 4421
+
+time: 24
+time1: 33
+growth: 4421
+verhulst: 4421
+
+time: 25
+time1: 34
+growth: 4999
+verhulst: 5593
+
+time: 25
+time1: 35
+growth: 5466
+verhulst: 5593
+
+time: 25
+time1: 36
+growth: 5593
+verhulst: 5593
+
+time: 26
+time1: 37
+growth: 6382
+verhulst: 6406
+
+time: 26
+time1: 38
+growth: 6406
+verhulst: 6406
+
+time: 27
+time1: 39
+growth: 6771
+verhulst: 6771
+
+time: 28
+time1: 40
+growth: 6875
+verhulst: 6875
+
+[EOF]

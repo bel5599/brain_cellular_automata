@@ -1,0 +1,358 @@
+time: 0
+neuron: 1066
+astrocyte: 1066
+stemcells: 1066
+
+time: 1
+neuron: 1066
+astrocyte: 1066
+stemcells: 1066
+
+time: 2
+neuron: 1066
+astrocyte: 1066
+stemcells: 1065
+
+time: 3
+neuron: 1066
+astrocyte: 1066
+stemcells: 1065
+
+time: 4
+neuron: 1066
+astrocyte: 1066
+stemcells: 1064
+
+time: 5
+neuron: 1066
+astrocyte: 1066
+stemcells: 1063
+
+time: 6
+neuron: 1066
+astrocyte: 1066
+stemcells: 1063
+
+time: 7
+neuron: 1066
+astrocyte: 1066
+stemcells: 1063
+
+time: 8
+neuron: 1066
+astrocyte: 1066
+stemcells: 1061
+
+time: 9
+neuron: 1066
+astrocyte: 1066
+stemcells: 1059
+
+time: 10
+neuron: 1066
+astrocyte: 1066
+stemcells: 1057
+
+time: 11
+neuron: 1066
+astrocyte: 1066
+stemcells: 1054
+
+time: 12
+neuron: 1066
+astrocyte: 1066
+stemcells: 1050
+
+time: 13
+neuron: 1066
+astrocyte: 1066
+stemcells: 1045
+
+time: 14
+neuron: 1066
+astrocyte: 1066
+stemcells: 1032
+
+time: 15
+neuron: 1066
+astrocyte: 1066
+stemcells: 1019
+
+time: 16
+neuron: 1066
+astrocyte: 1066
+stemcells: 987
+
+time: 17
+neuron: 1065
+astrocyte: 1066
+stemcells: 941
+
+time: 18
+neuron: 1061
+astrocyte: 1065
+stemcells: 867
+
+time: 19
+neuron: 1057
+astrocyte: 1062
+stemcells: 744
+
+time: 20
+neuron: 1047
+astrocyte: 1051
+stemcells: 529
+
+time: 21
+neuron: 1023
+astrocyte: 1024
+stemcells: 214
+
+time: 22
+neuron: 1022
+astrocyte: 1020
+stemcells: 212
+
+time: 23
+neuron: 1007
+astrocyte: 1010
+stemcells: 148
+
+time: 24
+neuron: 998
+astrocyte: 1004
+stemcells: 121
+
+time: 25
+neuron: 991
+astrocyte: 999
+stemcells: 104
+
+time: 26
+neuron: 985
+astrocyte: 993
+stemcells: 86
+
+time: 27
+neuron: 973
+astrocyte: 977
+stemcells: 74
+
+time: 28
+neuron: 963
+astrocyte: 969
+stemcells: 66
+
+time: 29
+neuron: 952
+astrocyte: 958
+stemcells: 62
+
+time: 30
+neuron: 947
+astrocyte: 952
+stemcells: 58
+
+time: 31
+neuron: 939
+astrocyte: 944
+stemcells: 52
+
+time: 32
+neuron: 924
+astrocyte: 935
+stemcells: 50
+
+time: 33
+neuron: 909
+astrocyte: 926
+stemcells: 49
+
+time: 34
+neuron: 894
+astrocyte: 916
+stemcells: 48
+
+time: 35
+neuron: 891
+astrocyte: 913
+stemcells: 48
+
+time: 36
+neuron: 870
+astrocyte: 894
+stemcells: 45
+
+time: 37
+neuron: 844
+astrocyte: 874
+stemcells: 44
+
+time: 38
+neuron: 831
+astrocyte: 867
+stemcells: 42
+
+time: 39
+neuron: 820
+astrocyte: 859
+stemcells: 41
+
+time: 40
+neuron: 819
+astrocyte: 858
+stemcells: 41
+
+time: 41
+neuron: 814
+astrocyte: 856
+stemcells: 41
+
+time: 42
+neuron: 812
+astrocyte: 854
+stemcells: 41
+
+time: 43
+neuron: 782
+astrocyte: 830
+stemcells: 37
+
+time: 44
+neuron: 757
+astrocyte: 800
+stemcells: 35
+
+time: 45
+neuron: 746
+astrocyte: 786
+stemcells: 31
+
+time: 46
+neuron: 729
+astrocyte: 771
+stemcells: 31
+
+time: 47
+neuron: 727
+astrocyte: 767
+stemcells: 31
+
+time: 48
+neuron: 714
+astrocyte: 757
+stemcells: 27
+
+time: 49
+neuron: 698
+astrocyte: 740
+stemcells: 25
+
+time: 50
+neuron: 676
+astrocyte: 725
+stemcells: 25
+
+time: 51
+neuron: 662
+astrocyte: 711
+stemcells: 25
+
+time: 52
+neuron: 630
+astrocyte: 687
+stemcells: 25
+
+time: 53
+neuron: 611
+astrocyte: 674
+stemcells: 25
+
+time: 54
+neuron: 606
+astrocyte: 664
+stemcells: 25
+
+time: 55
+neuron: 606
+astrocyte: 663
+stemcells: 25
+
+time: 56
+neuron: 606
+astrocyte: 663
+stemcells: 25
+
+time: 57
+neuron: 606
+astrocyte: 663
+stemcells: 25
+
+time: 58
+neuron: 606
+astrocyte: 663
+stemcells: 25
+
+time: 59
+neuron: 606
+astrocyte: 663
+stemcells: 25
+
+time: 60
+neuron: 606
+astrocyte: 663
+stemcells: 25
+
+time: 61
+neuron: 606
+astrocyte: 663
+stemcells: 25
+
+time: 62
+neuron: 606
+astrocyte: 663
+stemcells: 25
+
+time: 63
+neuron: 606
+astrocyte: 663
+stemcells: 25
+
+time: 64
+neuron: 606
+astrocyte: 663
+stemcells: 25
+
+time: 65
+neuron: 606
+astrocyte: 663
+stemcells: 25
+
+time: 66
+neuron: 606
+astrocyte: 663
+stemcells: 25
+
+time: 67
+neuron: 606
+astrocyte: 663
+stemcells: 25
+
+time: 68
+neuron: 606
+astrocyte: 663
+stemcells: 25
+
+time: 69
+neuron: 606
+astrocyte: 663
+stemcells: 25
+
+time: 70
+neuron: 606
+astrocyte: 663
+stemcells: 25
+
+time: 71
+neuron: 606
+astrocyte: 663

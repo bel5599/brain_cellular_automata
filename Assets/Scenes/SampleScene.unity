@@ -543,6 +543,10 @@ MonoBehaviour:
   AstrocytePrefab: {fileID: 5390118347573300508, guid: c60c00ba8c7605b4187f834facb09a99, type: 3}
   MigratoryPrefab: {fileID: 6178127963770562908, guid: fb7aed41550d6574f9d515ec89a8df82, type: 3}
   informationPrefab: {fileID: 6998599482256410250, guid: 8452b7c2e47ec1140811d5914ce7c679, type: 3}
+  primeroPrefab: {fileID: 8618849395609975872, guid: a93070dad02c6f14ca5b5006e88c5265, type: 3}
+  segundoPrefab: {fileID: 1923252136471596826, guid: abc91f5044a491a47a5cb1f5c3de3413, type: 3}
+  terceroPrefab: {fileID: 1609679731918996916, guid: e02d29fedf9c10e4a99fc2698fac6842, type: 3}
+  cuartoPrefab: {fileID: 5724820288053214974, guid: 3d90dbe2bedc9894f95e69deb4aee4d1, type: 3}
   VasoPrefb: {fileID: 5205826935015353675, guid: 268fd9e6a56b4d141b6553a9e2cb8b6a, type: 3}
   ArteryPrefab: {fileID: 5268047422695277247, guid: 196572a7a106cf740a61d4a5a2d942cc, type: 3}
   NeoVasoPrefb: {fileID: 5205826935015353675, guid: cfbce4c44b8c99140894a16cfbe16fcd, type: 3}

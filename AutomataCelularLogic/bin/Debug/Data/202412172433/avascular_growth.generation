@@ -1,0 +1,165 @@
+time: 0
+growth: 0
+verhulst: 0
+
+time: 1
+growth: 1
+verhulst: 1
+
+time: 2
+growth: 2
+verhulst: 2
+
+time: 3
+growth: 3
+verhulst: 3
+
+time: 4
+growth: 4
+verhulst: 4
+
+time: 5
+growth: 5
+verhulst: 5
+
+time: 6
+growth: 7
+verhulst: 7
+
+time: 7
+growth: 10
+verhulst: 10
+
+time: 8
+growth: 14
+verhulst: 14
+
+time: 9
+growth: 19
+verhulst: 19
+
+time: 10
+growth: 27
+verhulst: 27
+
+time: 11
+growth: 39
+verhulst: 39
+
+time: 12
+growth: 57
+verhulst: 57
+
+time: 13
+growth: 85
+verhulst: 85
+
+time: 14
+growth: 129
+verhulst: 129
+
+time: 15
+growth: 200
+verhulst: 200
+
+time: 16
+growth: 316
+verhulst: 316
+
+time: 17
+growth: 507
+verhulst: 507
+
+time: 18
+growth: 821
+verhulst: 821
+
+time: 19
+growth: 1331
+verhulst: 1331
+
+time: 20
+growth: 1609
+verhulst: 2127
+
+time: 21
+growth: 1770
+verhulst: 2127
+
+time: 22
+growth: 1908
+verhulst: 2127
+
+time: 23
+growth: 2068
+verhulst: 2127
+
+time: 24
+growth: 2127
+verhulst: 2127
+
+time: 25
+growth: 2482
+verhulst: 3271
+
+time: 26
+growth: 2809
+verhulst: 3271
+
+time: 27
+growth: 3162
+verhulst: 3271
+
+time: 28
+growth: 3271
+verhulst: 3271
+
+time: 29
+growth: 3580
+verhulst: 4672
+
+time: 30
+growth: 3792
+verhulst: 4672
+
+time: 31
+growth: 4010
+verhulst: 4672
+
+time: 32
+growth: 4318
+verhulst: 4672
+
+time: 33
+growth: 4672
+verhulst: 4672
+
+time: 34
+growth: 5201
+verhulst: 5956
+
+time: 35
+growth: 5610
+verhulst: 5956
+
+time: 36
+growth: 5929
+verhulst: 5956
+
+time: 37
+growth: 5956
+verhulst: 5956
+
+time: 38
+growth: 6534
+verhulst: 6679
+
+time: 39
+growth: 6679
+verhulst: 6679
+
+time: 40
+growth: 6877
+verhulst: 6877
+
+[EOF]

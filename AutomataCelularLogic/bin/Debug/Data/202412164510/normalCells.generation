@@ -1,0 +1,358 @@
+time: 0
+neuron: 1066
+astrocyte: 1066
+stemcells: 1066
+
+time: 1
+neuron: 1066
+astrocyte: 1066
+stemcells: 1066
+
+time: 2
+neuron: 1066
+astrocyte: 1066
+stemcells: 1065
+
+time: 3
+neuron: 1066
+astrocyte: 1066
+stemcells: 1064
+
+time: 4
+neuron: 1066
+astrocyte: 1066
+stemcells: 1064
+
+time: 5
+neuron: 1066
+astrocyte: 1066
+stemcells: 1064
+
+time: 6
+neuron: 1066
+astrocyte: 1066
+stemcells: 1064
+
+time: 7
+neuron: 1066
+astrocyte: 1066
+stemcells: 1064
+
+time: 8
+neuron: 1066
+astrocyte: 1066
+stemcells: 1062
+
+time: 9
+neuron: 1066
+astrocyte: 1066
+stemcells: 1060
+
+time: 10
+neuron: 1066
+astrocyte: 1066
+stemcells: 1059
+
+time: 11
+neuron: 1066
+astrocyte: 1066
+stemcells: 1057
+
+time: 12
+neuron: 1066
+astrocyte: 1066
+stemcells: 1055
+
+time: 13
+neuron: 1066
+astrocyte: 1066
+stemcells: 1053
+
+time: 14
+neuron: 1066
+astrocyte: 1066
+stemcells: 1050
+
+time: 15
+neuron: 1066
+astrocyte: 1066
+stemcells: 1046
+
+time: 16
+neuron: 1066
+astrocyte: 1066
+stemcells: 1037
+
+time: 17
+neuron: 1066
+astrocyte: 1066
+stemcells: 1023
+
+time: 18
+neuron: 1066
+astrocyte: 1066
+stemcells: 1000
+
+time: 19
+neuron: 1066
+astrocyte: 1066
+stemcells: 963
+
+time: 20
+neuron: 1065
+astrocyte: 1066
+stemcells: 918
+
+time: 21
+neuron: 1064
+astrocyte: 1062
+stemcells: 843
+
+time: 22
+neuron: 1053
+astrocyte: 1060
+stemcells: 743
+
+time: 23
+neuron: 1047
+astrocyte: 1055
+stemcells: 582
+
+time: 24
+neuron: 1040
+astrocyte: 1040
+stemcells: 368
+
+time: 25
+neuron: 1012
+astrocyte: 1015
+stemcells: 89
+
+time: 26
+neuron: 1008
+astrocyte: 1014
+stemcells: 86
+
+time: 27
+neuron: 988
+astrocyte: 1003
+stemcells: 44
+
+time: 28
+neuron: 981
+astrocyte: 1000
+stemcells: 38
+
+time: 29
+neuron: 975
+astrocyte: 996
+stemcells: 30
+
+time: 30
+neuron: 971
+astrocyte: 992
+stemcells: 27
+
+time: 31
+neuron: 965
+astrocyte: 983
+stemcells: 23
+
+time: 32
+neuron: 949
+astrocyte: 971
+stemcells: 22
+
+time: 33
+neuron: 939
+astrocyte: 966
+stemcells: 22
+
+time: 34
+neuron: 917
+astrocyte: 955
+stemcells: 21
+
+time: 35
+neuron: 906
+astrocyte: 949
+stemcells: 21
+
+time: 36
+neuron: 899
+astrocyte: 943
+stemcells: 21
+
+time: 37
+neuron: 892
+astrocyte: 940
+stemcells: 21
+
+time: 38
+neuron: 880
+astrocyte: 931
+stemcells: 21
+
+time: 39
+neuron: 855
+astrocyte: 914
+stemcells: 20
+
+time: 40
+neuron: 854
+astrocyte: 913
+stemcells: 20
+
+time: 41
+neuron: 841
+astrocyte: 901
+stemcells: 20
+
+time: 42
+neuron: 829
+astrocyte: 892
+stemcells: 20
+
+time: 43
+neuron: 817
+astrocyte: 881
+stemcells: 20
+
+time: 44
+neuron: 811
+astrocyte: 875
+stemcells: 20
+
+time: 45
+neuron: 802
+astrocyte: 869
+stemcells: 20
+
+time: 46
+neuron: 799
+astrocyte: 868
+stemcells: 20
+
+time: 47
+neuron: 773
+astrocyte: 853
+stemcells: 20
+
+time: 48
+neuron: 754
+astrocyte: 842
+stemcells: 20
+
+time: 49
+neuron: 743
+astrocyte: 830
+stemcells: 19
+
+time: 50
+neuron: 734
+astrocyte: 821
+stemcells: 19
+
+time: 51
+neuron: 719
+astrocyte: 812
+stemcells: 19
+
+time: 52
+neuron: 704
+astrocyte: 791
+stemcells: 19
+
+time: 53
+neuron: 698
+astrocyte: 783
+stemcells: 19
+
+time: 54
+neuron: 686
+astrocyte: 774
+stemcells: 19
+
+time: 55
+neuron: 671
+astrocyte: 761
+stemcells: 19
+
+time: 56
+neuron: 657
+astrocyte: 751
+stemcells: 19
+
+time: 57
+neuron: 653
+astrocyte: 744
+stemcells: 19
+
+time: 58
+neuron: 644
+astrocyte: 730
+stemcells: 19
+
+time: 59
+neuron: 641
+astrocyte: 728
+stemcells: 19
+
+time: 60
+neuron: 636
+astrocyte: 724
+stemcells: 19
+
+time: 61
+neuron: 636
+astrocyte: 723
+stemcells: 19
+
+time: 62
+neuron: 636
+astrocyte: 723
+stemcells: 19
+
+time: 63
+neuron: 635
+astrocyte: 723
+stemcells: 19
+
+time: 64
+neuron: 634
+astrocyte: 722
+stemcells: 19
+
+time: 65
+neuron: 634
+astrocyte: 722
+stemcells: 19
+
+time: 66
+neuron: 634
+astrocyte: 722
+stemcells: 19
+
+time: 67
+neuron: 634
+astrocyte: 722
+stemcells: 19
+
+time: 68
+neuron: 634
+astrocyte: 722
+stemcells: 19
+
+time: 69
+neuron: 634
+astrocyte: 722
+stemcells: 19
+
+time: 70
+neuron: 634
+astrocyte: 722
+stemcells: 19
+
+time: 71
+neuron: 633
+astrocy

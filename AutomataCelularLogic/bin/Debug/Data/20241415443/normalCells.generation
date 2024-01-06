@@ -1,0 +1,2001 @@
+time: 0
+neuron: 1066
+astrocyte: 1066
+stemcells: 1066
+
+time: 1
+neuron: 1066
+astrocyte: 1066
+stemcells: 1066
+
+time: 2
+neuron: 1066
+astrocyte: 1066
+stemcells: 1065
+
+time: 3
+neuron: 1066
+astrocyte: 1066
+stemcells: 1065
+
+time: 4
+neuron: 1066
+astrocyte: 1066
+stemcells: 1064
+
+time: 5
+neuron: 1066
+astrocyte: 1066
+stemcells: 1064
+
+time: 6
+neuron: 1066
+astrocyte: 1066
+stemcells: 1064
+
+time: 7
+neuron: 1066
+astrocyte: 1066
+stemcells: 1064
+
+time: 8
+neuron: 1066
+astrocyte: 1066
+stemcells: 1063
+
+time: 9
+neuron: 1066
+astrocyte: 1066
+stemcells: 1061
+
+time: 10
+neuron: 1066
+astrocyte: 1066
+stemcells: 1060
+
+time: 11
+neuron: 1066
+astrocyte: 1066
+stemcells: 1057
+
+time: 12
+neuron: 1066
+astrocyte: 1066
+stemcells: 1050
+
+time: 13
+neuron: 1066
+astrocyte: 1066
+stemcells: 1044
+
+time: 14
+neuron: 1066
+astrocyte: 1066
+stemcells: 1033
+
+time: 15
+neuron: 1066
+astrocyte: 1066
+stemcells: 1027
+
+time: 16
+neuron: 1066
+astrocyte: 1066
+stemcells: 1002
+
+time: 17
+neuron: 1066
+astrocyte: 1066
+stemcells: 973
+
+time: 18
+neuron: 1064
+astrocyte: 1066
+stemcells: 902
+
+time: 19
+neuron: 1059
+astrocyte: 1064
+stemcells: 802
+
+time: 20
+neuron: 1047
+astrocyte: 1060
+stemcells: 607
+
+time: 21
+neuron: 1011
+astrocyte: 1029
+stemcells: 329
+
+time: 22
+neuron: 980
+astrocyte: 1006
+stemcells: 217
+
+time: 22
+neuron: 967
+astrocyte: 987
+stemcells: 182
+
+time: 22
+neuron: 959
+astrocyte: 978
+stemcells: 143
+
+time: 22
+neuron: 957
+astrocyte: 976
+stemcells: 139
+
+time: 23
+neuron: 947
+astrocyte: 964
+stemcells: 99
+
+time: 23
+neuron: 933
+astrocyte: 955
+stemcells: 86
+
+time: 23
+neuron: 915
+astrocyte: 946
+stemcells: 68
+
+time: 23
+neuron: 913
+astrocyte: 945
+stemcells: 66
+
+time: 24
+neuron: 900
+astrocyte: 936
+stemcells: 43
+
+time: 24
+neuron: 885
+astrocyte: 928
+stemcells: 36
+
+time: 24
+neuron: 879
+astrocyte: 921
+stemcells: 33
+
+time: 24
+neuron: 875
+astrocyte: 919
+stemcells: 31
+
+time: 25
+neuron: 867
+astrocyte: 912
+stemcells: 25
+
+time: 25
+neuron: 846
+astrocyte: 904
+stemcells: 22
+
+time: 25
+neuron: 843
+astrocyte: 902
+stemcells: 21
+
+time: 26
+neuron: 829
+astrocyte: 889
+stemcells: 15
+
+time: 26
+neuron: 829
+astrocyte: 887
+stemcells: 15
+
+time: 27
+neuron: 822
+astrocyte: 879
+stemcells: 15
+
+time: 28
+neuron: 819
+astrocyte: 878
+stemcells: 15
+
+time: 29
+neuron: 794
+astrocyte: 861
+stemcells: 12
+
+time: 29
+neuron: 784
+astrocyte: 841
+stemcells: 11
+
+time: 29
+neuron: 776
+astrocyte: 832
+stemcells: 11
+
+time: 29
+neuron: 767
+astrocyte: 828
+stemcells: 11
+
+time: 29
+neuron: 752
+astrocyte: 823
+stemcells: 11
+
+time: 29
+neuron: 744
+astrocyte: 819
+stemcells: 11
+
+time: 29
+neuron: 743
+astrocyte: 819
+stemcells: 11
+
+time: 30
+neuron: 726
+astrocyte: 807
+stemcells: 11
+
+time: 30
+neuron: 707
+astrocyte: 795
+stemcells: 11
+
+time: 30
+neuron: 698
+astrocyte: 789
+stemcells: 11
+
+time: 30
+neuron: 690
+astrocyte: 780
+stemcells: 11
+
+time: 30
+neuron: 682
+astrocyte: 771
+stemcells: 11
+
+time: 30
+neuron: 672
+astrocyte: 760
+stemcells: 11
+
+time: 30
+neuron: 670
+astrocyte: 760
+stemcells: 11
+
+time: 31
+neuron: 660
+astrocyte: 754
+stemcells: 11
+
+time: 31
+neuron: 637
+astrocyte: 752
+stemcells: 11
+
+time: 31
+neuron: 629
+astrocyte: 736
+stemcells: 11
+
+time: 31
+neuron: 619
+astrocyte: 722
+stemcells: 11
+
+time: 31
+neuron: 617
+astrocyte: 721
+stemcells: 11
+
+time: 32
+neuron: 603
+astrocyte: 706
+stemcells: 11
+
+time: 32
+neuron: 594
+astrocyte: 700
+stemcells: 11
+
+time: 33
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 34
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 35
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 36
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 37
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 38
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 39
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 40
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 41
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 42
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 43
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 44
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 45
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 46
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 47
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 48
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 49
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 50
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 51
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 52
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 53
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 54
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 55
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 56
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 57
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 58
+neuron: 593
+astrocyte: 700
+stemcells: 11
+
+time: 59
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 60
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 61
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 62
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 63
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 64
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 65
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 66
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 67
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 68
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 69
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 70
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 71
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 72
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 73
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 74
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 75
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 76
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 77
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 78
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 79
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 80
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 81
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 82
+neuron: 592
+astrocyte: 700
+stemcells: 11
+
+time: 83
+neuron: 592
+astrocyte: 699
+stemcells: 11
+
+time: 84
+neuron: 592
+astrocyte: 699
+stemcells: 11
+
+time: 85
+neuron: 592
+astrocyte: 699
+stemcells: 11
+
+time: 86
+neuron: 592
+astrocyte: 699
+stemcells: 11
+
+time: 87
+neuron: 592
+astrocyte: 699
+stemcells: 11
+
+time: 88
+neuron: 592
+astrocyte: 699
+stemcells: 11
+
+time: 89
+neuron: 592
+astrocyte: 699
+stemcells: 11
+
+time: 90
+neuron: 592
+astrocyte: 699
+stemcells: 11
+
+time: 91
+neuron: 592
+astrocyte: 699
+stemcells: 11
+
+time: 92
+neuron: 592
+astrocyte: 699
+stemcells: 11
+
+time: 93
+neuron: 592
+astrocyte: 699
+stemcells: 11
+
+time: 94
+neuron: 592
+astrocyte: 699
+stemcells: 11
+
+time: 95
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 96
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 97
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 98
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 99
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 100
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 101
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 102
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 103
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 104
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 105
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 106
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 107
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 108
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 109
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 110
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 111
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 112
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 113
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 114
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 115
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 116
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 117
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 118
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 119
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 120
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 121
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 122
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 123
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 124
+neuron: 592
+astrocyte: 698
+stemcells: 11
+
+time: 125
+neuron: 591
+astrocyte: 698
+stemcells: 11
+
+time: 126
+neuron: 591
+astrocyte: 698
+stemcells: 11
+
+time: 127
+neuron: 591
+astrocyte: 698
+stemcells: 11
+
+time: 128
+neuron: 591
+astrocyte: 698
+stemcells: 11
+
+time: 129
+neuron: 591
+astrocyte: 698
+stemcells: 11
+
+time: 130
+neuron: 591
+astrocyte: 698
+stemcells: 11
+
+time: 131
+neuron: 591
+astrocyte: 698
+stemcells: 11
+
+time: 132
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 133
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 134
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 135
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 136
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 137
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 138
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 139
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 140
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 141
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 142
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 143
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 144
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 145
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 146
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 147
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 148
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 149
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 150
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 151
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 152
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 153
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 154
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 155
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 156
+neuron: 590
+astrocyte: 698
+stemcells: 11
+
+time: 157
+neuron: 589
+astrocyte: 698
+stemcells: 11
+
+time: 158
+neuron: 589
+astrocyte: 698
+stemcells: 11
+
+time: 159
+neuron: 589
+astrocyte: 698
+stemcells: 11
+
+time: 160
+neuron: 589
+astrocyte: 698
+stemcells: 11
+
+time: 161
+neuron: 589
+astrocyte: 698
+stemcells: 11
+
+time: 162
+neuron: 589
+astrocyte: 698
+stemcells: 11
+
+time: 163
+neuron: 589
+astrocyte: 698
+stemcells: 11
+
+time: 164
+neuron: 589
+astrocyte: 698
+stemcells: 11
+
+time: 165
+neuron: 589
+astrocyte: 698
+stemcells: 11
+
+time: 166
+neuron: 589
+astrocyte: 698
+stemcells: 11
+
+time: 167
+neuron: 589
+astrocyte: 698
+stemcells: 11
+
+time: 168
+neuron: 589
+astrocyte: 698
+stemcells: 11
+
+time: 169
+neuron: 589
+astrocyte: 698
+stemcells: 11
+
+time: 170
+neuron: 589
+astrocyte: 698
+stemcells: 11
+
+time: 171
+neuron: 589
+astrocyte: 698
+stemcells: 11
+
+time: 172
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 173
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 174
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 175
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 176
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 177
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 178
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 179
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 180
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 181
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 182
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 183
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 184
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 185
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 186
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 187
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 188
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 189
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 190
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 191
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 192
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 193
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 194
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 195
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 196
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 197
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 198
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 199
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 200
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 201
+neuron: 589
+astrocyte: 697
+stemcells: 11
+
+time: 202
+neuron: 588
+astrocyte: 697
+stemcells: 11
+
+time: 203
+neuron: 587
+astrocyte: 697
+stemcells: 11
+
+time: 204
+neuron: 587
+astrocyte: 697
+stemcells: 11
+
+time: 205
+neuron: 587
+astrocyte: 697
+stemcells: 11
+
+time: 206
+neuron: 587
+astrocyte: 697
+stemcells: 11
+
+time: 207
+neuron: 587
+astrocyte: 697
+stemcells: 11
+
+time: 208
+neuron: 587
+astrocyte: 697
+stemcells: 11
+
+time: 209
+neuron: 587
+astrocyte: 697
+stemcells: 11
+
+time: 210
+neuron: 587
+astrocyte: 697
+stemcells: 11
+
+time: 211
+neuron: 587
+astrocyte: 696
+stemcells: 11
+
+time: 212
+neuron: 587
+astrocyte: 696
+stemcells: 11
+
+time: 213
+neuron: 587
+astrocyte: 696
+stemcells: 11
+
+time: 214
+neuron: 587
+astrocyte: 696
+stemcells: 11
+
+time: 215
+neuron: 587
+astrocyte: 696
+stemcells: 11
+
+time: 216
+neuron: 587
+astrocyte: 696
+stemcells: 11
+
+time: 217
+neuron: 587
+astrocyte: 696
+stemcells: 11
+
+time: 218
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 219
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 220
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 221
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 222
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 223
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 224
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 225
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 226
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 227
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 228
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 229
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 230
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 231
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 232
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 233
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 234
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 235
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 236
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 237
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 238
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 239
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 240
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 241
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 242
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 243
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 244
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 245
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 246
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 247
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 248
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 249
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 250
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 251
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 252
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 253
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 254
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 255
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 256
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 257
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 258
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 259
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 260
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 261
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 262
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 263
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 264
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 265
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 266
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 267
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 268
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 269
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 270
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 271
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 272
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 273
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 274
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 275
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 276
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 277
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 278
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 279
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 280
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 281
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 282
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 283
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 284
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 285
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 286
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 287
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 288
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 289
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 290
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 291
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 292
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 293
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 294
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 295
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 296
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 297
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 298
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 299
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 300
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 301
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 302
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 303
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 304
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 305
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 306
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 307
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 308
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 309
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 310
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 311
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 312
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 313
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 314
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 315
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 316
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 317
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 318
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 319
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 320
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 321
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 322
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 323
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 324
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 325
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 326
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 327
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 328
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 329
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 330
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 331
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 332
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 333
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 334
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 335
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 336
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 337
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 338
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 339
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 340
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 341
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 342
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 343
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 344
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 345
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 346
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 347
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 348
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 349
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 350
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 351
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 352
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 353
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 354
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 355
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 356
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 357
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 358
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 359
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 360
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 361
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 362
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 363
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 364
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 365
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 366
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 367
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 368
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 369
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+time: 370
+neuron: 586
+astrocyte: 696
+stemcells: 11
+
+[EOF]

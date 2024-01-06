@@ -362,6 +362,12 @@ namespace AutomataCelularLogic
             foreach (var key_value in stem_cell_list)
             {
                 Pos pos = key_value.Key;
+                if (!pos_cell_dict.ContainsKey(pos))
+                {
+                    pos_cell_dict.Add(pos, key_value.Value);
+                    if (key_value.Value.neighborhood == null)
+                        key_value.Value.neighborhood = Utils.GetMooreNeighbours3D(pos, space);
+                }
 
                 Pos closer_pos = Utils.MinDistancePos(pos_cell_dict[pos].neighborhood, next_old_stem_position, tumor_stem_cell.pos); 
                 int distance = Utils.EuclideanDistance(tumor_stem_cell.pos, closer_pos);
@@ -438,6 +444,11 @@ namespace AutomataCelularLogic
 
         public bool CloserToTumoralCell(Cell cell)
         {
+            foreach (var item in tumor.cell_list)
+            {
+                if (Utils.EuclideanDistance(cell.pos, item.Key) <= 5) return true;
+            }
+            //return false;
             return Utils.EuclideanDistance(cell.pos, tumor_stem_cell.pos) <= 5;
         }
 
@@ -1309,16 +1320,16 @@ namespace AutomataCelularLogic
 
         public void CelulasTumoralesSinEspacio()
         {
-            foreach (var item in tumor.cell_list)
-            {
-                if(item.Value.behavior_state == CellState.ProliferativeTumoralCell || item.Value.behavior_state == CellState.MigratoryTumorCell)
-                {
-                    if(Utils.EmptyPositions(item.Value.neighborhood).Count == 0 && !new_quiescent_cells.ContainsKey(item.Key))
-                    {
-                        new_quiescent_cells.Add(item.Key, item.Value);
-                    }
-                }
-            }
+            //foreach (var item in tumor.cell_list)
+            //{
+            //    if(item.Value.behavior_state == CellState.ProliferativeTumoralCell || item.Value.behavior_state == CellState.MigratoryTumorCell)
+            //    {
+            //        if(Utils.EmptyPositions(item.Value.neighborhood).Count == 0 && !new_quiescent_cells.ContainsKey(item.Key))
+            //        {
+            //            new_quiescent_cells.Add(item.Key, item.Value);
+            //        }
+            //    }
+            //}
         }
 
 
@@ -1361,7 +1372,7 @@ namespace AutomataCelularLogic
                             key_value.Value[0] = 0;
                         }
                     }
-                    else if(Utils.NormalCellCount(key_value.Key.pos, key_value.Key.neighborhood).Count == 0)
+                    else if (Utils.NormalCellCount(key_value.Key.pos, key_value.Key.neighborhood).Count == 0 && Utils.rdm.Next(0,2) == 1 && !new_quiescent_cells.ContainsKey(key_value.Key.pos))
                         new_quiescent_cells.Add(key_value.Key.pos, key_value.Key);
                 }
             }
@@ -1488,7 +1499,9 @@ namespace AutomataCelularLogic
 
             #endregion
 
-            if (tumoral_angiogenic_factor > 0.5)
+            //if (tumoral_angiogenic_factor > 0.5)
+            //{
+            if (tumor.avascular_carrying_capacity <= (tumor.cell_list.Count+100))
             {
                 if (tumor.tumor_stage == TumosStage.Avascular)
                 {
@@ -1500,6 +1513,7 @@ namespace AutomataCelularLogic
 
                 NewAngiogenesis();
             }
+            //}
 
             UpdateNewNeoVesselsSegment();
 
@@ -1655,7 +1669,7 @@ namespace AutomataCelularLogic
                 Console.WriteLine(pos_cell_dict[cell.pos].behavior_state);
                 //migratory_cells_actual.Add(cell.pos, cell);
             }
-            else if (new_quiescent_cells.ContainsKey(cell.pos))
+            else if (new_quiescent_cells.ContainsKey(cell.pos) && Utils.rdm.Next(0,2) == 1)
             {
                 proliferation_cells.Remove(cell);
                 new_quiescent_cells.Remove(cell.pos);
@@ -1667,17 +1681,17 @@ namespace AutomataCelularLogic
                 //ARREGLAR EL VALOR A AGREGAR
                 tumoral_angiogenic_factor += 0.01;
             }
-            //else if (model.oxygen_matrix[cell.pos.X, cell.pos.Y, cell.pos.Z] < 0.28 && !quiescent_cell_list.ContainsKey(cell.pos))
-            //{
-            //    proliferation_cells.Remove(cell);
+            else if (model.oxygen_matrix[cell.pos.X, cell.pos.Y, cell.pos.Z] < 0.3 && !quiescent_cell_list.ContainsKey(cell.pos))
+            {
+                proliferation_cells.Remove(cell);
 
-            //    cell.behavior_state = CellState.QuiescentTumorCell;
-            //    cell.proliferation_age = -1;
+                cell.behavior_state = CellState.QuiescentTumorCell;
+                cell.proliferation_age = -1;
 
-            //    quiescent_cell_list.Add(cell.pos, cell);
+                quiescent_cell_list.Add(cell.pos, cell);
 
-            //    tumoral_angiogenic_factor += 0.01;
-            //}
+                tumoral_angiogenic_factor += 0.01;
+            }
         }
 
         public void UpdateMigratoryTumorCell(Cell cell)
@@ -1689,7 +1703,7 @@ namespace AutomataCelularLogic
 
                 cell.behavior_state = CellState.nothing;
             }
-            else if (model.oxygen_matrix[cell.pos.X, cell.pos.Y, cell.pos.Z] <= 0)
+            else if (model.oxygen_matrix[cell.pos.X, cell.pos.Y, cell.pos.Z] <= 0.25)
             {
                 next_migratory_cells.Remove(cell.pos);
                 migratory_cells_actual.Remove(cell.pos);
@@ -1741,14 +1755,17 @@ namespace AutomataCelularLogic
                 proliferation_cells.Add(cell, new int[] { 0, 0 });
 
                 if (!pos_cell_dict.ContainsKey(cell.pos))
+                {
                     Console.WriteLine("No estan agregados");
+                    pos_cell_dict.Add(cell.pos, cell);
+                }
 
             }
         }
 
         public void UpdateQuiescentCell(Cell cell)
         {
-            if (model.oxygen_matrix[cell.pos.X, cell.pos.Y, cell.pos.Z] <= 0)
+            if (model.oxygen_matrix[cell.pos.X, cell.pos.Y, cell.pos.Z] <= 0.25)
             {
                 quiescent_cell_list.Remove(cell.pos);
 
@@ -1776,8 +1793,8 @@ namespace AutomataCelularLogic
                     Console.WriteLine("La locura es aqui");
 
 
-                //stem_cell_list.Remove(next_old_stem_position[cell.pos]);
-                //pos_cell_dict.Remove(next_old_stem_position[cell.pos]);
+                stem_cell_list.Remove(next_old_stem_position[cell.pos]);
+                pos_cell_dict.Remove(next_old_stem_position[cell.pos]);
             }
             else if (new_endothelial_cells.ContainsKey(cell.pos))
             {
@@ -1788,9 +1805,10 @@ namespace AutomataCelularLogic
 
                 //No se si deba agregarlo al tumor
                 endothelial_cells.Add(cell.pos, cell);
-                pos_cell_dict.Add(cell.pos, cell);
+                if(!pos_cell_dict.ContainsKey(cell.pos))
+                    pos_cell_dict.Add(cell.pos, cell);
             }
-            else if (tumor.new_cells_count > tumor.cell_list.Count && (Utils.rdm.NextDouble() < move_prob.DivisionProbability(cell, cell.neighborhood, tumor) || new_tumoral_cells.ContainsKey(cell.pos)))
+            else if (tumor.new_cells_count > tumor.cell_list.Count && (0.3 < move_prob.DivisionProbability(cell, cell.neighborhood, tumor) || new_tumoral_cells.ContainsKey(cell.pos)))
             {
                 //if (empty_cells.Contains(cell))
                 //    empty_cells.Remove(cell);
@@ -1798,7 +1816,8 @@ namespace AutomataCelularLogic
                 cell.behavior_state = CellState.ProliferativeTumoralCell;
                 cell.proliferation_age = 0;
 
-                pos_cell_dict.Add(cell.pos, cell);
+                if (!pos_cell_dict.ContainsKey(cell.pos))
+                    pos_cell_dict.Add(cell.pos, cell);
                 tumor.cell_list.Add(cell.pos, cell);
                 new_proliferative_cells.Add(cell);
                 proliferation_cells.Add(cell, new int[] { 0, 0 });
@@ -1810,8 +1829,10 @@ namespace AutomataCelularLogic
                 //    empty_cells.Remove(cell);
 
                 cell.behavior_state = CellState.MigratoryTumorCell;
+                //tumor.cell_list.Add(cell.pos, cell);
                 //migratory_cells_actual.Add(cell.pos, cell);
-                pos_cell_dict.Add(cell.pos, cell);
+                if (!pos_cell_dict.ContainsKey(cell.pos))
+                    pos_cell_dict.Add(cell.pos, cell);
             }
             
             

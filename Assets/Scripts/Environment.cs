@@ -10,6 +10,7 @@ public class Environment : MonoBehaviour
     Transform ProliferativeTumoralCellPrefab, NecroticTumoralCellPrefab, QuiescentTumorCellPrefab, StemCellPrefab, TumoralSpherePrefab,
         NeuronPrefab, AstrocytePrefab, /*ArteryPrefab*/ /*ArteriolePrefab, CapillaryPrefab,*/ MigratoryPrefab/*, SegmentPrefab, CamaraPrefab*/, informationPrefab;
 
+    [SerializeField]
     Transform primeroPrefab, segundoPrefab, terceroPrefab, cuartoPrefab;
 
     public GameObject VasoPrefb;
@@ -63,6 +64,18 @@ public class Environment : MonoBehaviour
     //List<Transform> tumoral_cell_list;
     Transform tumoralCell;
 
+    Dictionary<Pos, Tuple<Prefab, Transform>> pos_dict;
+
+    int time = 0;
+
+    public enum Prefab
+    {
+        Primero,
+        Segundo,
+        Tercero,
+        Cuarto
+    }
+
     void Awake()
     {
         EnvironmentLogic.Simulation();
@@ -91,17 +104,17 @@ public class Environment : MonoBehaviour
         if(script!= null)
         {
             Debug.Log("No es null");
-            script.UpdateCanvas(EnvironmentLogic.ca);
+            script.UpdateCanvas(EnvironmentLogic.ca, time);
         }
 
-        //BloodVesselsLine();
+        BloodVesselsLine();
         //Rellenar();
 
         //Debug.Log(migratory_dict.Count);
         //Debug.Log(necrotic_cell_dict.Count);
         //Debug.Log(tumoral_cell_dict);
 
-        OxygenConc();
+        //OxygenConc();
 
 
         Debug.Log("Termine de rellenar");
@@ -118,8 +131,8 @@ public class Environment : MonoBehaviour
             secondsCounter = 0;
             EnvironmentLogic.ca.Update();
 
-
-            OxygenConc();
+            time++;
+            //OxygenConc();
 
             //UpdatePosCellDict(neuron_dict);
             //UpdatePosCellDict(stem_cell_dict);
@@ -127,11 +140,12 @@ public class Environment : MonoBehaviour
             //UpdatePosCellDict(astrocyte_dict);
             //UpdatePosCellDict(proliferative_dict);
             //UpdatePosCellDict(migratory_dict);
+            //UpdatePosCellDict(quiescent_cell_dict);
 
             //UpdateCellTransformsDict();
-            //UpdateVessels();
+            UpdateVessels();
 
-            script.UpdateCanvas(EnvironmentLogic.ca);
+            script.UpdateCanvas(EnvironmentLogic.ca, time);
         }
 
 
@@ -147,25 +161,78 @@ public class Environment : MonoBehaviour
                 for (int k = 0; k < EnvironmentLogic.ca.model.oxygen_matrix.GetLength(2); k++)
                 {
                     var item = EnvironmentLogic.ca.model.oxygen_matrix[i, j, k];
-                    if (item < 0.5 && item >= 0)
+                    Pos pos = new Pos(i, j, k);
+                    if (pos_dict.ContainsKey(pos))
                     {
-                        Transform oxy = Instantiate(primeroPrefab);
-                        oxy.localPosition = new Vector3(i, j, k);
+                        if (item < 0.5 && item > 0.28)
+                        {
+                            if (pos_dict[pos].Item1 != Prefab.Primero)
+                            {
+                                Transform oxy = Instantiate(primeroPrefab);
+                                oxy.localPosition = new Vector3(i, j, k);
+                                pos_dict[pos] = new Tuple<Prefab, Transform>(Prefab.Primero, oxy);
+                            }
+                            
+                        }
+                        else if (item < 1.175 && item >= 0.5)
+                        {
+                            if (pos_dict[pos].Item1 != Prefab.Segundo)
+                            {
+                                Transform oxy = Instantiate(segundoPrefab);
+                                oxy.localPosition = new Vector3(i, j, k);
+                                pos_dict[pos] = new Tuple<Prefab, Transform>(Prefab.Segundo, oxy);
+                            }
+                        }
+                        //else if (item < 3.525 && item >= 1.175)
+                        //{
+                        //    if (pos_dict[pos].Item1 != Prefab.Tercero)
+                        //    {
+                        //        Transform oxy = Instantiate(terceroPrefab);
+                        //        oxy.localPosition = new Vector3(i, j, k);
+                        //        pos_dict[pos] = new Tuple<Prefab, Transform>(Prefab.Tercero, oxy);
+                        //    }
+                        //}
+                        else if (item >= 3.525)
+                        {
+                            if (pos_dict[pos].Item1 != Prefab.Cuarto)
+                            {
+                                Transform oxy = Instantiate(cuartoPrefab);
+                                oxy.localPosition = new Vector3(i, j, k);
+                                pos_dict[pos] = new Tuple<Prefab, Transform>(Prefab.Cuarto, oxy);
+                            }
+                            //Transform oxy = Instantiate(cuartoPrefab);
+                            //oxy.localPosition = new Vector3(i, j, k);
+                        }
                     }
-                    else if (item < 1.175 && item >= 0.5)
+                    else
                     {
-                        Transform oxy = Instantiate(segundoPrefab);
-                        oxy.localPosition = new Vector3(i, j, k);
-                    }
-                    else if (item < 3.525 && item >= 1.175)
-                    {
-                        Transform oxy = Instantiate(terceroPrefab);
-                        oxy.localPosition = new Vector3(i, j, k);
-                    }
-                    else if (item >= 3.525)
-                    {
-                        Transform oxy = Instantiate(cuartoPrefab);
-                        oxy.localPosition = new Vector3(i, j, k);
+                        if (item < 0.5 && item > 0.28)
+                        {
+                            Transform oxy = Instantiate(primeroPrefab);
+                            oxy.localPosition = new Vector3(i, j, k);
+                            pos_dict.Add(pos, new Tuple<Prefab, Transform>(Prefab.Primero, oxy));
+
+                        }
+                        else if (item < 1.175 && item >= 0.5)
+                        {
+                            Transform oxy = Instantiate(segundoPrefab);
+                            oxy.localPosition = new Vector3(i, j, k);
+                            pos_dict.Add(pos, new Tuple<Prefab, Transform>(Prefab.Segundo, oxy));
+                        }
+                        //else if (item < 3.525 && item >= 1.175)
+                        //{
+                        //    Transform oxy = Instantiate(terceroPrefab);
+                        //    oxy.localPosition = new Vector3(i, j, k);
+                        //    pos_dict.Add(pos, new Tuple<Prefab, Transform>(Prefab.Tercero, oxy));
+                        //}
+                        else if (item >= 3.525)
+                        {
+                            Transform oxy = Instantiate(cuartoPrefab);
+                            oxy.localPosition = new Vector3(i, j, k);
+                            pos_dict.Add(pos, new Tuple<Prefab, Transform>(Prefab.Cuarto, oxy));
+                            //Transform oxy = Instantiate(cuartoPrefab);
+                            //oxy.localPosition = new Vector3(i, j, k);
+                        }
                     }
                 }
             }
@@ -206,6 +273,7 @@ public class Environment : MonoBehaviour
         //arteriole_dict = new Dictionary<Arteriole, Transform>();
         //capillary_dict = new Dictionary<Capillary, Transform>();
         migratory_dict = new Dictionary<Cell, Transform>();
+        pos_dict = new Dictionary<Pos, Tuple<Prefab, Transform>>();
     }
 
     void InitialTumoralCell()
@@ -307,7 +375,7 @@ public class Environment : MonoBehaviour
                 //quiescent.localPosition = new Vector3(key_value.Key.X* PositionScale, key_value.Key.Y* PositionScale, key_value.Key.Z* PositionScale);
                 quiescent_cell_dict.Add(key_value.Value, quiescent);
             }
-            else if(key_value.Value.behavior_state == CellState.MigratoryTumorCell)
+            else if (key_value.Value.behavior_state == CellState.MigratoryTumorCell)
             {
                 Transform migratory = Instantiate(MigratoryPrefab);
                 migratory.localPosition = new Vector3(key_value.Key.X, key_value.Key.Y, key_value.Key.Z);
@@ -400,31 +468,31 @@ public class Environment : MonoBehaviour
                 if (behavior_state == CellState.Neuron)
                 {
                     Transform neuron = Instantiate(NeuronPrefab);
-                    neuron.localPosition = new Vector3(cell.pos.X* PositionScale, cell.pos.Y* PositionScale, cell.pos.Z* PositionScale);
+                    neuron.localPosition = new Vector3(cell.pos.X * PositionScale, cell.pos.Y * PositionScale, cell.pos.Z * PositionScale);
                     neuron_dict.Add(cell, neuron);
                 }
                 else if (behavior_state == CellState.Astrocyte)
                 {
                     Transform astrocyte_cell = Instantiate(AstrocytePrefab);
-                    astrocyte_cell.localPosition = new Vector3(cell.pos.X* PositionScale, cell.pos.Y* PositionScale, cell.pos.Z* PositionScale);
+                    astrocyte_cell.localPosition = new Vector3(cell.pos.X * PositionScale, cell.pos.Y * PositionScale, cell.pos.Z * PositionScale);
                     astrocyte_dict.Add(cell, astrocyte_cell);
                 }
                 else if (behavior_state == CellState.ProliferativeTumoralCell)
                 {
                     Transform tumoral_cell = Instantiate(ProliferativeTumoralCellPrefab);
-                    tumoral_cell.localPosition = new Vector3(cell.pos.X* PositionScale, cell.pos.Y* PositionScale, cell.pos.Z* PositionScale);
+                    tumoral_cell.localPosition = new Vector3(cell.pos.X * PositionScale, cell.pos.Y * PositionScale, cell.pos.Z * PositionScale);
                     tumoral_cell_dict.Add(cell, tumoral_cell);
                 }
                 else if (behavior_state == CellState.NecroticTumorCell)
                 {
                     Transform necrotic = Instantiate(NecroticTumoralCellPrefab);
-                    necrotic.localPosition = new Vector3(cell.pos.X* PositionScale, cell.pos.Y* PositionScale, cell.pos.Z* PositionScale);
+                    necrotic.localPosition = new Vector3(cell.pos.X * PositionScale, cell.pos.Y * PositionScale, cell.pos.Z * PositionScale);
                     necrotic_cell_dict.Add(cell, necrotic);
                 }
                 else if (behavior_state == CellState.QuiescentTumorCell)
                 {
                     Transform quiescent = Instantiate(QuiescentTumorCellPrefab);
-                    quiescent.localPosition = new Vector3(cell.pos.X* PositionScale, cell.pos.Y* PositionScale, cell.pos.Z* PositionScale);
+                    quiescent.localPosition = new Vector3(cell.pos.X * PositionScale, cell.pos.Y * PositionScale, cell.pos.Z * PositionScale);
                     quiescent_cell_dict.Add(cell, quiescent);
                 }
                 else if (behavior_state == CellState.MigratoryTumorCell)
@@ -448,7 +516,7 @@ public class Environment : MonoBehaviour
             if (item.Value.behavior_state == CellState.Astrocyte && !astrocyte_dict.ContainsKey(item.Value))
             {
                 Transform astrocyte_cell = Instantiate(AstrocytePrefab);
-                astrocyte_cell.localPosition = new Vector3(item.Key.X* PositionScale, item.Key.Y * PositionScale, item.Key.Z * PositionScale);
+                astrocyte_cell.localPosition = new Vector3(item.Key.X * PositionScale, item.Key.Y * PositionScale, item.Key.Z * PositionScale);
                 astrocyte_dict.Add(item.Value, astrocyte_cell);
             }
             else if (item.Value.behavior_state == CellState.ProliferativeTumoralCell && !tumoral_cell_dict.ContainsKey(item.Value))
@@ -469,20 +537,20 @@ public class Environment : MonoBehaviour
                 stemCell.localPosition = new Vector3(item.Key.X * PositionScale, item.Key.Y * PositionScale, item.Key.Z * PositionScale);
                 stem_cell_dict.Add(item.Value, stemCell);
             }
-            else if(item.Value.behavior_state == CellState.MigratoryTumorCell && !migratory_dict.ContainsKey(item.Value))
+            else if (item.Value.behavior_state == CellState.MigratoryTumorCell && !migratory_dict.ContainsKey(item.Value))
             {
                 Debug.Log("Se instancio una celula migratoria");
                 Transform migratory_cell = Instantiate(MigratoryPrefab);
                 migratory_cell.localPosition = new Vector3(item.Key.X * PositionScale, item.Key.Y * PositionScale, item.Key.Z * PositionScale);
                 migratory_dict.Add(item.Value, migratory_cell);
             }
-            else if(item.Value.behavior_state == CellState.NecroticTumorCell && !necrotic_cell_dict.ContainsKey(item.Value))
+            else if (item.Value.behavior_state == CellState.NecroticTumorCell && !necrotic_cell_dict.ContainsKey(item.Value))
             {
                 Transform necrotic = Instantiate(NecroticTumoralCellPrefab);
                 necrotic.localPosition = new Vector3(item.Key.X * PositionScale, item.Key.Y * PositionScale, item.Key.Z * PositionScale);
                 necrotic_cell_dict.Add(item.Value, necrotic);
             }
-            else if(item.Value.behavior_state == CellState.QuiescentTumorCell && !quiescent_cell_dict.ContainsKey(item.Value))
+            else if (item.Value.behavior_state == CellState.QuiescentTumorCell && !quiescent_cell_dict.ContainsKey(item.Value))
             {
                 Transform quiescent = Instantiate(QuiescentTumorCellPrefab);
                 quiescent.localPosition = new Vector3(item.Key.X * PositionScale, item.Key.Y * PositionScale, item.Key.Z * PositionScale);
